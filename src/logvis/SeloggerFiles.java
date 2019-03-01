@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SeloggerFiles {
@@ -11,12 +12,11 @@ public class SeloggerFiles {
 	String recentdata;
 	String dataids;
 	String methods;
-	List<String> linesRecentdata;
-	List<String> linesDataids;
-	List<String> linesMethods;
+	List<String> linesRecentdata= new ArrayList<>();;
+	List<String> linesDataids= new ArrayList<>();;
+	List<String> linesMethods= new ArrayList<>();;
 
 	public SeloggerFiles(String recentdata, String dataids, String methods) {
-		super();
 		this.recentdata = recentdata;
 		this.dataids = dataids;
 		this.methods = methods;

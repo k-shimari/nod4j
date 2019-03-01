@@ -14,6 +14,7 @@ public class Main {
 	 */
 	public static void main(String args[]){
 		try{
+
 			SeloggerFiles selfiles = new SeloggerFiles(args[0], args[1], args[2]);
 			SrcFiles srcfiles = new SrcFiles(Arrays.copyOfRange(args, 3, args.length));
 			CreateHtml cre = new CreateHtml(selfiles, srcfiles);
@@ -21,7 +22,6 @@ public class Main {
 			cre.start();
 
 
-			System.out.println("MethodCallCount is" );
 
 		}catch(IOException e){
 			System.err.println("Not correct Input");
