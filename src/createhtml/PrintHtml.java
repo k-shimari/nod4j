@@ -9,8 +9,8 @@ import logvis.SrcFiles;
 import logvis.SrcFiles.SrcFile;
 
 public class PrintHtml {
-
-	private List<String> filename=new ArrayList<String>();
+	private final String OUTPUTDIR="sample/output/";
+	private final String CSS = "../../custom.css";
 	private SrcFiles srcfiles;
 
 	public PrintHtml(SrcFiles srcfiles) {
@@ -28,7 +28,7 @@ public class PrintHtml {
 
 			HtmlBuilder hb = new HtmlBuilder(file.getFilename());
 			Director director = new Director(hb);
-			director.construct("sample/output/",file);
+			director.construct(OUTPUTDIR,CSS,file);
 			System.out.println(hb.gethtmlfilename() + "を作成しました。");
 		}
 

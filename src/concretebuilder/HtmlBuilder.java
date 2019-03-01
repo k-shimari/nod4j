@@ -27,9 +27,19 @@ public class HtmlBuilder extends Builder {
 
     @Override
     public void makeTitle(String title) {
-        lines.add("<html><head><title>" + title + "</title></head>");
+        lines.add("<html><head><title>" + title + "</title>");
 
-        lines.add("<body>");
+    }
+
+    @Override
+	public void makeStyle(String style) {
+    	lines.add("<link href="+style + " rel=\"stylesheet\" />");
+	}
+
+    @Override
+   	public void makeBody(String title) {
+    	lines.add("</head>");
+    	lines.add("<body>");
         lines.add("<h1>" + title + "</h1>");
     }
 
@@ -40,7 +50,7 @@ public class HtmlBuilder extends Builder {
 
     @Override
     public void makeContents(String contents) {
-    	lines.add("<p>" + contents + "</p>");
+    	lines.add("<pre><p>" + contents + "</p></pre>");
     }
 
     @Override
@@ -56,5 +66,7 @@ public class HtmlBuilder extends Builder {
     public String gethtmlfilename() {
         return htmlfilename;
     }
+
+
 
 }

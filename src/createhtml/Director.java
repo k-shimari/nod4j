@@ -13,8 +13,10 @@ public class Director {
 	}
 
 	// 文章の中身を作る
-	public void construct(String dir,SrcFile file) {
+	public void construct(String dir,String css,SrcFile file) {
 		builder.makeTitle(file.getFilename()+".java");
+	//	builder.makeStyle(css);
+		builder.makeBody(file.getFilename()+".java");
 		builder.makeHeading("今日の目標");
 		for(String line: file.getLines()) {
 			builder.makeContents(line);
