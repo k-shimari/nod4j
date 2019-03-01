@@ -38,24 +38,23 @@ public class SrcFiles {
 		String dir;
 		String file;
 		String filename;
-		String htmlfilename;
+		//String htmlfilename;
 		List<String> lines;
 
 		public SrcFile(String file, List<String> lines) {
 			this.file=file;
 			this.dir=file.substring(0,file.lastIndexOf("/")+1);
-			this.filename= file.substring(file.lastIndexOf("/")+1);
-			this.htmlfilename= file.substring(file.lastIndexOf("/")+1,file.lastIndexOf("."))+".html";
+			this.filename= file.substring(file.lastIndexOf("/")+1,file.lastIndexOf("."));
+			//this.htmlfilename= file.substring(file.lastIndexOf("/")+1,file.lastIndexOf("."))+".html";
 			this.lines=lines;
 		}
 
 		public String getFilename() {
-			return file;
+			return filename;
 		}
 
-
 		public void setFilename(String filename) {
-			this.file = filename;
+			this.filename = filename;
 		}
 
 		public List<String> getLines() {
@@ -81,13 +80,13 @@ public class SrcFiles {
 			this.file = file;
 		}
 
-		public String getHtmlFilename() {
+		/*public String getHtmlFilename() {
 			return htmlfilename;
 		}
 
 		public void setHtmlFilename(String htmlfilename) {
 			this.htmlfilename = htmlfilename;
 		}
-
+*/
 	}
 }
