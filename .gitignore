@@ -36,4 +36,5 @@ bin
 *.swp
 *.bak
 
-/target
+/target/
+/sample/output/
