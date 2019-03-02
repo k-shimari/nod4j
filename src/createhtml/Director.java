@@ -44,13 +44,30 @@ public class Director {
 	}
 
 	private void testadd() {
-String line="      <select id=\"sample\" name=\"nanika\">"+
-		"<option> - - - - </option>"
-		+ "</select>歳\r\n"
-		+ "<script>addOption()</script>";
-
-
+		String line="      <select id=\"sample\" name=\"nanika\">"+
+				"<option> - - - - </option>"
+				+ "</select>歳\r\n"
+				+ "<script>addOption()</script>";
 		builder.makeScript(line);
+
+
+		String beforestr="\"var1\"";
+		String afterstr="var2"+"\r\n";
+		for (int i=0;i<10;i++) {
+			afterstr+=Integer.toString(i)+"\r\n";
+		}
+String line2="<ul class=\"menu\">\r\n" +
+		"    <li class=\"menu__single\">\r\n" +
+		"        <a href=\"#\" class=\"init-bottom\">var1</a>\r\n" +
+		"        <ul class=\"menu__second-level\">\r\n" +
+		"            <li><a href=\"#\">21</a></li>\r\n" +
+		"            <li><a href=\"#\">23</a></li>\r\n" +
+		"            <li><a href=\"#\">25</a></li>\r\n" +
+		"        </ul>\r\n" +
+		"    </li>\r\n" +
+		"    <!-- 他グローバルナビメニュー省略 -->\r\n" +
+		"</ul>";
+builder.makeScript(line2);
 
 	}
 }

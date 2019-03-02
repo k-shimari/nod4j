@@ -8,3 +8,12 @@ function addOption() {
 	//プルダウンに追加
 	select.appendChild(option)
 }
+
+
+function TextChange(id, text){
+   if(document.all){
+	document.all(id).innerHTML = text;
+   }else if(document.getElementById){
+	document.getElementById(id).innerHTML = text;
+   }
+}
