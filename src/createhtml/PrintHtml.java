@@ -8,7 +8,7 @@ import logvis.SrcFiles.SrcFile;
 
 public class PrintHtml {
 	//private final String OUTPUTDIR="sample/output/";
-	private final String CSS = "../../custom.css";
+
 	private SrcFiles srcfiles;
 	public PrintHtml(SrcFiles srcfiles) {
 		// TODO 自動生成されたコンストラクター・スタブ
@@ -22,7 +22,7 @@ public class PrintHtml {
 		for(SrcFile file :files){
 			HtmlBuilder hb = new HtmlBuilder(file.getFilename());
 			Director director = new Director(hb);
-			director.construct(CSS,file);
+			director.construct(file);
 			System.out.println(hb.gethtmlfilename() + "を作成しました。");
 		}
 	}
