@@ -21,8 +21,6 @@ public class HtmlBuilder extends Builder {
     public HtmlBuilder(String filename) {
         this.htmlfilename = filename + ".html";
         this.javafilename = filename + ".java";
-
-
     }
 
     @Override

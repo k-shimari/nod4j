@@ -29,11 +29,6 @@ public class SrcFiles {
 		return files;
 	}
 
-
-	public void setSrcFiles(ArrayList<SrcFile> srcFiles) {
-		this.files = srcFiles;
-	}
-
 	public class SrcFile{
 		String dir;
 		String file;
@@ -53,40 +48,16 @@ public class SrcFiles {
 			return filename;
 		}
 
-		public void setFilename(String filename) {
-			this.filename = filename;
-		}
-
 		public List<String> getLines() {
 			return lines;
 		}
 
-		public void setLines(List<String> lines) {
-			this.lines = lines;
-		}
 		public String getDir() {
 			return dir;
-		}
-
-		public void setDir(String dir) {
-			this.dir = dir;
 		}
 
 		public String getFile() {
 			return file;
 		}
-
-		public void setFile(String file) {
-			this.file = file;
-		}
-
-		/*public String getHtmlFilename() {
-			return htmlfilename;
-		}
-
-		public void setHtmlFilename(String htmlfilename) {
-			this.htmlfilename = htmlfilename;
-		}
-*/
 	}
 }

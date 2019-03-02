@@ -27,7 +27,6 @@ public class CreateHtml {
 		clean();
 		File newdir = new File("sample/output/");
 		newdir.mkdir();
-
 	}
 
 	/**
