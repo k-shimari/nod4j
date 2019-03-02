@@ -18,12 +18,17 @@ public abstract class Builder {
     public abstract void makeHeading(String heading);
 
     // 文書の本文を作る
-    public abstract void makeContents(String contents);
+	public abstract void preMakeCode(String code);
+
+    public abstract void makeCode(String code);
+	public abstract void postMakeCode();
+
 
     public abstract void makeScript(String script);
 
     // 文書作成を完了する
     public abstract void close(String dir);
+
 
 
 

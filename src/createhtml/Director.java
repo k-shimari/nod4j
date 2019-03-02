@@ -9,8 +9,8 @@ public class Director {
 	private static final String OUTPUTDIR="sample/output/";
 	private static final String META="<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />";
 	//TODO JSとCSSのパス指定
-	private static final String[] JSs= {"../../resources/test.js",};
-	private final String CSS = "../../resources/custom.css";
+	private static final String[] JSs= {"../../resources/test.js","../../resources/prettify.js",};
+	private final String[] CSSs = {"../../resources/prettify.css","../../resources/custom.css"};
 
 
 	// 実際はBuilderのサブクラスを引数に取る
@@ -25,19 +25,26 @@ public class Director {
 		for(String js: JSs) {
 			builder.makeJavaScript(js);
 		}
-		builder.makeStyle(CSS);
+		for(String CSS: CSSs) {
+			builder.makeStyle(CSS);
+		}
 		builder.makeBody(file.getFilename()+".java");
 		builder.makeHeading("今日の目標");
 		int index=0;
 		for(String line: file.getLines()) {
-
-			builder.makeContents(Integer.toString(++index) +": "+  line);
+			if(index++==0) {
+				builder.preMakeCode(line);
+			}else {
+				builder.makeCode(line);
+			}
 		}
+		builder.postMakeCode();
+		builder.makeScript("<script>prettyPrint();</script>");
 		builder.makeHeading("使うもの");
-		builder.makeContents("Java言語で学ぶデザインパターン入門");
+
 
 		testadd();
-		builder.makeContents("Java言語で学ぶデザインパターン入門");
+
 		// TODO 出力先の指定
 		//builder.close();
 		builder.close(OUTPUTDIR);
@@ -56,18 +63,18 @@ public class Director {
 		for (int i=0;i<10;i++) {
 			afterstr+=Integer.toString(i)+"\r\n";
 		}
-String line2="<ul class=\"menu\">\r\n" +
-		"    <li class=\"menu__single\">\r\n" +
-		"        <a href=\"#\" class=\"init-bottom\">var1</a>\r\n" +
-		"        <ul class=\"menu__second-level\">\r\n" +
-		"            <li><a href=\"#\">21</a></li>\r\n" +
-		"            <li><a href=\"#\">23</a></li>\r\n" +
-		"            <li><a href=\"#\">25</a></li>\r\n" +
-		"        </ul>\r\n" +
-		"    </li>\r\n" +
-		"    <!-- 他グローバルナビメニュー省略 -->\r\n" +
-		"</ul>";
-builder.makeScript(line2);
+		String line2="<ul class=\"menu\">\r\n" +
+				"    <li class=\"menu__single\">\r\n" +
+				"        <a href=\"#\" class=\"init-bottom\">var1</a>\r\n" +
+				"        <ul class=\"menu__second-level\">\r\n" +
+				"            <li><a href=\"#\">21</a></li>\r\n" +
+				"            <li><a href=\"#\">23</a></li>\r\n" +
+				"            <li><a href=\"#\">25</a></li>\r\n" +
+				"        </ul>\r\n" +
+				"    </li>\r\n" +
+				"    <!-- 他グローバルナビメニュー省略 -->\r\n" +
+				"</ul>";
+		builder.makeScript(line2);
 
 	}
 }

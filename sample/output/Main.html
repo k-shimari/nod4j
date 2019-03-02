@@ -2,41 +2,44 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Main.java</title>
 <script src=../../resources/test.js></script>
+<script src=../../resources/prettify.js></script>
+<link href=../../resources/prettify.css rel="stylesheet" />
 <link href=../../resources/custom.css rel="stylesheet" />
 </head>
 <body>
 <h1>Main.java</h1>
 <h3>今日の目標</h3>
-<pre><p>1: package samplelogvis;</p></pre>
-<pre><p>2: </p></pre>
-<pre><p>3: public class Main {</p></pre>
-<pre><p>4: 	public static int MethodCallCount=0;</p></pre>
-<pre><p>5: 	private static final int TMPNUM1= 5;</p></pre>
-<pre><p>6: 	private static final int TMPNUM2= 3;</p></pre>
-<pre><p>7: 	private static int TmpSum=0;</p></pre>
-<pre><p>8: 	private static int TmpDiff=0;</p></pre>
-<pre><p>9: </p></pre>
-<pre><p>10: 	public static void main(String args[]){</p></pre>
-<pre><p>11: 		Calleee callee =new Calleee();</p></pre>
-<pre><p>12: 		UpdateTmpsum(callee);</p></pre>
-<pre><p>13: 		UpdateTmpdiff(callee);</p></pre>
-<pre><p>14: 		System.out.println("MethodCallCount is" + callee.methodcallcount);</p></pre>
-<pre><p>15: </p></pre>
-<pre><p>16: 	}</p></pre>
-<pre><p>17: </p></pre>
-<pre><p>18: 	private static void UpdateTmpsum(Calleee callee) {</p></pre>
-<pre><p>19: </p></pre>
-<pre><p>20: 		TmpSum=callee.tmpadd(TMPNUM1,TMPNUM2);</p></pre>
-<pre><p>21: 		System.out.println(TmpSum);</p></pre>
-<pre><p>22: 	}</p></pre>
-<pre><p>23: </p></pre>
-<pre><p>24: 	private static void UpdateTmpdiff(Calleee callee) {</p></pre>
-<pre><p>25: 		TmpDiff=callee.tmpdiff(TMPNUM1,TMPNUM2);</p></pre>
-<pre><p>26: 		System.out.println(TmpDiff);</p></pre>
-<pre><p>27: 	}</p></pre>
-<pre><p>28: }</p></pre>
+<pre><code class="prettyprint language-java linenums">package samplelogvis;
+
+public class Main {
+	public static int MethodCallCount=0;
+	private static final int TMPNUM1= 5;
+	private static final int TMPNUM2= 3;
+	private static int TmpSum=0;
+	private static int TmpDiff=0;
+
+	public static void main(String args[]){
+		Calleee callee =new Calleee();
+		UpdateTmpsum(callee);
+		UpdateTmpdiff(callee);
+		System.out.println("MethodCallCount is" + callee.methodcallcount);
+
+	}
+
+	private static void UpdateTmpsum(Calleee callee) {
+
+		TmpSum=callee.tmpadd(TMPNUM1,TMPNUM2);
+		System.out.println(TmpSum);
+	}
+
+	private static void UpdateTmpdiff(Calleee callee) {
+		TmpDiff=callee.tmpdiff(TMPNUM1,TMPNUM2);
+		System.out.println(TmpDiff);
+	}
+}
+</code></pre>
+<script>prettyPrint();</script>
 <h3>使うもの</h3>
-<pre><p>Java言語で学ぶデザインパターン入門</p></pre>
       <select id="sample" name="nanika"><option> - - - - </option></select>歳
 <script>addOption()</script>
 <ul class="menu">
@@ -50,5 +53,4 @@
     </li>
     <!-- 他グローバルナビメニュー省略 -->
 </ul>
-<pre><p>Java言語で学ぶデザインパターン入門</p></pre>
 </body></html>

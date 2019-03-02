@@ -59,8 +59,18 @@ public class HtmlBuilder extends Builder {
 	}
 
 	@Override
-	public void makeContents(String contents) {
-		lines.add("<pre><p>" + contents + "</p></pre>");
+	public void preMakeCode(String code) {
+		lines.add("<pre><code class=\"prettyprint language-java linenums\">"+code);
+	}
+
+	@Override
+	public void makeCode(String code) {
+		lines.add(code);
+	}
+
+	@Override
+	public void postMakeCode() {
+		lines.add("</code></pre>");
 	}
 
 	@Override
