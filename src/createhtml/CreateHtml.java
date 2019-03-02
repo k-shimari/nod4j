@@ -6,8 +6,6 @@ import logvis.SeloggerFiles;
 import logvis.SrcFiles;
 
 public class CreateHtml {
-
-
 	private SeloggerFiles selfiles;
 	private SrcFiles srcfiles;
 

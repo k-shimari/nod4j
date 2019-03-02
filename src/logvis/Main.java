@@ -17,18 +17,11 @@ public class Main {
 
 			SeloggerFiles selfiles = new SeloggerFiles(args[0], args[1], args[2]);
 			SrcFiles srcfiles = new SrcFiles(Arrays.copyOfRange(args, 3, args.length));
+
 			CreateHtml cre = new CreateHtml(selfiles, srcfiles);
-
 			cre.start();
-
-
-
 		}catch(IOException e){
 			System.err.println("Not correct Input");
 		}
 	}
-
-
-
-
 }

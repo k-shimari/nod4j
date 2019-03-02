@@ -6,11 +6,6 @@
 	<artifactId>LOGVIS</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<dependencies>
-		<dependency>
-			<groupId>org.jsoup</groupId>
-			<artifactId>jsoup</artifactId>
-			<version>1.11.3</version>
-		</dependency>
 	</dependencies>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
@@ -25,8 +20,5 @@
 
 			</plugin>
 		</plugins>
-
-
-
 	</build>
 </project>
