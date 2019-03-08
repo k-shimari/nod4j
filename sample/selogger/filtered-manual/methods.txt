@@ -1,0 +1,8 @@
+0,0,samplelogvis/Main,<clinit>,()V,8,Main.java
+0,1,samplelogvis/Main,<init>,()V,1,Main.java
+0,2,samplelogvis/Main,main,([Ljava/lang/String;)V,9,Main.java
+0,3,samplelogvis/Main,UpdateTmpsum,(Lsamplelogvis/Calleee;)V,10,Main.java
+0,4,samplelogvis/Main,UpdateTmpdiff,(Lsamplelogvis/Calleee;)V,10,Main.java
+1,5,samplelogvis/Calleee,<init>,()V,1,Calleee.java
+1,6,samplelogvis/Calleee,tmpadd,(II)I,1,Calleee.java
+1,7,samplelogvis/Calleee,tmpdiff,(II)I,1,Calleee.java
