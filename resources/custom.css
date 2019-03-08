@@ -53,7 +53,7 @@ ul.menu__fourth-level {
 }
 
 .menu__second-level li {
-	border-top: 1px solid #111;
+	border-top:  solid #111;
 }
 
 .menu__third-level li {
@@ -73,7 +73,7 @@ ul.menu__fourth-level {
 }
 
 .init-bottom:after {
-	/*
+
     content: '';
     display: inline-block;
     width: 6px;
@@ -84,7 +84,7 @@ ul.menu__fourth-level {
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
-    */
+
 
 }
 
@@ -105,12 +105,14 @@ ul.menu__fourth-level {
 	position: relative;
 	padding-right: 5px;
 	padding-left: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 
 }
 
 li.menu__single ul.menu__second-level {
 	position: absolute;
-	top: 40px;
+	top: 25px;
 	width: 100%;
 	background: #072A24;
 	-webkit-transition: all .2s ease;
@@ -118,7 +120,7 @@ li.menu__single ul.menu__second-level {
 }
 
 li.menu__single:hover ul.menu__second-level {
-	top: 50px;
+	top: 25px;
 	visibility: visible;
 	opacity: 1;
 }

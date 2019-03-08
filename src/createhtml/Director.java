@@ -58,13 +58,15 @@ public class Director {
 		builder.postMakeCode();
 	}
 
+
 	private void testadd() {
+	/*pulldown
 		String line="      <select id=\"sample\" name=\"nanika\">"+
 				"<option> - - - - </option>"
 				+ "</select>歳\r\n"
 				+ "<script>addOption()</script>";
 		builder.makeScript(line);
-
+*/
 		String beforestr="\"var1\"";
 		String afterstr="var2"+"\r\n";
 		for (int i=0;i<10;i++) {
@@ -72,7 +74,7 @@ public class Director {
 		}
 		String line2="<ul class=\"menu\">\r\n" +
 				"    <li class=\"menu__single\">\r\n" +
-				"        <a href=\"#\">var1</a>\r\n" +
+				"        <a href=\"#\" >var1</a>\r\n" +
 				"        <ul class=\"menu__second-level\">\r\n" +
 				 getli(21)+
 				 getli(23)+
@@ -81,7 +83,6 @@ public class Director {
 				 getli("str")+
 				"        </ul>\r\n" +
 				"    </li>\r\n" +
-				"    <!-- 他グローバルナビメニュー省略 -->\r\n" +
 				"</ul>";
 		builder.makeScript(line2);
 	}
