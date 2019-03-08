@@ -3,14 +3,14 @@ package createhtml;
 import java.util.ArrayList;
 
 import concretebuilder.HtmlBuilder;
-import logvis.SrcFiles;
-import logvis.SrcFiles.SrcFile;
+import logvis.JavaFiles;
+import logvis.JavaFiles.JavaFile;
 
 public class PrintHtml {
 	//private final String OUTPUTDIR="sample/output/";
 
-	private SrcFiles srcfiles;
-	public PrintHtml(SrcFiles srcfiles) {
+	private JavaFiles srcfiles;
+	public PrintHtml(JavaFiles srcfiles) {
 		// TODO 自動生成されたコンストラクター・スタブ
 		this.srcfiles=srcfiles;
 	}
@@ -18,8 +18,8 @@ public class PrintHtml {
 	 * ファイルごとにhtmlを生成
 	 */
 	public void print() {
-		ArrayList<SrcFile> files = srcfiles.getSrcFiles();
-		for(SrcFile file :files){
+		ArrayList<JavaFile> files = srcfiles.getSrcFiles();
+		for(JavaFile file :files){
 			HtmlBuilder hb = new HtmlBuilder(file.getFilename());
 			Director director = new Director(hb);
 			director.construct(file);

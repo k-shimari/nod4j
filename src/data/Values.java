@@ -1,26 +1,38 @@
 package data;
 
-public class Values{
-	private Value[] values;
+import java.util.ArrayList;
 
-	public Values(Value[] values) {
+public class Values{
+	private ArrayList<Value> values;
+
+	public Values(ArrayList<Value> values) {
 		this.values = values;
 	}
 
-	public Value[] getValues() {
+	public ArrayList<Value> getValues() {
 		return values;
 	}
 
-	public void setValues(Value[] values) {
+	public void setValues(ArrayList<Value> values) {
 		this.values = values;
 	}
 
 
 
 	public class Value {
-		// @TODO
+		private String value;
 
+		public Value(String value) {
+			this.value = value;
+		}
 
+		public String getValue() {
+			return value;
+		}
+
+		public void setValue(String value) {
+			this.value = value;
+		}
 	}
 
 }

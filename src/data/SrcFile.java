@@ -1,19 +1,19 @@
 package data;
 
 public class SrcFile {
-	private Line[] lines;
+	private Bytecodes bytecodes;
 	private String filepath;
 
-	public SrcFile(Line[] lines) {
-		this.lines = lines;
+	public SrcFile(Bytecodes bytecodes) {
+		this.bytecodes = bytecodes;
 	}
 
-	public Line[] getLines() {
-		return lines;
+	public Bytecodes getBytecodes() {
+		return bytecodes;
 	}
 
-	public void setLines(Line[] lines) {
-		this.lines = lines;
+	public void setBytecodes(Bytecodes bytecodes) {
+		this.bytecodes = bytecodes;
 	}
 
 	public String getFilepath() {
@@ -22,21 +22,5 @@ public class SrcFile {
 
 	public void setFilepath(String filepath) {
 		this.filepath = filepath;
-	}
-
-	public class Line{
-		private Bytecodes bytecodes;
-
-		public Line(Bytecodes bytecodes) {
-			this.bytecodes = bytecodes;
-		}
-
-		public Bytecodes getBytecodes() {
-			return bytecodes;
-		}
-
-		public void setBytecodes(Bytecodes bytecodes) {
-			this.bytecodes = bytecodes;
-		}
 	}
 }

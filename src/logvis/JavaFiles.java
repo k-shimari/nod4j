@@ -7,36 +7,36 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SrcFiles {
+public class JavaFiles {
 
 
-	ArrayList<SrcFile> files = new ArrayList<SrcFile>();
+	ArrayList<JavaFile> files = new ArrayList<JavaFile>();
 
 	/**@TODO
 	 */
-	public SrcFiles(String dirpath) throws IOException {
+	public JavaFiles(String dirpath) throws IOException {
 		//@TODO なんかいい感じにディレクトリをたどってファイル一覧を取得する処理(オプションで実装)
 	}
 
 
-	public SrcFiles(String[] files) throws IOException {
+	public JavaFiles(String[] files) throws IOException {
 		for(String file : files) {
-			this.files.add(new SrcFile(file,Files.readAllLines(Paths.get(file), StandardCharsets.UTF_8)));
+			this.files.add(new JavaFile(file,Files.readAllLines(Paths.get(file), StandardCharsets.UTF_8)));
 		}
 	}
 
-	public ArrayList<SrcFile> getSrcFiles() {
+	public ArrayList<JavaFile> getSrcFiles() {
 		return files;
 	}
 
-	public class SrcFile{
+	public class JavaFile{
 		String dir;
 		String file;
 		String filename;
 		//String htmlfilename;
 		List<String> lines;
 
-		public SrcFile(String file, List<String> lines) {
+		public JavaFile(String file, List<String> lines) {
 			this.file=file;
 			this.dir=file.substring(0,file.lastIndexOf("/")+1);
 			this.filename= file.substring(file.lastIndexOf("/")+1,file.lastIndexOf("."));

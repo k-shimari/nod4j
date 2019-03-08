@@ -1,7 +1,7 @@
 package createhtml;
 
 import builder.Builder;
-import logvis.SrcFiles.SrcFile;
+import logvis.JavaFiles.JavaFile;
 
 public class Director {
 
@@ -20,10 +20,10 @@ public class Director {
 	}
 
 	// 文章の中身を作る
-	public void construct(SrcFile file) {
+	public void construct(JavaFile file) {
 		constructHead(file);
 		builder.makeBody(file.getFilename()+".java");
-		builder.makeHeading("今日の目標");
+		//builder.makeHeading("今日の目標");
 
 		constructCode(file);
 		constructDebugView();
@@ -36,7 +36,7 @@ public class Director {
 	private void constructOther() {
 		// TODO 自動生成されたメソッド・スタブ
 		builder.makeScript("<div>");
-		builder.makeHeading("使うもの");
+		//builder.makeHeading("使うもの");
 		testadd();
 		builder.makeScript("</div>");
 		builder.makeScript("<script>prettyPrint();</script>");
@@ -44,7 +44,7 @@ public class Director {
 		builder.close(OUTPUTDIR);
 	}
 
-	private void constructHead(SrcFile file) {
+	private void constructHead(JavaFile file) {
 		builder.makeHead(META);
 		builder.makeTitle(file.getFilename()+".java");
 		for(String js: JSs) {
@@ -55,15 +55,32 @@ public class Director {
 		}
 	}
 
-	private void constructCode(SrcFile file) {
+	private void constructCode(JavaFile file) {
 		int index=0;
+		String result="";
 		for(String line: file.getLines()) {
 			if(index++==0) {
 				builder.preMakeCode(line);
 			}else {
-				builder.makeCode(line);
+				String line2="<ul class=\"menu\">" +
+						"<li>System.out.println(</li>"+
+						"    <li class=\"menu__single\">" +
+						"        <a href=\"#\" >var1</a>" +
+						"        <ul class=\"menu__second-level\">" +
+						 getli(21)+
+						 getli(23)+
+						 getli(25)+
+						 getli(27)+
+						 getli("str")+
+						"        </ul>" +
+						"    </li>" +
+						"<li>)</li>"+
+						"</ul>";
+				builder.makeCode(line2);
+				result+=line2;
 			}
 		}
+		//builder.makeCode(result);
 		builder.postMakeCode();
 	}
 
@@ -76,19 +93,8 @@ public class Director {
 	}
 
 	private void testadd() {
-	/*pulldown
-		String line="      <select id=\"sample\" name=\"nanika\">"+
-				"<option> - - - - </option>"
-				+ "</select>歳\r\n"
-				+ "<script>addOption()</script>";
-		builder.makeScript(line);
-*/
-		String beforestr="\"var1\"";
-		String afterstr="var2"+"\r\n";
-		for (int i=0;i<10;i++) {
-			afterstr+=Integer.toString(i)+"\r\n";
-		}
 		String line2="<ul class=\"menu\">\r\n" +
+				"<li>System.out.println(</li>\r\n"+
 				"    <li class=\"menu__single\">\r\n" +
 				"        <a href=\"#\" >var1</a>\r\n" +
 				"        <ul class=\"menu__second-level\">\r\n" +
@@ -99,17 +105,25 @@ public class Director {
 				 getli("str")+
 				"        </ul>\r\n" +
 				"    </li>\r\n" +
+				"<li>)</li>\r\n"+
 				"</ul>";
 		builder.makeScript(line2);
 	}
 
 	private String getli(String val) {
-		return "            <li><a href=\"#\">"+val+"</a></li>\r\n";
+		return "            <li><a href=\"#\"> "+val+" </a></li>";
 	}
 
 	private String getli(int val) {
-		return "            <li><a href=\"#\">"+Integer.toString(val)+"</a></li>\r\n";
+		return "            <li><a href=\"#\"> "+Integer.toString(val)+" </a></li>";
 	}
+
+
+
+
+
+
+
 
 
 

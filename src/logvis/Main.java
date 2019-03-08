@@ -16,7 +16,7 @@ public class Main {
 		try{
 
 			SeloggerFiles selfiles = new SeloggerFiles(args[0], args[1], args[2]);
-			SrcFiles srcfiles = new SrcFiles(Arrays.copyOfRange(args, 3, args.length));
+			JavaFiles srcfiles = new JavaFiles(Arrays.copyOfRange(args, 3, args.length));
 
 			CreateHtml cre = new CreateHtml(selfiles, srcfiles);
 			cre.start();

@@ -1,18 +1,19 @@
 package data;
 
+import java.util.ArrayList;
 
 public class Bytecodes {
-	private Bytecode[] bytecodes;
+	private ArrayList<Bytecode> bytecodes;
 
-	public Bytecodes(Bytecode[] bytecodes) {
+	public Bytecodes(ArrayList<Bytecode> bytecodes) {
 		this.bytecodes = bytecodes;
 	}
 
-	public Bytecode[] getBytecodes() {
+	public ArrayList<Bytecode> getBytecodes() {
 		return bytecodes;
 	}
 
-	public void setBytecodes(Bytecode[] bytecodes) {
+	public void setBytecodes(ArrayList<Bytecode> bytecodes) {
 		this.bytecodes = bytecodes;
 	}
 

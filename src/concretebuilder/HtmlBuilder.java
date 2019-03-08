@@ -61,7 +61,8 @@ public class HtmlBuilder extends Builder {
 	@Override
 	public void preMakeCode(String code) {
 		lines.add("<div class=\"codebox\">");
-		lines.add("<pre><code class=\"prettyprint language-java linenums\">"+code);
+		//lines.add("<pre><code class=\"prettyprint language-java linenums\">"+code);
+		lines.add("<pre class=\"language-java linenums\">"+code);
 	}
 
 	@Override
@@ -71,7 +72,8 @@ public class HtmlBuilder extends Builder {
 
 	@Override
 	public void postMakeCode() {
-		lines.add("</code></pre>");
+		//lines.add("</code></pre>");
+		lines.add("</pre>");
 		lines.add("</div>");
 	}
 

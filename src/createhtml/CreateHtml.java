@@ -3,13 +3,13 @@ package createhtml;
 import java.io.File;
 
 import logvis.SeloggerFiles;
-import logvis.SrcFiles;
+import logvis.JavaFiles;
 
 public class CreateHtml {
 	private SeloggerFiles selfiles;
-	private SrcFiles srcfiles;
+	private JavaFiles srcfiles;
 
-	public CreateHtml(SeloggerFiles selfiles, SrcFiles srcfiles) {
+	public CreateHtml(SeloggerFiles selfiles, JavaFiles srcfiles) {
 		this.selfiles=selfiles;
 		this.srcfiles=srcfiles;
 	}
