@@ -24,12 +24,21 @@ public class Director {
 		constructHead(file);
 		builder.makeBody(file.getFilename()+".java");
 		builder.makeHeading("今日の目標");
+
 		constructCode(file);
+		constructDebugView();
+		constructOther();
 
+
+	}
+
+
+	private void constructOther() {
+		// TODO 自動生成されたメソッド・スタブ
+		builder.makeScript("<div>");
 		builder.makeHeading("使うもの");
-
 		testadd();
-
+		builder.makeScript("</div>");
 		builder.makeScript("<script>prettyPrint();</script>");
 		// TODO 出力先の指定
 		builder.close(OUTPUTDIR);
@@ -58,6 +67,13 @@ public class Director {
 		builder.postMakeCode();
 	}
 
+
+	private void constructDebugView() {
+		builder.preMakeDebugView();
+		builder.makeDebugView("aaa");
+
+		builder.postMakeDebugView();
+	}
 
 	private void testadd() {
 	/*pulldown
@@ -94,12 +110,6 @@ public class Director {
 	private String getli(int val) {
 		return "            <li><a href=\"#\">"+Integer.toString(val)+"</a></li>\r\n";
 	}
-
-
-
-
-
-
 
 
 

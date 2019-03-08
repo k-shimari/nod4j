@@ -60,6 +60,7 @@ public class HtmlBuilder extends Builder {
 
 	@Override
 	public void preMakeCode(String code) {
+		lines.add("<div class=\"codebox\">");
 		lines.add("<pre><code class=\"prettyprint language-java linenums\">"+code);
 	}
 
@@ -71,6 +72,22 @@ public class HtmlBuilder extends Builder {
 	@Override
 	public void postMakeCode() {
 		lines.add("</code></pre>");
+		lines.add("</div>");
+	}
+
+	@Override
+	public void preMakeDebugView() {
+		lines.add("<div class=\"debugbox\">");
+	}
+
+	@Override
+	public void makeDebugView(String code) {
+		lines.add(code);
+	}
+
+	@Override
+	public void postMakeDebugView() {
+		lines.add("</div>");
 	}
 
 	@Override
@@ -91,6 +108,8 @@ public class HtmlBuilder extends Builder {
 	public String gethtmlfilename() {
 		return htmlfilename;
 	}
+
+
 
 
 

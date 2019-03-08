@@ -21,8 +21,14 @@ public abstract class Builder {
 	public abstract void preMakeCode(String code);
 
     public abstract void makeCode(String code);
-	public abstract void postMakeCode();
 
+    public abstract void postMakeCode();
+
+    public abstract void preMakeDebugView();
+
+    public abstract void makeDebugView(String code);
+
+    public abstract void postMakeDebugView();
 
     public abstract void makeScript(String script);
 
