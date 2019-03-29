@@ -1,13 +1,14 @@
 package data;
 
-public class FileLineDataId {
-
+public class FileLineVarDataId {
 	private String fileID;
 	private String linenum;
+	private String fieldname;
 
-	public FileLineDataId(String fileID, String linenum) {
+	public FileLineVarDataId(String fileID, String linenum, String fieldname) {
 		this.fileID=fileID;
 		this.linenum=linenum;
+		this.fieldname=fieldname;
 	}
 
 	/*https://qiita.com/nogitsune413/items/76a6e900e58ef949cc06
@@ -19,6 +20,7 @@ public class FileLineDataId {
 		int result = 1;
 		result = prime * result + ((fileID == null) ? 0 : fileID.hashCode());
 		result = prime * result + ((linenum == null) ? 0 : linenum.hashCode());
+		result = prime * result + ((fieldname == null) ? 0 : fieldname.hashCode());
 		return result;
 	}
 
@@ -31,7 +33,7 @@ public class FileLineDataId {
 		if (obj == null) return false;
 		if (getClass() != obj.getClass()) return false;
 
-		FileLineDataId other = (FileLineDataId) obj;
+		FileLineVarDataId other = (FileLineVarDataId) obj;
 		if (fileID == null) {
 			if (other.fileID != null) return false;
 		}
@@ -40,9 +42,12 @@ public class FileLineDataId {
 		if (linenum == null) {
 			if (other.linenum != null) return false;
 		}
-		else if (!linenum.equals(other.linenum)) {
-			return false;
+		else if (!linenum.equals(other.linenum)) return false;
+
+		if (fieldname == null) {
+			if (other.fieldname != null) return false;
 		}
+		else if (!fieldname.equals(other.fieldname)) return false;
 		return true;
 	}
 }

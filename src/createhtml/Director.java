@@ -1,6 +1,12 @@
 package createhtml;
 
+import java.util.List;
+import java.util.Map;
+
 import builder.Builder;
+import data.DataIdVar;
+import data.FileLineDataId;
+import data.FileLineVarDataId;
 import data.JavaFiles.JavaFile;
 import data.SeloggerFiles;
 
@@ -60,27 +66,54 @@ public class Director {
 
 	private void constructCode(JavaFile file) {
 
-		int index=0;
+		int linenum=0;
+		String filename=file.getFilename()+".java";
 		for(String line: file.getLines()) {
-			if(index++==0) {
+			if(linenum++==0) {
 				builder.preMakeCode(line);
 			}else{
-				String htmlline = gethtmlLine(line);
-
+				String htmlline = gethtmlLine(line,filename,linenum);
 				builder.makeCode(htmlline);
-				//result+=line2;
 			}
 		}
 		builder.postMakeCode();
 	}
 
-	private String gethtmlLine(String line) {
+	private String gethtmlLine(String line, String filename, int linenum) {
+		/*dataids.txtのファイル・行に対する変数と出現回数*/
+		Map<FileLineDataId, List<String>> linevarMap= selfiles.getLineVarMap();
+
+		Map<String,String>fileIDMap = selfiles.getFileIDMap();
+		System.out.println(fileIDMap.get(filename) +" " +Integer.toString(linenum));
+		String htmlLine="";
+		FileLineDataId fldata =new FileLineDataId(fileIDMap.get(filename),Integer.toString(linenum));
+		/*空行でなく，変数を含んでいる限りループ*/
+		while(line.length()>0 && linevarMap.get(fldata)!=null &&!linevarMap.get(fldata).isEmpty()) {
+			int minindex=999;
+			String minvar=null;
+			/*その行に登場する変数のうち一番先頭にあるものを検索*/
+			for(String var : linevarMap.get(fldata)) {
+				if(line.indexOf(var) < minindex) {
+					minindex=line.indexOf(var);
+					minvar=var;
+				}
+			}
+			/*先頭の変数の終端までを切り出して，変数部を出力用に置換*/
+			System.out.println(minvar);
+			System.out.println(minindex +" a "+minvar.length());
+			String tmpstr=line.substring(0, minindex+minvar.length());
+			tmpstr = tmpstr.replaceFirst(minvar, "<b>"+minvar+"</b>");
+			htmlLine+=tmpstr;
+			UpdateVarMap(minvar,linevarMap,fileIDMap.get(filename),Integer.toString(linenum));
+
+			line=line.substring(minindex+minvar.length());
+		}
+		htmlLine+=line;
 
 
 
 
-
-
+/*
 		String htmlline="<ul class=\"menu\">" +
 				"<li>System.out.println(</li>"+
 				"    <li class=\"menu__single\">" +
@@ -95,8 +128,34 @@ public class Director {
 				"    </li>" +
 				"<li>)</li>"+
 				"</ul>";
-		return htmlline;
+		*/
+		return htmlLine;
 	}
+
+
+
+	/*参照した変数の情報を消す*/
+	private void UpdateVarMap(String fieldname, Map<FileLineDataId, List<String>> linevarMap, String fileID, String linenum) {
+
+		Map<FileLineVarDataId,DataIdVar> linevardetailMap=selfiles.getLineVarDetailMap();
+
+		DataIdVar dvar =linevardetailMap.get(new FileLineVarDataId(fileID, linenum, fieldname));
+		if(dvar.getCount()>1) {
+			linevardetailMap.put(new FileLineVarDataId(fileID, linenum, fieldname),new DataIdVar(dvar.getVar(),dvar.getCount()-1));
+		}
+		else{
+			linevardetailMap.remove(new FileLineVarDataId(fileID, linenum, fieldname));
+			List<String> list=linevarMap.get(new FileLineDataId(fileID,linenum));
+			list.remove(fieldname);
+			linevarMap.put(new FileLineDataId(fileID, linenum),list);
+
+		}
+	}
+
+
+
+
+
 
 
 
