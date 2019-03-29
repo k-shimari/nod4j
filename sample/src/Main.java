@@ -15,16 +15,17 @@ public class Main {
 
 	}
 
-	private static void UpdateTmpsum(Calleee callee) {
+	private static void UpdateTmpsum(Calleee calleee) {
 		for(int i=0;i<3;i++) {
+			Calleee callee =new Calleee();
 			TmpSum=callee.tmpadd(tmpnum1,tmpnum2);
-			System.out.println(TmpSum);
+			System.out.println(callee.methodcallcount);
 			tmpnum1+=TmpSum;
 		}
 	}
 
 	private static void UpdateTmpdiff(Calleee callee) {
-			TmpDiff=callee.tmpdiff(tmpnum1,tmpnum2);
-			System.out.println(TmpDiff);
+		TmpDiff=callee.tmpdiff(tmpnum1,tmpnum2);
+		System.out.println(TmpDiff);
 	}
 }

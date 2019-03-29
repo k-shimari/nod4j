@@ -49,7 +49,7 @@ public class HtmlBuilder extends Builder {
 	@Override
 	public void makeBody(String title) {
 		lines.add("</head>");
-		lines.add("<body>");
+		lines.add("<body onLoad=\"prettyPrint()\">");
 		lines.add("<h1>" + title + "</h1>");
 	}
 
@@ -60,9 +60,12 @@ public class HtmlBuilder extends Builder {
 
 	@Override
 	public void preMakeCode(String code) {
-		lines.add("<div class=\"codebox\">");
-		//lines.add("<pre><code class=\"prettyprint language-java linenums\">"+code);
-		lines.add("<pre class=\"language-java linenums\">"+code);
+		//lines.add("<div class=\"codebox\">");
+		//lines.add("<pre><code class=\" language-java linenums\">"+code);
+		//lines.add("<code class=\"prettyprint language-java linenums\">"+code);
+		lines.add("<pre class=\"prettyprint language-java linenums\"  style=\"box-sizing: border-box; word-break: break-all; overflow-wrap: break-word;\">"+code);
+		//lines.add("<pre class=\"language-java linenums\">"+code);
+		//lines.add("<pre\">"+code);
 	}
 
 	@Override
@@ -72,9 +75,10 @@ public class HtmlBuilder extends Builder {
 
 	@Override
 	public void postMakeCode() {
+		//lines.add("</code>");
 		//lines.add("</code></pre>");
 		lines.add("</pre>");
-		lines.add("</div>");
+		//lines.add("</div>");
 	}
 
 	@Override

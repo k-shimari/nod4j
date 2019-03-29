@@ -10,6 +10,7 @@
 }
 
 .menu>li {
+
 	float: left;
 	/*
     width: 25%;
@@ -17,16 +18,20 @@
     line-height: 50px;
 	background: rgb(29, 33, 19);
 	background: rgb(70, 53, 74);
+
+
+	white-space: normal;
 */
-	display: inline-block;
-	white-space: normal; /* なくても大丈夫nowrapでも */
+	white-space: none;
+	display: inline;
+	
 }
 
 .menu>li a {
 	display: block;
 	color: #fff;
 	background: rgb(7, 42, 36);
-		padding-right: 5px;
+	padding-right: 5px;
 	padding-left: 5px;
 }
 
@@ -39,6 +44,7 @@ ul.menu__second-level {
 	visibility: hidden;
 	opacity: 0;
 	z-index: 1;
+
 }
 
 ul.menu__third-level {
@@ -79,26 +85,16 @@ ul.menu__fourth-level {
 	background: #1d0f0f;
 }
 
-.init-bottom:after {
-	content: '';
-	display: inline-block;
-	width: 6px;
-	height: 6px;
-	margin: 0 0 0 15px;
-	border-right: 1px solid #fff;
-	border-bottom: 1px solid #fff;
-	-webkit-transform: rotate(45deg);
-	-ms-transform: rotate(45deg);
-	transform: rotate(45deg);
-}
-
 .menu:before, .menu:after {
-	content: " ";
+/*	content: " ";
 	display: table;
+*/
 }
 
 .menu:after {
+/*
 	clear: both;
+	*/
 }
 
 .menu {
@@ -113,26 +109,26 @@ ul.menu__fourth-level {
 	padding-top: 5px;
 	padding-bottom: 5px;
 */
-}
+	}
 
 li.menu__single ul.menu__second-level {
 	position: absolute;
-	top: 25px;
-/*	width: 100%;
-*/	background: #072A24;
+/*	top: 25px;
+	width: 100%;
+	background: #072A24;
 	-webkit-transition: all .2s ease;
 	transition: all .2s ease;
-		padding-inline-start: 0;
-
+*/
+	padding-inline-start: 0;
 }
 
 li.menu__single:hover ul.menu__second-level {
-	top: 25px;
-	visibility: visible;
+/*	top: 25px;
+*/	visibility: visible;
 	opacity: 1;
+
 }
 
-/*add k-simari*/
 ul {
 	/*
 	padding-right: 10px;
@@ -141,11 +137,31 @@ ul {
 	padding-bottom: 10px;
 	*/
 	list-style: none;
-	white-space: nowrap;
+	display: inline;
+	
+
 }
 
 .codebox, .debugbox {
 	float: left;
 	border-color: yellow;
-	width: 50%; /** 横幅50% **/
+	width: 50%; 
+
 }
+
+.prettyprint {
+	word-wrap:normal
+}
+
+
+/*
+li:first-child {
+	white-space:none
+}
+
+ul:first-child {
+	white-space:none
+	display: inline;
+}
+*/
+

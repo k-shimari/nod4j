@@ -2,8 +2,8 @@ package createhtml;
 
 import java.io.File;
 
-import logvis.SeloggerFiles;
-import logvis.JavaFiles;
+import data.JavaFiles;
+import data.SeloggerFiles;
 
 public class CreateHtml {
 	private SeloggerFiles selfiles;
@@ -18,7 +18,7 @@ public class CreateHtml {
 
 		System.out.println("Create html ...");
 		init();
-		PrintHtml printhtml= new PrintHtml(srcfiles);
+		PrintHtml printhtml= new PrintHtml(selfiles,srcfiles);
 		printhtml.print();
 	}
 
