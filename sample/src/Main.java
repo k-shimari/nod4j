@@ -20,7 +20,7 @@ public class Main {
 			Calleee callee =new Calleee();
 			TmpSum=callee.tmpadd(tmpnum1,tmpnum2);
 			System.out.println(callee.methodcallcount);
-			tmpnum1= tmpnum1 + TmpSum;
+			tmpnum1+=TmpSum;
 		}
 	}
 

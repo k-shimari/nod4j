@@ -108,13 +108,12 @@ public class SeloggerFiles {
 			if(elemdat[5].contains("STATIC")) {
 				fieldname=elemdat[8].substring(FIELDNAMEINDEX);
 			}
-			else if(elemdat[5].contains("INSTANCE_FIELD_RESULT")){
+			else if(elemdat[5].contains("GET_INSTANCE_FIELD_RESULT")||elemdat[5].contains("PUT_INSTANCE_FIELD_VALUE")){
 				fieldname=elemdat[9].substring(FIELDNAMEINDEX);
 			}
 			else {
 				continue;
 			}
-
 			/*ファイル・行に対する変数のリスト,変数の詳細リストを更新 or 生成*/
 			if(linevarMap.get(new FileLineDataId(elemdat[1],elemdat[3]))!=null) {
 				/*変数がすでにその行にあるかどうか確認*/
@@ -124,7 +123,6 @@ public class SeloggerFiles {
 					linevardetailMap.put(new FileLineVarDataId(elemdat[1],elemdat[3],fieldname),new DataIdVar(fieldname,count));
 				}
 				else {
-
 					List<String> tmplist=linevarMap.get(new FileLineDataId(elemdat[1],elemdat[3]));
 					tmplist.add(fieldname);
 					linevarMap.put(new FileLineDataId(elemdat[1],elemdat[3]),tmplist);
