@@ -121,12 +121,12 @@ public class Director {
 				}
 			}
 			/*先頭の変数の終端までを切り出して，変数部を出力用に置換*/
-System.out.println(minvar);
-System.out.println(minindex +" a "+minvar.length());
+			System.out.println(minvar);
+			System.out.println(minindex +" a "+minvar.length());
 			String tmpstr=line.substring(0, minindex+minvar.length());
 			tmpstr = tmpstr.replaceFirst(minvar, "<b>"+minvar+"</b>");
-System.out.println("--"+tmpstr);
-System.out.println(line);
+			System.out.println("--"+tmpstr);
+			System.out.println(line);
 			htmlLine+=tmpstr;
 			UpdateVarMap(minvar,linevarMap,fileIDMap.get(filename),Integer.toString(linenum));
 
@@ -137,7 +137,7 @@ System.out.println(line);
 
 
 
-/*
+		/*
 		String htmlline="<ul class=\"menu\">" +
 				"<li>System.out.println(</li>"+
 				"    <li class=\"menu__single\">" +
@@ -152,7 +152,7 @@ System.out.println(line);
 				"    </li>" +
 				"<li>)</li>"+
 				"</ul>";
-		*/
+		 */
 		return htmlLine;
 	}
 
@@ -170,13 +170,42 @@ System.out.println(line);
 					index=line.indexOf(var);
 				}
 			}
-			String s ="$$$ "+replacevar + " = "+ replacevar + " + 1 $$$";
+			String s = replaceSpecialOperator(replacevar,operator);
+
 			StringBuilder sb = new StringBuilder(line);
 			sb.replace(index, line.indexOf(operator)+2 , s);
 			line=sb.toString();
 		}
 		return line;
 	}
+
+
+
+	private String replaceSpecialOperator(String replacevar, String operator) {
+		String s="";
+		switch(operator){
+		case "++":
+			s="$$$ "+replacevar + " = "+ replacevar + " + 1 $$$";
+			break;
+		case "--":
+			s="$$$ "+replacevar + " = "+ replacevar + " - 1 $$$";
+			break;
+		case "+=":
+			s="$$$ "+replacevar + " = "+ replacevar + " +  $$$";
+			break;
+		case "-=":
+			s="$$$ "+replacevar + " = "+ replacevar + " -  $$$";
+			break;
+		case "*=":
+			s="$$$ "+replacevar + " = "+ replacevar + " *  $$$";
+			break;
+		}
+		return s;
+	}
+
+
+
+
 
 
 
