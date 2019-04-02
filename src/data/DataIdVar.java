@@ -18,7 +18,7 @@ public class DataIdVar {
 		this.count = count;
 	}
 */
-	public DataIdVar(String var, Integer count, List dataidlist) {
+	public DataIdVar(String var, Integer count, List<String> dataidlist) {
 		this.var = var;
 		this.count = count;
 		this.dataidlist= dataidlist;

@@ -8,6 +8,7 @@ import data.DataIdVar;
 import data.FileLineDataId;
 import data.FileLineVarDataId;
 import data.JavaFiles.JavaFile;
+import data.Recentdata;
 import data.SeloggerFiles;
 
 public class Director {
@@ -48,7 +49,6 @@ public class Director {
 		testadd();
 		builder.makeScript("</div>");
 		// TODO 出力先の指定
-		test();
 		builder.close(OUTPUTDIR);
 	}
 
@@ -96,6 +96,7 @@ public class Director {
 
 
 		/*空行でなく，変数を含んでいる限りループ*/
+		boolean isContainsvar=false;
 		while(line.length()>0 && linevarMap.get(fldata)!=null &&!linevarMap.get(fldata).isEmpty()) {
 			int minindex=999;
 			String minvar=null;
@@ -109,17 +110,45 @@ public class Director {
 			/*先頭の変数の終端までを切り出して，変数部を出力用に置換*/
 			//System.out.println(minvar);
 			//System.out.println(minindex +" a "+minvar.length());
-			String tmpstr=line.substring(0, minindex+minvar.length());
-			tmpstr = tmpstr.replaceFirst(minvar, "<b>"+minvar+"</b>");
+
+			String fileID=fileIDMap.get(filename);
+
+			Map<FileLineVarDataId,DataIdVar> linevardetailMap=selfiles.getLineVarDetailMap();
+			DataIdVar dvar =linevardetailMap.get(new FileLineVarDataId(fileID, Integer.toString(linenum), minvar));
+
+			String dataid =dvar.getDataIDList().get(0);
+			List<Recentdata> recentdatalist= selfiles.getRecentDataMap().get(dataid);
+			for(Recentdata r: recentdatalist) {
+				System.out.println(r.getData()+" "+r.getThread()+" "+r.getTimestamp());
+			}
+			String str=line.substring(0, minindex+minvar.length());
+
+			String replacestr="</li><li class=\"menu__single\"><a href=\"#\" >"+ minvar +"</a><ul class=\"menu__second-level\">";
+			for(Recentdata r: recentdatalist) {
+				replacestr+=getli(r.getData());
+			}
+			replacestr+="</ul></li>";
+
+			str = "<li>"+str.replaceFirst(minvar, replacestr);
 			//System.out.println("--"+tmpstr);
 			//System.out.println(line);
-			htmlLine+=tmpstr;
-			UpdateVarMap(minvar,linevarMap,fileIDMap.get(filename),Integer.toString(linenum));
+			htmlLine+=str;
+			//@TODO
+
+
+
+			UpdateVarMap(dvar,minvar,linevarMap, fileIDMap.get(filename),Integer.toString(linenum));
 
 			line=line.substring(minindex+minvar.length());
+			isContainsvar=true;
+		}
+		if(isContainsvar) {
+			htmlLine="<ul class=\"menu\">"+htmlLine;;
 		}
 		htmlLine+=line;
-
+		if(isContainsvar) {
+			htmlLine+="</ul>";
+		}
 
 
 
@@ -146,13 +175,12 @@ public class Director {
 
 
 	/*参照した変数の情報を消す*/
-	private void UpdateVarMap(String fieldname, Map<FileLineDataId, List<String>> linevarMap, String fileID, String linenum) {
-
+	private void UpdateVarMap(DataIdVar dvar, String fieldname, Map<FileLineDataId, List<String>> linevarMap, String fileID, String linenum) {
 		Map<FileLineVarDataId,DataIdVar> linevardetailMap=selfiles.getLineVarDetailMap();
-
-		DataIdVar dvar =linevardetailMap.get(new FileLineVarDataId(fileID, linenum, fieldname));
 		if(dvar.getCount()>1) {
-			linevardetailMap.put(new FileLineVarDataId(fileID, linenum, fieldname),new DataIdVar(dvar.getVar(),dvar.getCount()-1));
+			List<String> dlist= dvar.getDataIDList();
+			dlist.remove(0);
+			linevardetailMap.put(new FileLineVarDataId(fileID, linenum, fieldname),new DataIdVar(dvar.getVar(),dvar.getCount()-1,dlist));
 		}
 		else{
 			linevardetailMap.remove(new FileLineVarDataId(fileID, linenum, fieldname));
@@ -206,12 +234,6 @@ public class Director {
 
 
 
-	private void test() {
-		// TODO 自動生成されたメソッド・スタブ
-		for(String line: selfiles.getLinesDataids()) {
-
-		}
-	}
 
 
 

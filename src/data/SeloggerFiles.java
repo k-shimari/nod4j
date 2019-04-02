@@ -68,16 +68,12 @@ public class SeloggerFiles {
 	private void CreateRecentDataMap() {
 		for(String line :this.linesRecentdata) {
 			String element[]=line.split(",");
-
+			String dataid=element[0];
 			List<Recentdata> list =new ArrayList<>();
 			for (int i = 0; i < element.length / 3-1 ; i++) {
-				Recentdata r = new Recentdata();
-				r.timestamp=element[3*i+3];
-				r.thread=element[3*i+4];
-				r.data=element[3*i+5];
-				list.add(r);
+				list.add(new Recentdata(element[3*i+3], element[3*i+4], element[3*i+5]));
 			}
-			recentdataMap.put(element[0],list);
+			recentdataMap.put(dataid,list);
 		}
 	}
 
@@ -107,7 +103,9 @@ public class SeloggerFiles {
 	public Map<String,String> getFileIDMap() {
 		return fileIDMap;
 	}
-
+	public Map<String,List<Recentdata>> getRecentDataMap() {
+		return recentdataMap;
+	}
 
 
 	/**methods.txtをもとに，ファイルに対するそのIDを返すMapを作成
