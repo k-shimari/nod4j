@@ -24,7 +24,7 @@
 */
 	white-space: none;
 	display: inline;
-	
+
 }
 
 .menu>li a {
@@ -138,14 +138,14 @@ ul {
 	*/
 	list-style: none;
 	display: inline;
-	
+	padding-inline-start: 0;
 
 }
 
 .codebox, .debugbox {
 	float: left;
 	border-color: yellow;
-	width: 50%; 
+	width: 50%;
 
 }
 

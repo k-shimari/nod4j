@@ -224,11 +224,11 @@ public class Director {
 	}
 
 	private String getli(String val) {
-		return "            <li><a href=\"#\"> "+val+" </a></li>";
+		return "<li><a href=\"#\"> "+val+" </a></li>";
 	}
 
 	private String getli(int val) {
-		return "            <li><a href=\"#\"> "+Integer.toString(val)+" </a></li>";
+		return "<li><a href=\"#\"> "+Integer.toString(val)+" </a></li>";
 	}
 
 
