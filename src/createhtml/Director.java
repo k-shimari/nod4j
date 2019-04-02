@@ -89,24 +89,10 @@ public class Director {
 		FileLineDataId fldata =new FileLineDataId(fileIDMap.get(filename),Integer.toString(linenum));
 
 		/*lineが++とか+=とかを含んでいるとバグるので無理やり対策*/
-		line = convertspecialoperator(line, linevarMap, fldata,"++");
+		ConvertSpecialOperator cs= new ConvertSpecialOperator();
+		line = cs.convertspecialoperators(line, linevarMap, fldata);
 
-		if(line.contains("+=") &&linevarMap.get(fldata)!=null &&!linevarMap.get(fldata).isEmpty()) {
-			int minindex=999;
-			/*その行に登場する変数のうち一番先頭にあるものを検索*/
-			String replacevar="";
-			int index=-1;
-			for(String var : linevarMap.get(fldata)) {
-				if(line.indexOf(var) < line.indexOf("+=") && ((line.indexOf("+="))-line.indexOf(var))<minindex )  {
-					replacevar=var;
-					index=line.indexOf(var);
-				}
-			}
-			String s ="$$$ "+ replacevar + " = "+ replacevar + "+ $$$";
-			StringBuilder sb = new StringBuilder(line);
-			sb.replace(index, line.indexOf("+=")+2 , s);
-			line=sb.toString();
-		}
+
 
 
 		/*空行でなく，変数を含んでいる限りループ*/
@@ -121,12 +107,12 @@ public class Director {
 				}
 			}
 			/*先頭の変数の終端までを切り出して，変数部を出力用に置換*/
-			System.out.println(minvar);
-			System.out.println(minindex +" a "+minvar.length());
+			//System.out.println(minvar);
+			//System.out.println(minindex +" a "+minvar.length());
 			String tmpstr=line.substring(0, minindex+minvar.length());
 			tmpstr = tmpstr.replaceFirst(minvar, "<b>"+minvar+"</b>");
-			System.out.println("--"+tmpstr);
-			System.out.println(line);
+			//System.out.println("--"+tmpstr);
+			//System.out.println(line);
 			htmlLine+=tmpstr;
 			UpdateVarMap(minvar,linevarMap,fileIDMap.get(filename),Integer.toString(linenum));
 
@@ -155,56 +141,6 @@ public class Director {
 		 */
 		return htmlLine;
 	}
-
-	private String convertspecialoperator(String line, Map<FileLineDataId, List<String>> linevarMap,
-			FileLineDataId fldata,String operator ) {
-
-		if(line.contains(operator) &&linevarMap.get(fldata)!=null &&!linevarMap.get(fldata).isEmpty()) {
-			int minindex=999;
-			/*その行に登場する変数のうち一番先頭にあるものを検索*/
-			String replacevar="";
-			int index=0;
-			for(String var : linevarMap.get(fldata)) {
-				if(line.indexOf(var) < line.indexOf(operator) && ((line.indexOf(operator))-line.indexOf(var))<minindex )  {
-					replacevar=var;
-					index=line.indexOf(var);
-				}
-			}
-			String s = replaceSpecialOperator(replacevar,operator);
-
-			StringBuilder sb = new StringBuilder(line);
-			sb.replace(index, line.indexOf(operator)+2 , s);
-			line=sb.toString();
-		}
-		return line;
-	}
-
-
-
-	private String replaceSpecialOperator(String replacevar, String operator) {
-		String s="";
-		switch(operator){
-		case "++":
-			s="$$$ "+replacevar + " = "+ replacevar + " + 1 $$$";
-			break;
-		case "--":
-			s="$$$ "+replacevar + " = "+ replacevar + " - 1 $$$";
-			break;
-		case "+=":
-			s="$$$ "+replacevar + " = "+ replacevar + " +  $$$";
-			break;
-		case "-=":
-			s="$$$ "+replacevar + " = "+ replacevar + " -  $$$";
-			break;
-		case "*=":
-			s="$$$ "+replacevar + " = "+ replacevar + " *  $$$";
-			break;
-		}
-		return s;
-	}
-
-
-
 
 
 

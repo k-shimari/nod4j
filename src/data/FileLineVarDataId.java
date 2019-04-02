@@ -1,11 +1,12 @@
 package data;
 
 public class FileLineVarDataId {
+
 	private String fileID;
 	private String linenum;
 	private String fieldname;
 
-	public FileLineVarDataId(String fileID, String linenum, String fieldname) {
+	public FileLineVarDataId( String fileID, String linenum, String fieldname) {
 		this.fileID=fileID;
 		this.linenum=linenum;
 		this.fieldname=fieldname;
@@ -18,6 +19,7 @@ public class FileLineVarDataId {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+
 		result = prime * result + ((fileID == null) ? 0 : fileID.hashCode());
 		result = prime * result + ((linenum == null) ? 0 : linenum.hashCode());
 		result = prime * result + ((fieldname == null) ? 0 : fieldname.hashCode());
@@ -34,6 +36,7 @@ public class FileLineVarDataId {
 		if (getClass() != obj.getClass()) return false;
 
 		FileLineVarDataId other = (FileLineVarDataId) obj;
+
 		if (fileID == null) {
 			if (other.fileID != null) return false;
 		}

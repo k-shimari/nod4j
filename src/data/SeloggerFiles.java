@@ -22,7 +22,8 @@ public class SeloggerFiles {
 	private Map<FileLineVarDataId,DataIdVar> linevardetailMap=new HashMap<>();
 
 	private Map<String,String>fileIDMap = new HashMap<>();
-
+	private List<String>fieldIDList = new ArrayList<>();
+	private Map<String,List<Recentdata>>recentdataMap = new HashMap<>();
 
 
 
@@ -36,10 +37,15 @@ public class SeloggerFiles {
 			CreateDataIdVarMap();
 			CreateFileIDMap();
 
+
+			CreateRecentDataMap();
+
+
+
 			for (FileLineDataId key : linevarMap.keySet()) {
-			    System.out.println(key + " => " + linevarMap.get(key));
+				System.out.println(key + " => " + linevarMap.get(key));
 			}
-		/*
+			/*
 		  	for (String key : fileIDMap.keySet()) {
 			    System.out.println(key + " => " + fileIDMap.get(key));
 			}
@@ -47,12 +53,31 @@ public class SeloggerFiles {
 			for (FileLineVarDataId key : linevardetailMap.keySet()) {
 			    System.out.println(key + " => " + linevardetailMap.get(key));
 			}
-*/
+			 */
 
 		}
 		catch (IOException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
+		}
+	}
+
+
+
+	/*dataid に recentdata(time,thread,data)のリストを対応付ける*/
+	private void CreateRecentDataMap() {
+		for(String line :this.linesRecentdata) {
+			String element[]=line.split(",");
+
+			List<Recentdata> list =new ArrayList<>();
+			for (int i = 0; i < element.length / 3-1 ; i++) {
+				Recentdata r = new Recentdata();
+				r.timestamp=element[3*i+3];
+				r.thread=element[3*i+4];
+				r.data=element[3*i+5];
+				list.add(r);
+			}
+			recentdataMap.put(element[0],list);
 		}
 	}
 
@@ -82,6 +107,7 @@ public class SeloggerFiles {
 	public Map<String,String> getFileIDMap() {
 		return fileIDMap;
 	}
+
 
 
 	/**methods.txtをもとに，ファイルに対するそのIDを返すMapを作成
@@ -114,7 +140,9 @@ public class SeloggerFiles {
 			else {
 				continue;
 			}
-			/*ファイル・行に対する変数のリスト,変数の詳細リストを更新 or 生成*/
+			fieldIDList.add(elemdat[0]);
+			/*ファイル・行に対する変数のリスト,変数の詳細リストを更新 or 生成
+			 * elem[0] dataid, elem[1] filename, elem[3] line*/
 			if(linevarMap.get(new FileLineDataId(elemdat[1],elemdat[3]))!=null) {
 				/*変数がすでにその行にあるかどうか確認*/
 				if(linevardetailMap.containsKey(new FileLineVarDataId(elemdat[1],elemdat[3],fieldname))) {

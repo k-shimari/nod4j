@@ -1,7 +1,6 @@
 package data;
 
 public class FileLineDataId {
-
 	private String fileID;
 	private String linenum;
 
@@ -32,6 +31,7 @@ public class FileLineDataId {
 		if (getClass() != obj.getClass()) return false;
 
 		FileLineDataId other = (FileLineDataId) obj;
+
 		if (fileID == null) {
 			if (other.fileID != null) return false;
 		}
