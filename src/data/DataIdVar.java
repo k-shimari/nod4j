@@ -9,7 +9,7 @@ public class DataIdVar {
 
 	private String var;
 	private Integer count;
-	private List<String> dataidlist=new ArrayList<>();;
+	private List<DataID> dataidlist=new ArrayList<>();;
 /*
 	public DataIdVar(String filename, Integer linenum, String var, Integer count) {
 		this.filename = filename;
@@ -18,7 +18,7 @@ public class DataIdVar {
 		this.count = count;
 	}
 */
-	public DataIdVar(String var, Integer count, List<String> dataidlist) {
+	public DataIdVar(String var, Integer count, List<DataID> dataidlist) {
 		this.var = var;
 		this.count = count;
 		this.dataidlist= dataidlist;
@@ -42,7 +42,11 @@ public class DataIdVar {
         return count;
     }
 
-    public List<String> getDataIDList() {
+    public List<DataID> getDataIDList() {
         return dataidlist;
     }
+
+
+
+
 }

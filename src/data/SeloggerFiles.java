@@ -129,11 +129,24 @@ public class SeloggerFiles {
 			if(!linedat.contains("FieldName")) continue;
 			String elemdat[]=linedat.split(",");
 			String fieldname;
+			boolean isPut;
 			if(elemdat[5].contains("STATIC")) {
 				fieldname=elemdat[8].substring(FIELDNAMEINDEX);
+				if(elemdat[5].contains("PUT")) {
+					isPut=true;
+				}
+				else {
+					isPut=false;
+				}
 			}
 			else if(elemdat[5].contains("GET_INSTANCE_FIELD_RESULT")||elemdat[5].contains("PUT_INSTANCE_FIELD_VALUE")){
 				fieldname=elemdat[9].substring(FIELDNAMEINDEX);
+				if(elemdat[5].contains("PUT")) {
+					isPut=true;
+				}
+				else {
+					isPut=false;
+				}
 			}
 			else {
 				continue;
@@ -151,16 +164,16 @@ public class SeloggerFiles {
 				if(linevardetailMap.containsKey(new FileLineVarDataId(filename,linenum,fieldname))) {
 					DataIdVar dvar =linevardetailMap.get(new FileLineVarDataId(filename,linenum,fieldname));
 					Integer count=new Integer(dvar.getCount().intValue()+1);
-					List<String> dataidlist= dvar.getDataIDList();
-					dataidlist.add(dataid);
+					List<DataID> dataidlist= dvar.getDataIDList();
+					dataidlist.add(new DataID(dataid,isPut));
 					linevardetailMap.put(new FileLineVarDataId(filename,linenum,fieldname),new DataIdVar(fieldname,count,dataidlist));
 				}
 				else {
 					List<String> varlist=linevarMap.get(new FileLineDataId(filename,linenum));
 					varlist.add(fieldname);
 					linevarMap.put(new FileLineDataId(filename,linenum),varlist);
-					List<String> dataidlist = new ArrayList<>();
-					dataidlist.add(dataid);
+					List<DataID> dataidlist = new ArrayList<>();
+					dataidlist.add(new DataID (dataid,isPut));
 					linevardetailMap.put(new FileLineVarDataId(filename,linenum,fieldname),new DataIdVar(fieldname,1,dataidlist));
 				}
 			}
@@ -168,8 +181,9 @@ public class SeloggerFiles {
 				List<String> varlist = new ArrayList<>();
 				varlist.add(fieldname);
 				linevarMap.put(new FileLineDataId(filename,linenum),varlist);
-				List<String> dataidlist = new ArrayList<>();
-				dataidlist.add(dataid);
+				List<DataID> dataidlist = new ArrayList<>();
+				dataidlist.add(new DataID (dataid,isPut));
+
 				linevardetailMap.put(new FileLineVarDataId(filename,linenum,fieldname),new DataIdVar(fieldname,1,dataidlist));
 			}
 
