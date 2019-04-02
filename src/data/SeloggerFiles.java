@@ -140,28 +140,39 @@ public class SeloggerFiles {
 			else {
 				continue;
 			}
-			fieldIDList.add(elemdat[0]);
-			/*ファイル・行に対する変数のリスト,変数の詳細リストを更新 or 生成
-			 * elem[0] dataid, elem[1] filename, elem[3] line*/
-			if(linevarMap.get(new FileLineDataId(elemdat[1],elemdat[3]))!=null) {
+
+			/**/
+			String dataid=elemdat[0];
+			String filename=elemdat[1];
+			String linenum=elemdat[3];
+
+			fieldIDList.add(dataid);
+			/*ファイル・行に対する変数のリスト,変数の詳細リストを更新 or 生成*/
+			if(linevarMap.get(new FileLineDataId(filename,linenum))!=null) {
 				/*変数がすでにその行にあるかどうか確認*/
-				if(linevardetailMap.containsKey(new FileLineVarDataId(elemdat[1],elemdat[3],fieldname))) {
-					DataIdVar tmpdvar =linevardetailMap.get(new FileLineVarDataId(elemdat[1],elemdat[3],fieldname));
-					Integer count=new Integer(tmpdvar.getCount().intValue()+1);
-					linevardetailMap.put(new FileLineVarDataId(elemdat[1],elemdat[3],fieldname),new DataIdVar(fieldname,count));
+				if(linevardetailMap.containsKey(new FileLineVarDataId(filename,linenum,fieldname))) {
+					DataIdVar dvar =linevardetailMap.get(new FileLineVarDataId(filename,linenum,fieldname));
+					Integer count=new Integer(dvar.getCount().intValue()+1);
+					List<String> dataidlist= dvar.getDataIDList();
+					dataidlist.add(dataid);
+					linevardetailMap.put(new FileLineVarDataId(filename,linenum,fieldname),new DataIdVar(fieldname,count,dataidlist));
 				}
 				else {
-					List<String> tmplist=linevarMap.get(new FileLineDataId(elemdat[1],elemdat[3]));
-					tmplist.add(fieldname);
-					linevarMap.put(new FileLineDataId(elemdat[1],elemdat[3]),tmplist);
-					linevardetailMap.put(new FileLineVarDataId(elemdat[1],elemdat[3],fieldname),new DataIdVar(fieldname,1));
+					List<String> varlist=linevarMap.get(new FileLineDataId(filename,linenum));
+					varlist.add(fieldname);
+					linevarMap.put(new FileLineDataId(filename,linenum),varlist);
+					List<String> dataidlist = new ArrayList<>();
+					dataidlist.add(dataid);
+					linevardetailMap.put(new FileLineVarDataId(filename,linenum,fieldname),new DataIdVar(fieldname,1,dataidlist));
 				}
 			}
 			else {
-				List<String> tmplist = new ArrayList<>();
-				tmplist.add(fieldname);
-				linevarMap.put(new FileLineDataId(elemdat[1],elemdat[3]),tmplist);
-				linevardetailMap.put(new FileLineVarDataId(elemdat[1],elemdat[3],fieldname),new DataIdVar(fieldname,1));
+				List<String> varlist = new ArrayList<>();
+				varlist.add(fieldname);
+				linevarMap.put(new FileLineDataId(filename,linenum),varlist);
+				List<String> dataidlist = new ArrayList<>();
+				dataidlist.add(dataid);
+				linevardetailMap.put(new FileLineVarDataId(filename,linenum,fieldname),new DataIdVar(fieldname,1,dataidlist));
 			}
 
 
