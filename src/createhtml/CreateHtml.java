@@ -8,26 +8,26 @@ import data.SeloggerFiles;
 public class CreateHtml {
 	private SeloggerFiles selfiles;
 	private JavaFiles srcfiles;
-	private String outputdir;
+	private String dir;
 
-	public CreateHtml(SeloggerFiles selfiles, JavaFiles srcfiles, String outputdir) {
+	public CreateHtml(SeloggerFiles selfiles, JavaFiles srcfiles, String dir) {
 		this.selfiles=selfiles;
 		this.srcfiles=srcfiles;
-		this.outputdir=outputdir;
+		this.dir=dir;
 	}
 
 	public void start() {
 
 		System.out.println("Create html ...");
 		init();
-		PrintHtml printhtml= new PrintHtml(selfiles,srcfiles,outputdir);
+		PrintHtml printhtml= new PrintHtml(selfiles,srcfiles,dir);
 		printhtml.print();
 	}
 
 	private void init() {
 		// TODO 自動生成されたメソッド・スタブ
 		clean();
-		File newdir = new File("sample/output/");
+		File newdir = new File(dir+"/output");
 		newdir.mkdir();
 	}
 
@@ -35,7 +35,7 @@ public class CreateHtml {
 	 * 出力先のファイルを消す
 	 */
 	private void clean() {
-		File file = new File("sample/output/");
+		File file = new File(dir+"/output");
 		try {
 			recursiveDeleteFile(file);
 		} catch(Exception e) {

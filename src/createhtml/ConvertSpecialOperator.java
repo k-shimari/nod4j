@@ -33,6 +33,9 @@ public class ConvertSpecialOperator {
 					index=line.indexOf(var);
 				}
 			}
+			if(replacevar.isEmpty()){
+				return line;
+			}
 			String s = replaceSpecialOperator(replacevar,operator);
 
 			StringBuilder sb = new StringBuilder(line);

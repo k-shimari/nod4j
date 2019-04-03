@@ -11,12 +11,12 @@ public class PrintHtml {
 	//private final String OUTPUTDIR="sample/output/";
 	private SeloggerFiles selfiles;
 	private JavaFiles srcfiles;
-	private String outputdir;
-	public PrintHtml(SeloggerFiles selfiles,JavaFiles srcfiles, String outputdir) {
+	private String dir;
+	public PrintHtml(SeloggerFiles selfiles,JavaFiles srcfiles, String dir) {
 		// TODO 自動生成されたコンストラクター・スタブ
 		this.selfiles=selfiles;
 		this.srcfiles=srcfiles;
-		this.outputdir=outputdir;
+		this.dir=dir;
 	}
 	/**
 	 * ファイルごとにhtmlを生成
@@ -25,7 +25,7 @@ public class PrintHtml {
 		ArrayList<JavaFile> files = srcfiles.getSrcFiles();
 		for(JavaFile file :files){
 			HtmlBuilder hb = new HtmlBuilder(file.getFilename());
-			Director director = new Director(selfiles,hb,outputdir);
+			Director director = new Director(selfiles,hb,dir);
 			director.construct(file);
 			System.out.println(hb.gethtmlfilename() + "を作成しました。");
 		}

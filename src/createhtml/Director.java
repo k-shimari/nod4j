@@ -22,10 +22,10 @@ public class Director {
 	private static final String[] CSSs = { "../../resources/prettify.css", "../../resources/custom.css" };
 
 	// 実際はBuilderのサブクラスを引数に取る
-	public Director(SeloggerFiles selfiles, Builder builder,String outputdir) {
+	public Director(SeloggerFiles selfiles, Builder builder,String dir) {
 		this.selfiles = selfiles;
 		this.builder = builder;
-		this.outputdir=outputdir+"/output/";
+		this.outputdir=dir+"/output/";
 	}
 
 	// 文章の中身を作る

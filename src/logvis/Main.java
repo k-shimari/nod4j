@@ -16,11 +16,12 @@ public class Main {
 	 */
 	public static void main(String args[]){
 		try{
-			String outputdir=args[0];
+			//@TODO Pathに変える
+			String dir=args[0];
 			SeloggerFiles selfiles = new SeloggerFiles(args[0]);
-			JavaFiles srcfiles = new JavaFiles(outputdir,Arrays.copyOfRange(args, 1, args.length));
+			JavaFiles srcfiles = new JavaFiles(dir,Arrays.copyOfRange(args, 1, args.length));
 
-			CreateHtml cre = new CreateHtml(selfiles, srcfiles,outputdir);
+			CreateHtml cre = new CreateHtml(selfiles, srcfiles,dir);
 			cre.start();
 		}catch(IOException e){
 			System.err.println("Not correct Input");

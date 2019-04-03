@@ -105,6 +105,7 @@ public class HtmlBuilder extends Builder {
 	public void close(String dir) {
 		lines.add("</body></html>");
 		try  {
+			System.out.println(Paths.get(dir, htmlfilename));
 			Files.write(Paths.get(dir, htmlfilename),lines,Charset.forName("UTF-8"), StandardOpenOption.CREATE_NEW, StandardOpenOption.WRITE);
 		} catch(Exception e) {
 			e.printStackTrace();
