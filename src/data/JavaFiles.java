@@ -19,9 +19,9 @@ public class JavaFiles {
 	}
 
 
-	public JavaFiles(String[] files) throws IOException {
+	public JavaFiles(String dir, String[] files) throws IOException {
 		for(String file : files) {
-			this.files.add(new JavaFile(file,Files.readAllLines(Paths.get(file), StandardCharsets.UTF_8)));
+			this.files.add(new JavaFile(file,Files.readAllLines(Paths.get(dir+"/src/"+file), StandardCharsets.UTF_8)));
 		}
 	}
 
@@ -30,17 +30,11 @@ public class JavaFiles {
 	}
 
 	public class JavaFile{
-		String dir;
-		String file;
 		String filename;
-		//String htmlfilename;
 		List<String> lines;
 
 		public JavaFile(String file, List<String> lines) {
-			this.file=file;
-			this.dir=file.substring(0,file.lastIndexOf("/")+1);
-			this.filename= file.substring(file.lastIndexOf("/")+1,file.lastIndexOf("."));
-			//this.htmlfilename= file.substring(file.lastIndexOf("/")+1,file.lastIndexOf("."))+".html";
+			this.filename= file.substring(0, file.length()-5);
 			this.lines=lines;
 		}
 
@@ -52,12 +46,6 @@ public class JavaFiles {
 			return lines;
 		}
 
-		public String getDir() {
-			return dir;
-		}
 
-		public String getFile() {
-			return file;
-		}
 	}
 }

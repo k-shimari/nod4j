@@ -29,11 +29,11 @@ public class SeloggerFiles {
 
 	private static final int FIELDNAMEINDEX=10;
 
-	public SeloggerFiles(String recentdata, String dataids, String methods) {
+	public SeloggerFiles(String dir) {
 		try {
-			this.linesRecentdata = Files.readAllLines(Paths.get(recentdata), StandardCharsets.UTF_8);
-			this.linesDataids = Files.readAllLines(Paths.get(dataids), StandardCharsets.UTF_8);
-			this.linesMethods = Files.readAllLines(Paths.get(methods), StandardCharsets.UTF_8);
+			this.linesRecentdata = Files.readAllLines(Paths.get(dir+"/selogger/recentdata.txt"), StandardCharsets.UTF_8);
+			this.linesDataids = Files.readAllLines(Paths.get(dir+"/selogger/dataids.txt"), StandardCharsets.UTF_8);
+			this.linesMethods = Files.readAllLines(Paths.get(dir+"/selogger/methods.txt"), StandardCharsets.UTF_8);
 			CreateDataIdVarMap();
 			CreateFileIDMap();
 

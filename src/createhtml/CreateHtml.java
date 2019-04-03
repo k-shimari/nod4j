@@ -8,17 +8,19 @@ import data.SeloggerFiles;
 public class CreateHtml {
 	private SeloggerFiles selfiles;
 	private JavaFiles srcfiles;
+	private String outputdir;
 
-	public CreateHtml(SeloggerFiles selfiles, JavaFiles srcfiles) {
+	public CreateHtml(SeloggerFiles selfiles, JavaFiles srcfiles, String outputdir) {
 		this.selfiles=selfiles;
 		this.srcfiles=srcfiles;
+		this.outputdir=outputdir;
 	}
 
 	public void start() {
 
 		System.out.println("Create html ...");
 		init();
-		PrintHtml printhtml= new PrintHtml(selfiles,srcfiles);
+		PrintHtml printhtml= new PrintHtml(selfiles,srcfiles,outputdir);
 		printhtml.print();
 	}
 

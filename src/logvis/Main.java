@@ -16,11 +16,11 @@ public class Main {
 	 */
 	public static void main(String args[]){
 		try{
+			String outputdir=args[0];
+			SeloggerFiles selfiles = new SeloggerFiles(args[0]);
+			JavaFiles srcfiles = new JavaFiles(outputdir,Arrays.copyOfRange(args, 1, args.length));
 
-			SeloggerFiles selfiles = new SeloggerFiles(args[0], args[1], args[2]);
-			JavaFiles srcfiles = new JavaFiles(Arrays.copyOfRange(args, 3, args.length));
-
-			CreateHtml cre = new CreateHtml(selfiles, srcfiles);
+			CreateHtml cre = new CreateHtml(selfiles, srcfiles,outputdir);
 			cre.start();
 		}catch(IOException e){
 			System.err.println("Not correct Input");

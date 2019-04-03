@@ -14,7 +14,7 @@ import data.SeloggerFiles;
 public class Director {
 	private SeloggerFiles selfiles;
 	private Builder builder;
-	private static final String OUTPUTDIR = "sample/output/";
+	private String outputdir;
 	private static final String META = "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />";
 
 	//TODO JSとCSSのパス指定,自動でresourcesから取ってくる設定
@@ -22,15 +22,16 @@ public class Director {
 	private static final String[] CSSs = { "../../resources/prettify.css", "../../resources/custom.css" };
 
 	// 実際はBuilderのサブクラスを引数に取る
-	public Director(SeloggerFiles selfiles, Builder builder) {
+	public Director(SeloggerFiles selfiles, Builder builder,String outputdir) {
 		this.selfiles = selfiles;
 		this.builder = builder;
+		this.outputdir=outputdir+"/output/";
 	}
 
 	// 文章の中身を作る
 	public void construct(JavaFile file) {
 		constructHead(file);
-		builder.makeBody(file.getFilename() + ".java");
+		builder.makeBody(file.getFilename()+".java");
 		//builder.makeHeading("今日の目標");
 
 		constructCode(file);
@@ -46,7 +47,7 @@ public class Director {
 
 		builder.makeScript("</div>");
 		// TODO 出力先の指定
-		builder.close(OUTPUTDIR);
+		builder.close(outputdir);
 	}
 
 	private void constructHead(JavaFile file) {
@@ -69,6 +70,7 @@ public class Director {
 				builder.preMakeCode(line);
 			} else {
 				String htmlline = gethtmlLine(line, filename, linenum);
+				System.out.println(htmlline);
 				builder.makeCode(htmlline);
 			}
 		}
