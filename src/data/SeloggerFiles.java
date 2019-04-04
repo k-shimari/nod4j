@@ -1,7 +1,7 @@
 package data;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -28,12 +28,14 @@ public class SeloggerFiles {
 
 
 	private static final int FIELDNAMEINDEX=10;
+	private static final int NAMEINDEX=5;
+
 
 	public SeloggerFiles(String dir) {
 		try {
-			this.linesRecentdata = Files.readAllLines(Paths.get(dir,"selogger","recentdata.txt"), StandardCharsets.UTF_8);
-			this.linesDataids = Files.readAllLines(Paths.get(dir,"selogger","dataids.txt"), StandardCharsets.UTF_8);
-			this.linesMethods = Files.readAllLines(Paths.get(dir,"selogger","methods.txt"), StandardCharsets.UTF_8);
+			this.linesRecentdata = Files.readAllLines(Paths.get(dir,"selogger","recentdata.txt"), Charset.forName("SJIS"));
+			this.linesDataids = Files.readAllLines(Paths.get(dir,"selogger","dataids.txt"), Charset.forName("SJIS"));
+			this.linesMethods = Files.readAllLines(Paths.get(dir,"selogger","methods.txt"), Charset.forName("SJIS"));
 			CreateDataIdVarMap();
 			CreateFileIDMap();
 
@@ -41,11 +43,11 @@ public class SeloggerFiles {
 			CreateRecentDataMap();
 
 
-
+			/*
 			for (FileLineDataId key : linevarMap.keySet()) {
 				System.out.println(key + " => " + linevarMap.get(key));
 			}
-			/*
+
 		  	for (String key : fileIDMap.keySet()) {
 			    System.out.println(key + " => " + fileIDMap.get(key));
 			}
@@ -114,7 +116,9 @@ public class SeloggerFiles {
 	private void CreateFileIDMap() {
 		for(String line :this.linesMethods) {
 			String ele[]=line.split(",");
-			fileIDMap.put(ele[6], ele[0]);
+			if(ele.length>6) {
+				fileIDMap.put(ele[6], ele[0]);
+			}
 		}
 	}
 
@@ -126,11 +130,12 @@ public class SeloggerFiles {
 	 */
 	private void CreateDataIdVarMap() {
 		for(String linedat :this.linesDataids) {
-			if(!linedat.contains("FieldName")) continue;
 			String elemdat[]=linedat.split(",");
+			if(!linedat.contains("Name")) continue;
 			String fieldname;
 			boolean isPut;
-			if(elemdat[5].contains("STATIC")) {
+
+			if(elemdat[5].equals("GET_STATIC_FIELD")|elemdat[5].equals("PUT_STATIC_FIELD")) {
 				fieldname=elemdat[8].substring(FIELDNAMEINDEX);
 				if(elemdat[5].contains("PUT")) {
 					isPut=true;
@@ -139,9 +144,18 @@ public class SeloggerFiles {
 					isPut=false;
 				}
 			}
-			else if(elemdat[5].contains("GET_INSTANCE_FIELD_RESULT")||elemdat[5].contains("PUT_INSTANCE_FIELD_VALUE")){
+			else if(elemdat[5].equals("GET_INSTANCE_FIELD_RESULT")||elemdat[5].equals("PUT_INSTANCE_FIELD_VALUE")){
 				fieldname=elemdat[9].substring(FIELDNAMEINDEX);
 				if(elemdat[5].contains("PUT")) {
+					isPut=true;
+				}
+				else {
+					isPut=false;
+				}
+			}
+			else if(elemdat[5].equals("LOCAL_STORE")||elemdat[5].equals("LOCAL_LOAD")){
+				fieldname=elemdat[8].substring(NAMEINDEX);
+				if(elemdat[5].equals("LOCAL_STORE")) {
 					isPut=true;
 				}
 				else {
@@ -158,9 +172,9 @@ public class SeloggerFiles {
 			String linenum=elemdat[3];
 
 			fieldIDList.add(dataid);
-			/*ファイル・行に対する変数のリスト,変数の詳細リストを更新 or 生成*/
+			/* ファイル・行に対する変数のリスト,変数の詳細リストを更新 or 生成*/
 			if(linevarMap.get(new FileLineDataId(filename,linenum))!=null) {
-				/*変数がすでにその行にあるかどうか確認*/
+				/* 変数がすでにその行にあるかどうか確認*/
 				if(linevardetailMap.containsKey(new FileLineVarDataId(filename,linenum,fieldname))) {
 					DataIdVar dvar =linevardetailMap.get(new FileLineVarDataId(filename,linenum,fieldname));
 					Integer count=new Integer(dvar.getCount().intValue()+1);

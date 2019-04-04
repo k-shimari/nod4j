@@ -70,7 +70,6 @@ public class Director {
 				builder.preMakeCode(line);
 			} else {
 				String htmlline = gethtmlLine(line, filename, linenum);
-				System.out.println(htmlline);
 				builder.makeCode(htmlline);
 			}
 		}
@@ -85,10 +84,12 @@ public class Director {
 		Map<FileLineDataId, List<String>> linevarMap = selfiles.getLineVarMap();
 		ConvertSpecialOperator cs = new ConvertSpecialOperator();
 		line = cs.convertspecialoperators(line, linevarMap, fldata);
-
+		line =  line.replace("<", "&lt;");
+		line =  line.replace(">", "&gt;");
 		/*空行でなく，変数を含んでいる限りループ*/
 		String htmlLine = "";
 		boolean isContainsvar = false;
+
 		while (line.length() > 0 && linevarMap.get(fldata) != null && !linevarMap.get(fldata).isEmpty()) {
 			int minindex = 999;
 			String minvar = null;
@@ -116,6 +117,8 @@ public class Director {
 
 	private String addHtmlTag(String line, int minindex, String minvar, DataIdVar dvar,
 			boolean isPut) {
+
+		System.out.println(line);
 		CreateVarValue cre = new CreateVarValue(selfiles);
 		String replacestr = cre.createReplacestr(minvar, dvar, isPut);
 		String str = line.substring(0, minindex + minvar.length());
