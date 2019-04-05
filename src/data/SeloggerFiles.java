@@ -1,7 +1,6 @@
 package data;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -33,9 +32,9 @@ public class SeloggerFiles {
 
 	public SeloggerFiles(String dir) {
 		try {
-			this.linesRecentdata = Files.readAllLines(Paths.get(dir,"selogger","recentdata.txt"), Charset.forName("SJIS"));
-			this.linesDataids = Files.readAllLines(Paths.get(dir,"selogger","dataids.txt"), Charset.forName("SJIS"));
-			this.linesMethods = Files.readAllLines(Paths.get(dir,"selogger","methods.txt"), Charset.forName("SJIS"));
+			this.linesRecentdata = Files.readAllLines(Paths.get(dir,"selogger","recentdata.txt"));
+			this.linesDataids = Files.readAllLines(Paths.get(dir,"selogger","dataids.txt"));
+			this.linesMethods = Files.readAllLines(Paths.get(dir,"selogger","methods.txt"));
 			CreateDataIdVarMap();
 			CreateFileIDMap();
 

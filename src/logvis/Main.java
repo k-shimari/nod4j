@@ -24,6 +24,7 @@ public class Main {
 			CreateHtml cre = new CreateHtml(selfiles, srcfiles,dir);
 			cre.start();
 		}catch(IOException e){
+			
 			System.err.println("Not correct Input");
 		}
 	}

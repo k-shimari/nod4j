@@ -89,17 +89,19 @@ public class Director {
 		/*空行でなく，変数を含んでいる限りループ*/
 		String htmlLine = "";
 		boolean isContainsvar = false;
-
+		System.out.println(line);
 		while (line.length() > 0 && linevarMap.get(fldata) != null && !linevarMap.get(fldata).isEmpty()) {
 			int minindex = 999;
 			String minvar = null;
 			/*その行に登場する変数のうち一番先頭にあるものを検索*/
 			for (String var : linevarMap.get(fldata)) {
 				if (line.indexOf(var) < minindex) {
+					System.out.println(var+ "+"+ line.indexOf(var));
 					minindex = line.indexOf(var);
 					minvar = var;
 				}
 			}
+
 			DataIdVar dvar = selfiles.getLineVarDetailMap().get(new FileLineVarDataId(fileIDMap.get(filename), Integer.toString(linenum), minvar));
 
 			boolean isPut = dvar.getDataIDList().get(dvar.getDataIDList().size() - 1).isPut();
@@ -118,9 +120,11 @@ public class Director {
 	private String addHtmlTag(String line, int minindex, String minvar, DataIdVar dvar,
 			boolean isPut) {
 
-		System.out.println(line);
+
 		CreateVarValue cre = new CreateVarValue(selfiles);
 		String replacestr = cre.createReplacestr(minvar, dvar, isPut);
+System.out.println("-0----"+minvar);
+System.out.println("-1----"+line);
 		String str = line.substring(0, minindex + minvar.length());
 		str = "<li>" + str.replaceFirst(minvar, replacestr);
 		return str;

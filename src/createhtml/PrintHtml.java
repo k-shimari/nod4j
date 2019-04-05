@@ -25,6 +25,7 @@ public class PrintHtml {
 		ArrayList<JavaFile> files = srcfiles.getSrcFiles();
 		for(JavaFile file :files){
 			HtmlBuilder hb = new HtmlBuilder(file.getFilename());
+			System.out.println(hb.gethtmlfilename() + "を作成します。");
 			Director director = new Director(selfiles,hb,dir);
 			director.construct(file);
 			System.out.println(hb.gethtmlfilename() + "を作成しました。");
