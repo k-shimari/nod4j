@@ -44,7 +44,6 @@ ul.menu__second-level {
 	visibility: hidden;
 	opacity: 0;
 	z-index: 1;
-
 }
 
 ul.menu__third-level {
@@ -66,6 +65,10 @@ ul.menu__fourth-level {
 
 .menu__second-level li {
 	border-top: solid #111;
+	color: #fff;
+	background: rgb(7, 42, 36);
+	padding-right: 5px;
+	padding-left: 5px;
 }
 
 .menu__third-level li {

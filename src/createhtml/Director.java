@@ -18,7 +18,7 @@ public class Director {
 	private static final String META = "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />";
 
 	//TODO JSとCSSのパス指定,自動でresourcesから取ってくる設定
-	private static final String[] JSs = { "../../resources/test.js", "../../resources/prettify.js", };
+	private static final String[] JSs = { "../../resources/time-filter.js", "../../resources/prettify.js", };
 	private static final String[] CSSs = { "../../resources/prettify.css", "../../resources/custom.css" };
 
 	// 実際はBuilderのサブクラスを引数に取る
@@ -35,18 +35,14 @@ public class Director {
 		//builder.makeHeading("今日の目標");
 
 		constructCode(file);
-		constructDebugView();
+	//	constructDebugView();
 		constructOther();
 
 	}
 
 	private void constructOther() {
-		// TODO 自動生成されたメソッド・スタブ
-		builder.makeScript("<div>");
-		//builder.makeHeading("使うもの");
-
-		builder.makeScript("</div>");
-		// TODO 出力先の指定
+		String removecheck="<p><input type=\"button\" value=\"全部OFF！\" onclick=\"allcheckoff();\"></p>";
+		builder.makeScript(removecheck);
 		builder.close(outputdir);
 	}
 
@@ -84,8 +80,6 @@ public class Director {
 		Map<FileLineDataId, List<String>> linevarMap = selfiles.getLineVarMap();
 		ConvertSpecialOperator cs = new ConvertSpecialOperator();
 		line = cs.convertspecialoperators(line, linevarMap, fldata);
-		line =  line.replace("<", "&lt;");
-		line =  line.replace(">", "&gt;");
 		/*空行でなく，変数を含んでいる限りループ*/
 		String htmlLine = "";
 		boolean isContainsvar = false;
@@ -96,7 +90,7 @@ public class Director {
 			/*その行に登場する変数のうち一番先頭にあるものを検索*/
 			for (String var : linevarMap.get(fldata)) {
 				if (line.indexOf(var) < minindex) {
-					System.out.println(var+ "+"+ line.indexOf(var));
+					System.out.println(line+"+"+var+ "+"+ line.indexOf(var));
 					minindex = line.indexOf(var);
 					minvar = var;
 				}
@@ -123,8 +117,19 @@ public class Director {
 
 		CreateVarValue cre = new CreateVarValue(selfiles);
 		String replacestr = cre.createReplacestr(minvar, dvar, isPut);
-System.out.println("-0----"+minvar);
-System.out.println("-1----"+line);
+		System.out.println("-0----"+minvar);
+		System.out.println("-1----"+line);
+		System.out.println("repacestr:"+replacestr);
+		System.out.println(minindex+"+" + minvar.length());
+
+
+		line =  line.replace("<", "&lt;");
+		line =  line.replace(">", "&gt;");
+		line =  line.replace("&", "&amp;");
+		line =  line.replace("\"", "&quot;");
+		line =  line.replace("'", "&#39;");
+
+
 		String str = line.substring(0, minindex + minvar.length());
 		str = "<li>" + str.replaceFirst(minvar, replacestr);
 		return str;

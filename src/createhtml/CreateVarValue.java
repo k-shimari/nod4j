@@ -21,10 +21,20 @@ public class CreateVarValue {
 			return "<span style=\"background-color:#ffcc99\">"+minvar+"</span>";
 		}
 		else {
-			String replacestr = "</li><li class=\"menu__single\"><a href=\"#\" >" + minvar
-					+ "</a><ul class=\"menu__second-level\">";
+			String replacestr = "</li><li class=\"menu__single\">"
+					+ "<a href=\"#\" >"
+					+ minvar
+					+ "</a>"
+					+ "<ul class=\"menu__second-level\">";
 			replacestr+=addRecentdata(recentdatalist);
 			replacestr += "</ul></li>";
+
+			//replacestr =  replacestr.replace("<", "&lt;");
+			//replacestr =  replacestr.replace(">", "&gt;");
+			//replacestr =  replacestr.replace("&", "&amp;");
+			//replacestr =  replacestr.replace("\"", "&quot;");
+			//replacestr =  replacestr.replace("'", "&#39;");
+			replacestr =  replacestr.replace("$", "&#36;");
 			return replacestr;
 		}
 	}
@@ -33,7 +43,7 @@ public class CreateVarValue {
 		String str="";
 		Collections.reverse(recentdatalist);
 		for (Recentdata r : recentdatalist) {
-			str += getli(r.getData());
+			str += getli(r.getData(), r.getTimestamp());
 		}
 		return str;
 	}
@@ -50,11 +60,13 @@ public class CreateVarValue {
 		return dataid;
 	}
 
-	private String getli(String val) {
-		return "<li><a href=\"#\"> " + val + " </a></li>";
-	}
-
-	private String getli(int val) {
-		return "<li><a href=\"#\"> " + Integer.toString(val) + " </a></li>";
+	private String getli(String val, String timestamp) {
+		return "<li data-filter-id=\"" + timestamp + "\">"
+				+"<input type=\"checkbox\">"
+			//	+ "<a href=\"#\"> "
+				+ val
+			//	+ " </a>"
+			+"<input type=\"checkbox\">"
+				+ "</li>";
 	}
 }

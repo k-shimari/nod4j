@@ -63,7 +63,7 @@ public class HtmlBuilder extends Builder {
 		//lines.add("<div class=\"codebox\">");
 		//lines.add("<pre><code class=\" language-java linenums\">"+code);
 		//lines.add("<code class=\"prettyprint language-java linenums\">"+code);
-		lines.add("<pre class=\"prettyprint language-java linenums\"  style=\"box-sizing: border-box; word-break: break-all; overflow-wrap: break-word;\">"+code);
+		lines.add("<form name=\"codeview\" ><pre class=\"prettyprint language-java linenums\"  style=\"box-sizing: border-box; word-break: break-all; overflow-wrap: break-word;\">"+code);
 		//lines.add("<pre class=\"language-java linenums\">"+code);
 		//lines.add("<pre\">"+code);
 	}
@@ -78,6 +78,7 @@ public class HtmlBuilder extends Builder {
 		//lines.add("</code>");
 		//lines.add("</code></pre>");
 		lines.add("</pre>");
+		lines.add("</form>");
 		//lines.add("</div>");
 	}
 

@@ -154,6 +154,10 @@ public class SeloggerFiles {
 			}
 			else if(elemdat[5].equals("LOCAL_STORE")||elemdat[5].equals("LOCAL_LOAD")){
 				fieldname=elemdat[8].substring(NAMEINDEX);
+				/*SELoggerの使用で局所変数で名前がないものが取れるので無視*/
+				if(fieldname.equals("(Unavailable)")){
+					continue;
+				}
 				if(elemdat[5].equals("LOCAL_STORE")) {
 					isPut=true;
 				}

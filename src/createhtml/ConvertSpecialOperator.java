@@ -9,6 +9,8 @@ public class ConvertSpecialOperator {
 	public String convertspecialoperators(String line, Map<FileLineDataId, List<String>> linevarMap,
 			FileLineDataId fldata) {
 
+
+
 		String operator[]= {"++","--","+=","-=","*="};
 		for(String ope:operator) {
 			if(line.contains(ope)){
