@@ -61,12 +61,12 @@ public class CreateVarValue {
 	}
 
 	private String getli(String val, String timestamp) {
-		return "<li data-filter-id=\"" + timestamp + "\">"
-				+"<input type=\"checkbox\">"
-			//	+ "<a href=\"#\"> "
+		return "<li class=\"varvalue\" id=\""+ timestamp+ "\">"
+				+"<input name=\"start\" class=\"filterstart\" id=\"" + timestamp + "\" type=\"radio\" onclick=\"changefilterstart()\">"
+				//	+ "<a href=\"#\"> "
 				+ val
-			//	+ " </a>"
-			+"<input type=\"checkbox\">"
+				//	+ " </a>"
+				+"<input name=\"end\" class=\"filterend\" id=\"" + timestamp + "\" type=\"radio\" onclick=\"changefilterend()\">"
 				+ "</li>";
 	}
 }

@@ -18,7 +18,7 @@ public class Director {
 	private static final String META = "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />";
 
 	//TODO JSとCSSのパス指定,自動でresourcesから取ってくる設定
-	private static final String[] JSs = { "../../resources/time-filter.js", "../../resources/prettify.js", };
+	private static final String[] JSs = { "../../resources/time-filter.js", "../../resources/prettify.js", "../../resources/jquery.min.js"};
 	private static final String[] CSSs = { "../../resources/prettify.css", "../../resources/custom.css" };
 
 	// 実際はBuilderのサブクラスを引数に取る
@@ -41,7 +41,7 @@ public class Director {
 	}
 
 	private void constructOther() {
-		String removecheck="<p><input type=\"button\" value=\"全部OFF！\" onclick=\"allcheckoff();\"></p>";
+		String removecheck="<p><input type=\"button\" value=\"Reset\" onclick=\"allcheckoff();\"></p>";
 		builder.makeScript(removecheck);
 		builder.close(outputdir);
 	}
