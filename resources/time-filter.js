@@ -1,65 +1,100 @@
+/* 起動時 */
+$(document).ready(function () {
+	filterli()
+});
+setInterval(filterli, 1000);
+
+/*リロード・リセット時にボタンの状態を正しい状態にする */
+function checkbutton() {
+	var ElementsCount = document.codeview.elements.length;
+	for (i = 0; i < ElementsCount; i++) {
+		if (localStorage.var_start == 0 && localStorage.var_end == 0) {
+			document.codeview.elements[i].checked = false
+		}
+		else {
+			if (document.codeview.elements[i].name == "start") {
+				if (document.codeview.elements[i].id == localStorage.var_start) {
+					document.codeview.elements[i].checked = true
+				} else {
+					document.codeview.elements[i].checked = false
+				}
+			} else {
+				if (document.codeview.elements[i].id == localStorage.var_end) {
+					document.codeview.elements[i].checked = true
+				} else {
+					document.codeview.elements[i].checked = false
+				}
+			}
+		}
+
+	}
+}
 /* リセットボタン */
-var var_start = 0
-var var_end = 0
+
 function allcheckoff() {
 	var ElementsCount = document.codeview.elements.length;
 	for (i = 0; i < ElementsCount; i++) {
 		document.codeview.elements[i].checked = false;
 	}
-	var_start = 0
-	var_end = 0
+
+	localStorage.var_start = 0
+	localStorage.var_end = 0
+
 	$('.varvalue').each(function (i, elem) {
 		document.getElementById(elem.id).style.display = 'block';
 	});
 }
 
+
 /* ラジオボタン操作 */
 function changefilterstart(elem) {
 
 	/* 二度押しで解除 */
-	if (var_start ==  Number(elem.id)) {
-		elem.checked=false
-		var_start = 0
+	if (localStorage.var_start == Number(elem.id)) {
+		elem.checked = false
+		localStorage.var_start = 0
 	}
 	else {
-		var_start = Number(elem.id)
+
+		localStorage.var_start = Number(elem.id)
 	}
 	filterli()
 
 }
 
 function changefilterend(elem) {
-	if (var_end ==  Number(elem.id)) {
-		elem.checked=false
-		var_end = 0
+	if (localStorage.var_end == Number(elem.id)) {
+		elem.checked = false
+		localStorage.var_end = 0
 	}
 	else {
-		var_end = Number(elem.id)
+		localStorage.var_end = Number(elem.id)
 	}
 	filterli()
 }
 
 /* それぞれのボタンを表示するかのフィルタ処理 */
 function filterli() {
-	console.log(var_start)
-	console.log(var_end);
+	console.log("filterli")
 	$('.varvalue').each(function (i, elem) {
-		if (var_end == 0) {
-			if (elem.id < var_start) {
+		if (localStorage.var_end == 0) {
+			if (elem.id < localStorage.var_start) {
 				document.getElementById(elem.id).style.display = 'none';
 			} else {
 				document.getElementById(elem.id).style.display = 'block';
 			}
 		} else {
-			if (elem.id < var_start | elem.id > var_end) {
+			if (elem.id < localStorage.var_start | elem.id > localStorage.var_end) {
 				document.getElementById(elem.id).style.display = 'none';
 			} else {
 				document.getElementById(elem.id).style.display = 'block';
 			}
 		}
 	});
+	checkbutton()
 }
 
+/* TODO チェックを外せるラジオボタン*/
 /*https://norando.net/radio-cancel/*/
 function changebutton() {
 	var nowchecked = [];

@@ -1,6 +1,5 @@
 package createhtml;
 
-import java.util.Collections;
 import java.util.List;
 
 import data.DataIdVar;
@@ -41,7 +40,8 @@ public class CreateVarValue {
 
 	private String addRecentdata(List<Recentdata> recentdatalist) {
 		String str="";
-		Collections.reverse(recentdatalist);
+		/*上を古くするか新しくするか*/
+		//Collections.reverse(recentdatalist);
 		for (Recentdata r : recentdatalist) {
 			str += getli(r.getData(), r.getTimestamp());
 		}
