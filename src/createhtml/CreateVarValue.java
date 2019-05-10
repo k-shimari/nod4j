@@ -62,11 +62,11 @@ public class CreateVarValue {
 
 	private String getli(String val, String timestamp) {
 		return "<li class=\"varvalue\" id=\""+ timestamp+ "\">"
-				+"<input name=\"start\" class=\"filterstart\" id=\"" + timestamp + "\" type=\"radio\" onclick=\"changefilterstart()\">"
+				+"<input name=\"start\" class=\"filterstart\" id=\"" + timestamp + "\" type=\"radio\" onclick=\"changefilterstart(this)\">"
 				//	+ "<a href=\"#\"> "
 				+ val
 				//	+ " </a>"
-				+"<input name=\"end\" class=\"filterend\" id=\"" + timestamp + "\" type=\"radio\" onclick=\"changefilterend()\">"
+				+"<input name=\"end\" class=\"filterend\" id=\"" + timestamp + "\" type=\"radio\" onclick=\"changefilterend(this)\">"
 				+ "</li>";
 	}
 }
