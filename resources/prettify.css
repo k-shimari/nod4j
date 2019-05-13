@@ -21,7 +21,7 @@
 /* SPAN elements with the classes below are added by prettyprint. */
 /*.pln { color: #000 }  /* plain text */
 @media screen {
-  .str { color: #080 }  /* string content */
+  .str { color: #888 }  /* string content */
   .kwd { color: #008 }  /* a keyword */
   .com { color: #800 }  /* a comment */
 /*  .typ { color: #606 }  /* a type name */
