@@ -78,13 +78,13 @@ function filterli() {
 	console.log("filterli")
 	$('.varvalue').each(function (i, elem) {
 		if (localStorage.var_end == 0) {
-			if (elem.id < localStorage.var_start) {
+			if (Number(elem.id) < Number(localStorage.var_start)) {
 				document.getElementById(elem.id).style.display = 'none';
 			} else {
 				document.getElementById(elem.id).style.display = 'block';
 			}
 		} else {
-			if (elem.id < localStorage.var_start | elem.id > localStorage.var_end) {
+			if (Number(elem.id) < Number(localStorage.var_start) | Number(elem.id) > Number(localStorage.var_end)) {
 				document.getElementById(elem.id).style.display = 'none';
 			} else {
 				document.getElementById(elem.id).style.display = 'block';
