@@ -17,6 +17,17 @@ public class ConvertSpecialOperator {
 				line=convertspecialoperator(line, linevarMap, fldata,ope);
 			}
 		}
+		line = replacespecialletter(line);
+
+		return line;
+	}
+
+	private String replacespecialletter(String line) {
+		line =  line.replace("&", "&amp;");
+		line =  line.replace("<", "&lt;");
+		line =  line.replace(">", "&gt;");
+		line =  line.replace("\"", "&quot;");
+		line =  line.replace("'", "&#39;");
 		return line;
 	}
 

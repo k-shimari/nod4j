@@ -42,7 +42,7 @@ public class SeloggerFiles {
 			CreateRecentDataMap();
 
 
-			/*
+/*
 			for (FileLineDataId key : linevarMap.keySet()) {
 				System.out.println(key + " => " + linevarMap.get(key));
 			}
@@ -51,10 +51,10 @@ public class SeloggerFiles {
 			    System.out.println(key + " => " + fileIDMap.get(key));
 			}
 
-			for (FileLineVarDataId key : linevardetailMap.keySet()) {
+		  	for (FileLineVarDataId key : linevardetailMap.keySet()) {
 			    System.out.println(key + " => " + linevardetailMap.get(key));
 			}
-			 */
+*/
 
 		}
 		catch (IOException e) {

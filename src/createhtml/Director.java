@@ -83,14 +83,15 @@ public class Director {
 		/*空行でなく，変数を含んでいる限りループ*/
 		String htmlLine = "";
 		boolean isContainsvar = false;
-		System.out.println(line);
+		System.out.println(linenum+":"+line);
+
 		while (line.length() > 0 && linevarMap.get(fldata) != null && !linevarMap.get(fldata).isEmpty()) {
 			int minindex = 999;
 			String minvar = null;
 			/*その行に登場する変数のうち一番先頭にあるものを検索*/
 			for (String var : linevarMap.get(fldata)) {
 				if (line.indexOf(var) < minindex) {
-					System.out.println(line+"+"+var+ "+"+ line.indexOf(var));
+			//		System.out.println(line+"+"+var+ "+"+ line.indexOf(var));
 					minindex = line.indexOf(var);
 					minvar = var;
 				}
@@ -115,19 +116,14 @@ public class Director {
 			boolean isPut) {
 
 
+
 		CreateVarValue cre = new CreateVarValue(selfiles);
 		String replacestr = cre.createReplacestr(minvar, dvar, isPut);
-		System.out.println("-0----"+minvar);
-		System.out.println("-1----"+line);
-		System.out.println("repacestr:"+replacestr);
-		System.out.println(minindex+"+" + minvar.length());
+		//System.out.println("-0----"+minvar);
+		//System.out.println("-1----"+line);
+		//System.out.println("repacestr:"+replacestr);
+		//System.out.println(minindex+"+" + minvar.length());
 
-
-		line =  line.replace("<", "&lt;");
-		line =  line.replace(">", "&gt;");
-		line =  line.replace("&", "&amp;");
-		line =  line.replace("\"", "&quot;");
-		line =  line.replace("'", "&#39;");
 
 
 		String str = line.substring(0, minindex + minvar.length());
