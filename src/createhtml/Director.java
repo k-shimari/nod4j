@@ -18,30 +18,31 @@ public class Director {
 	private static final String META = "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />";
 
 	//TODO JSとCSSのパス指定,自動でresourcesから取ってくる設定
-	private static final String[] JSs = { "../../resources/jquery.min.js", "../../resources/time-filter.js", "../../resources/prettify.js"};
+	private static final String[] JSs = { "../../resources/jquery.min.js", "../../resources/time-filter.js",
+			"../../resources/prettify.js" };
 	private static final String[] CSSs = { "../../resources/prettify.css", "../../resources/custom.css" };
 
 	// 実際はBuilderのサブクラスを引数に取る
-	public Director(SeloggerFiles selfiles, Builder builder,String dir) {
+	public Director(SeloggerFiles selfiles, Builder builder, String dir) {
 		this.selfiles = selfiles;
 		this.builder = builder;
-		this.outputdir=dir+"/output/";
+		this.outputdir = dir + "/output/";
 	}
 
 	// 文章の中身を作る
 	public void construct(JavaFile file) {
 		constructHead(file);
-		builder.makeBody(file.getFilename()+".java");
+		builder.makeBody(file.getFilename() + ".java");
 		//builder.makeHeading("今日の目標");
 
 		constructCode(file);
-	//	constructDebugView();
+		//	constructDebugView();
 		constructOther();
 
 	}
 
 	private void constructOther() {
-		String removecheck="<p><input type=\"button\" value=\"Reset\" onclick=\"allcheckoff();\"></p>";
+		String removecheck = "<p><input type=\"button\" value=\"Reset\" onclick=\"allcheckoff();\"></p>";
 		builder.makeScript(removecheck);
 		builder.close(outputdir);
 	}
@@ -65,17 +66,39 @@ public class Director {
 			if (linenum++ == 0) {
 				builder.preMakeCode(line);
 			} else {
-				String htmlline = gethtmlLine(line, filename, linenum);
+				String htmlline = pregethtmlLine(line, filename, linenum);
 				builder.makeCode(htmlline);
 			}
 		}
 		builder.postMakeCode();
 	}
 
-	private String gethtmlLine(String line, String filename, int linenum) {
+	private String pregethtmlLine(String line, String filename, int linenum) {
 
-		Map<String, String> fileIDMap = selfiles.getFileIDMap();
-		FileLineDataId fldata = new FileLineDataId(fileIDMap.get(filename), Integer.toString(linenum));
+		Map<String, List<String>> dupfileIDMap = selfiles.getdupFileIDMap();
+		Map<String, String> fileIDMap;
+
+		if(dupfileIDMap.containsKey(filename)) {
+			String htmlLine="";
+			for(String s:dupfileIDMap.get(filename)) {
+				String li=gethtmlLine(line, filename, linenum, s);
+				if(li.length()>htmlLine.length()) {
+					htmlLine=li;
+				}
+			}
+
+			return htmlLine;
+		}
+		else {
+			fileIDMap = selfiles.getFileIDMap();
+			return gethtmlLine(line, filename, linenum, fileIDMap.get(filename));
+		}
+
+
+	}
+
+	private String gethtmlLine(String line, String filename, int linenum, String fileID) {
+		FileLineDataId fldata = new FileLineDataId(fileID, Integer.toString(linenum));
 		/*lineが++とか+=とかを含んでいるとバグるので無理やり対策*/
 		Map<FileLineDataId, List<String>> linevarMap = selfiles.getLineVarMap();
 		ConvertSpecialOperator cs = new ConvertSpecialOperator();
@@ -83,7 +106,7 @@ public class Director {
 		/*空行でなく，変数を含んでいる限りループ*/
 		String htmlLine = "";
 		boolean isContainsvar = false;
-		System.out.println(linenum+":"+line);
+		//System.out.println(linenum+":"+line);
 
 		while (line.length() > 0 && linevarMap.get(fldata) != null && !linevarMap.get(fldata).isEmpty()) {
 			int minindex = 999;
@@ -91,31 +114,29 @@ public class Director {
 			/*その行に登場する変数のうち一番先頭にあるものを検索*/
 			for (String var : linevarMap.get(fldata)) {
 				if (line.indexOf(var) < minindex) {
-			//		System.out.println(line+"+"+var+ "+"+ line.indexOf(var));
+					//		System.out.println(line+"+"+var+ "+"+ line.indexOf(var));
 					minindex = line.indexOf(var);
 					minvar = var;
 				}
 			}
 
-			DataIdVar dvar = selfiles.getLineVarDetailMap().get(new FileLineVarDataId(fileIDMap.get(filename), Integer.toString(linenum), minvar));
+			DataIdVar dvar = selfiles.getLineVarDetailMap()
+					.get(new FileLineVarDataId(fileID, Integer.toString(linenum), minvar));
 
 			boolean isPut = dvar.getDataIDList().get(dvar.getDataIDList().size() - 1).isPut();
 			htmlLine += addHtmlTag(line, minindex, minvar, dvar, isPut);
 
-			UpdateVarMap(dvar, minvar, linevarMap, fileIDMap.get(filename), Integer.toString(linenum), isPut);
+			UpdateVarMap(dvar, minvar, linevarMap, fileID, Integer.toString(linenum), isPut);
 
 			line = line.substring(minindex + minvar.length());
 			isContainsvar = true;
 		}
 		htmlLine = addTag(line, htmlLine, isContainsvar);
-
 		return htmlLine;
 	}
 
 	private String addHtmlTag(String line, int minindex, String minvar, DataIdVar dvar,
 			boolean isPut) {
-
-
 
 		CreateVarValue cre = new CreateVarValue(selfiles);
 		String replacestr = cre.createReplacestr(minvar, dvar, isPut);
@@ -123,8 +144,6 @@ public class Director {
 		//System.out.println("-1----"+line);
 		//System.out.println("repacestr:"+replacestr);
 		//System.out.println(minindex+"+" + minvar.length());
-
-
 
 		String str = line.substring(0, minindex + minvar.length());
 		str = "<li>" + str.replaceFirst(minvar, replacestr);
@@ -142,11 +161,6 @@ public class Director {
 		}
 		return htmlLine;
 	}
-
-
-
-
-
 
 	/*参照した変数の情報を消す*/
 	private void UpdateVarMap(DataIdVar dvar, String fieldname, Map<FileLineDataId, List<String>> linevarMap,
@@ -175,9 +189,5 @@ public class Director {
 
 		builder.postMakeDebugView();
 	}
-
-
-
-
 
 }
