@@ -21,6 +21,7 @@ public class Director {
 	private static final String[] JSs = { "../../resources/jquery.min.js", "../../resources/time-filter.js",
 			"../../resources/prettify.js" };
 	private static final String[] CSSs = { "../../resources/prettify.css", "../../resources/custom.css" };
+	private static final int LARGENUM = 99999;
 
 	// 実際はBuilderのサブクラスを引数に取る
 	public Director(SeloggerFiles selfiles, Builder builder, String dir) {
@@ -78,22 +79,20 @@ public class Director {
 		Map<String, List<String>> dupfileIDMap = selfiles.getdupFileIDMap();
 		Map<String, String> fileIDMap;
 
-		if(dupfileIDMap.containsKey(filename)) {
-			String htmlLine="";
-			for(String s:dupfileIDMap.get(filename)) {
-				String li=gethtmlLine(line, filename, linenum, s);
-				if(li.length()>htmlLine.length()) {
-					htmlLine=li;
+		if (dupfileIDMap.containsKey(filename)) {
+			String htmlLine = "";
+			for (String s : dupfileIDMap.get(filename)) {
+				String li = gethtmlLine(line, filename, linenum, s);
+				if (li.length() > htmlLine.length()) {
+					htmlLine = li;
 				}
 			}
 
 			return htmlLine;
-		}
-		else {
+		} else {
 			fileIDMap = selfiles.getFileIDMap();
 			return gethtmlLine(line, filename, linenum, fileIDMap.get(filename));
 		}
-
 
 	}
 
@@ -107,30 +106,47 @@ public class Director {
 		String htmlLine = "";
 		boolean isContainsvar = false;
 		//System.out.println(linenum+":"+line);
+		try {
+			while (line.length() > 0 && linevarMap.get(fldata) != null && !linevarMap.get(fldata).isEmpty()) {
+				int minindex = LARGENUM;
+				String minvar = "";
+				/*その行に登場する変数のうち一番先頭にあるものを検索*/
+				for (String var : linevarMap.get(fldata)) {
+					int index = line.indexOf(var);
+					if (index == -1) {
+						break;
+					}
+					/*文字列から変数名のみを検出する：TODO*/
+					while ((index + var.length()) < line.length()
+							&&(Character.isLetterOrDigit(line.charAt(index - 1))
+							|| Character.isLetterOrDigit(line.charAt(index + var.length())))) {
+						index = line.indexOf(var,index+1);
+					}
 
-		while (line.length() > 0 && linevarMap.get(fldata) != null && !linevarMap.get(fldata).isEmpty()) {
-			int minindex = 999;
-			String minvar = null;
-			/*その行に登場する変数のうち一番先頭にあるものを検索*/
-			for (String var : linevarMap.get(fldata)) {
-				if (line.indexOf(var) < minindex) {
-					//		System.out.println(line+"+"+var+ "+"+ line.indexOf(var));
-					minindex = line.indexOf(var);
-					minvar = var;
+					if (index < minindex) {
+						minindex = index;
+						minvar = var;
+					}
 				}
+
+				DataIdVar dvar = selfiles.getLineVarDetailMap()
+						.get(new FileLineVarDataId(fileID, Integer.toString(linenum), minvar));
+
+				if (dvar == null) break;
+				boolean isPut = dvar.getDataIDList().get(dvar.getDataIDList().size() - 1).isPut();
+				htmlLine += addHtmlTag(line, minindex, minvar, dvar, isPut);
+
+				UpdateVarMap(dvar, minvar, linevarMap, fileID, Integer.toString(linenum), isPut);
+
+				line = line.substring(minindex + minvar.length());
+				isContainsvar = true;
 			}
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			System.out.println(line);
 
-			DataIdVar dvar = selfiles.getLineVarDetailMap()
-					.get(new FileLineVarDataId(fileID, Integer.toString(linenum), minvar));
-
-			boolean isPut = dvar.getDataIDList().get(dvar.getDataIDList().size() - 1).isPut();
-			htmlLine += addHtmlTag(line, minindex, minvar, dvar, isPut);
-
-			UpdateVarMap(dvar, minvar, linevarMap, fileID, Integer.toString(linenum), isPut);
-
-			line = line.substring(minindex + minvar.length());
-			isContainsvar = true;
 		}
+
 		htmlLine = addTag(line, htmlLine, isContainsvar);
 		return htmlLine;
 	}
@@ -146,7 +162,10 @@ public class Director {
 		//System.out.println(minindex+"+" + minvar.length());
 
 		String str = line.substring(0, minindex + minvar.length());
-		str = "<li>" + str.replaceFirst(minvar, replacestr);
+		StringBuilder sb = new StringBuilder();
+		sb.append(str);
+		sb.replace(minindex, minindex + minvar.length(), replacestr);
+		str = "<li>" + sb.toString();
 		return str;
 	}
 
