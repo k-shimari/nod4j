@@ -18,8 +18,8 @@ public class Director {
 	private static final String META = "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />";
 
 	//TODO JSとCSSのパス指定,自動でresourcesから取ってくる設定
-	private static final String[] JSs = { "../../resources/jquery.min.js", "../../resources/time-filter.js",
-			"../../resources/prettify.js" };
+	private static final String[] JSs = { "../../resources/jquery.min.js",
+			"../../resources/prettify.js", "../../resources/time-filter.js" };
 	private static final String[] CSSs = { "../../resources/prettify.css", "../../resources/custom.css" };
 	private static final int LARGENUM = 99999;
 
@@ -33,31 +33,44 @@ public class Director {
 	// 文章の中身を作る
 	public void construct(JavaFile file) {
 		constructHead(file);
-		builder.makeBody(file.getFilename() + ".java");
-		//builder.makeHeading("今日の目標");
-
+		constructBody(file);
 		constructCode(file);
-		//	constructDebugView();
+		constructFooter(file);
 		constructOther();
 
 	}
 
-	private void constructOther() {
-		String removecheck = "<p><input type=\"button\" value=\"Reset\" onclick=\"allcheckoff();\"></p>";
-		builder.makeScript(removecheck);
-		builder.close(outputdir);
-	}
+
+
 
 	private void constructHead(JavaFile file) {
-		builder.makeHead(META);
+		builder.premakeHead(META);
 		builder.makeTitle(file.getFilename() + ".java");
-		for (String js : JSs) {
-			builder.makeJavaScript(js);
-		}
 		for (String CSS : CSSs) {
 			builder.makeStyle(CSS);
 		}
+		for (String js : JSs) {
+			builder.makeJavaScript(js);
+		}
+		builder.postmakeHead();
 	}
+	private void constructBody(JavaFile file) {
+		builder.makeBody(file.getFilename()+".java");
+
+	}
+	private void constructFooter(JavaFile file) {
+	//	builder.preMakeFooter();
+		//builder.makeBody(file.getFilename() + ".java");
+		String removecheck = "<p><input type=\"button\" value=\"Reset\" onclick=\"allcheckoff();\"></p>";
+		builder.makeScript(removecheck);
+	//	builder.postMakeFooter();
+	}
+
+	private void constructOther() {
+		builder.close(outputdir);
+	}
+
+
 
 	private void constructCode(JavaFile file) {
 
@@ -118,9 +131,9 @@ public class Director {
 					}
 					/*文字列から変数名のみを検出する：TODO*/
 					while ((index + var.length()) < line.length()
-							&&(Character.isLetterOrDigit(line.charAt(index - 1))
-							|| Character.isLetterOrDigit(line.charAt(index + var.length())))) {
-						index = line.indexOf(var,index+1);
+							&& (Character.isLetterOrDigit(line.charAt(index - 1))
+									|| Character.isLetterOrDigit(line.charAt(index + var.length())))) {
+						index = line.indexOf(var, index + 1);
 					}
 
 					if (index < minindex) {
@@ -132,7 +145,8 @@ public class Director {
 				DataIdVar dvar = selfiles.getLineVarDetailMap()
 						.get(new FileLineVarDataId(fileID, Integer.toString(linenum), minvar));
 
-				if (dvar == null) break;
+				if (dvar == null)
+					break;
 				boolean isPut = dvar.getDataIDList().get(dvar.getDataIDList().size() - 1).isPut();
 				htmlLine += addHtmlTag(line, minindex, minvar, dvar, isPut);
 
@@ -201,12 +215,4 @@ public class Director {
 			linevarMap.put(new FileLineDataId(fileID, linenum), list);
 		}
 	}
-
-	private void constructDebugView() {
-		builder.preMakeDebugView();
-		builder.makeDebugView("aaa");
-
-		builder.postMakeDebugView();
-	}
-
 }

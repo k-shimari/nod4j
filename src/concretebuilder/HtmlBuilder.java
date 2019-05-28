@@ -24,10 +24,14 @@ public class HtmlBuilder extends Builder {
 	}
 
 	@Override
-	public void makeHead(String head) {
+	public void premakeHead(String head) {
 		lines.add("<html><head>");
 		lines.add(head);
-
+	}
+	@Override
+	public void postmakeHead() {
+		lines.add("</head>");
+		lines.add("<body onLoad=\"prettyPrint()\">");
 	}
 
 	@Override
@@ -48,24 +52,12 @@ public class HtmlBuilder extends Builder {
 
 	@Override
 	public void makeBody(String title) {
-		lines.add("</head>");
-		lines.add("<body onLoad=\"prettyPrint()\">");
-		lines.add("<h1>" + title + "</h1>");
-	}
-
-	@Override
-	public void makeHeading(String heading) {
-		lines.add("<h3>" + heading + "</h3>");
+		lines.add("<h3>"+title+ "</h3>");
 	}
 
 	@Override
 	public void preMakeCode(String code) {
-		//lines.add("<div class=\"codebox\">");
-		//lines.add("<pre><code class=\" language-java linenums\">"+code);
-		//lines.add("<code class=\"prettyprint language-java linenums\">"+code);
 		lines.add("<form name=\"codeview\" id=\"codeview\"><pre class=\"prettyprint language-java linenums\"  style=\"box-sizing: border-box; word-break: break-all; overflow-wrap: break-word;\">"+code);
-		//lines.add("<pre class=\"language-java linenums\">"+code);
-		//lines.add("<pre\">"+code);
 	}
 
 	@Override
@@ -75,26 +67,18 @@ public class HtmlBuilder extends Builder {
 
 	@Override
 	public void postMakeCode() {
-		//lines.add("</code>");
-		//lines.add("</code></pre>");
 		lines.add("</pre>");
 		lines.add("</form>");
-		//lines.add("</div>");
 	}
 
 	@Override
-	public void preMakeDebugView() {
-		lines.add("<div class=\"debugbox\">");
+	public void preMakeFooter() {
+		lines.add("<footer class=\"site-footer\">");
 	}
 
 	@Override
-	public void makeDebugView(String code) {
-		lines.add(code);
-	}
-
-	@Override
-	public void postMakeDebugView() {
-		lines.add("</div>");
+	public void postMakeFooter() {
+		lines.add("</footer>");
 	}
 
 	@Override

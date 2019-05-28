@@ -5,7 +5,9 @@ public abstract class Builder {
 
     // 文書のタイトルを作る
 
-	public abstract void makeHead(String head);
+	public abstract void premakeHead(String head);
+
+	public abstract void postmakeHead();
 
 	public abstract void makeTitle(String title);
 
@@ -14,8 +16,7 @@ public abstract class Builder {
 	public abstract void makeStyle(String style);
 
 	public abstract void makeBody(String title) ;
-    // 見出しを作る
-    public abstract void makeHeading(String heading);
+
 
     // 文書の本文を作る
 	public abstract void preMakeCode(String code);
@@ -24,11 +25,9 @@ public abstract class Builder {
 
     public abstract void postMakeCode();
 
-    public abstract void preMakeDebugView();
+    public abstract void preMakeFooter();
 
-    public abstract void makeDebugView(String code);
-
-    public abstract void postMakeDebugView();
+    public abstract void postMakeFooter();
 
     public abstract void makeScript(String script);
 
