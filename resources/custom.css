@@ -17,7 +17,6 @@
     height: 50px;
     line-height: 50px;
 	background: black;
-
 	white-space: normal;
 */
 	white-space: none;
@@ -145,3 +144,20 @@ ul {
 .prettyprint {
 	word-wrap:normal
 }
+
+.codeform{
+	position: relative;/*©‘Š‘ÎˆÊ’u*/
+	padding-bottom: 30px;/*©footer‚Ì‚‚³*/
+	box-sizing: border-box;/*©‘S‚ÄŠÜ‚ß‚Ämin-height:100vh‚É*/
+
+}
+
+.site-footer{
+
+	width: 100%;
+	background: #fff;
+	position: fixed;
+	bottom: 0; 
+	
+}
+

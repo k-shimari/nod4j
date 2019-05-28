@@ -59,11 +59,11 @@ public class Director {
 
 	}
 	private void constructFooter(JavaFile file) {
-	//	builder.preMakeFooter();
+		builder.preMakeFooter();
 		//builder.makeBody(file.getFilename() + ".java");
 		String removecheck = "<p><input type=\"button\" value=\"Reset\" onclick=\"allcheckoff();\"></p>";
 		builder.makeScript(removecheck);
-	//	builder.postMakeFooter();
+		builder.postMakeFooter();
 	}
 
 	private void constructOther() {

@@ -17,7 +17,8 @@ public class CreateVarValue {
 		String dataid = setDataID(dvar, isPut);
 		List<Recentdata> recentdatalist = selfiles.getRecentDataMap().get(dataid);
 		if(recentdatalist==null) {
-			return "<span style=\"background-color:#ffcc99\">"+minvar+"</span>";
+		//	return "<span style=\"background-color:#ffcc99\">"+minvar+"</span>";
+			return minvar;
 		}
 		else {
 			String replacestr = "</li><li class=\"menu__single\">"

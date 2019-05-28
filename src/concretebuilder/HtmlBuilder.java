@@ -57,7 +57,7 @@ public class HtmlBuilder extends Builder {
 
 	@Override
 	public void preMakeCode(String code) {
-		lines.add("<form name=\"codeview\" id=\"codeview\"><pre class=\"prettyprint language-java linenums\"  style=\"box-sizing: border-box; word-break: break-all; overflow-wrap: break-word;\">"+code);
+		lines.add("<form name=\"codeview\" id=\"codeview\" class=\"codeform\"><pre class=\"prettyprint language-java linenums\"  style=\"box-sizing: border-box; word-break: break-all; overflow-wrap: break-word;\">"+code);
 	}
 
 	@Override
