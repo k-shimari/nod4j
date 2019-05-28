@@ -110,7 +110,13 @@ function filterparentli() {
 			$(elem).css('background', 'black');
 			$(elem).css('color', 'white');
 		}else{
-			$(elem).css('background', 'white');
+			$(elem).css('background', '#efe6e6');
+			target=elem.parentNode.parentNode.parentNode;
+			if(target.className== 'L1'|target.className== 'L3'|target.className== 'L5'|target.className== 'L7'|target.className== 'L9'){
+				$(elem).css('background', '#eee');
+			}else{
+				$(elem).css('background', 'white');
+			}
 			$(elem).css('color', 'black');	
 		}
 	});
