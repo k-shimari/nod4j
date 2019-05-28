@@ -16,9 +16,7 @@
     width: 25%;
     height: 50px;
     line-height: 50px;
-	background: rgb(29, 33, 19);
-	background: rgb(70, 53, 74);
-
+	background: black;
 
 	white-space: normal;
 */
@@ -30,7 +28,8 @@
 .menu>li a {
 	display: block;
 	color: #fff;
-	background: rgb(7, 42, 36);
+	/*	background: rgb(7, 42, 36);*/
+	background: black;
 	padding-right: 5px;
 	padding-left: 5px;
 }
@@ -66,7 +65,8 @@ ul.menu__fourth-level {
 .menu__second-level li {
 	border-top: solid #111;
 	color: #fff;
-	background: rgb(7, 42, 36);
+/*	background: rgb(7, 42, 36);*/
+	background: rgb(0, 0, 0);
 	padding-right: 5px;
 	padding-left: 5px;
 }
@@ -106,39 +106,29 @@ ul.menu__fourth-level {
 
 .menu>li.menu__single {
 	position: relative;
-/*
-	padding-right: 5px;
-	padding-left: 5px;
-	padding-top: 5px;
-	padding-bottom: 5px;
-*/
-	}
+	padding-inline-start: 0;
+}
 
-li.menu__single ul.menu__second-level {
+.menu>li.menu__single__notshow {
+	position: relative;
+	background: white;
+	color: black;	
+}
+
+
+
+ul.menu__second-level {
 	position: absolute;
-/*	top: 25px;
-	width: 100%;
-	background: #072A24;
-	-webkit-transition: all .2s ease;
-	transition: all .2s ease;
-*/
+
 	padding-inline-start: 0;
 }
 
 li.menu__single:hover ul.menu__second-level {
-/*	top: 25px;
-*/	visibility: visible;
+	visibility: visible;
 	opacity: 1;
-
 }
 
 ul {
-	/*
-	padding-right: 10px;
-	padding-left: 10px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	*/
 	list-style: none;
 	display: inline;
 	padding-inline-start: 0;
@@ -155,16 +145,3 @@ ul {
 .prettyprint {
 	word-wrap:normal
 }
-
-
-/*
-li:first-child {
-	white-space:none
-}
-
-ul:first-child {
-	white-space:none
-	display: inline;
-}
-*/
-

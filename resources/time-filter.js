@@ -75,24 +75,51 @@ function changefilterend(elem) {
 
 /* それぞれのボタンを表示するかのフィルタ処理 */
 function filterli() {
-	console.log("filterli")
+	$('.menu__single').each(function (i, elem) {
+		elem.className="menu__single__notshow"
+	});
+
 	$('.varvalue').each(function (i, elem) {
 		if (localStorage.var_end == 0) {
 			if (Number(elem.id) < Number(localStorage.var_start)) {
 				document.getElementById(elem.id).style.display = 'none';
 			} else {
 				document.getElementById(elem.id).style.display = 'block';
+				target=elem.parentNode.parentNode;
+				target.className="menu__single";
 			}
 		} else {
 			if (Number(elem.id) < Number(localStorage.var_start) | Number(elem.id) > Number(localStorage.var_end)) {
 				document.getElementById(elem.id).style.display = 'none';
 			} else {
 				document.getElementById(elem.id).style.display = 'block';
+				target=elem.parentNode.parentNode;
+				target.className="menu__single";
 			}
 		}
 	});
+
+	filterparentli()
 	checkbutton()
 }
+
+
+function filterparentli() {
+	$('.var').each(function (i, elem) {	
+		if(elem.parentNode.className == 'menu__single'){
+			$(elem).css('background', 'black');
+			$(elem).css('color', 'white');
+		}else{
+			$(elem).css('background', 'white');
+			$(elem).css('color', 'black');	
+		}
+	});
+}
+
+
+
+
+
 
 /* TODO チェックを外せるラジオボタン*/
 /*https://norando.net/radio-cancel/*/

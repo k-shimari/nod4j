@@ -21,7 +21,7 @@ public class CreateVarValue {
 		}
 		else {
 			String replacestr = "</li><li class=\"menu__single\">"
-					+ "<a href=\"#\" >"
+					+ "<a class=\"var\">"
 					+ minvar
 					+ "</a>"
 					+ "<ul class=\"menu__second-level\">";
