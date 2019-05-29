@@ -40,9 +40,6 @@ public class Director {
 
 	}
 
-
-
-
 	private void constructHead(JavaFile file) {
 		builder.premakeHead(META);
 		builder.makeTitle(file.getFilename() + ".java");
@@ -54,10 +51,12 @@ public class Director {
 		}
 		builder.postmakeHead();
 	}
+
 	private void constructBody(JavaFile file) {
-		builder.makeBody(file.getFilename()+".java");
+		builder.makeBody(file.getFilename() + ".java");
 
 	}
+
 	private void constructFooter(JavaFile file) {
 		builder.preMakeFooter();
 		//builder.makeBody(file.getFilename() + ".java");
@@ -69,8 +68,6 @@ public class Director {
 	private void constructOther() {
 		builder.close(outputdir);
 	}
-
-
 
 	private void constructCode(JavaFile file) {
 
@@ -91,16 +88,14 @@ public class Director {
 
 		Map<String, List<String>> dupfileIDMap = selfiles.getdupFileIDMap();
 		Map<String, String> fileIDMap;
-
-		if (dupfileIDMap.containsKey(filename)) {
+		if (dupfileIDMap.containsKey(filename) && dupfileIDMap.get(filename).size() != 0) {
 			String htmlLine = "";
 			for (String s : dupfileIDMap.get(filename)) {
 				String li = gethtmlLine(line, filename, linenum, s);
-				if (li.length() > htmlLine.length()) {
+				if (li.length() >= htmlLine.length()) {
 					htmlLine = li;
 				}
 			}
-
 			return htmlLine;
 		} else {
 			fileIDMap = selfiles.getFileIDMap();
@@ -118,7 +113,7 @@ public class Director {
 		/*空行でなく，変数を含んでいる限りループ*/
 		String htmlLine = "";
 		boolean isContainsvar = false;
-		//System.out.println(linenum+":"+line);
+		//System.out.println(linenum + ":" + line);
 		try {
 			while (line.length() > 0 && linevarMap.get(fldata) != null && !linevarMap.get(fldata).isEmpty()) {
 				int minindex = LARGENUM;
@@ -141,7 +136,6 @@ public class Director {
 						minvar = var;
 					}
 				}
-
 				DataIdVar dvar = selfiles.getLineVarDetailMap()
 						.get(new FileLineVarDataId(fileID, Integer.toString(linenum), minvar));
 
