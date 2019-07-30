@@ -5,9 +5,9 @@
 *.ear
 
 # Eclipse
-.project
-.classpath
-.settings
+#.project
+#.classpath
+#.settings
 
 # Idea
 .idea
