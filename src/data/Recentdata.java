@@ -1,14 +1,19 @@
 package data;
 
 public class Recentdata {
+	private String data;
 	private String timestamp;
 	private String thread;
-	private String data;
 
-	public Recentdata(String timestamp, String thread, String data) {
+
+	public Recentdata(String data, String timestamp, String thread) {
+		this.data = data;
 		this.timestamp = timestamp;
 		this.thread = thread;
-		this.data = data;
+	}
+
+	public String getData() {
+		return data;
 	}
 
 	public String getTimestamp() {
@@ -17,7 +22,5 @@ public class Recentdata {
 	public String getThread() {
 		return thread;
 	}
-	public String getData() {
-		return data;
-	}
+
 }

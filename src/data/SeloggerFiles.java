@@ -58,6 +58,7 @@ public class SeloggerFiles {
 	}
 
 	/*dataid に recentdata(time,thread,data)のリストを対応付ける*/
+	//TODO dataにStringで,が入った時の例外処理を作る
 	private void CreateRecentDataMap() {
 		for (String line : this.linesRecentdata) {
 			String element[] = line.split(",");
