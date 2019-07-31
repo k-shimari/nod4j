@@ -5,8 +5,8 @@ public class FileLineDataId {
 	private String linenum;
 
 	public FileLineDataId(String fileID, String linenum) {
-		this.fileID=fileID;
-		this.linenum=linenum;
+		this.fileID = fileID;
+		this.linenum = linenum;
 	}
 
 	/*https://qiita.com/nogitsune413/items/76a6e900e58ef949cc06
@@ -26,21 +26,25 @@ public class FileLineDataId {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (getClass() != obj.getClass()) return false;
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
 
 		FileLineDataId other = (FileLineDataId) obj;
 
 		if (fileID == null) {
-			if (other.fileID != null) return false;
-		}
-		else if (!fileID.equals(other.fileID)) return false;
+			if (other.fileID != null)
+				return false;
+		} else if (!fileID.equals(other.fileID))
+			return false;
 
 		if (linenum == null) {
-			if (other.linenum != null) return false;
-		}
-		else if (!linenum.equals(other.linenum)) {
+			if (other.linenum != null)
+				return false;
+		} else if (!linenum.equals(other.linenum)) {
 			return false;
 		}
 		return true;

@@ -1,7 +1,5 @@
 package concretebuilder;
 
-
-
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -28,6 +26,7 @@ public class HtmlBuilder extends Builder {
 		lines.add("<html><head>");
 		lines.add(head);
 	}
+
 	@Override
 	public void postmakeHead() {
 		lines.add("</head>");
@@ -42,22 +41,24 @@ public class HtmlBuilder extends Builder {
 
 	@Override
 	public void makeStyle(String style) {
-		lines.add("<link href="+style + " rel=\"stylesheet\" />");
+		lines.add("<link href=" + style + " rel=\"stylesheet\" />");
 	}
 
 	@Override
 	public void makeJavaScript(String js) {
-		lines.add("<script src="+js + "></script>");
+		lines.add("<script src=" + js + "></script>");
 	}
 
 	@Override
 	public void makeBody(String title) {
-		lines.add("<h3>"+title+ "</h3>");
+		lines.add("<h3>" + title + "</h3>");
 	}
 
 	@Override
 	public void preMakeCode(String code) {
-		lines.add("<form name=\"codeview\" id=\"codeview\" class=\"codeform\"><pre class=\"prettyprint language-java linenums\"  style=\"box-sizing: border-box; word-break: break-all; overflow-wrap: break-word;\">"+code);
+		lines.add(
+				"<form name=\"codeview\" id=\"codeview\" class=\"codeform\"><pre class=\"prettyprint language-java linenums\"  style=\"box-sizing: border-box; word-break: break-all; overflow-wrap: break-word;\">"
+						+ code);
 	}
 
 	@Override
@@ -89,9 +90,10 @@ public class HtmlBuilder extends Builder {
 	@Override
 	public void close(String dir) {
 		lines.add("</body></html>");
-		try  {
-			Files.write(Paths.get(dir, htmlfilename),lines,Charset.forName("UTF-8"), StandardOpenOption.CREATE_NEW, StandardOpenOption.WRITE);
-		} catch(Exception e) {
+		try {
+			Files.write(Paths.get(dir, htmlfilename), lines, Charset.forName("UTF-8"), StandardOpenOption.CREATE_NEW,
+					StandardOpenOption.WRITE);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -99,11 +101,5 @@ public class HtmlBuilder extends Builder {
 	public String gethtmlfilename() {
 		return htmlfilename;
 	}
-
-
-
-
-
-
 
 }

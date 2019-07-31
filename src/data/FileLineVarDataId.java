@@ -6,10 +6,10 @@ public class FileLineVarDataId {
 	private String linenum;
 	private String fieldname;
 
-	public FileLineVarDataId( String fileID, String linenum, String fieldname) {
-		this.fileID=fileID;
-		this.linenum=linenum;
-		this.fieldname=fieldname;
+	public FileLineVarDataId(String fileID, String linenum, String fieldname) {
+		this.fileID = fileID;
+		this.linenum = linenum;
+		this.fieldname = fieldname;
 	}
 
 	/*https://qiita.com/nogitsune413/items/76a6e900e58ef949cc06
@@ -31,26 +31,32 @@ public class FileLineVarDataId {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (getClass() != obj.getClass()) return false;
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
 
 		FileLineVarDataId other = (FileLineVarDataId) obj;
 
 		if (fileID == null) {
-			if (other.fileID != null) return false;
-		}
-		else if (!fileID.equals(other.fileID)) return false;
+			if (other.fileID != null)
+				return false;
+		} else if (!fileID.equals(other.fileID))
+			return false;
 
 		if (linenum == null) {
-			if (other.linenum != null) return false;
-		}
-		else if (!linenum.equals(other.linenum)) return false;
+			if (other.linenum != null)
+				return false;
+		} else if (!linenum.equals(other.linenum))
+			return false;
 
 		if (fieldname == null) {
-			if (other.fieldname != null) return false;
-		}
-		else if (!fieldname.equals(other.fieldname)) return false;
+			if (other.fieldname != null)
+				return false;
+		} else if (!fieldname.equals(other.fieldname))
+			return false;
 		return true;
 	}
 }

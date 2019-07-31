@@ -5,7 +5,6 @@ public class Recentdata {
 	private String timestamp;
 	private String thread;
 
-
 	public Recentdata(String data, String timestamp, String thread) {
 		this.data = data;
 		this.timestamp = timestamp;
@@ -19,6 +18,7 @@ public class Recentdata {
 	public String getTimestamp() {
 		return timestamp;
 	}
+
 	public String getThread() {
 		return thread;
 	}

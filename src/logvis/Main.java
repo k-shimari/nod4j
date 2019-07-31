@@ -14,17 +14,17 @@ public class Main {
 	 * args[2]=methods.txt
 	 * args[3..]=srcFiles or dir
 	 */
-	public static void main(String args[]){
-		try{
+	public static void main(String args[]) {
+		try {
 			//@TODO Pathに変える
-			String dir=args[0];
+			String dir = args[0];
 			SeloggerFiles selfiles = new SeloggerFiles(args[0]);
-			JavaFiles srcfiles = new JavaFiles(dir,Arrays.copyOfRange(args, 1, args.length));
+			JavaFiles srcfiles = new JavaFiles(dir, Arrays.copyOfRange(args, 1, args.length));
 
-			CreateHtml cre = new CreateHtml(selfiles, srcfiles,dir);
+			CreateHtml cre = new CreateHtml(selfiles, srcfiles, dir);
 			cre.start();
-		}catch(IOException e){
-			
+		} catch (IOException e) {
+
 			System.err.println("Not correct Input");
 		}
 	}

@@ -11,23 +11,23 @@ public class CreateHtml {
 	private String dir;
 
 	public CreateHtml(SeloggerFiles selfiles, JavaFiles srcfiles, String dir) {
-		this.selfiles=selfiles;
-		this.srcfiles=srcfiles;
-		this.dir=dir;
+		this.selfiles = selfiles;
+		this.srcfiles = srcfiles;
+		this.dir = dir;
 	}
 
 	public void start() {
 
 		System.out.println("Create html ...");
 		init();
-		PrintHtml printhtml= new PrintHtml(selfiles,srcfiles,dir);
+		PrintHtml printhtml = new PrintHtml(selfiles, srcfiles, dir);
 		printhtml.print();
 	}
 
 	private void init() {
 		// TODO 自動生成されたメソッド・スタブ
 		clean();
-		File newdir = new File(dir+"/output");
+		File newdir = new File(dir + "/output");
 		newdir.mkdir();
 	}
 
@@ -35,15 +35,15 @@ public class CreateHtml {
 	 * 出力先のファイルを消す
 	 */
 	private void clean() {
-		File file = new File(dir+"/output");
+		File file = new File(dir + "/output");
 		try {
 			recursiveDeleteFile(file);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void recursiveDeleteFile(final File file) throws Exception{
+	private void recursiveDeleteFile(final File file) throws Exception {
 		// TODO 自動生成されたメソッド・スタブ
 		if (!file.exists()) {
 			return;
