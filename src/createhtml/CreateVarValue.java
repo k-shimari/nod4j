@@ -16,17 +16,16 @@ public class CreateVarValue {
 	public String createReplacestr(String minvar, DataIdVar dvar, boolean isPut) {
 		String dataid = setDataID(dvar, isPut);
 		List<Recentdata> recentdatalist = selfiles.getRecentDataMap().get(dataid);
-		if(recentdatalist==null) {
-		//	return "<span style=\"background-color:#ffcc99\">"+minvar+"</span>";
+		if (recentdatalist == null) {
+			//	return "<span style=\"background-color:#ffcc99\">"+minvar+"</span>";
 			return minvar;
-		}
-		else {
+		} else {
 			String replacestr = "</li><li class=\"menu__single\">"
 					+ "<a class=\"var\">"
 					+ minvar
 					+ "</a>"
 					+ "<ul class=\"menu__second-level\">";
-			replacestr+=addRecentdata(recentdatalist);
+			replacestr += addRecentdata(recentdatalist);
 			replacestr += "</ul></li>";
 
 			//replacestr =  replacestr.replace("<", "&lt;");
@@ -34,13 +33,13 @@ public class CreateVarValue {
 			//replacestr =  replacestr.replace("&", "&amp;");
 			//replacestr =  replacestr.replace("\"", "&quot;");
 			//replacestr =  replacestr.replace("'", "&#39;");
-			replacestr =  replacestr.replace("$", "&#36;");
+			replacestr = replacestr.replace("$", "&#36;");
 			return replacestr;
 		}
 	}
 
 	private String addRecentdata(List<Recentdata> recentdatalist) {
-		String str="";
+		String str = "";
 		/*上を古くするか新しくするか*/
 		//Collections.reverse(recentdatalist);
 		for (Recentdata r : recentdatalist) {
@@ -48,8 +47,6 @@ public class CreateVarValue {
 		}
 		return str;
 	}
-
-
 
 	private String setDataID(DataIdVar dvar, boolean isPut) {
 		String dataid;
@@ -62,12 +59,14 @@ public class CreateVarValue {
 	}
 
 	private String getli(String val, String timestamp) {
-		return "<li class=\"varvalue\" id=\""+ timestamp+ "\">"
-				+"<input name=\"start\" class=\"filterstart\" id=\"" + timestamp + "\" type=\"radio\" onclick=\"changefilterstart(this)\">"
+		return "<li class=\"varvalue\" id=\"" + timestamp + "\">"
+				+ "<input name=\"start\" class=\"filterstart\" id=\"" + timestamp
+				+ "\" type=\"radio\" onclick=\"changefilterstart(this)\">"
 				//	+ "<a href=\"#\"> "
 				+ val
 				//	+ " </a>"
-				+"<input name=\"end\" class=\"filterend\" id=\"" + timestamp + "\" type=\"radio\" onclick=\"changefilterend(this)\">"
+				+ "<input name=\"end\" class=\"filterend\" id=\"" + timestamp
+				+ "\" type=\"radio\" onclick=\"changefilterend(this)\">"
 				+ "</li>";
 	}
 }

@@ -12,21 +12,23 @@ public class PrintHtml {
 	private SeloggerFiles selfiles;
 	private JavaFiles srcfiles;
 	private String dir;
-	public PrintHtml(SeloggerFiles selfiles,JavaFiles srcfiles, String dir) {
+
+	public PrintHtml(SeloggerFiles selfiles, JavaFiles srcfiles, String dir) {
 		// TODO 自動生成されたコンストラクター・スタブ
-		this.selfiles=selfiles;
-		this.srcfiles=srcfiles;
-		this.dir=dir;
+		this.selfiles = selfiles;
+		this.srcfiles = srcfiles;
+		this.dir = dir;
 	}
+
 	/**
 	 * ファイルごとにhtmlを生成
 	 */
 	public void print() {
 		ArrayList<JavaFile> files = srcfiles.getSrcFiles();
-		for(JavaFile file :files){
+		for (JavaFile file : files) {
 			HtmlBuilder hb = new HtmlBuilder(file.getFilename());
 			System.out.println(hb.gethtmlfilename() + "を作成します。");
-			Director director = new Director(selfiles,hb,dir);
+			Director director = new Director(selfiles, hb, dir);
 			director.construct(file);
 			System.out.println(hb.gethtmlfilename() + "を作成しました。");
 		}

@@ -8,9 +8,11 @@ public class DataID {
 		this.dataid = dataid;
 		this.isPut = isPut;
 	}
+
 	public String getDataid() {
 		return dataid;
 	}
+
 	public boolean isPut() {
 		return isPut;
 	}
