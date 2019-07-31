@@ -49,7 +49,7 @@ public class SeloggerFiles {
 								  	for (FileLineVarDataId key : linevardetailMap.keySet()) {
 									    System.out.println(key + " => " + linevardetailMap.get(key));
 									}
-						*/
+			 */
 
 		} catch (IOException e) {
 			// TODO 自動生成された catch ブロック
@@ -136,52 +136,52 @@ public class SeloggerFiles {
 		System.out.println(this.linesDataids.size());
 		for (String linedat : this.linesDataids) {
 			String elemdat[] = linedat.split(",");
+
 			if (!linedat.contains("Name"))
 				continue;
-			String fieldname;
-			boolean isPut;
-			if (elemdat[1].equals("134")) {
-				System.out.println(elemdat[3]);
-			}
-			if (elemdat[5].equals("GET_STATIC_FIELD") | elemdat[5].equals("PUT_STATIC_FIELD")) {
-				fieldname = elemdat[8].substring(FIELDNAMEINDEX);
-				if (elemdat[5].contains("PUT")) {
-					isPut = true;
-				} else {
-					isPut = false;
-				}
-			} else if (elemdat[5].equals("GET_INSTANCE_FIELD_RESULT")
-					|| elemdat[5].equals("PUT_INSTANCE_FIELD_VALUE")) {
-				fieldname = elemdat[9].substring(FIELDNAMEINDEX);
-				if (elemdat[5].contains("PUT")) {
-					isPut = true;
-				} else {
-					isPut = false;
-				}
-			} else if (elemdat[5].equals("LOCAL_STORE") || elemdat[5].equals("LOCAL_LOAD")) {
-				fieldname = elemdat[8].substring(NAMEINDEX);
-				/*SELoggerの使用で局所変数で名前がないものが取れるので無視*/
-				if (fieldname.equals("(Unavailable)")) {
-					continue;
-				}
-				if (elemdat[5].equals("LOCAL_STORE")) {
-					isPut = true;
-				} else {
-					isPut = false;
-				}
-			} else {
-				continue;
-			}
+			/* fieldnameとそれがPUT命令かどうかを取得 */
+			FieldInfo fi=getfi(elemdat);
+			if(fi.getisFail()) continue;
 
-			/**/
 			String dataid = elemdat[0];
 			String fileID = elemdat[1];
 			String linenum = elemdat[3];
-
-			createlinevardetailMap(fieldname, isPut, dataid, fileID, linenum);
+			createlinevardetailMap(fi.getFieldname(), fi.getisPut(), dataid, fileID, linenum);
 
 		}
 	}
+
+
+
+	private FieldInfo getfi(String elemdat[]) {
+		FieldInfo fi;
+		if (elemdat[5].equals("GET_STATIC_FIELD") | elemdat[5].equals("PUT_STATIC_FIELD")) {
+			String fieldname = elemdat[8].substring(FIELDNAMEINDEX);
+			boolean isPut = elemdat[5].contains("PUT");
+			fi= new FieldInfo(fieldname,isPut,false);
+		} else if (elemdat[5].equals("GET_INSTANCE_FIELD_RESULT")
+				|| elemdat[5].equals("PUT_INSTANCE_FIELD_VALUE")) {
+			String fieldname = elemdat[9].substring(FIELDNAMEINDEX);
+			boolean isPut =elemdat[5].contains("PUT");
+			fi= new FieldInfo(fieldname,isPut,false);
+		} else if (elemdat[5].equals("LOCAL_STORE") || elemdat[5].equals("LOCAL_LOAD")) {
+			String fieldname = elemdat[8].substring(NAMEINDEX);
+			/*SELoggerの使用で局所変数で名前がないものが取れるので無視*/
+			boolean isPut =elemdat[5].equals("LOCAL_STORE");
+			fi= new FieldInfo(fieldname,isPut,fieldname.equals("(Unavailable)"));
+
+		} else {
+			/*命令がない時は失敗*/
+			fi=new FieldInfo("",false,true);
+		}
+		return fi;
+	}
+
+
+
+
+
+
 
 	private void createlinevardetailMap(String fieldname, boolean isPut, String dataid, String fileID,
 			String linenum) {
@@ -215,10 +215,32 @@ public class SeloggerFiles {
 			linevardetailMap.put(new FileLineVarDataId(fileID, linenum, fieldname),
 					new DataIdVar(fieldname, 1, dataidlist));
 		}
+	}
 
-		if (fileID.equals("427")) {
-			System.out.println(linenum + " " + fieldname + " " + dataid);
+	private class FieldInfo {
+		private String fieldname;
+		private boolean isPut;
+		private boolean isFail;
+
+		public FieldInfo(String fieldname,boolean isPut, boolean isFail) {
+			this.fieldname = fieldname;
+			this.isPut = isPut;
+			this.isFail = isFail;
 		}
+
+		public String getFieldname() {
+			return fieldname;
+		}
+
+		public boolean getisPut() {
+			return isPut;
+		}
+
+		public boolean getisFail() {
+			return isFail;
+		}
+
+
 	}
 
 }
