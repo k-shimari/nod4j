@@ -77,7 +77,7 @@ public class Director {
 	private void constructBody(JavaFile file) {
 		//TODO jacocoの真似をして作る部分
 		builder.makeText("Header?TODO");
-		builder.makeBody(file.getFilename() + ".java");
+		builder.makeBody(dir+"\\"+file.getFilename() + ".java");
 
 	}
 
