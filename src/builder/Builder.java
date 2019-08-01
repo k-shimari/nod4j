@@ -5,7 +5,7 @@ public abstract class Builder {
 
 	// 文書のタイトルを作る
 
-	public abstract void premakeHead(String head);
+	public abstract void premakeHead();
 
 	public abstract void postmakeHead();
 

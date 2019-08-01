@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import concretebuilder.HtmlBuilder;
 import data.JavaFile;
@@ -24,8 +25,8 @@ public class CreateHtml {
 		init();
 		File dirFrom = new File(targetDir, "src");
 		File dirTo = new File(targetDir, "output");
-		System.out.println(targetDir);
 		createOutput(dirFrom, dirTo, 1);
+		createIndexHtml(dirTo, 1);
 	}
 
 	/*dirはtarget_projectへのpath*/
@@ -36,17 +37,18 @@ public class CreateHtml {
 
 	public void createOutput(File dirFrom, File dirTo, int depth) {
 		File[] fromFile = dirFrom.listFiles();
-		if (depth==1) {
+		if (depth == 1) {
 			dirTo.mkdir();
-		}else {
+		} else {
 			dirTo = new File(dirTo.getPath(), dirFrom.getName());
 			dirTo.mkdir();
+
 		}
 		if (fromFile != null) {
 			for (File f : fromFile) {
 				System.out.println(dirTo);
 				if (f.isFile()) {
-					htmlFileGenerate(f, dirTo,depth);
+					htmlFileGenerate(f, dirTo, depth);
 				} else {
 					depth++;
 					createOutput(f, dirTo, depth);
@@ -61,7 +63,7 @@ public class CreateHtml {
 		HtmlBuilder hb = new HtmlBuilder(file.getName().replace(".java", ""));
 
 		try {
-			Director director = new Director(selfiles, hb, dir.getPath(),depth);
+			Director director = new Director(selfiles, hb, dir.getPath(), depth);
 			JavaFile jf = new JavaFile(file.getName(), Files
 					.readAllLines(Paths.get(file.getPath()), StandardCharsets.UTF_8));
 			director.construct(jf);
@@ -71,4 +73,28 @@ public class CreateHtml {
 			System.err.println("Create " + hb.gethtmlfilename() + " FAILED");
 		}
 	}
+
+	private void createIndexHtml(File dir, int depth) {
+		File[] file = dir.listFiles();
+		if (file != null) {
+			ArrayList<File> fileList = new ArrayList<File>();
+			ArrayList<File> dirList = new ArrayList<File>();
+
+			for (File f : file) {
+				if (f.isFile()) {
+					fileList.add(f);
+				} else {
+					dirList.add(f);
+					depth++;
+					createIndexHtml(f, depth);
+					depth--;
+				}
+			}
+			HtmlBuilder hb = new HtmlBuilder("index");
+			Director director = new Director(selfiles, hb, dir.getPath(), depth);
+			director.constructIndex(dir, fileList, dirList);
+		}
+
+	}
+
 }
