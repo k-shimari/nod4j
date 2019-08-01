@@ -11,14 +11,12 @@ import builder.Builder;
 
 public class HtmlBuilder extends Builder {
 
-	private String javafilename;
 	private String htmlfilename;
 
 	private List<String> lines = new ArrayList<String>();
 
 	public HtmlBuilder(String filename) {
 		this.htmlfilename = filename + ".html";
-		this.javafilename = filename + ".java";
 	}
 
 	@Override
@@ -52,6 +50,11 @@ public class HtmlBuilder extends Builder {
 	@Override
 	public void makeBody(String title) {
 		lines.add("<h3>" + title + "</h3>");
+	}
+
+	@Override
+	public void makeText(String text) {
+		lines.add(text);
 	}
 
 	@Override

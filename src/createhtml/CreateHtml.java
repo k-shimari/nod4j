@@ -1,60 +1,74 @@
 package createhtml;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
-import data.JavaFiles;
+import concretebuilder.HtmlBuilder;
+import data.JavaFile;
 import data.SeloggerFiles;
 
 public class CreateHtml {
 	private SeloggerFiles selfiles;
-	private JavaFiles srcfiles;
-	private String dir;
+	private String targetDir;
 
-	public CreateHtml(SeloggerFiles selfiles, JavaFiles srcfiles, String dir) {
+	public CreateHtml(SeloggerFiles selfiles, String dir) {
 		this.selfiles = selfiles;
-		this.srcfiles = srcfiles;
-		this.dir = dir;
+		this.targetDir = dir;
 	}
 
 	public void start() {
-
 		System.out.println("Create html ...");
 		init();
-		PrintHtml printhtml = new PrintHtml(selfiles, srcfiles, dir);
-		printhtml.print();
+		File dirFrom = new File(targetDir, "src");
+		File dirTo = new File(targetDir, "output");
+		System.out.println(targetDir);
+		createOutput(dirFrom, dirTo, 1);
 	}
 
+	/*dirはtarget_projectへのpath*/
 	private void init() {
-		// TODO 自動生成されたメソッド・スタブ
-		clean();
-		File newdir = new File(dir + "/output");
-		newdir.mkdir();
+		FileUtility fu = new FileUtility();
+		fu.cleanOutputDir(targetDir);
 	}
 
-	/**
-	 * 出力先のファイルを消す
-	 */
-	private void clean() {
-		File file = new File(dir + "/output");
-		try {
-			recursiveDeleteFile(file);
-		} catch (Exception e) {
-			e.printStackTrace();
+	public void createOutput(File dirFrom, File dirTo, int depth) {
+		File[] fromFile = dirFrom.listFiles();
+		if (depth==1) {
+			dirTo.mkdir();
+		}else {
+			dirTo = new File(dirTo.getPath(), dirFrom.getName());
+			dirTo.mkdir();
 		}
-	}
-
-	private void recursiveDeleteFile(final File file) throws Exception {
-		// TODO 自動生成されたメソッド・スタブ
-		if (!file.exists()) {
-			return;
-		}
-		// 対象がディレクトリの場合は再帰処理
-		if (file.isDirectory()) {
-			for (File child : file.listFiles()) {
-				recursiveDeleteFile(child);
+		if (fromFile != null) {
+			for (File f : fromFile) {
+				System.out.println(dirTo);
+				if (f.isFile()) {
+					htmlFileGenerate(f, dirTo,depth);
+				} else {
+					depth++;
+					createOutput(f, dirTo, depth);
+					depth--;
+				}
 			}
 		}
-		// 対象がファイルもしくは配下が空のディレクトリの場合は削除する
-		file.delete();
+
+	}
+
+	public void htmlFileGenerate(File file, File dir, int depth) {
+		HtmlBuilder hb = new HtmlBuilder(file.getName().replace(".java", ""));
+
+		try {
+			Director director = new Director(selfiles, hb, dir.getPath(),depth);
+			JavaFile jf = new JavaFile(file.getName(), Files
+					.readAllLines(Paths.get(file.getPath()), StandardCharsets.UTF_8));
+			director.construct(jf);
+			System.out.println("Create " + hb.gethtmlfilename() + " SUCCESS");
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.err.println("Create " + hb.gethtmlfilename() + " FAILED");
+		}
 	}
 }
