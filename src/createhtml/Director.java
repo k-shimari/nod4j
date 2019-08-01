@@ -8,26 +8,48 @@ import data.DataID;
 import data.DataIdVar;
 import data.FileLineDataId;
 import data.FileLineVarDataId;
-import data.JavaFiles.JavaFile;
+import data.JavaFile;
 import data.SeloggerFiles;
 
 public class Director {
 	private SeloggerFiles selfiles;
 	private Builder builder;
-	private String outputdir;
+	private String dir;
 	private static final String META = "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />";
 
 	//TODO JSとCSSのパス指定,自動でresourcesから取ってくる設定
-	private static final String[] JSs = { "../../resources/jquery.min.js",
-			"../../resources/prettify.js", "../../resources/time-filter.js" };
-	private static final String[] CSSs = { "../../resources/prettify.css", "../../resources/custom.css" };
+	private static final String[] JSs = { "resources/jquery.min.js",
+			"resources/prettify.js", "resources/time-filter.js" };
+	private static final String[] CSSs = { "resources/prettify.css", "resources/custom.css" };
+
+	private String[] pathJSs;
+	private String[] pathCSSs;
 	private static final int LARGENUM = 99999;
 
 	// 実際はBuilderのサブクラスを引数に取る
-	public Director(SeloggerFiles selfiles, Builder builder, String dir) {
+	public Director(SeloggerFiles selfiles, Builder builder, String dir, int depth) {
 		this.selfiles = selfiles;
 		this.builder = builder;
-		this.outputdir = dir + "/output/";
+		this.dir = dir;
+
+		this.pathCSSs = new String[CSSs.length];
+		this.pathJSs = new String[JSs.length];
+
+		for (int i = 0; i < CSSs.length; i++) {
+			this.pathCSSs[i] = getRelativePath(depth) + CSSs[i];
+		}
+		for (int i = 0; i < JSs.length; i++) {
+			this.pathJSs[i] = getRelativePath(depth) + JSs[i];
+		}
+
+	}
+
+	private String getRelativePath(int depth) {
+		String prefix = "";
+		for (int i = 0; i < depth; i++) {
+			prefix += "../";
+		}
+		return prefix;
 	}
 
 	// 文章の中身を作る
@@ -43,16 +65,18 @@ public class Director {
 	private void constructHead(JavaFile file) {
 		builder.premakeHead(META);
 		builder.makeTitle(file.getFilename() + ".java");
-		for (String CSS : CSSs) {
+		for (String CSS : pathCSSs) {
 			builder.makeStyle(CSS);
 		}
-		for (String js : JSs) {
+		for (String js : pathJSs) {
 			builder.makeJavaScript(js);
 		}
 		builder.postmakeHead();
 	}
 
 	private void constructBody(JavaFile file) {
+		//TODO jacocoの真似をして作る部分
+		builder.makeText("Header?TODO");
 		builder.makeBody(file.getFilename() + ".java");
 
 	}
@@ -66,7 +90,7 @@ public class Director {
 	}
 
 	private void constructOther() {
-		builder.close(outputdir);
+		builder.close(dir);
 	}
 
 	private void constructCode(JavaFile file) {

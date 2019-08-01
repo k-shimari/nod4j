@@ -15,6 +15,8 @@ public abstract class Builder {
 
 	public abstract void makeStyle(String style);
 
+	public abstract void makeText(String text);
+
 	public abstract void makeBody(String title);
 
 	// 文書の本文を作る
