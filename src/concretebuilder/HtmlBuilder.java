@@ -10,7 +10,7 @@ import java.util.List;
 import builder.Builder;
 
 public class HtmlBuilder extends Builder {
-
+	private static final String META = "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />";
 	private String htmlfilename;
 
 	private List<String> lines = new ArrayList<String>();
@@ -20,9 +20,9 @@ public class HtmlBuilder extends Builder {
 	}
 
 	@Override
-	public void premakeHead(String head) {
+	public void premakeHead() {
 		lines.add("<html><head>");
-		lines.add(head);
+		lines.add(META);
 	}
 
 	@Override

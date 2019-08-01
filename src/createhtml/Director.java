@@ -1,5 +1,7 @@
 package createhtml;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +17,6 @@ public class Director {
 	private SeloggerFiles selfiles;
 	private Builder builder;
 	private String dir;
-	private static final String META = "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />";
 
 	//TODO JSとCSSのパス指定,自動でresourcesから取ってくる設定
 	private static final String[] JSs = { "resources/jquery.min.js",
@@ -59,11 +60,10 @@ public class Director {
 		constructCode(file);
 		constructFooter(file);
 		constructOther();
-
 	}
 
 	private void constructHead(JavaFile file) {
-		builder.premakeHead(META);
+		builder.premakeHead();
 		builder.makeTitle(file.getFilename() + ".java");
 		for (String CSS : pathCSSs) {
 			builder.makeStyle(CSS);
@@ -233,4 +233,31 @@ public class Director {
 			linevarMap.put(new FileLineDataId(fileID, linenum), list);
 		}
 	}
+
+	public void constructIndex(File dir, ArrayList<File> fileList, ArrayList<File> dirList) {
+		builder.premakeHead();
+		builder.makeTitle(dir.getPath());
+		for (String CSS : pathCSSs) {
+			builder.makeStyle(CSS);
+		}
+		for (String js : pathJSs) {
+			builder.makeJavaScript(js);
+		}
+		builder.postmakeHead();
+		builder.makeText("Header?TODO");
+		builder.makeBody("current" + dir.getPath());
+
+		for (File f : dirList) {
+			//@TODO パス名に空白が入るとバグる
+			builder.makeBody("<a href=" + f.getPath() + "/index.html" + ">" + f.getPath() + "</a>");
+		}
+
+		for (File f : fileList) {
+			builder.makeBody("<a href=" + f.getPath() + ">" + f.getPath() + "</a>");
+		}
+
+		builder.close(dir.getPath());
+
+	}
+
 }
