@@ -29,10 +29,13 @@ public class CreateHtml {
 		createIndexHtml(dirTo, 1);
 	}
 
-	/*dirはtarget_projectへのpath*/
+	/*dirはtarget_projectへのpath
+	 * たまに削除エラーが出るのでsynchronized*/
 	private void init() {
 		FileUtility fu = new FileUtility();
-		fu.cleanOutputDir(targetDir);
+		synchronized (targetDir) {
+			fu.cleanOutputDir(targetDir);
+		}
 	}
 
 	public void createOutput(File dirFrom, File dirTo, int depth) {

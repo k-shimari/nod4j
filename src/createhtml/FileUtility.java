@@ -19,13 +19,11 @@ public class FileUtility {
 		if (!file.exists()) {
 			return;
 		}
-		// 対象がディレクトリの場合は再帰処理
 		if (file.isDirectory()) {
 			for (File child : file.listFiles()) {
 				recursiveDeleteFile(child);
 			}
 		}
-		// 対象がファイルもしくは配下が空のディレクトリの場合は削除する
 		file.delete();
 	}
 
