@@ -1,0 +1,37 @@
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>getMaxTest.java</title>
+<link href=../../../resources/prettify.css rel="stylesheet" />
+<link href=../../../resources/custom.css rel="stylesheet" />
+<script src=../../../resources/jquery.min.js></script>
+<script src=../../../resources/prettify.js></script>
+<script src=../../../resources/time-filter.js></script>
+</head>
+<body onLoad="prettyPrint()">
+Header?TODO
+<h3>F:\LOGVIS\getmaxplus\output\test\testsample\getMaxTest.java</h3>
+<form name="codeview" id="codeview" class="codeform"><pre class="prettyprint language-java linenums"  style="box-sizing: border-box; word-break: break-all; overflow-wrap: break-word;">package testsample;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+import sample.Main;
+
+public class getMaxTest {
+	@Test
+	public void getMaxTest1() {
+		assertEquals(30, Main.getMax(30, 10, 20));
+		assertEquals(30, Main.getMax(30, 20, 10));
+		assertEquals(30, Main.getMax(20, 10, 30));
+		assertEquals(30, Main.getMax(20, 30, 10));
+		assertEquals(30, Main.getMax(10, 20, 30));
+		assertEquals(30, Main.getMax(10, 30, 20));
+	}
+}
+</pre>
+</form>
+<footer class="site-footer">
+<p><input type="button" value="Reset" onclick="allcheckoff();"></p>
+</footer>
+</body></html>
