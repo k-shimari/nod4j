@@ -14,6 +14,8 @@ import data.SeloggerFiles;
 public class CreateHtml {
 	private SeloggerFiles selfiles;
 	private String targetDir;
+	private static final String COPYFROM = "project";
+	private static final String COPYTO = "output";
 
 	public CreateHtml(SeloggerFiles selfiles, String dir) {
 		this.selfiles = selfiles;
@@ -23,8 +25,8 @@ public class CreateHtml {
 	public void start() {
 		System.out.println("Create html ...");
 		init();
-		File dirFrom = new File(targetDir, "src");
-		File dirTo = new File(targetDir, "output");
+		File dirFrom = new File(targetDir, COPYFROM);
+		File dirTo = new File(targetDir, COPYTO);
 		createOutput(dirFrom, dirTo, 1);
 		createIndexHtml(dirTo, 1);
 	}
@@ -33,9 +35,7 @@ public class CreateHtml {
 	 * たまに削除エラーが出るのでsynchronized*/
 	private void init() {
 		FileUtility fu = new FileUtility();
-		synchronized (targetDir) {
-			fu.cleanOutputDir(targetDir);
-		}
+		fu.cleanOutputDir(targetDir);
 	}
 
 	public void createOutput(File dirFrom, File dirTo, int depth) {
