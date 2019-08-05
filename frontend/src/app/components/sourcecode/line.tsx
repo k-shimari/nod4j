@@ -1,8 +1,9 @@
 import { SourceCodeToken } from 'app/models/token';
 import * as React from 'react';
+import { HighlightedToken } from './highlightedToken';
 import { VarValueData } from './index';
 import { Space } from './space';
-import { HighlightedToken, Token } from './token';
+import { Token } from './token';
 
 interface Props {
   line: number;
@@ -24,7 +25,7 @@ function f(tokens: SourceCodeToken[], data: VarValueData): React.ReactElement[] 
     // ここでチェックして、トークンんを切り替える
     const valueList = data[token.id];
     if (valueList) {
-      result.push(<HighlightedToken>{token.image}</HighlightedToken>);
+      result.push(<HighlightedToken items={valueList} >{token.image}</HighlightedToken>);
     } else {
       result.push(<Token>{token.image}</Token>);
     }

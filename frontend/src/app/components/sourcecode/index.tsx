@@ -1,9 +1,10 @@
 import { SourceCodeToken } from 'app/models/token';
 import * as React from 'react';
 import { ValueListItemValue } from '../atoms/valueListItem';
+import { ValueListItem } from '../organisms/valueList';
 import { Line } from './line';
 
-export type VarValueData = { [varId: string]: ValueListItemValue[] };
+export type VarValueData = { [varId: string]: ValueListItem[] };
 
 interface Props {
   tokens: SourceCodeToken[];
