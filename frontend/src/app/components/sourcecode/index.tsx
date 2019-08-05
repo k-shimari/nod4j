@@ -1,14 +1,18 @@
-import { IToken } from 'chevrotain';
+import { SourceCodeToken } from 'app/models/token';
 import * as React from 'react';
+import { ValueListItemValue } from '../atoms/valueListItem';
 import { Line } from './line';
 
+export type VarValueData = { [varId: string]: ValueListItemValue[] };
+
 interface Props {
-  tokens: IToken[];
+  tokens: SourceCodeToken[];
+  data: VarValueData;
 }
 
-function splitIntoLines(tokens: IToken[]): IToken[][] {
+function splitIntoLines(tokens: SourceCodeToken[]): SourceCodeToken[][] {
   const lineCount = tokens[tokens.length - 1].startLine!;
-  const result: IToken[][] = Array.from({ length: lineCount }, (v, k) => k).map(() => []);
+  const result: SourceCodeToken[][] = Array.from({ length: lineCount }, (v, k) => k).map(() => []);
 
   for (const token of tokens) {
     result[token.startLine! - 1].push(token);
@@ -19,13 +23,13 @@ function splitIntoLines(tokens: IToken[]): IToken[][] {
 
 export class Sourcecode extends React.Component<Props> {
   render() {
-    const { tokens } = this.props;
+    const { tokens, data } = this.props;
 
     return (
       <pre>
         <code>
           {splitIntoLines(tokens).map((lineTokens, index) => (
-            <Line key={index} tokens={lineTokens} line={1} />
+            <Line key={index} tokens={lineTokens} line={1} data={data} />
           ))}
         </code>
       </pre>

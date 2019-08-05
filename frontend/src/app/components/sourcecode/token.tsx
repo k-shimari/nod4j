@@ -9,3 +9,14 @@ export const Token: React.FunctionComponent = (props) => (
     {props.children}
   </span>
 );
+
+export const HighlightedToken: React.FunctionComponent = (props) => (
+  <span
+    style={{
+      backgroundColor: 'blue',
+      color: 'white'
+    }}
+  >
+    {props.children}
+  </span>
+);

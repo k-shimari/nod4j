@@ -1,14 +1,16 @@
-import { IToken } from 'chevrotain';
+import { SourceCodeToken } from 'app/models/token';
 import * as React from 'react';
+import { VarValueData } from './index';
 import { Space } from './space';
-import { Token } from './token';
+import { HighlightedToken, Token } from './token';
 
 interface Props {
   line: number;
-  tokens: IToken[];
+  tokens: SourceCodeToken[];
+  data: VarValueData;
 }
 
-function f(tokens: IToken[]): React.ReactElement[] {
+function f(tokens: SourceCodeToken[], data: VarValueData): React.ReactElement[] {
   const result: React.ReactElement[] = [];
   let preEndColumn = 0;
   for (const token of tokens) {
@@ -19,8 +21,13 @@ function f(tokens: IToken[]): React.ReactElement[] {
     if (delta > 0) {
       result.push(<Space length={delta} />);
     }
-
-    result.push(<Token>{token.image}</Token>);
+    // ここでチェックして、トークンんを切り替える
+    const valueList = data[token.id];
+    if (valueList) {
+      result.push(<HighlightedToken>{token.image}</HighlightedToken>);
+    } else {
+      result.push(<Token>{token.image}</Token>);
+    }
 
     preEndColumn = endColumn!;
   }
@@ -29,5 +36,5 @@ function f(tokens: IToken[]): React.ReactElement[] {
 }
 
 export const Line: React.FunctionComponent<Props> = (props) => (
-  <span style={{ display: 'block' }}>{f(props.tokens)}</span>
+  <span style={{ display: 'block' }}>{f(props.tokens, props.data)}</span>
 );
