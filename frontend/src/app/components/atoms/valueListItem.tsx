@@ -24,11 +24,11 @@ export const ValueListItem: React.FunctionComponent<Props> = (props) => {
     <ListItem button>
       <ListItemText primary={value}></ListItemText>
       <ListItemSecondaryAction>
-        <IconButton onClick={() => onArrowUpwardClick && onArrowUpwardClick(id)}>
-          <ArrowUpward />
-        </IconButton>
         <IconButton onClick={() => onArrowDownwardClick && onArrowDownwardClick(id)}>
           <ArrowDownward />
+        </IconButton>
+        <IconButton onClick={() => onArrowUpwardClick && onArrowUpwardClick(id)}>
+          <ArrowUpward />
         </IconButton>
       </ListItemSecondaryAction>
     </ListItem>
