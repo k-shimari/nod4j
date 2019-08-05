@@ -28,4 +28,6 @@ function f(tokens: IToken[]): React.ReactElement[] {
   return result;
 }
 
-export const Line: React.FunctionComponent<Props> = (props) => <span>{f(props.tokens)}</span>;
+export const Line: React.FunctionComponent<Props> = (props) => (
+  <span style={{ display: 'block' }}>{f(props.tokens)}</span>
+);
