@@ -1,15 +1,34 @@
 import List from '@material-ui/core/List';
-import { ValueListItem } from 'app/components/atoms/valueListItem';
+import {
+  ValueListItem,
+  ValueListItemId,
+  ValueListItemValue
+} from 'app/components/atoms/valueListItem';
 import * as React from 'react';
 
-function generate(element: any) {
-  return [0, 1, 2].map((value) =>
-    React.cloneElement(element, {
-      key: value
-    })
-  );
+interface Props {
+  items: {
+    id: ValueListItemId;
+    value: ValueListItemValue;
+  }[];
+  onArrowUpwardClick?(id: ValueListItemId): void;
+  onArrowDownwardClick?(id: ValueListItemId): void;
 }
 
-export const ValueList: React.FunctionComponent = (props) => {
-  return <List dense={false}>{generate(<ValueListItem />)}</List>;
+export const ValueList: React.FunctionComponent<Props> = (props) => {
+  const { items, onArrowDownwardClick, onArrowUpwardClick } = props;
+
+  return (
+    <List dense={false}>
+      {items.map(({ id, value }) => (
+        <ValueListItem
+          key={id}
+          id={id}
+          value={value}
+          onArrowUpwardClick={onArrowUpwardClick}
+          onArrowDownwardClick={onArrowDownwardClick}
+        ></ValueListItem>
+      ))}
+    </List>
+  );
 };
