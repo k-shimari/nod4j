@@ -11,11 +11,13 @@ export class Sourcecode extends React.Component<Props> {
     const { tokens } = this.props;
 
     return (
-      <div>
-        {tokens.map((t, index) => (
-          <Token key={index}>{t.image}</Token>
-        ))}
-      </div>
+      <pre>
+        <code>
+          {tokens.map((t, index) => (
+            <Token key={index}>{t.image}</Token>
+          ))}
+        </code>
+      </pre>
     );
   }
 }
