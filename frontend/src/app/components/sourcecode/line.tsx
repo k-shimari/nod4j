@@ -1,17 +1,20 @@
 import { SourceCodeToken } from 'app/models/token';
 import * as React from 'react';
-import { HighlightedToken } from './highlightedToken';
 import { VarValueData } from './index';
 import { Space } from './space';
 import { Token } from './token';
 
 interface Props {
+  onTokenEnter?(tokenId: string, target: HTMLElement): void;
+  onTokenLeave?(tokenId: string, target: HTMLElement): void;
   line: number;
   tokens: SourceCodeToken[];
   data: VarValueData;
 }
 
-function f(tokens: SourceCodeToken[], data: VarValueData): React.ReactElement[] {
+function spreadTokens(props: Props): React.ReactElement[] {
+  const { tokens, data, onTokenEnter, onTokenLeave } = props;
+
   const result: React.ReactElement[] = [];
   let preEndColumn = 0;
   for (const token of tokens) {
@@ -22,13 +25,20 @@ function f(tokens: SourceCodeToken[], data: VarValueData): React.ReactElement[] 
     if (delta > 0) {
       result.push(<Space length={delta} />);
     }
-    // ここでチェックして、トークンんを切り替える
     const valueList = data[token.id];
-    if (valueList) {
-      result.push(<HighlightedToken items={valueList} >{token.image}</HighlightedToken>);
-    } else {
-      result.push(<Token>{token.image}</Token>);
-    }
+    const valueListExists = valueList !== undefined;
+    result.push(
+      <Token
+        key={token.id}
+        id={token.id}
+        highlighted={valueListExists}
+        data={valueList}
+        onEnter={(id, target) => onTokenEnter && onTokenEnter(id, target)}
+        onLeave={(id, target) => onTokenLeave && onTokenLeave(id, target)}
+      >
+        {token.image}
+      </Token>
+    );
 
     preEndColumn = endColumn!;
   }
@@ -37,5 +47,5 @@ function f(tokens: SourceCodeToken[], data: VarValueData): React.ReactElement[] 
 }
 
 export const Line: React.FunctionComponent<Props> = (props) => (
-  <span style={{ display: 'block' }}>{f(props.tokens, props.data)}</span>
+  <span style={{ display: 'block' }}>{spreadTokens(props)}</span>
 );

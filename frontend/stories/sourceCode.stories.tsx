@@ -30,4 +30,8 @@ storiesOf('Source code', module)
     />
   ))
   .add('Line', () => <Line line={0} tokens={JavaLexer.tokenize(javaText2)} data={{}} />)
-  .add('Token', () => <Token>public</Token>);
+  .add('Token', () => (
+    <Token id="1" highlighted={false}>
+      public
+    </Token>
+  ));

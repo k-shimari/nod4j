@@ -23,6 +23,7 @@ export namespace ValueList {
 }
 const useStyles = makeStyles((theme) => ({
   root: {
+    minWidth: 280,
     maxWidth: 300
   }
 }));
