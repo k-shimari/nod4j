@@ -3,7 +3,7 @@ import * as React from 'react';
 import { ValueListItemValue } from '../atoms/valueListItem';
 import { ValueListItem, ValueList } from '../organisms/valueList';
 import { Line } from './line';
-import { Popper, Paper } from '@material-ui/core';
+import { Popper, Paper, Fade } from '@material-ui/core';
 import { timingSafeEqual } from 'crypto';
 
 export type VarValueData = { [varId: string]: ValueListItem[] | undefined };
@@ -85,8 +85,13 @@ export class Sourcecode extends React.Component<Props, State> {
           open={this.state.valueListVisible}
           anchorEl={this.state.popperAnchorEl}
           placement="bottom"
+          transition
         >
-          {this.state.data ? <ValueList items={this.state.data} /> : null}
+          {({ TransitionProps }) => (
+            <Fade {...TransitionProps} timeout={350}>
+              {this.state.data ? <ValueList items={this.state.data} /> : null}
+            </Fade>
+          )}
         </Popper>
       </div>
     );
