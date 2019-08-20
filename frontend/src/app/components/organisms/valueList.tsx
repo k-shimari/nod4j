@@ -8,27 +8,34 @@ import {
 } from 'app/components/atoms/valueListItem';
 import * as React from 'react';
 
-interface Props {
-  items: {
-    id: ValueListItemId;
-    value: ValueListItemValue;
-  }[];
-  onArrowUpwardClick?(id: ValueListItemId): void;
-  onArrowDownwardClick?(id: ValueListItemId): void;
+export interface ValueListItem {
+  id: ValueListItemId;
+  value: ValueListItemValue;
 }
 
+export namespace ValueList {
+  export interface Props {
+    style?: React.CSSProperties;
+    items: ValueListItem[];
+    onArrowUpwardClick?(id: ValueListItemId): void;
+    onArrowDownwardClick?(id: ValueListItemId): void;
+    onEnter?(): void;
+    onLeave?(): void;
+  }
+}
 const useStyles = makeStyles((theme) => ({
   root: {
+    minWidth: 280,
     maxWidth: 300
   }
 }));
 
-export const ValueList: React.FunctionComponent<Props> = (props) => {
-  const { items, onArrowDownwardClick, onArrowUpwardClick } = props;
+export const ValueList: React.FunctionComponent<ValueList.Props> = (props) => {
+  const { style, items, onArrowDownwardClick, onArrowUpwardClick, onEnter, onLeave } = props;
   const classes = useStyles();
 
   return (
-    <Paper className={classes.root}>
+    <Paper style={style} className={classes.root} onPointerEnter={onEnter} onPointerLeave={onLeave}>
       <List dense={false}>
         {items.map(({ id, value }) => (
           <ValueListItem

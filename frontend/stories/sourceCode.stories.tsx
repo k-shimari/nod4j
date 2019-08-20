@@ -24,10 +24,14 @@ storiesOf('Source code', module)
     <Sourcecode
       tokens={JavaLexer.tokenize(javaText)}
       data={{
-        '1': [123, 456, 789],
-        '10': [1, 2, 3]
+        '1': [{ id: '1', value: 123 }, { id: '2', value: 456 }, { id: '3', value: 789 }],
+        '10': [{ id: '1', value: 789 }, { id: '2', value: 456 }, { id: '3', value: 123 }]
       }}
     />
   ))
   .add('Line', () => <Line line={0} tokens={JavaLexer.tokenize(javaText2)} data={{}} />)
-  .add('Token', () => <Token>public</Token>);
+  .add('Token', () => (
+    <Token id="1" highlighted={false}>
+      public
+    </Token>
+  ));
