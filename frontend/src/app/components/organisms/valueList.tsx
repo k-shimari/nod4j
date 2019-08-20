@@ -19,6 +19,8 @@ export namespace ValueList {
     items: ValueListItem[];
     onArrowUpwardClick?(id: ValueListItemId): void;
     onArrowDownwardClick?(id: ValueListItemId): void;
+    onEnter?(): void;
+    onLeave?(): void;
   }
 }
 const useStyles = makeStyles((theme) => ({
@@ -29,11 +31,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const ValueList: React.FunctionComponent<ValueList.Props> = (props) => {
-  const { style, items, onArrowDownwardClick, onArrowUpwardClick } = props;
+  const { style, items, onArrowDownwardClick, onArrowUpwardClick, onEnter, onLeave } = props;
   const classes = useStyles();
 
   return (
-    <Paper style={style} className={classes.root}>
+    <Paper style={style} className={classes.root} onPointerEnter={onEnter} onPointerLeave={onLeave}>
       <List dense={false}>
         {items.map(({ id, value }) => (
           <ValueListItem

@@ -5,6 +5,8 @@ import { ValueListItem, ValueList } from '../organisms/valueList';
 import { Line } from './line';
 import { Popper, Paper, Fade } from '@material-ui/core';
 import { timingSafeEqual } from 'crypto';
+import { Subject, interval } from 'rxjs';
+import { debounce } from 'rxjs/operators';
 
 export type VarValueData = { [varId: string]: ValueListItem[] | undefined };
 
@@ -31,21 +33,38 @@ interface State {
 }
 
 export class Sourcecode extends React.Component<Props, State> {
+  private _subject: Subject<boolean>;
+
   constructor(props: Props, state: State) {
     super(props, state);
+
+    this._subject = new Subject();
 
     this.state = {
       data: undefined,
       valueListVisible: false,
       popperAnchorEl: undefined
     };
+
+    this._subject.subscribe((value) => {
+      console.log(value);
+    });
+
+    this._subject.pipe(debounce(() => interval(200))).subscribe((value) => {
+      if (value === false) {
+        this.setState({
+          valueListVisible: false,
+          popperAnchorEl: undefined
+        });
+      }
+    });
   }
 
   onTokenEnter(tokenId: string, target: HTMLElement) {
-    // ここでpopper.jsを使ってValueListコンポーネントを描画する
-    console.log('On token enter: ' + tokenId);
     const valueListData = this.props.data[tokenId];
     if (valueListData) {
+      this._subject.next(true);
+
       this.setState({
         data: valueListData,
         valueListVisible: true,
@@ -55,11 +74,15 @@ export class Sourcecode extends React.Component<Props, State> {
   }
 
   onTokenLeave(tokenId: string, target: HTMLElement) {
-    console.log('On token leave: ' + tokenId);
-    this.setState({
-      valueListVisible: false,
-      popperAnchorEl: target
-    });
+    this._subject.next(false);
+  }
+
+  onValueListEnter() {
+    this._subject.next(true);
+  }
+
+  onValueListLeave() {
+    this._subject.next(false);
   }
 
   render() {
@@ -82,16 +105,18 @@ export class Sourcecode extends React.Component<Props, State> {
           </code>
         </pre>
         <Popper
+          className="popper-wrapper open"
           open={this.state.valueListVisible}
           anchorEl={this.state.popperAnchorEl}
           placement="bottom"
-          transition
         >
-          {({ TransitionProps }) => (
-            <Fade {...TransitionProps} timeout={350}>
-              {this.state.data ? <ValueList items={this.state.data} /> : null}
-            </Fade>
-          )}
+          {this.state.data ? (
+            <ValueList
+              items={this.state.data}
+              onEnter={this.onValueListEnter.bind(this)}
+              onLeave={this.onValueListLeave.bind(this)}
+            />
+          ) : null}
         </Popper>
       </div>
     );

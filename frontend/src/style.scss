@@ -10,3 +10,9 @@ pre code {
   font-size: 16px;
   font-family: 'Fira Mono', monospace;
 }
+
+.popper-wrapper {
+  transition-property: transform;
+  transition-duration: 0.33s;
+  transition-timing-function: ease;
+}
