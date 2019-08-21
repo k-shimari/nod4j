@@ -1,4 +1,5 @@
 import { VarValueData } from 'app/components/sourcecode';
+import { ProjectItem } from 'app/models/project';
 import { ExecId } from 'app/reducers/state';
 import { createAction } from 'redux-actions';
 
@@ -14,7 +15,11 @@ export namespace LogvisActions {
     CLEAR_ALL_FILTERS = 'CLEAR_ALL_FILTERS',
 
     SET_ORIGINAL_VALUE_LIST_DATA = 'SET_ORIGINAL_VALUE_LIST_DATA',
-    SET_FILTERED_VALUE_LIST_DATA = 'SET_FILTERED_VALUE_LIST_DATA'
+    SET_FILTERED_VALUE_LIST_DATA = 'SET_FILTERED_VALUE_LIST_DATA',
+
+    // Files系
+    REQUEST_FILES = 'REQUEST_FILES',
+    SET_FILES_DATA = 'SET_FILES_DATA'
   }
 
   export namespace Payload {
@@ -34,9 +39,20 @@ export namespace LogvisActions {
     export interface SetFilteredValueListData {
       data: VarValueData;
     }
+
+    export interface RequestFilesPayload {
+      path: string;
+    }
+
+    export interface SetFilesDataPayload {
+      currentDir: string;
+      items: ProjectItem[];
+    }
   }
 
   export const dummyAction = createAction(Type.DUMMY_ACTION);
+
+  // Filter系
   export const setValueListFilter = createAction<Payload.SetValueListFilter>(
     Type.SET_VALUE_LIST_FILTER
   );
@@ -50,6 +66,10 @@ export namespace LogvisActions {
   export const setFilteredValueListData = createAction<Payload.SetFilteredValueListData>(
     Type.SET_FILTERED_VALUE_LIST_DATA
   );
+
+  // Files系
+  export const requestFiles = createAction<Payload.RequestFilesPayload>(Type.REQUEST_FILES);
+  export const setFilesData = createAction<Payload.SetFilesDataPayload>(Type.SET_FILES_DATA);
 }
 
 export type LogvisActions = Omit<typeof LogvisActions, 'Type'>;
