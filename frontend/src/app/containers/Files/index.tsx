@@ -1,8 +1,18 @@
-import * as React from 'react';
-import { PathNavigation } from 'app/components/organisms/pathNavigation';
 import { FileTable } from 'app/components/organisms/fileTable';
+import { PathNavigation } from 'app/components/organisms/pathNavigation';
+import * as React from 'react';
+import { RouteComponentProps, withRouter } from 'react-router';
 
-export class FilesContainer extends React.Component {
+interface Props extends RouteComponentProps {}
+
+class FilesContainerComp extends React.Component<Props> {
+  componentDidMount() {
+    // URLを取得する
+
+    const currentUrl = this.props.location.pathname;
+    console.log(currentUrl);
+  }
+
   render() {
     return (
       <div>
@@ -21,3 +31,5 @@ export class FilesContainer extends React.Component {
     );
   }
 }
+
+export const FilesContainer = withRouter(FilesContainerComp);

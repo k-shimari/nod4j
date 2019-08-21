@@ -7,6 +7,6 @@ import { FilesContainer } from 'app/containers/Files';
 export const App = hot(module)(() => (
   <div>
     <Route exact path="/" component={LogvisApp} />
-    <Route exact path="/files" component={FilesContainer} />
+    <Route path="/files" component={FilesContainer} />
   </div>
 ));
