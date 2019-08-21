@@ -82,35 +82,22 @@ public class CreateJson {
 	private void setLinenum(Json json, String d) {
 		String linenum = selfiles.getDataidMaps().getDataidLinenumMap().get(d);
 		json.setLinenum(linenum);
-
 	}
 
 	private void setCount(Json json, String d) {
+		// @TODO
 		int count = 1;
 
 		json.setCount(count);
 	}
 
 	private void setValueList(Json json, String d) {
-		// @TODO
 		List<Recentdata> valueList = new ArrayList<Recentdata>();
-
+		Map<String, List<Recentdata>> recdatamap = selfiles.getRecentDataMap();
+		valueList = recdatamap.get(d);
 		json.setValueList(valueList);
 
 	}
 
-	private void getRecentdata() {
-		Map<String, List<Recentdata>> recdatamap = selfiles.getRecentDataMap();
-		recdatamap.keySet()
-				.stream()
-				.sorted()
-				.forEach(s -> {
-					System.out.println(s + ":");
-					recdatamap.get(s).forEach(
-							t -> System.out.println(t.getData() + "," + t.getThread() + "," + t.getTimestamp()));
-					System.out.println();
-				});
-
-	}
 
 }
