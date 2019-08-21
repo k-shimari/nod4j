@@ -1,6 +1,7 @@
 package createjson;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -34,8 +35,6 @@ public class CreateJson {
 				e.printStackTrace();
 			}
 
-
-
 		});
 
 	}
@@ -44,8 +43,11 @@ public class CreateJson {
 		List<Json> jsonList = new ArrayList<>();
 
 		selfiles.getDataidMaps().getDataidVarMap().keySet()
+				.stream()
+				.sorted(Comparator.comparing(d -> Integer.parseInt(d)))
 				.forEach(d -> {
 					Json json = new Json();
+					setDataid(json, d);
 					setClassName(json, d);
 					setMethodName(json, d);
 					setVar(json, d);
@@ -55,6 +57,10 @@ public class CreateJson {
 					jsonList.add(json);
 				});
 		return jsonList;
+	}
+
+	private void setDataid(Json json, String d) {
+		json.setDataid(d);
 	}
 
 	private void setClassName(Json json, String d) {
@@ -74,15 +80,14 @@ public class CreateJson {
 	}
 
 	private void setLinenum(Json json, String d) {
-		// @TODO
 		String linenum = selfiles.getDataidMaps().getDataidLinenumMap().get(d);
 		json.setLinenum(linenum);
 
 	}
 
 	private void setCount(Json json, String d) {
-		// @TODO
 		int count = 1;
+
 		json.setCount(count);
 	}
 

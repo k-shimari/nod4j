@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Json {
 
+	private String dataid;
 	private String className;
 	private String methodName;
 	private String var;
@@ -13,6 +14,14 @@ public class Json {
 	private List<Recentdata> valueList;
 
 	public Json() {
+	}
+
+	public String getDataid() {
+		return dataid;
+	}
+
+	public void setDataid(String dataid) {
+		this.dataid = dataid;
 	}
 
 	public String getClassName() {
