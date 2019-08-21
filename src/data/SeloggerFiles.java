@@ -23,6 +23,7 @@ public class SeloggerFiles {
 	private Map<String, List<String>> dupfileIDMap = new HashMap<>();
 	private List<String> fieldIDList = new ArrayList<>();
 	private Map<String, List<Recentdata>> recentdataMap = new HashMap<>();
+	private DataIdMaps dataidMaps;
 
 	private static final int FIELDNAMEINDEX = 10;
 	private static final int NAMEINDEX = 5;
@@ -32,15 +33,24 @@ public class SeloggerFiles {
 			this.linesRecentdata = Files.readAllLines(Paths.get(dir, "selogger", "recentdata.txt"));
 			this.linesDataids = Files.readAllLines(Paths.get(dir, "selogger", "dataids.txt"));
 			this.linesMethods = Files.readAllLines(Paths.get(dir, "selogger", "methods.txt"));
-			CreateDataIdVarMap();
-			CreateFileIDMap();
-			CreateRecentDataMap();
+			this.dataidMaps = new DataIdMaps();
+			CreateMap();
+
 		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 	}
 
+	private void CreateMap() {
+		CreateFileIDMap();
+		CreateDataIdVarMap();
+		dataidMaps.createMap(linesDataids,linesMethods);
+		CreateRecentDataMap();
+	}
+
+	/*
+
+	*/
 	/*dataid に recentdata(time,thread,data)のリストを対応付ける*/
 	//TODO dataにStringで,が入った時の例外処理を作る
 	private void CreateRecentDataMap() {
@@ -55,38 +65,6 @@ public class SeloggerFiles {
 		}
 	}
 
-	public List<String> getLinesRecentdata() {
-		return linesRecentdata;
-	}
-
-	public List<String> getLinesDataids() {
-		return linesDataids;
-	}
-
-	public List<String> getLinesMethods() {
-		return linesMethods;
-	}
-
-	public Map<FileLineDataId, List<String>> getLineVarMap() {
-		return linevarMap;
-	}
-
-	public Map<FileLineVarDataId, DataIdVar> getLineVarDetailMap() {
-		return linevardetailMap;
-	}
-
-	public Map<String, String> getFileIDMap() {
-		return fileIDMap;
-	}
-
-	public Map<String, List<String>> getdupFileIDMap() {
-		return dupfileIDMap;
-	}
-
-	public Map<String, List<Recentdata>> getRecentDataMap() {
-		return recentdataMap;
-	}
-
 	/**methods.txtをもとに，ファイルに対するそのIDを返すMapを作成
 	 *
 	 */
@@ -94,7 +72,6 @@ public class SeloggerFiles {
 		for (String line : this.linesMethods) {
 			String ele[] = line.split(",");
 			if (ele.length > 6) {
-
 				if (fileIDMap.containsKey(ele[6])) {
 					/* internal class indicates same file, so separate*/
 					List<String> list = new ArrayList<String>();
@@ -103,6 +80,8 @@ public class SeloggerFiles {
 						list.add(ele[0]);
 						dupfileIDMap.put(ele[6], list);
 					} else {
+						list.add(fileIDMap.get(ele[6]));
+						list.add(ele[0]);
 						dupfileIDMap.put(ele[6], list);
 					}
 				} else {
@@ -216,6 +195,38 @@ public class SeloggerFiles {
 			return isFail;
 		}
 
+	}
+
+	public List<String> getLinesRecentdata() {
+		return linesRecentdata;
+	}
+
+	public List<String> getLinesDataids() {
+		return linesDataids;
+	}
+
+	public List<String> getLinesMethods() {
+		return linesMethods;
+	}
+
+	public Map<FileLineDataId, List<String>> getLineVarMap() {
+		return linevarMap;
+	}
+
+	public Map<FileLineVarDataId, DataIdVar> getLineVarDetailMap() {
+		return linevardetailMap;
+	}
+
+	public Map<String, String> getFileIDMap() {
+		return fileIDMap;
+	}
+
+	public Map<String, List<String>> getdupFileIDMap() {
+		return dupfileIDMap;
+	}
+
+	public Map<String, List<Recentdata>> getRecentDataMap() {
+		return recentdataMap;
 	}
 
 }

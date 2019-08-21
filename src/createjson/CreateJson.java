@@ -28,6 +28,7 @@ public class CreateJson {
 
 	private Json create() {
 		Json json = new Json();
+
 		setClassName(json);
 		setMethodName(json);
 		setVar(json);
