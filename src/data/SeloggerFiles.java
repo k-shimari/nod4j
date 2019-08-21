@@ -34,23 +34,7 @@ public class SeloggerFiles {
 			this.linesMethods = Files.readAllLines(Paths.get(dir, "selogger", "methods.txt"));
 			CreateDataIdVarMap();
 			CreateFileIDMap();
-
 			CreateRecentDataMap();
-
-			/*
-						for (FileLineDataId key : linevarMap.keySet()) {
-							System.out.println(key + " => " + linevarMap.get(key));
-						}
-
-			for (String key : fileIDMap.keySet()) {
-				System.out.println(key + " => " + fileIDMap.get(key));
-			}
-
-								  	for (FileLineVarDataId key : linevardetailMap.keySet()) {
-									    System.out.println(key + " => " + linevardetailMap.get(key));
-									}
-			 */
-
 		} catch (IOException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
