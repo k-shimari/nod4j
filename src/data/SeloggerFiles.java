@@ -23,6 +23,7 @@ public class SeloggerFiles {
 	private Map<String, List<String>> dupfileIDMap = new HashMap<>();
 	private List<String> fieldIDList = new ArrayList<>();
 	private Map<String, List<Recentdata>> recentdataMap = new HashMap<>();
+
 	private DataIdMaps dataidMaps;
 
 	private static final int FIELDNAMEINDEX = 10;
@@ -44,7 +45,7 @@ public class SeloggerFiles {
 	private void CreateMap() {
 		CreateFileIDMap();
 		CreateDataIdVarMap();
-		dataidMaps.createMap(linesDataids,linesMethods);
+		dataidMaps.createMap(linesDataids, linesMethods);
 		CreateRecentDataMap();
 	}
 
@@ -105,12 +106,8 @@ public class SeloggerFiles {
 			FieldInfo fi = getfi(elemdat);
 			if (fi.getisFail())
 				continue;
-
 			String dataid = elemdat[0];
-			String fileID = elemdat[1];
-			String linenum = elemdat[3];
-			createlinevardetailMap(fi.getFieldname(), fi.getisPut(), dataid, fileID, linenum);
-
+			dataidMaps.putDataIDVarMap(dataid, fi.getFieldname());
 		}
 	}
 
@@ -137,41 +134,41 @@ public class SeloggerFiles {
 		}
 		return fi;
 	}
-
-	private void createlinevardetailMap(String fieldname, boolean isPut, String dataid, String fileID,
-			String linenum) {
-		fieldIDList.add(dataid);
-		/* ファイル・行に対する変数のリスト,変数の詳細リストを更新 or 生成*/
-		if (linevarMap.get(new FileLineDataId(fileID, linenum)) != null) {
-			/* 変数がすでにその行にあるかどうか確認*/
-			if (linevardetailMap.containsKey(new FileLineVarDataId(fileID, linenum, fieldname))) {
-				DataIdVar dvar = linevardetailMap.get(new FileLineVarDataId(fileID, linenum, fieldname));
-				Integer count = new Integer(dvar.getCount().intValue() + 1);
-				List<DataID> dataidlist = dvar.getDataIDList();
-				dataidlist.add(new DataID(dataid, isPut));
-				linevardetailMap.put(new FileLineVarDataId(fileID, linenum, fieldname),
-						new DataIdVar(fieldname, count, dataidlist));
-			} else {
-				List<String> varlist = linevarMap.get(new FileLineDataId(fileID, linenum));
-				varlist.add(fieldname);
-				linevarMap.put(new FileLineDataId(fileID, linenum), varlist);
-				List<DataID> dataidlist = new ArrayList<>();
-				dataidlist.add(new DataID(dataid, isPut));
-				linevardetailMap.put(new FileLineVarDataId(fileID, linenum, fieldname),
-						new DataIdVar(fieldname, 1, dataidlist));
-			}
-		} else {
-			List<String> varlist = new ArrayList<>();
-			varlist.add(fieldname);
-			linevarMap.put(new FileLineDataId(fileID, linenum), varlist);
-			List<DataID> dataidlist = new ArrayList<>();
-			dataidlist.add(new DataID(dataid, isPut));
-
-			linevardetailMap.put(new FileLineVarDataId(fileID, linenum, fieldname),
-					new DataIdVar(fieldname, 1, dataidlist));
-		}
-	}
-
+//
+//	private void createlinevardetailMap(String fieldname, boolean isPut, String dataid, String fileID,
+//			String linenum) {
+//		fieldIDList.add(dataid);
+//		/* ファイル・行に対する変数のリスト,変数の詳細リストを更新 or 生成*/
+//		if (linevarMap.get(new FileLineDataId(fileID, linenum)) != null) {
+//			/* 変数がすでにその行にあるかどうか確認*/
+//			if (linevardetailMap.containsKey(new FileLineVarDataId(fileID, linenum, fieldname))) {
+//				DataIdVar dvar = linevardetailMap.get(new FileLineVarDataId(fileID, linenum, fieldname));
+//				Integer count = new Integer(dvar.getCount().intValue() + 1);
+//				List<DataID> dataidlist = dvar.getDataIDList();
+//				dataidlist.add(new DataID(dataid, isPut));
+//				linevardetailMap.put(new FileLineVarDataId(fileID, linenum, fieldname),
+//						new DataIdVar(fieldname, count, dataidlist));
+//			} else {
+//				List<String> varlist = linevarMap.get(new FileLineDataId(fileID, linenum));
+//				varlist.add(fieldname);
+//				linevarMap.put(new FileLineDataId(fileID, linenum), varlist);
+//				List<DataID> dataidlist = new ArrayList<>();
+//				dataidlist.add(new DataID(dataid, isPut));
+//				linevardetailMap.put(new FileLineVarDataId(fileID, linenum, fieldname),
+//						new DataIdVar(fieldname, 1, dataidlist));
+//			}
+//		} else {
+//			List<String> varlist = new ArrayList<>();
+//			varlist.add(fieldname);
+//			linevarMap.put(new FileLineDataId(fileID, linenum), varlist);
+//			List<DataID> dataidlist = new ArrayList<>();
+//			dataidlist.add(new DataID(dataid, isPut));
+//
+//			linevardetailMap.put(new FileLineVarDataId(fileID, linenum, fieldname),
+//					new DataIdVar(fieldname, 1, dataidlist));
+//		}
+//	}
+//
 	private class FieldInfo {
 		private String fieldname;
 		private boolean isPut;
@@ -227,6 +224,10 @@ public class SeloggerFiles {
 
 	public Map<String, List<Recentdata>> getRecentDataMap() {
 		return recentdataMap;
+	}
+
+	public DataIdMaps getDataidMaps() {
+		return dataidMaps;
 	}
 
 }

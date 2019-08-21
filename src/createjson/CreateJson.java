@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import data.Json;
 import data.Recentdata;
 import data.SeloggerFiles;
@@ -19,58 +22,71 @@ public class CreateJson {
 
 	public void start() {
 		System.out.println("Create json ...");
-		Json json = create();
-
+		List<Json> jsonList = create();
+		ObjectMapper mapper = new ObjectMapper();
 		// @TODO print とか
-		System.out.println(json);
+		jsonList.forEach(s -> {
+			try {
+				String json = mapper.writeValueAsString(s);
+				System.out.println(json);
+			} catch (JsonProcessingException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			}
+
+
+
+		});
 
 	}
 
-	private Json create() {
-		Json json = new Json();
+	private List<Json> create() {
+		List<Json> jsonList = new ArrayList<>();
 
-		setClassName(json);
-		setMethodName(json);
-		setVar(json);
-		setLinenum(json);
-		setCount(json);
-		setValueList(json);
-		return json;
+		selfiles.getDataidMaps().getDataidVarMap().keySet()
+				.forEach(d -> {
+					Json json = new Json();
+					setClassName(json, d);
+					setMethodName(json, d);
+					setVar(json, d);
+					setLinenum(json, d);
+					setCount(json, d);
+					setValueList(json, d);
+					jsonList.add(json);
+				});
+		return jsonList;
 	}
 
-	private void setClassName(Json json) {
-		// @TODO
-		String className = "hogehoge.java";
+	private void setClassName(Json json, String d) {
+		String className = selfiles.getDataidMaps().getDataidClassMap().get(d);
 		json.setClassName(className);
 
 	}
 
-	private void setMethodName(Json json) {
-		// @TODO
-		String methodName = "fuga";
+	private void setMethodName(Json json, String d) {
+		String methodName = selfiles.getDataidMaps().getDataidMethodMap().get(d);
 		json.setMethodName(methodName);
 	}
 
-	private void setVar(Json json) {
-		// @TODO
-		String var = "var";
+	private void setVar(Json json, String d) {
+		String var = selfiles.getDataidMaps().getDataidVarMap().get(d);
 		json.setVar(var);
 	}
 
-	private void setLinenum(Json json) {
+	private void setLinenum(Json json, String d) {
 		// @TODO
-		int linenum =100;
+		int linenum = 100;
 		json.setLinenum(linenum);
 
 	}
 
-	private void setCount(Json json) {
+	private void setCount(Json json, String d) {
 		// @TODO
 		int count = 1;
 		json.setCount(count);
 	}
 
-	private void setValueList(Json json) {
+	private void setValueList(Json json, String d) {
 		// @TODO
 		List<Recentdata> valueList = new ArrayList<Recentdata>();
 
