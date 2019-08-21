@@ -11,6 +11,7 @@ public class DataIdMaps {
 //	private Map<String, String> dataidMethodIDMap = new HashMap<>();
 	private Map<String, String> dataidClassMap = new HashMap<>();;
 	private Map<String, String> dataidMethodMap = new HashMap<>();
+	private Map<String, String> dataidLinenumMap = new HashMap<>();
 
 	private Map<String, String> dataidVarMap = new HashMap<>();
 
@@ -40,7 +41,7 @@ public class DataIdMaps {
 		//		dataidMethodIDMap.put(ele[0], ele[2]);
 				dataidClassMap.put(ele[0], ClassIDClassMap.get(ele[1]));
 				dataidMethodMap.put(ele[0], MethodIDMethodMap.get(ele[2]));
-
+				dataidLinenumMap.put(ele[0], ele[3]);
 
 			} else {
 				System.err.println("DataIdMaps.java createIDMap: ele.length < 3");
@@ -64,10 +65,14 @@ public class DataIdMaps {
 //		return dataidMethodIDMap;
 //	}
 
-
+	public Map<String, String> getDataidLinenumMap() {
+		return dataidLinenumMap;
+	}
 	public Map<String, String> getDataidClassMap() {
 		return dataidClassMap;
 	}
+
+
 
 	public Map<String, String> getDataidMethodMap() {
 		return dataidMethodMap;

@@ -75,7 +75,7 @@ public class CreateJson {
 
 	private void setLinenum(Json json, String d) {
 		// @TODO
-		int linenum = 100;
+		String linenum = selfiles.getDataidMaps().getDataidLinenumMap().get(d);
 		json.setLinenum(linenum);
 
 	}

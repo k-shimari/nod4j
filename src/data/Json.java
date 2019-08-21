@@ -7,8 +7,8 @@ public class Json {
 	private String className;
 	private String methodName;
 	private String var;
-	private int linenum;
-	private final String _countcomment = "その行で何回目の出現か(同じ変数が行内にあったときのみカウント+)";
+	private String linenum;
+	//private final String _countcomment = "その行で何回目の出現か(同じ変数が行内にあったときのみカウント+)";
 	private int count;
 	private List<Recentdata> valueList;
 
@@ -39,11 +39,11 @@ public class Json {
 		this.var = var;
 	}
 
-	public int getLinenum() {
+	public String getLinenum() {
 		return linenum;
 	}
 
-	public void setLinenum(int linenum) {
+	public void setLinenum(String linenum) {
 		this.linenum = linenum;
 	}
 
@@ -63,8 +63,8 @@ public class Json {
 		this.valueList = valueList;
 	}
 
-	public String get_countcomment() {
-		return _countcomment;
-	}
+	//	public String get_countcomment() {
+	//		return _countcomment;
+	//	}
 
 }
