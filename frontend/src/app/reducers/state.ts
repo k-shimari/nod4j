@@ -1,4 +1,5 @@
 import { VarValueData } from 'app/components/sourcecode';
+import { ProjectItem } from 'app/models/project';
 
 export interface RootState {
   logvis: RootState.LogvisState;
@@ -17,5 +18,9 @@ export namespace RootState {
     };
     originalValueListData: VarValueData;
     filteredValueListData: VarValueData;
+    files: {
+      currentDir: string;
+      items: ProjectItem[];
+    };
   }
 }

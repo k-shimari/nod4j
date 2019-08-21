@@ -7,7 +7,11 @@ const initialState: RootState.LogvisState = {
     range: {}
   },
   originalValueListData: {},
-  filteredValueListData: {}
+  filteredValueListData: {},
+  files: {
+    currentDir: '/',
+    items: []
+  }
 };
 
 export const logvisReducer = handleActions<RootState.LogvisState, any>(
