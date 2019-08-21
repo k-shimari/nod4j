@@ -65,7 +65,7 @@ interface FileTableRowProp {
   kind: 'file' | 'dir';
 }
 
-export const FileTableRow: React.FunctionComponent<FileTableRowProp> = (props) => (
+const FileTableRow: React.FunctionComponent<FileTableRowProp> = (props) => (
   <TableRow>
     <TableCell>
       {props.kind === 'file' ? (
