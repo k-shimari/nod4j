@@ -13,4 +13,6 @@ storiesOf('File Navigation', module)
       ]}
     ></FileTable>
   ))
-  .add('Path navigation', () => <PathNavigation />);
+  .add('Path navigation', () => (
+    <PathNavigation currentDir="atoms" parentDirs={['src', 'components']} />
+  ));

@@ -11,18 +11,26 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export const PathNavigation: React.FunctionComponent = (props) => {
+interface Props {
+  parentDirs: string[];
+  currentDir: string;
+}
+
+function computeHref(index: number, dirs: string[]): string {
+  return '/' + dirs.slice(0, index + 1).join('/');
+}
+
+export const PathNavigation: React.FunctionComponent<Props> = (props) => {
   const classes = useStyles();
   return (
     <Paper elevation={0} className={classes.paper}>
       <Breadcrumbs separator="›" aria-label="breadcrumb">
-        <Link color="inherit" href="/">
-          Material-UI
-        </Link>
-        <Link color="inherit" href="/getting-started/installation/">
-          Core
-        </Link>
-        <Typography color="textPrimary">Breadcrumb</Typography>
+        {props.parentDirs.map((dir, index) => (
+          <Link key={index} color="inherit" href={computeHref(index, props.parentDirs)}>
+            {dir}
+          </Link>
+        ))}
+        <Typography color="textPrimary">{props.currentDir}</Typography>
       </Breadcrumbs>
     </Paper>
   );
