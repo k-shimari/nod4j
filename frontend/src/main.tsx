@@ -1,3 +1,4 @@
+import { CssBaseline } from '@material-ui/core';
 import { configureStore } from 'app/store';
 import { createBrowserHistory } from 'history';
 import * as React from 'react';
@@ -14,6 +15,7 @@ const store = configureStore();
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
+      <CssBaseline />
       <App />
     </Router>
   </Provider>,
