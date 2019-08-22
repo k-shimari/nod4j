@@ -20,6 +20,7 @@ export namespace RootState {
     parentDirs: string[];
     currentDir: string;
     items: ProjectItem[];
+    loading: boolean;
   }
 
   export interface LogvisState {

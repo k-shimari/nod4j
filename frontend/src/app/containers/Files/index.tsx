@@ -10,6 +10,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import * as Path from 'path';
 import { ProjectItem, ProjectItemKind } from 'app/models/project';
 import { pathToFileURL } from 'url';
+import { LinearProgress } from '@material-ui/core';
 
 interface Props extends RouteComponentProps {
   actions: LogvisActions;
@@ -54,12 +55,18 @@ class FilesContainerComp extends React.Component<Props> {
 
   render() {
     const { files } = this.props;
-    const { currentDir, parentDirs, items } = files;
+    const { currentDir, parentDirs, items, loading } = files;
 
     return (
       <div>
-        <PathNavigation parentDirs={parentDirs} currentDir={currentDir} />
-        <FileTable data={this.mapItems(items)} />
+        {loading ? (
+          <LinearProgress variant="indeterminate" />
+        ) : (
+          <React.Fragment>
+            <PathNavigation parentDirs={parentDirs} currentDir={currentDir} />
+            <FileTable data={this.mapItems(items)} />
+          </React.Fragment>
+        )}
       </div>
     );
   }
