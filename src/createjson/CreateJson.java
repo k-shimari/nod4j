@@ -2,12 +2,14 @@ package createjson;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import data.FieldInfo;
 import data.Json;
 import data.Recentdata;
 import data.SeloggerFiles;
@@ -42,53 +44,65 @@ public class CreateJson {
 	private List<Json> create() {
 		List<Json> jsonList = new ArrayList<>();
 
+		String prevClassName = "";
+		String prevMethodName = "";
+		String prevLinenum = "";
+		List<Json> tmpJsonList = new ArrayList<>();
+		Map<String, Boolean> isPutMap = new HashMap();
 		selfiles.getDataidMaps().getDataidVarMap().keySet()
 				.stream()
 				.sorted(Comparator.comparing(d -> Integer.parseInt(d)))
 				.forEach(d -> {
+					String className = selfiles.getDataidMaps().getDataidClassMap().get(d);
+					String methodName = selfiles.getDataidMaps().getDataidMethodMap().get(d);
+					String linenum = selfiles.getDataidMaps().getDataidLinenumMap().get(d);
+					/*for count*/
+					if (!(prevClassName.equals(className) && prevMethodName.equals(methodName)
+							&& prevLinenum.equals(linenum))) {
+						Map<String, Integer> countMap = new HashMap<>();
+						tmpJsonList.forEach(json -> {
+							if (countMap.containsKey(json.getVar())) {
+								if (isPutMap.get(json.getVar())) {
+
+									int isPutShift = isPutMap.get(json.getVar()) ? 1 : 0;
+									json.setCount(countMap.get(json.getVar()) + 1 + isPutShift);
+									countMap.put(json.getVar(), countMap.get(json.getVar()) + 1);
+								}
+							} else {
+								int isPutShift = isPutMap.get(json.getVar()) ? 1 : 0;
+								json.setCount(1 + isPutShift);
+								countMap.put(json.getVar(), 1);
+							}
+
+							jsonList.add(json);
+						});
+						tmpJsonList.clear();
+						isPutMap.clear();
+					}
+					FieldInfo fieldInfo = selfiles.getDataidMaps().getDataidVarMap().get(d);
+					String var = fieldInfo.getFieldname();
+
 					Json json = new Json();
-					setDataid(json, d);
-					setClassName(json, d);
-					setMethodName(json, d);
-					setVar(json, d);
-					setLinenum(json, d);
-					setCount(json, d);
+					json.setDataid(d);
+					json.setClassName(className);
+					json.setMethodName(methodName);
+					json.setVar(var);
+					json.setLinenum(linenum);
 					setValueList(json, d);
-					jsonList.add(json);
+					if (isPutMap.containsKey(var)) {
+						isPutMap.put(var, fieldInfo.getisPut() || isPutMap.get(var));
+
+					} else {
+						isPutMap.put(var, fieldInfo.getisPut());
+					}
+					tmpJsonList.add(json);
 				});
+		tmpJsonList.forEach(json -> {
+			jsonList.add(json);
+		});
+		tmpJsonList.clear();
+
 		return jsonList;
-	}
-
-	private void setDataid(Json json, String d) {
-		json.setDataid(d);
-	}
-
-	private void setClassName(Json json, String d) {
-		String className = selfiles.getDataidMaps().getDataidClassMap().get(d);
-		json.setClassName(className);
-
-	}
-
-	private void setMethodName(Json json, String d) {
-		String methodName = selfiles.getDataidMaps().getDataidMethodMap().get(d);
-		json.setMethodName(methodName);
-	}
-
-	private void setVar(Json json, String d) {
-		String var = selfiles.getDataidMaps().getDataidVarMap().get(d).getFieldname();
-		json.setVar(var);
-	}
-
-	private void setLinenum(Json json, String d) {
-		String linenum = selfiles.getDataidMaps().getDataidLinenumMap().get(d);
-		json.setLinenum(linenum);
-	}
-
-	private void setCount(Json json, String d) {
-		// @TODO
-		int count = 1;
-
-		json.setCount(count);
 	}
 
 	private void setValueList(Json json, String d) {
@@ -98,6 +112,31 @@ public class CreateJson {
 		json.setValueList(valueList);
 
 	}
-
+	//
+	//	private class countInfo {
+	//		int count;
+	//		boolean isContainPut;
+	//
+	//		public countInfo(int count, boolean isContainPut) {
+	//			this.count = count;
+	//			this.isContainPut = isContainPut;
+	//		}
+	//
+	//		public int getCount() {
+	//			return count;
+	//		}
+	//
+	//		public void setCount(int count) {
+	//			this.count = count;
+	//		}
+	//
+	//		public boolean isContainPut() {
+	//			return isContainPut;
+	//		}
+	//
+	//		public void setContainPut(boolean isContainPut) {
+	//			this.isContainPut = isContainPut;
+	//		}
+	//	}
 
 }

@@ -21,7 +21,6 @@ public class SeloggerFiles {
 
 	private Map<String, String> fileIDMap = new HashMap<>();
 	private Map<String, List<String>> dupfileIDMap = new HashMap<>();
-	private List<String> fieldIDList = new ArrayList<>();
 
 
 	private DataIdMaps dataidMaps;
@@ -42,7 +41,7 @@ public class SeloggerFiles {
 	}
 
 	private void CreateMap() {
-		CreateFileIDMap();
+//		CreateFileIDMap();
 		dataidMaps.createMap(linesDataids, linesMethods,linesRecentdata);
 	}
 
@@ -51,28 +50,28 @@ public class SeloggerFiles {
 	/**methods.txtをもとに，ファイルに対するそのIDを返すMapを作成
 	 *
 	 */
-	private void CreateFileIDMap() {
-		for (String line : this.linesMethods) {
-			String ele[] = line.split(",");
-			if (ele.length > 6) {
-				if (fileIDMap.containsKey(ele[6])) {
-					/* internal class indicates same file, so separate*/
-					List<String> list = new ArrayList<String>();
-					if (dupfileIDMap.containsKey(ele[6])) {
-						list = dupfileIDMap.get(ele[6]);
-						list.add(ele[0]);
-						dupfileIDMap.put(ele[6], list);
-					} else {
-						list.add(fileIDMap.get(ele[6]));
-						list.add(ele[0]);
-						dupfileIDMap.put(ele[6], list);
-					}
-				} else {
-					fileIDMap.put(ele[6], ele[0]);
-				}
-			}
-		}
-	}
+//	private void CreateFileIDMap() {
+//		for (String line : this.linesMethods) {
+//			String ele[] = line.split(",");
+//			if (ele.length > 6) {
+//				if (fileIDMap.containsKey(ele[6])) {
+//					/* internal class indicates same file, so separate*/
+//					List<String> list = new ArrayList<String>();
+//					if (dupfileIDMap.containsKey(ele[6])) {
+//						list = dupfileIDMap.get(ele[6]);
+//						list.add(ele[0]);
+//						dupfileIDMap.put(ele[6], list);
+//					} else {
+//						list.add(fileIDMap.get(ele[6]));
+//						list.add(ele[0]);
+//						dupfileIDMap.put(ele[6], list);
+//					}
+//				} else {
+//					fileIDMap.put(ele[6], ele[0]);
+//				}
+//			}
+//		}
+//	}
 
 
 
