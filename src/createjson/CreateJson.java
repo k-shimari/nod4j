@@ -75,7 +75,7 @@ public class CreateJson {
 	}
 
 	private void setVar(Json json, String d) {
-		String var = selfiles.getDataidMaps().getDataidVarMap().get(d);
+		String var = selfiles.getDataidMaps().getDataidVarMap().get(d).getFieldname();
 		json.setVar(var);
 	}
 
@@ -93,7 +93,7 @@ public class CreateJson {
 
 	private void setValueList(Json json, String d) {
 		List<Recentdata> valueList = new ArrayList<Recentdata>();
-		Map<String, List<Recentdata>> recdatamap = selfiles.getRecentDataMap();
+		Map<String, List<Recentdata>> recdatamap = selfiles.getDataidMaps().getDataidRecentdataMap();
 		valueList = recdatamap.get(d);
 		json.setValueList(valueList);
 

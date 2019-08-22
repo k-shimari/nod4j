@@ -22,12 +22,11 @@ public class SeloggerFiles {
 	private Map<String, String> fileIDMap = new HashMap<>();
 	private Map<String, List<String>> dupfileIDMap = new HashMap<>();
 	private List<String> fieldIDList = new ArrayList<>();
-	private Map<String, List<Recentdata>> recentdataMap = new HashMap<>();
+
 
 	private DataIdMaps dataidMaps;
 
-	private static final int FIELDNAMEINDEX = 10;
-	private static final int NAMEINDEX = 5;
+
 
 	public SeloggerFiles(String dir) {
 		try {
@@ -44,27 +43,10 @@ public class SeloggerFiles {
 
 	private void CreateMap() {
 		CreateFileIDMap();
-		CreateDataIdVarMap();
-		dataidMaps.createMap(linesDataids, linesMethods);
-		CreateRecentDataMap();
+		dataidMaps.createMap(linesDataids, linesMethods,linesRecentdata);
 	}
 
-	/*
 
-	*/
-	/*dataid に recentdata(time,thread,data)のリストを対応付ける*/
-	//TODO dataにStringで,が入った時の例外処理を作る
-	private void CreateRecentDataMap() {
-		for (String line : this.linesRecentdata) {
-			String element[] = line.split(",");
-			String dataid = element[0];
-			List<Recentdata> list = new ArrayList<>();
-			for (int i = 0; i < element.length / 3 - 1; i++) {
-				list.add(new Recentdata(element[3 * i + 3], element[3 * i + 4], element[3 * i + 5]));
-			}
-			recentdataMap.put(dataid, list);
-		}
-	}
 
 	/**methods.txtをもとに，ファイルに対するそのIDを返すMapを作成
 	 *
@@ -92,49 +74,10 @@ public class SeloggerFiles {
 		}
 	}
 
-	/**dataids.txtのファイルと行をキーとして，変数とその登場回数(CreateVarList)が入ったMapを作成
-	 *
-	 */
-	private void CreateDataIdVarMap() {
-		System.out.println(this.linesDataids.size());
-		for (String linedat : this.linesDataids) {
-			String elemdat[] = linedat.split(",");
 
-			if (!linedat.contains("Name"))
-				continue;
-			/* fieldnameとそれがPUT命令かどうかを取得 */
-			FieldInfo fi = getfi(elemdat);
-			if (fi.getisFail())
-				continue;
-			String dataid = elemdat[0];
-			dataidMaps.putDataIDVarMap(dataid, fi.getFieldname());
-		}
-	}
 
-	private FieldInfo getfi(String elemdat[]) {
-		FieldInfo fi;
-		if (elemdat[5].equals("GET_STATIC_FIELD") | elemdat[5].equals("PUT_STATIC_FIELD")) {
-			String fieldname = elemdat[8].substring(FIELDNAMEINDEX);
-			boolean isPut = elemdat[5].contains("PUT");
-			fi = new FieldInfo(fieldname, isPut, false);
-		} else if (elemdat[5].equals("GET_INSTANCE_FIELD_RESULT")
-				|| elemdat[5].equals("PUT_INSTANCE_FIELD_VALUE")) {
-			String fieldname = elemdat[9].substring(FIELDNAMEINDEX);
-			boolean isPut = elemdat[5].contains("PUT");
-			fi = new FieldInfo(fieldname, isPut, false);
-		} else if (elemdat[5].equals("LOCAL_STORE") || elemdat[5].equals("LOCAL_LOAD")) {
-			String fieldname = elemdat[8].substring(NAMEINDEX);
-			/*SELoggerの使用で局所変数で名前がないものが取れるので無視*/
-			boolean isPut = elemdat[5].equals("LOCAL_STORE");
-			fi = new FieldInfo(fieldname, isPut, fieldname.equals("(Unavailable)"));
 
-		} else {
-			/*命令がない時は失敗*/
-			fi = new FieldInfo("", false, true);
-		}
-		return fi;
-	}
-//
+
 //	private void createlinevardetailMap(String fieldname, boolean isPut, String dataid, String fileID,
 //			String linenum) {
 //		fieldIDList.add(dataid);
@@ -168,31 +111,8 @@ public class SeloggerFiles {
 //					new DataIdVar(fieldname, 1, dataidlist));
 //		}
 //	}
-//
-	private class FieldInfo {
-		private String fieldname;
-		private boolean isPut;
-		private boolean isFail;
 
-		public FieldInfo(String fieldname, boolean isPut, boolean isFail) {
-			this.fieldname = fieldname;
-			this.isPut = isPut;
-			this.isFail = isFail;
-		}
 
-		public String getFieldname() {
-			return fieldname;
-		}
-
-		public boolean getisPut() {
-			return isPut;
-		}
-
-		public boolean getisFail() {
-			return isFail;
-		}
-
-	}
 
 	public List<String> getLinesRecentdata() {
 		return linesRecentdata;
@@ -220,10 +140,6 @@ public class SeloggerFiles {
 
 	public Map<String, List<String>> getdupFileIDMap() {
 		return dupfileIDMap;
-	}
-
-	public Map<String, List<Recentdata>> getRecentDataMap() {
-		return recentdataMap;
 	}
 
 	public DataIdMaps getDataidMaps() {
