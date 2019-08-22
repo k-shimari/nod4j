@@ -1,12 +1,10 @@
+import { Popper } from '@material-ui/core';
 import { SourceCodeToken } from 'app/models/token';
 import * as React from 'react';
-import { ValueListItemValue } from '../atoms/valueListItem';
-import { ValueListItem, ValueList } from '../organisms/valueList';
-import { Line } from './line';
-import { Popper, Paper, Fade } from '@material-ui/core';
-import { timingSafeEqual } from 'crypto';
-import { Subject, interval } from 'rxjs';
+import { interval, Subject } from 'rxjs';
 import { debounce } from 'rxjs/operators';
+import { ValueList, ValueListItem } from '../organisms/valueList';
+import { Line } from './line';
 
 export type VarValueData = { [varId: string]: ValueListItem[] | undefined };
 
