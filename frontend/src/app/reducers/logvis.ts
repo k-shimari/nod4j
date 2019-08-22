@@ -9,6 +9,7 @@ const initialState: RootState.LogvisState = {
   originalValueListData: {},
   filteredValueListData: {},
   files: {
+    parentDirs: [],
     currentDir: '/',
     items: []
   }
@@ -59,6 +60,18 @@ export const logvisReducer = handleActions<RootState.LogvisState, any>(
       return {
         ...state,
         filteredValueListData: data
+      };
+    },
+    [LogvisActions.Type.SET_FILES_DATA]: (state, action) => {
+      const {
+        currentDir,
+        parentDirs,
+        items
+      } = action.payload! as LogvisActions.Payload.SetFilesDataPayload;
+
+      return {
+        ...state,
+        files: { currentDir, parentDirs, items }
       };
     }
   },

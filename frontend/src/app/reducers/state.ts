@@ -9,18 +9,23 @@ export interface RootState {
 export type ExecId = string;
 
 export namespace RootState {
-  export interface LogvisState {
-    filter: {
-      range: {
-        top?: ExecId;
-        bottom?: ExecId;
-      };
+  export interface FilterState {
+    range: {
+      top?: ExecId;
+      bottom?: ExecId;
     };
+  }
+
+  export interface FilesState {
+    parentDirs: string[];
+    currentDir: string;
+    items: ProjectItem[];
+  }
+
+  export interface LogvisState {
+    filter: FilterState;
     originalValueListData: VarValueData;
     filteredValueListData: VarValueData;
-    files: {
-      currentDir: string;
-      items: ProjectItem[];
-    };
+    files: FilesState;
   }
 }

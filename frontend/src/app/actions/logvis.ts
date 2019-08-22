@@ -45,6 +45,7 @@ export namespace LogvisActions {
     }
 
     export interface SetFilesDataPayload {
+      parentDirs: string[];
       currentDir: string;
       items: ProjectItem[];
     }
