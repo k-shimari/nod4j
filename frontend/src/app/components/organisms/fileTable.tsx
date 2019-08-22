@@ -1,8 +1,9 @@
 import { Paper, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import * as React from 'react';
 import FileIcon from '@material-ui/icons/Code';
 import FolderIcon from '@material-ui/icons/Folder';
+import { ProjectItem } from 'app/models/project';
+import * as React from 'react';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,12 +26,16 @@ export function createRowData(name: string, author: string, date: Date) {
 
 interface FileTableProps {
   data: FileTableRowProp[];
+  onFileClick?(fileName: string): void;
+  onDirClick?(dirName: string): void;
 }
 
 export const FileTable: React.FunctionComponent<FileTableProps> = (props) => {
   const classes = useStyles();
+  const { data, onFileClick, onDirClick } = props;
+
   return (
-    <div className={classes.root}>
+    <div>
       <Paper className={classes.paper}>
         <Table className={classes.table} size="small">
           <TableHead>
@@ -41,43 +46,50 @@ export const FileTable: React.FunctionComponent<FileTableProps> = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {props.data.map((d, index) => (
+            {data.map((d, index) => (
               <FileTableRow
                 key={index}
-                name={d.name}
-                author={d.author}
-                date={d.date}
-                kind={d.kind}
+                {...d}
+                onClick={() => {
+                  if (d.kind === 'file' && onFileClick) {
+                    onFileClick(d.name);
+                  }
+                  if (d.kind === 'dir' && onDirClick) {
+                    onDirClick(d.name);
+                  }
+                }}
               />
             ))}
           </TableBody>
         </Table>
       </Paper>
-      {props.children}
     </div>
   );
 };
 
-interface FileTableRowProp {
-  name: string;
-  author: string;
-  date: Date;
-  kind: 'file' | 'dir';
+export interface FileTableRowProp extends ProjectItem {
+  navigateTo: string;
+  onClick?(): void;
 }
 
-const FileTableRow: React.FunctionComponent<FileTableRowProp> = (props) => (
-  <TableRow>
-    <TableCell>
-      {props.kind === 'file' ? (
-        <FileIcon fontSize="small" style={{ verticalAlign: 'middle' }} />
-      ) : (
-        <FolderIcon fontSize="small" style={{ verticalAlign: 'middle' }} />
-      )}
-      <span style={{ verticalAlign: 'middle', paddingLeft: 4 }}>
-        <a href="#">{props.name} </a>
-      </span>
-    </TableCell>
-    <TableCell>{props.author}</TableCell>
-    <TableCell>{props.date.toLocaleString()}</TableCell>
-  </TableRow>
-);
+const FileTableRow: React.FunctionComponent<FileTableRowProp> = (props) => {
+  const { name, author, lastModifiedDate, navigateTo, onClick } = props;
+  return (
+    <TableRow>
+      <TableCell>
+        {props.kind === 'file' ? (
+          <FileIcon fontSize="small" style={{ verticalAlign: 'middle' }} />
+        ) : (
+          <FolderIcon fontSize="small" style={{ verticalAlign: 'middle' }} />
+        )}
+        <span style={{ verticalAlign: 'middle', paddingLeft: 4 }}>
+          <a onClick={onClick} href={navigateTo}>
+            {name}
+          </a>
+        </span>
+      </TableCell>
+      <TableCell>{author}</TableCell>
+      <TableCell>{lastModifiedDate.toLocaleString()}</TableCell>
+    </TableRow>
+  );
+};

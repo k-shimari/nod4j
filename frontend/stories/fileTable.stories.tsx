@@ -7,9 +7,27 @@ storiesOf('File Navigation', module)
   .add('File Table', () => (
     <FileTable
       data={[
-        { name: 'package.json', author: 'naoto', date: new Date(), kind: 'file' },
-        { name: '.gitignore', author: 'naoto', date: new Date(), kind: 'file' },
-        { name: 'node_modules', author: 'naoto', date: new Date(), kind: 'dir' }
+        {
+          name: 'package.json',
+          author: 'naoto',
+          lastModifiedDate: new Date(),
+          kind: 'file',
+          navigateTo: '#'
+        },
+        {
+          name: '.gitignore',
+          author: 'naoto',
+          lastModifiedDate: new Date(),
+          kind: 'file',
+          navigateTo: '#'
+        },
+        {
+          name: 'node_modules',
+          author: 'naoto',
+          lastModifiedDate: new Date(),
+          kind: 'dir',
+          navigateTo: '#'
+        }
       ]}
     ></FileTable>
   ))
