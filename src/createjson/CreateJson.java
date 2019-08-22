@@ -1,10 +1,16 @@
 package createjson;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,6 +23,7 @@ import data.SeloggerFiles;
 public class CreateJson {
 	private SeloggerFiles selfiles;
 	private String targetDir;
+	private static final String FILENAME = "varinfo.json";
 
 	public CreateJson(SeloggerFiles selfiles, String dir) {
 		this.selfiles = selfiles;
@@ -27,18 +34,28 @@ public class CreateJson {
 		System.out.println("Create json ...");
 		List<Json> jsonList = create();
 		ObjectMapper mapper = new ObjectMapper();
-		// @TODO print とか
-		jsonList.forEach(s -> {
-			try {
-				String json = mapper.writeValueAsString(s);
-				System.out.println(json);
-			} catch (JsonProcessingException e) {
-				// TODO 自動生成された catch ブロック
-				e.printStackTrace();
+
+		//		Files.write(Paths.get(targetDir, FILENAME), jsonList, CREATE, WRITE, APPEND);
+		try {
+			List<String> lines = jsonList.stream()
+					.map(s -> {
+						try {
+							return mapper.writeValueAsString(s);
+						} catch (JsonProcessingException e) {
+							e.printStackTrace();
+							return "";
+						}
+					})
+					.collect(Collectors.toList());
+			if (Files.exists(Paths.get(targetDir, FILENAME))) {
+				Files.delete(Paths.get(targetDir, FILENAME));
 			}
-
-		});
-
+			Files.createFile(Paths.get(targetDir, FILENAME));
+			Files.write(Paths.get(targetDir, FILENAME), lines, Charset.forName("UTF-8"), StandardOpenOption.WRITE);
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 	}
 
 	private List<Json> create() {
@@ -48,7 +65,7 @@ public class CreateJson {
 		String prevMethodName = "";
 		String prevLinenum = "";
 		List<Json> tmpJsonList = new ArrayList<>();
-		Map<String, Boolean> isPutMap = new HashMap();
+		Map<String, Boolean> isPutMap = new HashMap<String, Boolean>();
 		selfiles.getDataidMaps().getDataidVarMap().keySet()
 				.stream()
 				.sorted(Comparator.comparing(d -> Integer.parseInt(d)))
