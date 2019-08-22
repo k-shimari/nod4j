@@ -31,10 +31,12 @@ class FilesContainerComp extends React.Component<Props> {
   }
 
   computeLinkHref(name: string, kind: ProjectItemKind): string {
+    const currentUrl = this.props.location.pathname;
+    console.log(currentUrl);
+
     if (kind === 'file') {
-      return '#';
+      return Path.resolve(currentUrl.replace(/^\/files/, '/view'), name);
     } else {
-      const currentUrl = this.props.location.pathname;
       const navigateTo = Path.resolve(currentUrl, name);
       return navigateTo;
     }
