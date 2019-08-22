@@ -10,6 +10,7 @@ public class Json {
 	private String var;
 	private String linenum;
 	//private final String _countcomment = "その行で何回目の出現か(同じ変数が行内にあったときのみカウント+)";
+	private boolean isPut;
 	private int count;
 	private List<Recentdata> valueList;
 
@@ -70,6 +71,14 @@ public class Json {
 
 	public void setValueList(List<Recentdata> valueList) {
 		this.valueList = valueList;
+	}
+
+	public boolean getIsPut() {
+		return isPut;
+	}
+
+	public void setIsPut(boolean isPut) {
+		this.isPut = isPut;
 	}
 
 	//	public String get_countcomment() {
