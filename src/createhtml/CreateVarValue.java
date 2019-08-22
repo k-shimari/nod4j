@@ -15,7 +15,7 @@ public class CreateVarValue {
 
 	public String createReplacestr(String minvar, DataIdVar dvar, boolean isPut) {
 		String dataid = setDataID(dvar, isPut);
-		List<Recentdata> recentdatalist = selfiles.getRecentDataMap().get(dataid);
+		List<Recentdata> recentdatalist = selfiles.getDataidMaps().getDataidRecentdataMap().get(dataid);
 		if (recentdatalist == null) {
 			//	return "<span style=\"background-color:#ffcc99\">"+minvar+"</span>";
 			return minvar;
