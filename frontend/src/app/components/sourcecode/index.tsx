@@ -94,7 +94,7 @@ export class Sourcecode extends React.Component<Props, State> {
               <Line
                 key={index}
                 tokens={lineTokens}
-                line={1}
+                line={index + 1}
                 data={data}
                 onTokenEnter={this.onTokenEnter.bind(this)}
                 onTokenLeave={this.onTokenLeave.bind(this)}

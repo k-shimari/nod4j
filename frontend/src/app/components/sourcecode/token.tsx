@@ -13,9 +13,11 @@ export const Token: React.FunctionComponent<Props> = (props) => {
   const { id, onEnter, onLeave, highlighted } = props;
   const style: React.CSSProperties = highlighted
     ? {
-        backgroundColor: 'blue',
+        background: 'linear-gradient(90deg, #6A1B9A, #8E24AA)',
         color: 'white',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        borderRadius: 3,
+        padding: '2px 4px'
       }
     : {};
   return (

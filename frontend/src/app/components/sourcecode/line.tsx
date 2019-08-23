@@ -14,6 +14,9 @@ interface Props {
 
 function spreadTokens(props: Props): React.ReactElement[] {
   const { tokens, data, onTokenEnter, onTokenLeave } = props;
+  if (tokens.length === 0) {
+    return [<span> </span>];
+  }
 
   const result: React.ReactElement[] = [];
   let preEndColumn = 0;
@@ -47,6 +50,30 @@ function spreadTokens(props: Props): React.ReactElement[] {
   return result;
 }
 
-export const Line: React.FunctionComponent<Props> = (props) => (
-  <span style={{ display: 'block' }}>{spreadTokens(props)}</span>
+interface LineNumberProps {
+  number: number;
+}
+
+const LineNumber: React.FunctionComponent<LineNumberProps> = (props) => (
+  <span
+    style={{
+      display: 'inline-block',
+      color: 'gray',
+      textAlign: 'right',
+      fontSize: 12,
+      width: 32,
+      marginRight: 6
+    }}
+  >
+    {props.number}
+  </span>
 );
+
+export const Line: React.FunctionComponent<Props> = (props) => {
+  return (
+    <div>
+      <LineNumber number={props.line} />
+      <span style={{ display: 'inline', fontSize: 14 }}>{spreadTokens(props)}</span>
+    </div>
+  );
+};
