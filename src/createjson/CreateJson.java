@@ -23,7 +23,7 @@ import data.SeloggerFiles;
 public class CreateJson {
 	private SeloggerFiles selfiles;
 	private String targetDir;
-	private static final String FILENAME = "varinfo.json";
+	private static final String FILENAME = "sample2-varinfo.json";
 
 	public CreateJson(SeloggerFiles selfiles, String dir) {
 		this.selfiles = selfiles;
@@ -33,29 +33,32 @@ public class CreateJson {
 	public void start() {
 		System.out.println("Create json ...");
 		List<Json> jsonList = create();
-		ObjectMapper mapper = new ObjectMapper();
-
-		//		Files.write(Paths.get(targetDir, FILENAME), jsonList, CREATE, WRITE, APPEND);
 		try {
-			List<String> lines = jsonList.stream()
-					.map(s -> {
-						try {
-							return mapper.writeValueAsString(s);
-						} catch (JsonProcessingException e) {
-							e.printStackTrace();
-							return "";
-						}
-					})
-					.collect(Collectors.toList());
-			if (Files.exists(Paths.get(targetDir, FILENAME))) {
-				Files.delete(Paths.get(targetDir, FILENAME));
-			}
-			Files.createFile(Paths.get(targetDir, FILENAME));
-			Files.write(Paths.get(targetDir, FILENAME), lines, Charset.forName("UTF-8"), StandardOpenOption.WRITE);
+			printJson(jsonList);
+			System.out.println("Create json SUCCESS");
 		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
+			System.err.println("Create json FAILED");
 			e.printStackTrace();
 		}
+	}
+
+	private void printJson(List<Json> jsonList) throws IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		List<String> lines = jsonList.stream()
+				.map(s -> {
+					try {
+						return mapper.writeValueAsString(s);
+					} catch (JsonProcessingException e) {
+						e.printStackTrace();
+						return "";
+					}
+				})
+				.collect(Collectors.toList());
+		if (Files.exists(Paths.get(targetDir, FILENAME))) {
+			Files.delete(Paths.get(targetDir, FILENAME));
+		}
+		Files.createFile(Paths.get(targetDir, FILENAME));
+		Files.write(Paths.get(targetDir, FILENAME), lines, Charset.forName("UTF-8"), StandardOpenOption.WRITE);
 	}
 
 	private List<Json> create() {
@@ -76,25 +79,7 @@ public class CreateJson {
 					/*for count*/
 					if (!(prevClassName.equals(className) && prevMethodName.equals(methodName)
 							&& prevLinenum.equals(linenum))) {
-						Map<String, Integer> countMap = new HashMap<>();
-						tmpJsonList.forEach(json -> {
-							if (countMap.containsKey(json.getVar())) {
-								if (isPutMap.get(json.getVar())) {
-
-									int isPutShift = isPutMap.get(json.getVar()) ? 1 : 0;
-									json.setCount(countMap.get(json.getVar()) + 1 + isPutShift);
-									countMap.put(json.getVar(), countMap.get(json.getVar()) + 1);
-								}
-							} else {
-								int isPutShift = isPutMap.get(json.getVar()) ? 1 : 0;
-								json.setCount(1 + isPutShift);
-								countMap.put(json.getVar(), 1);
-							}
-
-							jsonList.add(json);
-						});
-						tmpJsonList.clear();
-						isPutMap.clear();
+						setCount(jsonList, tmpJsonList, isPutMap);
 					}
 					FieldInfo fieldInfo = selfiles.getDataidMaps().getDataidVarMap().get(d);
 					String var = fieldInfo.getFieldname();
@@ -103,12 +88,12 @@ public class CreateJson {
 					json.setDataid(d);
 					json.setClassName(className);
 					json.setMethodName(methodName);
+					json.setIsPut(fieldInfo.getisPut());
 					json.setVar(var);
 					json.setLinenum(linenum);
 					setValueList(json, d);
 					if (isPutMap.containsKey(var)) {
 						isPutMap.put(var, fieldInfo.getisPut() || isPutMap.get(var));
-
 					} else {
 						isPutMap.put(var, fieldInfo.getisPut());
 					}
@@ -120,6 +105,33 @@ public class CreateJson {
 		tmpJsonList.clear();
 
 		return jsonList;
+	}
+
+	/*set appearances count */
+	private void setCount(List<Json> jsonList, List<Json> tmpJsonList, Map<String, Boolean> isPutMap) {
+		Map<String, Integer> countMap = new HashMap<>();
+		tmpJsonList.forEach(json -> {
+			int isPutShift = isPutMap.get(json.getVar()) ? 1 : 0;
+			if (countMap.containsKey(json.getVar())) {
+				if (json.getIsPut()) {
+					json.setCount(1);
+				} else {
+					json.setCount(countMap.get(json.getVar()) + 1 + isPutShift);
+				}
+				countMap.put(json.getVar(), countMap.get(json.getVar()) + 1);
+			} else {
+				if (json.getIsPut()) {
+					json.setCount(1);
+				} else {
+					json.setCount(1 + isPutShift);
+				}
+				countMap.put(json.getVar(), 1);
+			}
+			jsonList.add(json);
+		});
+		tmpJsonList.clear();
+		isPutMap.clear();
+
 	}
 
 	private void setValueList(Json json, String d) {
