@@ -50,6 +50,30 @@ function spreadTokens(props: Props): React.ReactElement[] {
   return result;
 }
 
+interface LineNumberProps {
+  number: number;
+}
+
+const LineNumber: React.FunctionComponent<LineNumberProps> = (props) => (
+  <span
+    style={{
+      display: 'inline-block',
+      color: 'gray',
+      textAlign: 'right',
+      fontSize: 12,
+      width: 32,
+      marginRight: 6
+    }}
+  >
+    {props.number}
+  </span>
+);
+
 export const Line: React.FunctionComponent<Props> = (props) => {
-  return <span style={{ display: 'block' }}>{spreadTokens(props)}</span>;
+  return (
+    <div>
+      <LineNumber number={props.line} />
+      <span style={{ display: 'inline', fontSize: 14 }}>{spreadTokens(props)}</span>
+    </div>
+  );
 };
