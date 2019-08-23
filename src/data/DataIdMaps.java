@@ -53,22 +53,17 @@ public class DataIdMaps {
 
 	private void createRecentdataMap(List<String> linesRecentdata) {
 		for (String line : linesRecentdata) {
-			String[] element = splitRecentdata(line);
-			String dataid = element[0];
+			SplitLine s= new SplitLine(line);
+			String dataid = s.getElement(0);
 			List<Recentdata> list = new ArrayList<>();
-			for (int i = 0; i < element.length / 3 - 1; i++) {
-				list.add(new Recentdata(element[3 * i + 3], element[3 * i + 4], element[3 * i + 5]));
+			for (int i = 0; i < s.getElements().length / 3 - 1; i++) {
+				list.add(new Recentdata(s.getElement(3 * i + 3), s.getElement(3 * i + 4), s.getElement(3 * i + 5)));
 			}
 			dataidRecentdataMap.put(dataid, list);
 		}
 	}
 
-	private String[] splitRecentdata(String line) {
-		String[] s = line.split(",");
-		//TODO dataにStringで,が入った時の例外処理を作る
 
-		return s;
-	}
 
 	private void createVarInfoMap(List<String> linesDataids) {
 		for (String linedat : linesDataids) {
