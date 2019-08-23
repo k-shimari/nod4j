@@ -27,7 +27,7 @@ export const jsonDataStr = `
       "methodName": "<clinit>",
       "var": "intarray",
       "linenum": "7",
-      "count": 2,
+      "count": 1,
       "valueList": [
         { "data": "[I@5de5cac8", "timestamp": "12630", "thread": "0" }
       ]
@@ -38,7 +38,7 @@ export const jsonDataStr = `
       "methodName": "getMax",
       "var": "max",
       "linenum": "9",
-      "count": 2,
+      "count": 1,
       "valueList": [
         { "data": "0", "timestamp": "12637", "thread": "0" },
         { "data": "0", "timestamp": "13792", "thread": "0" },
@@ -124,7 +124,7 @@ export const jsonDataStr = `
       "methodName": "getMax",
       "var": "max",
       "linenum": "12",
-      "count": 2,
+      "count": 1,
       "valueList": [
         { "data": "30", "timestamp": "17268", "thread": "0" },
         { "data": "20", "timestamp": "18424", "thread": "0" }
@@ -145,7 +145,7 @@ export const jsonDataStr = `
       "methodName": "getMax",
       "var": "max",
       "linenum": "14",
-      "count": 2,
+      "count": 1,
       "valueList": [{ "data": "30", "timestamp": "16112", "thread": "0" }]
     },
     {
@@ -189,7 +189,7 @@ export const jsonDataStr = `
       "methodName": "getMax",
       "var": "max",
       "linenum": "18",
-      "count": 2,
+      "count": 1,
       "valueList": [{ "data": "30", "timestamp": "14956", "thread": "0" }]
     },
     {
@@ -210,7 +210,7 @@ export const jsonDataStr = `
       "methodName": "getMax",
       "var": "max",
       "linenum": "20",
-      "count": 2,
+      "count": 1,
       "valueList": [
         { "data": "30", "timestamp": "12646", "thread": "0" },
         { "data": "30", "timestamp": "13801", "thread": "0" }

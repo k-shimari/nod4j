@@ -114,7 +114,9 @@ export class Sourcecode extends React.Component<Props, State> {
               onEnter={this.onValueListEnter.bind(this)}
               onLeave={this.onValueListLeave.bind(this)}
             />
-          ) : null}
+          ) : (
+            <span> </span>
+          )}
         </Popper>
       </div>
     );

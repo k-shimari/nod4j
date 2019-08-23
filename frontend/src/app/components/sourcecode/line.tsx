@@ -17,13 +17,14 @@ function spreadTokens(props: Props): React.ReactElement[] {
 
   const result: React.ReactElement[] = [];
   let preEndColumn = 0;
+  let spaceId = 99999;
   for (const token of tokens) {
     const startColumn = token.startColumn!;
     const endColumn = token.endColumn!;
 
     const delta = startColumn - preEndColumn - 1;
     if (delta > 0) {
-      result.push(<Space length={delta} />);
+      result.push(<Space key={spaceId++} length={delta} />);
     }
     const valueList = data[token.id];
     const valueListExists = valueList !== undefined;
