@@ -14,6 +14,9 @@ interface Props {
 
 function spreadTokens(props: Props): React.ReactElement[] {
   const { tokens, data, onTokenEnter, onTokenLeave } = props;
+  if (tokens.length === 0) {
+    return [<span> </span>];
+  }
 
   const result: React.ReactElement[] = [];
   let preEndColumn = 0;
@@ -47,6 +50,6 @@ function spreadTokens(props: Props): React.ReactElement[] {
   return result;
 }
 
-export const Line: React.FunctionComponent<Props> = (props) => (
-  <span style={{ display: 'block' }}>{spreadTokens(props)}</span>
-);
+export const Line: React.FunctionComponent<Props> = (props) => {
+  return <span style={{ display: 'block' }}>{spreadTokens(props)}</span>;
+};
