@@ -15,10 +15,10 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import data.VarInfo;
 import data.Json;
 import data.Recentdata;
 import data.SeloggerFiles;
+import data.VarInfo;
 
 public class CreateJson {
 	private SeloggerFiles selfiles;
@@ -64,22 +64,22 @@ public class CreateJson {
 	private List<Json> create() {
 		List<Json> jsonList = new ArrayList<>();
 
-		String prevClassName = "";
-		String prevMethodName = "";
-		String prevLinenum = "";
+		String[] prevClassName = {""};
+		String[] prevMethodName = {""};
+		String[] prevLinenum = {""};
 		List<Json> tmpJsonList = new ArrayList<>();
 		Map<String, Boolean> isPutMap = new HashMap<String, Boolean>();
 		selfiles.getDataidMaps().getDataidVarMap().keySet()
 				.stream()
 				.sorted(Comparator.comparing(d -> Integer.parseInt(d)))
-				.forEach(d -> {
+				.forEach(d->{
 					String className = selfiles.getDataidMaps().getDataidClassMap().get(d);
 					String methodName = selfiles.getDataidMaps().getDataidMethodMap().get(d);
 					String linenum = selfiles.getDataidMaps().getDataidLinenumMap().get(d);
 					/*for count*/
-					if (!(prevClassName.equals(className) && prevMethodName.equals(methodName)
-							&& prevLinenum.equals(linenum))) {
-						setCount(jsonList, tmpJsonList, isPutMap);
+					if (!(prevClassName[0].equals(className) && prevMethodName[0].equals(methodName)
+							&& prevLinenum[0].equals(linenum))) {
+						addJsonList(jsonList, tmpJsonList, isPutMap);
 					}
 					VarInfo fieldInfo = selfiles.getDataidMaps().getDataidVarMap().get(d);
 					String var = fieldInfo.getFieldname();
@@ -98,6 +98,9 @@ public class CreateJson {
 						isPutMap.put(var, fieldInfo.getisPut());
 					}
 					tmpJsonList.add(json);
+					prevClassName[0]=className;
+					prevMethodName[0]=methodName;
+					prevLinenum[0]=linenum;
 				});
 		tmpJsonList.forEach(json -> {
 			jsonList.add(json);
@@ -108,30 +111,34 @@ public class CreateJson {
 	}
 
 	/*set appearances count */
-	private void setCount(List<Json> jsonList, List<Json> tmpJsonList, Map<String, Boolean> isPutMap) {
+	private void addJsonList(List<Json> jsonList, List<Json> tmpJsonList, Map<String, Boolean> isPutMap) {
 		Map<String, Integer> countMap = new HashMap<>();
 		tmpJsonList.forEach(json -> {
-			int isPutShift = isPutMap.get(json.getVar()) ? 1 : 0;
-			if (countMap.containsKey(json.getVar())) {
-				if (json.getIsPut()) {
-					json.setCount(1);
-				} else {
-					json.setCount(countMap.get(json.getVar()) + 1 + isPutShift);
-				}
-				countMap.put(json.getVar(), countMap.get(json.getVar()) + 1);
-			} else {
-				if (json.getIsPut()) {
-					json.setCount(1);
-				} else {
-					json.setCount(1 + isPutShift);
-				}
-				countMap.put(json.getVar(), 1);
-			}
+			setCount(isPutMap, countMap, json);
 			jsonList.add(json);
 		});
 		tmpJsonList.clear();
 		isPutMap.clear();
 
+	}
+
+	private void setCount(Map<String, Boolean> isPutMap, Map<String, Integer> countMap, Json json) {
+		int isPutShift = isPutMap.get(json.getVar()) ? 1 : 0;
+		if (countMap.containsKey(json.getVar())) {
+			if (json.getIsPut()) {
+				json.setCount(1);
+			} else {
+				json.setCount(countMap.get(json.getVar()) + 1 + isPutShift);
+			}
+			countMap.put(json.getVar(), countMap.get(json.getVar()) + 1);
+		} else {
+			if (json.getIsPut()) {
+				json.setCount(1);
+			} else {
+				json.setCount(1 + isPutShift);
+			}
+			countMap.put(json.getVar(), 1);
+		}
 	}
 
 	private void setValueList(Json json, String d) {

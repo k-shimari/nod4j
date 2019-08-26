@@ -53,7 +53,7 @@ public class DataIdMaps {
 
 	private void createRecentdataMap(List<String> linesRecentdata) {
 		for (String line : linesRecentdata) {
-			SplitLine s= new SplitLine(line);
+			SplitLine s = new SplitLine(line);
 			String dataid = s.getElement(0);
 			List<Recentdata> list = new ArrayList<>();
 			for (int i = 0; i < s.getElements().length / 3 - 1; i++) {
@@ -63,12 +63,9 @@ public class DataIdMaps {
 		}
 	}
 
-
-
 	private void createVarInfoMap(List<String> linesDataids) {
 		for (String linedat : linesDataids) {
 			String elemdat[] = linedat.split(",");
-
 			if (!linedat.contains("Name"))
 				continue;
 			/* fieldnameとそれがPUT命令かどうかを取得 */
