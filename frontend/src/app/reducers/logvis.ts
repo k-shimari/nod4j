@@ -22,35 +22,7 @@ const initialState: RootState.LogvisState = {
   }
 };
 
-function computeTokenId(variable: VarInfo, tokens: SourceCodeToken[]): string {
-  const { linenum, count, var: varName } = variable;
-  const match = tokens.filter((x) => x.startLine === Number(linenum) && x.image === varName);
-
-  if (count > match.length) {
-    throw new Error('Impossible');
-  }
-  const id = match[count - 1].id;
-  return id;
-}
-
-function createVarValueData(data: JsonData, tokens: SourceCodeToken[]): VarValueData {
-  let result: any = {};
-  for (const d of data.data) {
-    const item: ValueListItem[] = d.valueList.map((x, index) => ({
-      id: index.toString(),
-      value: x.data
-    }));
-
-    const id = computeTokenId(d, tokens);
-    result[id] = item;
-  }
-
-  return result;
-}
-
 export const logvisReducer = handleActions<RootState.LogvisState, any>(
-  // TODO: Filter系のreducerの中でoriginalValueListDataから
-  // filteredValueListDataを作る
   {
     [LogvisActions.Type.SET_VALUE_LIST_FILTER]: (state, action) => {
       const { execId, kind } = action.payload! as LogvisActions.Payload.SetValueListFilter;
@@ -58,14 +30,9 @@ export const logvisReducer = handleActions<RootState.LogvisState, any>(
       const top = kind === 'top' ? execId : state.filter.range.top;
       const bottom = kind === 'bottom' ? execId : state.filter.range.bottom;
 
-      // ここで計算してあげよう
-      const tokens = JavaLexer.tokenize(rawSourceCode);
-      const varValueData = createVarValueData(jsonData, tokens);
-
       return {
         ...state,
-        filter: { range: { top, bottom } },
-        filteredValueListData: varValueData
+        filter: { range: { top, bottom } }
       };
     },
     [LogvisActions.Type.REMOVE_VALUE_LIST_FILTER]: (state, actiion) => {

@@ -10,6 +10,7 @@ export namespace LogvisActions {
     DUMMY_ACTION = 'DUMMY_ACTION',
 
     // Filter系
+    REQUEST_VALUE_LIST_FILTER_CHANGE = 'REQUEST_VALUE_LIST_FILTER_CHANGE',
     SET_VALUE_LIST_FILTER = 'SET_VALUE_LIST_FILTER',
     REMOVE_VALUE_LIST_FILTER = 'REMOVE_VALUE_LIST_FILTER',
     CLEAR_ALL_FILTERS = 'CLEAR_ALL_FILTERS',
@@ -23,6 +24,11 @@ export namespace LogvisActions {
   }
 
   export namespace Payload {
+    export interface RequestValueListFilterChange {
+      kind: RangeFilterKind;
+      execId: ExecId;
+    }
+
     export interface SetValueListFilter {
       execId: ExecId;
       kind: RangeFilterKind;
@@ -54,6 +60,9 @@ export namespace LogvisActions {
   export const dummyAction = createAction(Type.DUMMY_ACTION);
 
   // Filter系
+  export const requestValueListFilterChange = createAction<Payload.RequestValueListFilterChange>(
+    Type.REQUEST_VALUE_LIST_FILTER_CHANGE
+  );
   export const setValueListFilter = createAction<Payload.SetValueListFilter>(
     Type.SET_VALUE_LIST_FILTER
   );

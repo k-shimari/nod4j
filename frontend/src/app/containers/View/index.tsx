@@ -27,15 +27,15 @@ interface Props {
 )
 export class ViewContainer extends React.Component<Props> {
   componentDidMount() {
-    this.props.actions.setValueListFilter({ kind: 'top', execId: '123' });
+    this.props.actions.requestValueListFilterChange({ kind: 'top', execId: '123' });
   }
 
   onArrowUpClick(id: ValueListItemId) {
-    console.log(id);
+    this.props.actions.requestValueListFilterChange({ kind: 'bottom', execId: '123' });
   }
 
   onArrowDownClick(id: ValueListItemId) {
-    console.log(id);
+    this.props.actions.requestValueListFilterChange({ kind: 'top', execId: '123' });
   }
 
   render() {
