@@ -1,6 +1,6 @@
 package data;
 
-public class FieldInfo {
+public class VarInfo {
 
 	private String fieldname;
 	private boolean isPut;
@@ -10,16 +10,16 @@ public class FieldInfo {
 	private static final int FIELDNAMEINDEX = 10;
 	private static final int NAMEINDEX = 5;
 
-	public FieldInfo() {
+	public VarInfo() {
 	}
 
-	public FieldInfo(String fieldname, boolean isPut, boolean isFail) {
+	public VarInfo(String fieldname, boolean isPut, boolean isFail) {
 		this.fieldname = fieldname;
 		this.isPut = isPut;
 		this.isFail = isFail;
 	}
 
-	public FieldInfo (String elemdat[]) {
+	public VarInfo (String elemdat[]) {
 		if (elemdat[5].equals("GET_STATIC_FIELD") | elemdat[5].equals("PUT_STATIC_FIELD")) {
 			this.fieldname=elemdat[8].substring(FIELDNAMEINDEX);
 			this.isPut = elemdat[5].contains("PUT");

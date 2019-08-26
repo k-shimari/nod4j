@@ -13,7 +13,7 @@ public class DataIdMaps {
 	private Map<String, String> dataidMethodMap = new HashMap<>();
 	private Map<String, String> dataidLinenumMap = new HashMap<>();
 	private Map<String, List<Recentdata>> dataidRecentdataMap = new HashMap<>();
-	private Map<String, FieldInfo> dataidVarMap = new HashMap<>();
+	private Map<String, VarInfo> dataidVarMap = new HashMap<>();
 
 	public void createMap(List<String> linesDataids, List<String> linesMethods, List<String> linesRecentdata) {
 		createNameMap(linesMethods);
@@ -72,7 +72,7 @@ public class DataIdMaps {
 			if (!linedat.contains("Name"))
 				continue;
 			/* fieldnameとそれがPUT命令かどうかを取得 */
-			FieldInfo fi = new FieldInfo(elemdat);
+			VarInfo fi = new VarInfo(elemdat);
 			if (fi.getisFail())
 				continue;
 			String dataid = elemdat[0];
@@ -80,7 +80,7 @@ public class DataIdMaps {
 		}
 	}
 
-	public Map<String, FieldInfo> getDataidVarMap() {
+	public Map<String, VarInfo> getDataidVarMap() {
 		return dataidVarMap;
 	}
 

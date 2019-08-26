@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import data.FieldInfo;
+import data.VarInfo;
 import data.Json;
 import data.Recentdata;
 import data.SeloggerFiles;
@@ -35,7 +35,7 @@ public class CreateJson {
 		List<Json> jsonList = create();
 		try {
 			printJson(jsonList);
-			System.out.println("Create json SUCCESS");
+			System.out.println("Create json SUCCESS at " +targetDir);
 		} catch (IOException e) {
 			System.err.println("Create json FAILED");
 			e.printStackTrace();
@@ -81,7 +81,7 @@ public class CreateJson {
 							&& prevLinenum.equals(linenum))) {
 						setCount(jsonList, tmpJsonList, isPutMap);
 					}
-					FieldInfo fieldInfo = selfiles.getDataidMaps().getDataidVarMap().get(d);
+					VarInfo fieldInfo = selfiles.getDataidMaps().getDataidVarMap().get(d);
 					String var = fieldInfo.getFieldname();
 
 					Json json = new Json();
