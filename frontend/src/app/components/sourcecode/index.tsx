@@ -1,12 +1,11 @@
 import { Popper } from '@material-ui/core';
 import { SourceCodeToken } from 'app/models/token';
+import { VarValueData } from 'app/models/varValueData';
 import * as React from 'react';
 import { interval, Subject } from 'rxjs';
 import { debounce } from 'rxjs/operators';
-import { RangeFilterClickEventHandler, ValueList, ValueListItem } from '../organisms/valueList';
+import { RangeFilterClickEventHandler, ValueList, ValueListItemData } from '../organisms/valueList';
 import { Line } from './line';
-
-export type VarValueData = { [varId: string]: ValueListItem[] | undefined };
 
 interface Props {
   tokens: SourceCodeToken[];
@@ -27,7 +26,7 @@ function groupTokensByLine(tokens: SourceCodeToken[]): SourceCodeToken[][] {
 }
 
 interface State {
-  data: ValueListItem[] | undefined;
+  data: ValueListItemData[] | undefined;
   valueListVisible: boolean;
   popperAnchorEl: HTMLElement | undefined;
 }
@@ -61,7 +60,7 @@ export class Sourcecode extends React.Component<Props, State> {
   }
 
   onTokenEnter(tokenId: string, target: HTMLElement) {
-    const valueListData = this.props.data[tokenId];
+    const valueListData = this.props.data.find(tokenId);
     if (valueListData) {
       this._subject.next(true);
 

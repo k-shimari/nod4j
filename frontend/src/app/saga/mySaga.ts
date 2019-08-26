@@ -1,13 +1,14 @@
 import { LogvisActions } from 'app/actions';
-import { ValueListItem } from 'app/components/organisms/valueList';
-import { VarValueData } from 'app/components/sourcecode';
+import { ValueListItemData } from 'app/components/organisms/valueList';
 import * as JavaLexer from 'app/models/javaLexer';
 import { parseFilesPath } from 'app/models/pathParser';
 import { ProjectModel } from 'app/models/project';
 import { rawSourceCode } from 'app/models/rawSourceCode';
 import { SourceCodeToken } from 'app/models/token';
 import { JsonData, jsonData, VarInfo } from 'app/models/variable';
-import { delay, put, takeEvery } from 'redux-saga/effects';
+import { VarValueData } from 'app/models/varValueData';
+import { RootState } from 'app/reducers';
+import { delay, put, select, takeEvery } from 'redux-saga/effects';
 
 function computeTokenId(variable: VarInfo, tokens: SourceCodeToken[]): string {
   const { linenum, count, var: varName } = variable;
@@ -23,16 +24,17 @@ function computeTokenId(variable: VarInfo, tokens: SourceCodeToken[]): string {
 function createVarValueData(data: JsonData, tokens: SourceCodeToken[]): VarValueData {
   let result: any = {};
   for (const d of data.data) {
-    const item: ValueListItem[] = d.valueList.map((x, index) => ({
+    const item: ValueListItemData[] = d.valueList.map((x, index) => ({
       id: index.toString(),
-      value: x.data
+      value: x.data,
+      timestamp: x.timestamp
     }));
 
     const id = computeTokenId(d, tokens);
     result[id] = item;
   }
 
-  return result;
+  return new VarValueData(result);
 }
 
 function* requestFiles(action: ReturnType<typeof LogvisActions.requestFiles>) {
@@ -60,13 +62,14 @@ function* requestFiles(action: ReturnType<typeof LogvisActions.requestFiles>) {
 function* requestValueListFilterChange(
   action: ReturnType<typeof LogvisActions.requestValueListFilterChange>
 ) {
-  const { kind, execId } = action.payload!;
+  const { kind, timestamp } = action.payload!;
+  yield put(LogvisActions.setValueListFilter({ kind, timestamp }));
 
-  yield put(LogvisActions.setValueListFilter({ kind, execId }));
-  const tokens = JavaLexer.tokenize(rawSourceCode);
-  const varValueData = createVarValueData(jsonData, tokens);
+  const state: RootState = yield select();
+  const original = state.logvis.originalValueListData;
+  const filtered = original.filterByRange(state.logvis.filter.range);
 
-  yield put(LogvisActions.setFilteredValueListData({ data: varValueData }));
+  yield put(LogvisActions.setFilteredValueListData({ data: filtered }));
 }
 
 function* requestSourceCodeData() {

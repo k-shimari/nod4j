@@ -2,15 +2,27 @@ import { Paper } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import { makeStyles } from '@material-ui/core/styles';
 import {
-  ValueListItem,
   ValueListItemId,
-  ValueListItemValue
+  ValueListItemValue,
+  ValueListItem
 } from 'app/components/atoms/valueListItem';
 import * as React from 'react';
+import { Timestamp } from 'app/reducers/state';
 
-export interface ValueListItem {
+export namespace ValueListItemData {
+  export function create(
+    id: ValueListItemId,
+    value: ValueListItemValue,
+    timestamp: Timestamp
+  ): ValueListItemData {
+    return { id, value, timestamp };
+  }
+}
+
+export interface ValueListItemData {
   id: ValueListItemId;
   value: ValueListItemValue;
+  timestamp: Timestamp;
 }
 
 export interface RangeFilterClickEventHandler {
@@ -20,7 +32,7 @@ export interface RangeFilterClickEventHandler {
 export namespace ValueList {
   export interface Props {
     style?: React.CSSProperties;
-    items: ValueListItem[];
+    items: ValueListItemData[];
     onArrowUpwardClick?: RangeFilterClickEventHandler;
     onArrowDownwardClick?: RangeFilterClickEventHandler;
     onEnter?(): void;

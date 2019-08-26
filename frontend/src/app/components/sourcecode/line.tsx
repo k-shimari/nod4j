@@ -1,6 +1,6 @@
 import { SourceCodeToken } from 'app/models/token';
+import { VarValueData } from 'app/models/varValueData';
 import * as React from 'react';
-import { VarValueData } from './index';
 import { Space } from './space';
 import { Token } from './token';
 
@@ -29,7 +29,8 @@ function spreadTokens(props: Props): React.ReactElement[] {
     if (delta > 0) {
       result.push(<Space key={spaceId++} length={delta} />);
     }
-    const valueList = data[token.id];
+
+    const valueList = data.find(token.id);
     const valueListExists = valueList !== undefined;
     result.push(
       <Token

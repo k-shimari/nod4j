@@ -1,10 +1,10 @@
-import { VarValueData } from 'app/components/sourcecode';
 import { ProjectItem } from 'app/models/project';
-import { ExecId } from 'app/reducers/state';
-import { createAction } from 'redux-actions';
 import { SourceCodeToken } from 'app/models/token';
+import { VarValueData } from 'app/models/varValueData';
+import { Timestamp } from 'app/reducers/state';
+import { createAction } from 'redux-actions';
 
-export type RangeFilterKind = 'top' | 'bottom';
+export type RangeFilterKind = 'left' | 'right';
 
 export namespace LogvisActions {
   export enum Type {
@@ -31,11 +31,11 @@ export namespace LogvisActions {
   export namespace Payload {
     export interface RequestValueListFilterChange {
       kind: RangeFilterKind;
-      execId: ExecId;
+      timestamp: Timestamp;
     }
 
     export interface SetValueListFilter {
-      execId: ExecId;
+      timestamp: Timestamp;
       kind: RangeFilterKind;
     }
 

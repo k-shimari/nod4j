@@ -1,11 +1,6 @@
 import { LogvisActions } from 'app/actions';
 import { ValueListItemId } from 'app/components/atoms/valueListItem';
-import { ValueListItem } from 'app/components/organisms/valueList';
-import { Sourcecode, VarValueData } from 'app/components/sourcecode';
-import * as JavaLexer from 'app/models/javaLexer';
-import { rawSourceCode } from 'app/models/rawSourceCode';
-import { SourceCodeToken } from 'app/models/token';
-import { jsonData, JsonData, VarInfo } from 'app/models/variable';
+import { Sourcecode } from 'app/components/sourcecode';
 import { RootState } from 'app/reducers';
 import { omit } from 'app/utils';
 import * as React from 'react';
@@ -30,12 +25,13 @@ export class ViewContainer extends React.Component<Props> {
     this.props.actions.requestSourceCodeData({});
   }
 
-  onArrowUpClick(id: ValueListItemId) {
-    this.props.actions.requestValueListFilterChange({ kind: 'bottom', execId: '123' });
+  onArrowUpClick() {
+    // TODO: 固定の値を外す
+    this.props.actions.requestValueListFilterChange({ kind: 'right', timestamp: '15000' });
   }
 
-  onArrowDownClick(id: ValueListItemId) {
-    this.props.actions.requestValueListFilterChange({ kind: 'top', execId: '123' });
+  onArrowDownClick() {
+    this.props.actions.requestValueListFilterChange({ kind: 'left', timestamp: '13000' });
   }
 
   render() {
