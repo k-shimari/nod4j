@@ -35,7 +35,7 @@ public class CreateJson {
 		List<Json> jsonList = create();
 		try {
 			printJson(jsonList);
-			System.out.println("Create json SUCCESS at " +targetDir);
+			System.out.println("Create json SUCCESS at " + targetDir);
 		} catch (IOException e) {
 			System.err.println("Create json FAILED");
 			e.printStackTrace();
@@ -64,15 +64,16 @@ public class CreateJson {
 	private List<Json> create() {
 		List<Json> jsonList = new ArrayList<>();
 
-		String[] prevClassName = {""};
-		String[] prevMethodName = {""};
-		String[] prevLinenum = {""};
-		List<Json> tmpJsonList = new ArrayList<>();
+		String[] prevClassName = { "" };
+		String[] prevMethodName = { "" };
+		String[] prevLinenum = { "" };
+
 		Map<String, Boolean> isPutMap = new HashMap<String, Boolean>();
+		List<Json> tmpJsonList = new ArrayList<>();
 		selfiles.getDataidMaps().getDataidVarMap().keySet()
 				.stream()
 				.sorted(Comparator.comparing(d -> Integer.parseInt(d)))
-				.forEach(d->{
+				.forEach(d -> {
 					String className = selfiles.getDataidMaps().getDataidClassMap().get(d);
 					String methodName = selfiles.getDataidMaps().getDataidMethodMap().get(d);
 					String linenum = selfiles.getDataidMaps().getDataidLinenumMap().get(d);
@@ -83,31 +84,37 @@ public class CreateJson {
 					}
 					VarInfo fieldInfo = selfiles.getDataidMaps().getDataidVarMap().get(d);
 					String var = fieldInfo.getFieldname();
-
-					Json json = new Json();
-					json.setDataid(d);
-					json.setClassName(className);
-					json.setMethodName(methodName);
-					json.setIsPut(fieldInfo.getisPut());
-					json.setVar(var);
-					json.setLinenum(linenum);
-					setValueList(json, d);
-					if (isPutMap.containsKey(var)) {
-						isPutMap.put(var, fieldInfo.getisPut() || isPutMap.get(var));
-					} else {
-						isPutMap.put(var, fieldInfo.getisPut());
-					}
+					Json json = setJson(d, className, methodName, var, linenum, fieldInfo.getisPut());
 					tmpJsonList.add(json);
-					prevClassName[0]=className;
-					prevMethodName[0]=methodName;
-					prevLinenum[0]=linenum;
+					setIsPutMap(isPutMap, fieldInfo, var);
+					updatePrev(prevClassName, prevMethodName, prevLinenum, className, methodName, linenum);
 				});
 		tmpJsonList.forEach(json -> {
 			jsonList.add(json);
 		});
-		tmpJsonList.clear();
 
 		return jsonList;
+	}
+
+	private void setIsPutMap(Map<String, Boolean> isPutMap, VarInfo fieldInfo, String var) {
+		if (isPutMap.containsKey(var)) {
+			isPutMap.put(var, fieldInfo.getisPut() || isPutMap.get(var));
+		} else {
+			isPutMap.put(var, fieldInfo.getisPut());
+		}
+	}
+
+	private Json setJson(String d, String className, String methodName, String var, String linenum, boolean isPut) {
+		Json json = new Json(d, className, methodName, var, linenum, isPut);
+		setValueList(json, d);
+		return json;
+	}
+
+	private void updatePrev(String[] prevClassName, String[] prevMethodName, String[] prevLinenum, String className,
+			String methodName, String linenum) {
+		prevClassName[0] = className;
+		prevMethodName[0] = methodName;
+		prevLinenum[0] = linenum;
 	}
 
 	/*set appearances count */
@@ -148,31 +155,4 @@ public class CreateJson {
 		json.setValueList(valueList);
 
 	}
-	//
-	//	private class countInfo {
-	//		int count;
-	//		boolean isContainPut;
-	//
-	//		public countInfo(int count, boolean isContainPut) {
-	//			this.count = count;
-	//			this.isContainPut = isContainPut;
-	//		}
-	//
-	//		public int getCount() {
-	//			return count;
-	//		}
-	//
-	//		public void setCount(int count) {
-	//			this.count = count;
-	//		}
-	//
-	//		public boolean isContainPut() {
-	//			return isContainPut;
-	//		}
-	//
-	//		public void setContainPut(boolean isContainPut) {
-	//			this.isContainPut = isContainPut;
-	//		}
-	//	}
-
 }
