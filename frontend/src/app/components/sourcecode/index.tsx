@@ -3,7 +3,7 @@ import { SourceCodeToken } from 'app/models/token';
 import * as React from 'react';
 import { interval, Subject } from 'rxjs';
 import { debounce } from 'rxjs/operators';
-import { ValueList, ValueListItem } from '../organisms/valueList';
+import { RangeFilterClickEventHandler, ValueList, ValueListItem } from '../organisms/valueList';
 import { Line } from './line';
 
 export type VarValueData = { [varId: string]: ValueListItem[] | undefined };
@@ -11,6 +11,8 @@ export type VarValueData = { [varId: string]: ValueListItem[] | undefined };
 interface Props {
   tokens: SourceCodeToken[];
   data: VarValueData;
+  onArrowUpwardClick?: RangeFilterClickEventHandler;
+  onArrowDownwardClick?: RangeFilterClickEventHandler;
 }
 
 function groupTokensByLine(tokens: SourceCodeToken[]): SourceCodeToken[][] {
@@ -84,7 +86,7 @@ export class Sourcecode extends React.Component<Props, State> {
   }
 
   render() {
-    const { tokens, data } = this.props;
+    const { tokens, data, onArrowUpwardClick, onArrowDownwardClick } = this.props;
 
     return (
       <div>
@@ -113,6 +115,8 @@ export class Sourcecode extends React.Component<Props, State> {
               items={this.state.data}
               onEnter={this.onValueListEnter.bind(this)}
               onLeave={this.onValueListLeave.bind(this)}
+              onArrowUpwardClick={onArrowUpwardClick}
+              onArrowDownwardClick={onArrowDownwardClick}
             />
           ) : (
             <span> </span>

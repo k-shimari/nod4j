@@ -13,12 +13,16 @@ export interface ValueListItem {
   value: ValueListItemValue;
 }
 
+export interface RangeFilterClickEventHandler {
+  (id: ValueListItemId): void;
+}
+
 export namespace ValueList {
   export interface Props {
     style?: React.CSSProperties;
     items: ValueListItem[];
-    onArrowUpwardClick?(id: ValueListItemId): void;
-    onArrowDownwardClick?(id: ValueListItemId): void;
+    onArrowUpwardClick?: RangeFilterClickEventHandler;
+    onArrowDownwardClick?: RangeFilterClickEventHandler;
     onEnter?(): void;
     onLeave?(): void;
   }
