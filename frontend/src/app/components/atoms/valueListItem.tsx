@@ -22,13 +22,13 @@ export const ValueListItem: React.FunctionComponent<Props> = (props) => {
   const { value } = item;
 
   return (
-    <ListItem button>
+    <ListItem button dense={true}>
       <ListItemText primary={value}></ListItemText>
       <ListItemSecondaryAction>
-        <IconButton onClick={() => onArrowDownwardClick && onArrowDownwardClick(item)}>
+        <IconButton size="small" onClick={() => onArrowDownwardClick && onArrowDownwardClick(item)}>
           <ArrowDownward />
         </IconButton>
-        <IconButton onClick={() => onArrowUpwardClick && onArrowUpwardClick(item)}>
+        <IconButton size="small" onClick={() => onArrowUpwardClick && onArrowUpwardClick(item)}>
           <ArrowUpward />
         </IconButton>
       </ListItemSecondaryAction>

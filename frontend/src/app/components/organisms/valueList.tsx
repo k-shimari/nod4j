@@ -41,8 +41,9 @@ export namespace ValueList {
 }
 const useStyles = makeStyles((theme) => ({
   root: {
-    minWidth: 280,
-    maxWidth: 300
+    minWidth: 240,
+    maxHeight: 320,
+    overflowY: 'auto'
   }
 }));
 
@@ -52,7 +53,7 @@ export const ValueList: React.FunctionComponent<ValueList.Props> = (props) => {
 
   return (
     <Paper style={style} className={classes.root} onPointerEnter={onEnter} onPointerLeave={onLeave}>
-      <List dense={false}>
+      <List dense={true}>
         {items.map((item) => (
           <ValueListItem
             key={item.id}
