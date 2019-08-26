@@ -63,12 +63,11 @@ public class CreateJson {
 
 	private List<Json> create() {
 		List<Json> jsonList = new ArrayList<>();
-
 		String[] prevClassName = { "" };
 		String[] prevMethodName = { "" };
 		String[] prevLinenum = { "" };
 
-		Map<String, Boolean> isPutMap = new HashMap<String, Boolean>();
+		Map<String, Integer> isPutMap = new HashMap<String, Integer>();
 		List<Json> tmpJsonList = new ArrayList<>();
 		selfiles.getDataidMaps().getDataidVarMap().keySet()
 				.stream()
@@ -96,11 +95,11 @@ public class CreateJson {
 		return jsonList;
 	}
 
-	private void setIsPutMap(Map<String, Boolean> isPutMap, VarInfo fieldInfo, String var) {
+	private void setIsPutMap(Map<String, Integer> isPutMap, VarInfo fieldInfo, String var) {
 		if (isPutMap.containsKey(var)) {
-			isPutMap.put(var, fieldInfo.getisPut() || isPutMap.get(var));
+			isPutMap.put(var, isPutMap.get(var) + (fieldInfo.getisPut() ? 1 : 0));
 		} else {
-			isPutMap.put(var, fieldInfo.getisPut());
+			isPutMap.put(var, fieldInfo.getisPut() ? 1 : 0);
 		}
 	}
 
@@ -117,35 +116,35 @@ public class CreateJson {
 		prevLinenum[0] = linenum;
 	}
 
-	/*set appearances count */
-	private void addJsonList(List<Json> jsonList, List<Json> tmpJsonList, Map<String, Boolean> isPutMap) {
+	private void addJsonList(List<Json> jsonList, List<Json> tmpJsonList, Map<String, Integer> isPutMap) {
 		Map<String, Integer> countMap = new HashMap<>();
-		tmpJsonList.forEach(json -> {
-			setCount(isPutMap, countMap, json);
+		int putIndex = 0;
+		for (Json json : tmpJsonList) {
+			putIndex = setCount(isPutMap.get(json.getVar()), countMap, json, putIndex);
 			jsonList.add(json);
-		});
+		}
 		tmpJsonList.clear();
 		isPutMap.clear();
-
 	}
 
-	private void setCount(Map<String, Boolean> isPutMap, Map<String, Integer> countMap, Json json) {
-		int isPutShift = isPutMap.get(json.getVar()) ? 1 : 0;
+	/*set appearances count */
+	private int setCount(int putCount, Map<String, Integer> countMap, Json json, Integer putIndex) {
 		if (countMap.containsKey(json.getVar())) {
-			if (json.getIsPut()) {
+			if (json.getIsPut() && ++putIndex == putCount) {
 				json.setCount(1);
 			} else {
-				json.setCount(countMap.get(json.getVar()) + 1 + isPutShift);
+				json.setCount(countMap.get(json.getVar()) + 1 + (putCount > 0 ? 1 : 0));
 			}
 			countMap.put(json.getVar(), countMap.get(json.getVar()) + 1);
 		} else {
-			if (json.getIsPut()) {
+			if (json.getIsPut() && ++putIndex == putCount) {
 				json.setCount(1);
 			} else {
-				json.setCount(1 + isPutShift);
+				json.setCount(1 + (putCount > 0 ? 1 : 0));
 			}
 			countMap.put(json.getVar(), 1);
 		}
+		return putIndex;
 	}
 
 	private void setValueList(Json json, String d) {
