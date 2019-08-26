@@ -22,16 +22,22 @@ public class VarInfo {
 	public VarInfo (String elemdat[]) {
 		if (elemdat[5].equals("GET_STATIC_FIELD") | elemdat[5].equals("PUT_STATIC_FIELD")) {
 			this.fieldname=elemdat[8].substring(FIELDNAMEINDEX);
-			this.isPut = elemdat[5].contains("PUT");
+			this.isPut = elemdat[5].equals("PUT_STATIC_FIELD");
 			this.isFail=false;
 		} else if (elemdat[5].equals("GET_INSTANCE_FIELD_RESULT")
 				|| elemdat[5].equals("PUT_INSTANCE_FIELD_VALUE")) {
 			this.fieldname = elemdat[9].substring(FIELDNAMEINDEX);
-			this.isPut = elemdat[5].contains("PUT");
+			this.isPut = elemdat[5].equals("PUT_INSTANCE_FIELD_VALUE");
 			this.isFail=false;
 		} else if (elemdat[5].equals("LOCAL_STORE") || elemdat[5].equals("LOCAL_LOAD")) {
 			this.fieldname = elemdat[8].substring(NAMEINDEX);
 			this.isPut = elemdat[5].equals("LOCAL_STORE");
+			/*SELoggerの使用で局所変数で名前がないものが取れるので無視*/
+			this.isFail=fieldname.equals("(Unavailable)");
+		} else if (elemdat[5].equals("LOCAL_INCREMENT")) {
+			/*TODO var=var+1の場合に記録命令が一つとなる*/
+			this.fieldname = elemdat[9].substring(NAMEINDEX);
+			this.isPut = true;
 			/*SELoggerの使用で局所変数で名前がないものが取れるので無視*/
 			this.isFail=fieldname.equals("(Unavailable)");
 		} else {
