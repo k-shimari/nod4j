@@ -20,7 +20,6 @@ public class DataIdMaps {
 		createIDMap(linesDataids);
 		createRecentdataMap(linesRecentdata);
 		createVarInfoMap(linesDataids);
-
 	}
 
 	public void createNameMap(List<String> linesMethods) {
@@ -69,7 +68,6 @@ public class DataIdMaps {
 			if (!linedat.contains("Name"))
 				continue;
 			/* fieldnameとそれがPUT命令かどうかを取得 */
-
 			VarInfo fi = new VarInfo(elemdat);
 			if (fi.getisFail())
 				continue;

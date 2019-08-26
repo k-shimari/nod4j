@@ -17,6 +17,15 @@ public class Json {
 	public Json() {
 	}
 
+	public Json(String dataid, String className, String methodName, String var, String linenum, boolean isPut) {
+		this.dataid = dataid;
+		this.className = className;
+		this.methodName = methodName;
+		this.var = var;
+		this.linenum = linenum;
+		this.isPut = isPut;
+	}
+
 	public String getDataid() {
 		return dataid;
 	}
@@ -80,9 +89,4 @@ public class Json {
 	public void setIsPut(boolean isPut) {
 		this.isPut = isPut;
 	}
-
-	//	public String get_countcomment() {
-	//		return _countcomment;
-	//	}
-
 }
