@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { ValueList, ValueListItem } from '../organisms/valueList';
+import { ValueList, ValueListItemData } from '../organisms/valueList';
 
 interface Props {
   id: string;
   onEnter?(tokenId: string, target: HTMLElement): void;
   onLeave?(tokenId: string, target: HTMLElement): void;
   highlighted: boolean;
-  data?: ValueListItem[];
+  data?: ValueListItemData[];
 }
 
 export const Token: React.FunctionComponent<Props> = (props) => {

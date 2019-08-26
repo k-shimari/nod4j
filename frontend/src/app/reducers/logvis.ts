@@ -1,4 +1,5 @@
 import { LogvisActions } from 'app/actions';
+import { VarValueData } from 'app/models/varValueData';
 import { handleActions } from 'redux-actions';
 import { RootState } from './index';
 
@@ -6,45 +7,44 @@ const initialState: RootState.LogvisState = {
   filter: {
     range: {}
   },
-  originalValueListData: {},
-  filteredValueListData: {},
+  originalValueListData: new VarValueData({}),
+  filteredValueListData: new VarValueData({}),
   files: {
     parentDirs: [],
     currentDir: '/',
     items: [],
     loading: true
-  }
+  },
+  sourceCodeTokens: undefined
 };
 
 export const logvisReducer = handleActions<RootState.LogvisState, any>(
-  // TODO: Filter系のreducerの中でoriginalValueListDataから
-  // filteredValueListDataを作る
   {
     [LogvisActions.Type.SET_VALUE_LIST_FILTER]: (state, action) => {
-      const { execId, kind } = action.payload! as LogvisActions.Payload.SetValueListFilter;
+      const { timestamp, kind } = action.payload! as LogvisActions.Payload.SetValueListFilter;
 
-      const top = kind === 'top' ? execId : state.filter.range.top;
-      const bottom = kind === 'bottom' ? execId : state.filter.range.bottom;
+      const top = kind === 'left' ? timestamp : state.filter.range.left;
+      const bottom = kind === 'right' ? timestamp : state.filter.range.right;
 
       return {
         ...state,
-        filter: { range: { top, bottom } }
+        filter: { range: { left: top, right: bottom } }
       };
     },
     [LogvisActions.Type.REMOVE_VALUE_LIST_FILTER]: (state, actiion) => {
       const { kind } = actiion.payload! as LogvisActions.Payload.RemoveValueListFilter;
-      const top = kind === 'top' ? undefined : state.filter.range.top;
-      const bottom = kind === 'bottom' ? undefined : state.filter.range.bottom;
+      const top = kind === 'left' ? undefined : state.filter.range.left;
+      const bottom = kind === 'right' ? undefined : state.filter.range.right;
 
       return {
         ...state,
-        filter: { range: { top, bottom } }
+        filter: { range: { left: top, right: bottom } }
       };
     },
-    [LogvisActions.Type.CLEAR_ALL_FILTERS]: (state, action) => {
+    [LogvisActions.Type.CLEAR_ALL_FILTERS]: (state) => {
       return {
         ...state,
-        filter: { range: { top: undefined, bottom: undefined } }
+        filter: { range: { left: undefined, right: undefined } }
       };
     },
     [LogvisActions.Type.SET_ORIGINAL_VALUE_LIST_DATA]: (state, action) => {
@@ -63,7 +63,7 @@ export const logvisReducer = handleActions<RootState.LogvisState, any>(
         filteredValueListData: data
       };
     },
-    [LogvisActions.Type.REQUEST_FILES]: (state, action) => {
+    [LogvisActions.Type.REQUEST_FILES]: (state) => {
       return {
         ...state,
         files: {
@@ -82,6 +82,14 @@ export const logvisReducer = handleActions<RootState.LogvisState, any>(
       return {
         ...state,
         files: { currentDir, parentDirs, items, loading: false }
+      };
+    },
+    [LogvisActions.Type.SET_SOURCE_CODE_DATA]: (state, action) => {
+      const { tokens } = action.payload! as LogvisActions.Payload.SetSourceCodeData;
+
+      return {
+        ...state,
+        sourceCodeTokens: tokens
       };
     }
   },

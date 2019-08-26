@@ -1,45 +1,50 @@
-import { ValueListItem } from 'app/components/organisms/valueList';
-import { Sourcecode, VarValueData } from 'app/components/sourcecode';
-import * as JavaLexer from 'app/models/javaLexer';
-import { rawSourceCode } from 'app/models/rawSourceCode';
-import { SourceCodeToken } from 'app/models/token';
-import { jsonData, JsonData, VarInfo } from 'app/models/variable';
+import { LogvisActions } from 'app/actions';
+import { ValueListItemData } from 'app/components/organisms/valueList';
+import { Sourcecode } from 'app/components/sourcecode';
+import { RootState } from 'app/reducers';
+import { omit } from 'app/utils';
 import * as React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators, Dispatch } from 'redux';
 
-function computeTokenId(variable: VarInfo, tokens: SourceCodeToken[]): string {
-  const { linenum, count, var: varName } = variable;
-  const match = tokens.filter((x) => x.startLine === Number(linenum) && x.image === varName);
-
-  if (count > match.length) {
-    throw new Error('Impossible');
-  }
-  const id = match[count - 1].id;
-  return id;
+interface Props {
+  actions: LogvisActions;
+  logvisState: RootState.LogvisState;
 }
 
-function createVarValueData(data: JsonData, tokens: SourceCodeToken[]): VarValueData {
-  let result: any = {};
-  for (const d of data.data) {
-    const item: ValueListItem[] = d.valueList.map((x, index) => ({
-      id: index.toString(),
-      value: x.data
-    }));
-
-    const id = computeTokenId(d, tokens);
-    result[id] = item;
+@connect(
+  (state: RootState) => ({
+    logvisState: state.logvis
+  }),
+  (dispatch: Dispatch) => ({
+    actions: bindActionCreators(omit(LogvisActions, 'Type'), dispatch)
+  })
+)
+export class ViewContainer extends React.Component<Props> {
+  componentDidMount() {
+    this.props.actions.requestSourceCodeData({});
   }
 
-  return result;
-}
+  onArrowUpClick(item: ValueListItemData) {
+    this.props.actions.requestValueListFilterChange({ kind: 'right', timestamp: item.timestamp });
+  }
 
-export class ViewContainer extends React.Component {
+  onArrowDownClick(item: ValueListItemData) {
+    this.props.actions.requestValueListFilterChange({ kind: 'left', timestamp: item.timestamp });
+  }
+
   render() {
-    const tokens = JavaLexer.tokenize(rawSourceCode);
-    const varValueData = createVarValueData(jsonData, tokens);
-    return (
+    const tokens = this.props.logvisState.sourceCodeTokens;
+    const { filteredValueListData } = this.props.logvisState;
+    return tokens ? (
       <div>
-        <Sourcecode tokens={tokens} data={varValueData} />
+        <Sourcecode
+          tokens={tokens}
+          data={filteredValueListData}
+          onArrowUpwardClick={this.onArrowUpClick.bind(this)}
+          onArrowDownwardClick={this.onArrowDownClick.bind(this)}
+        />
       </div>
-    );
+    ) : null;
   }
 }

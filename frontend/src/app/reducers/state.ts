@@ -1,19 +1,21 @@
-import { VarValueData } from 'app/components/sourcecode';
 import { ProjectItem } from 'app/models/project';
+import { SourceCodeToken } from 'app/models/token';
+import { VarValueData } from 'app/models/varValueData';
 
 export interface RootState {
   logvis: RootState.LogvisState;
   router?: any;
 }
 
-export type ExecId = string;
+export type Timestamp = string;
+export interface TimeStampRangeFilter {
+  left?: Timestamp;
+  right?: Timestamp;
+}
 
 export namespace RootState {
   export interface FilterState {
-    range: {
-      top?: ExecId;
-      bottom?: ExecId;
-    };
+    range: TimeStampRangeFilter;
   }
 
   export interface FilesState {
@@ -28,5 +30,6 @@ export namespace RootState {
     originalValueListData: VarValueData;
     filteredValueListData: VarValueData;
     files: FilesState;
+    sourceCodeTokens: SourceCodeToken[] | undefined;
   }
 }
