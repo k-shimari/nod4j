@@ -88,9 +88,7 @@ public class CreateJson {
 					setIsPutMap(isPutMap, fieldInfo, var);
 					updatePrev(prevClassName, prevMethodName, prevLinenum, className, methodName, linenum);
 				});
-		tmpJsonList.forEach(json -> {
-			jsonList.add(json);
-		});
+		addJsonList(jsonList, tmpJsonList, isPutMap);
 
 		return jsonList;
 	}
