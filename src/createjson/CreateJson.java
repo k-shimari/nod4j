@@ -150,6 +150,5 @@ public class CreateJson {
 		Map<String, List<Recentdata>> recdatamap = selfiles.getDataidMaps().getDataidRecentdataMap();
 		valueList = recdatamap.get(d);
 		json.setValueList(valueList);
-
 	}
 }

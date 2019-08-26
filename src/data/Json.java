@@ -89,9 +89,4 @@ public class Json {
 	public void setIsPut(boolean isPut) {
 		this.isPut = isPut;
 	}
-
-	//	public String get_countcomment() {
-	//		return _countcomment;
-	//	}
-
 }

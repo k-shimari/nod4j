@@ -20,7 +20,6 @@ public class DataIdMaps {
 		createIDMap(linesDataids);
 		createRecentdataMap(linesRecentdata);
 		createVarInfoMap(linesDataids);
-
 	}
 
 	public void createNameMap(List<String> linesMethods) {
