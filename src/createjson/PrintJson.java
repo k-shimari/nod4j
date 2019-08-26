@@ -25,8 +25,10 @@ public class PrintJson {
 
 	void printJson(List<Json> jsonList) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
-		List<String> lines = new ArrayList<String>();
-		lines.add(mapper.writeValueAsString(jsonList));
+		MyFormater jf= new MyFormater(jsonList);
+		ArrayList<String> lines= new ArrayList<String>();
+		lines.add(mapper.writeValueAsString(jf));
+
 		if (Files.exists(Paths.get(targetDir, filename))) {
 			Files.delete(Paths.get(targetDir, filename));
 		}
@@ -53,4 +55,15 @@ public class PrintJson {
 		Files.write(Paths.get(targetDir, filename), lines, Charset.forName("UTF-8"), StandardOpenOption.WRITE);
 	}
 
+	 class MyFormater {
+		List<Json> recentdata;
+
+		public MyFormater(List<Json> recentdata) {
+			this.recentdata = recentdata;
+		}
+
+		public List<Json> getRecentdata() {
+			return recentdata;
+		}
+	}
 }
