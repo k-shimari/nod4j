@@ -1,5 +1,5 @@
 import { LogvisActions } from 'app/actions';
-import { ValueListItemId } from 'app/components/atoms/valueListItem';
+import { ValueListItemData } from 'app/components/organisms/valueList';
 import { Sourcecode } from 'app/components/sourcecode';
 import { RootState } from 'app/reducers';
 import { omit } from 'app/utils';
@@ -25,13 +25,12 @@ export class ViewContainer extends React.Component<Props> {
     this.props.actions.requestSourceCodeData({});
   }
 
-  onArrowUpClick() {
-    // TODO: 固定の値を外す
-    this.props.actions.requestValueListFilterChange({ kind: 'right', timestamp: '15000' });
+  onArrowUpClick(item: ValueListItemData) {
+    this.props.actions.requestValueListFilterChange({ kind: 'right', timestamp: item.timestamp });
   }
 
-  onArrowDownClick() {
-    this.props.actions.requestValueListFilterChange({ kind: 'left', timestamp: '13000' });
+  onArrowDownClick(item: ValueListItemData) {
+    this.props.actions.requestValueListFilterChange({ kind: 'left', timestamp: item.timestamp });
   }
 
   render() {

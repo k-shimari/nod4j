@@ -2,12 +2,12 @@ import { Paper } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import { makeStyles } from '@material-ui/core/styles';
 import {
+  ValueListItem,
   ValueListItemId,
-  ValueListItemValue,
-  ValueListItem
+  ValueListItemValue
 } from 'app/components/atoms/valueListItem';
-import * as React from 'react';
 import { Timestamp } from 'app/reducers/state';
+import * as React from 'react';
 
 export namespace ValueListItemData {
   export function create(
@@ -26,7 +26,7 @@ export interface ValueListItemData {
 }
 
 export interface RangeFilterClickEventHandler {
-  (id: ValueListItemId): void;
+  (item: ValueListItemData): void;
 }
 
 export namespace ValueList {
@@ -53,11 +53,10 @@ export const ValueList: React.FunctionComponent<ValueList.Props> = (props) => {
   return (
     <Paper style={style} className={classes.root} onPointerEnter={onEnter} onPointerLeave={onLeave}>
       <List dense={false}>
-        {items.map(({ id, value }) => (
+        {items.map((item) => (
           <ValueListItem
-            key={id}
-            id={id}
-            value={value}
+            key={item.id}
+            item={item}
             onArrowUpwardClick={onArrowUpwardClick}
             onArrowDownwardClick={onArrowDownwardClick}
           ></ValueListItem>

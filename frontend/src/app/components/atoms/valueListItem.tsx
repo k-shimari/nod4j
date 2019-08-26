@@ -6,28 +6,29 @@ import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import ArrowUpward from '@material-ui/icons/ArrowUpward';
 
 import * as React from 'react';
+import { ValueListItemData } from '../organisms/valueList';
 
 export type ValueListItemId = string;
 export type ValueListItemValue = string | number;
 
 interface Props {
-  id: ValueListItemId;
-  value: ValueListItemValue;
-  onArrowUpwardClick?(id: ValueListItemId): void;
-  onArrowDownwardClick?(id: ValueListItemId): void;
+  item: ValueListItemData;
+  onArrowUpwardClick?(item: ValueListItemData): void;
+  onArrowDownwardClick?(item: ValueListItemData): void;
 }
 
 export const ValueListItem: React.FunctionComponent<Props> = (props) => {
-  const { id, value, onArrowUpwardClick, onArrowDownwardClick } = props;
+  const { item, onArrowUpwardClick, onArrowDownwardClick } = props;
+  const { value } = item;
 
   return (
     <ListItem button>
       <ListItemText primary={value}></ListItemText>
       <ListItemSecondaryAction>
-        <IconButton onClick={() => onArrowDownwardClick && onArrowDownwardClick(id)}>
+        <IconButton onClick={() => onArrowDownwardClick && onArrowDownwardClick(item)}>
           <ArrowDownward />
         </IconButton>
-        <IconButton onClick={() => onArrowUpwardClick && onArrowUpwardClick(id)}>
+        <IconButton onClick={() => onArrowUpwardClick && onArrowUpwardClick(item)}>
           <ArrowUpward />
         </IconButton>
       </ListItemSecondaryAction>
