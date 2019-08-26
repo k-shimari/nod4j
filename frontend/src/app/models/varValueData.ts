@@ -22,7 +22,7 @@ export class VarValueData {
       const value = dataCopied[key];
       if (value) {
         const filtered = value.filter((x) => this.isInRange(x.timestamp, left, right));
-        dataCopied[key] = filtered;
+        dataCopied[key] = filtered.length > 0 ? filtered : undefined;
       }
     }
 
