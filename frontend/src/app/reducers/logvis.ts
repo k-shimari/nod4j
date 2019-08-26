@@ -1,10 +1,4 @@
 import { LogvisActions } from 'app/actions';
-import { ValueListItem } from 'app/components/organisms/valueList';
-import { VarValueData } from 'app/components/sourcecode';
-import * as JavaLexer from 'app/models/javaLexer';
-import { rawSourceCode } from 'app/models/rawSourceCode';
-import { SourceCodeToken } from 'app/models/token';
-import { JsonData, jsonData, VarInfo } from 'app/models/variable';
 import { handleActions } from 'redux-actions';
 import { RootState } from './index';
 
@@ -19,7 +13,8 @@ const initialState: RootState.LogvisState = {
     currentDir: '/',
     items: [],
     loading: true
-  }
+  },
+  sourceCodeTokens: undefined
 };
 
 export const logvisReducer = handleActions<RootState.LogvisState, any>(
@@ -45,7 +40,7 @@ export const logvisReducer = handleActions<RootState.LogvisState, any>(
         filter: { range: { top, bottom } }
       };
     },
-    [LogvisActions.Type.CLEAR_ALL_FILTERS]: (state, action) => {
+    [LogvisActions.Type.CLEAR_ALL_FILTERS]: (state) => {
       return {
         ...state,
         filter: { range: { top: undefined, bottom: undefined } }
@@ -67,7 +62,7 @@ export const logvisReducer = handleActions<RootState.LogvisState, any>(
         filteredValueListData: data
       };
     },
-    [LogvisActions.Type.REQUEST_FILES]: (state, action) => {
+    [LogvisActions.Type.REQUEST_FILES]: (state) => {
       return {
         ...state,
         files: {
@@ -86,6 +81,14 @@ export const logvisReducer = handleActions<RootState.LogvisState, any>(
       return {
         ...state,
         files: { currentDir, parentDirs, items, loading: false }
+      };
+    },
+    [LogvisActions.Type.SET_SOURCE_CODE_DATA]: (state, action) => {
+      const { tokens } = action.payload! as LogvisActions.Payload.SetSourceCodeData;
+
+      return {
+        ...state,
+        sourceCodeTokens: tokens
       };
     }
   },

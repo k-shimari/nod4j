@@ -69,6 +69,28 @@ function* requestValueListFilterChange(
   yield put(LogvisActions.setFilteredValueListData({ data: varValueData }));
 }
 
+function* requestSourceCodeData() {
+  const tokens = JavaLexer.tokenize(rawSourceCode);
+  yield put(
+    LogvisActions.SetSourceCodeData({
+      tokens
+    })
+  );
+
+  const varValueData = createVarValueData(jsonData, tokens);
+
+  yield put(
+    LogvisActions.setOriginalValueListData({
+      data: varValueData
+    })
+  );
+  yield put(
+    LogvisActions.setFilteredValueListData({
+      data: varValueData
+    })
+  );
+}
+
 function* dummyWorker() {
   yield put(LogvisActions.dummyAction());
 }
@@ -77,6 +99,7 @@ function* mySaga() {
   yield takeEvery(LogvisActions.dummyAction, dummyWorker);
   yield takeEvery(LogvisActions.requestFiles, requestFiles);
   yield takeEvery(LogvisActions.requestValueListFilterChange, requestValueListFilterChange);
+  yield takeEvery(LogvisActions.requestSourceCodeData, requestSourceCodeData);
 }
 
 export default mySaga;

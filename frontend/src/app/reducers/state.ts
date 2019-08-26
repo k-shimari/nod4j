@@ -1,5 +1,6 @@
 import { VarValueData } from 'app/components/sourcecode';
 import { ProjectItem } from 'app/models/project';
+import { SourceCodeToken } from 'app/models/token';
 
 export interface RootState {
   logvis: RootState.LogvisState;
@@ -28,5 +29,6 @@ export namespace RootState {
     originalValueListData: VarValueData;
     filteredValueListData: VarValueData;
     files: FilesState;
+    sourceCodeTokens: SourceCodeToken[] | undefined;
   }
 }

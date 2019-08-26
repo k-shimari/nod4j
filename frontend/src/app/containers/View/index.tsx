@@ -27,7 +27,7 @@ interface Props {
 )
 export class ViewContainer extends React.Component<Props> {
   componentDidMount() {
-    this.props.actions.requestValueListFilterChange({ kind: 'top', execId: '123' });
+    this.props.actions.requestSourceCodeData({});
   }
 
   onArrowUpClick(id: ValueListItemId) {
@@ -39,9 +39,9 @@ export class ViewContainer extends React.Component<Props> {
   }
 
   render() {
-    const tokens = JavaLexer.tokenize(rawSourceCode);
+    const tokens = this.props.logvisState.sourceCodeTokens;
     const { filteredValueListData } = this.props.logvisState;
-    return (
+    return tokens ? (
       <div>
         <Sourcecode
           tokens={tokens}
@@ -50,6 +50,6 @@ export class ViewContainer extends React.Component<Props> {
           onArrowDownwardClick={this.onArrowDownClick.bind(this)}
         />
       </div>
-    );
+    ) : null;
   }
 }

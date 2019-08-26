@@ -2,6 +2,7 @@ import { VarValueData } from 'app/components/sourcecode';
 import { ProjectItem } from 'app/models/project';
 import { ExecId } from 'app/reducers/state';
 import { createAction } from 'redux-actions';
+import { SourceCodeToken } from 'app/models/token';
 
 export type RangeFilterKind = 'top' | 'bottom';
 
@@ -20,7 +21,11 @@ export namespace LogvisActions {
 
     // Files系
     REQUEST_FILES = 'REQUEST_FILES',
-    SET_FILES_DATA = 'SET_FILES_DATA'
+    SET_FILES_DATA = 'SET_FILES_DATA',
+
+    // Source code系
+    REQUEST_SOURCE_CODE_DATA = 'REQUEST_SOURCE_CODE_DATA',
+    SET_SOURCE_CODE_DATA = 'SET_SOURCE_CODE_DATA'
   }
 
   export namespace Payload {
@@ -55,6 +60,12 @@ export namespace LogvisActions {
       currentDir: string;
       items: ProjectItem[];
     }
+
+    export interface RequestSourceCodeData {}
+
+    export interface SetSourceCodeData {
+      tokens: SourceCodeToken[];
+    }
   }
 
   export const dummyAction = createAction(Type.DUMMY_ACTION);
@@ -80,6 +91,14 @@ export namespace LogvisActions {
   // Files系
   export const requestFiles = createAction<Payload.RequestFilesPayload>(Type.REQUEST_FILES);
   export const setFilesData = createAction<Payload.SetFilesDataPayload>(Type.SET_FILES_DATA);
+
+  // Source code系
+  export const requestSourceCodeData = createAction<Payload.RequestSourceCodeData>(
+    Type.REQUEST_SOURCE_CODE_DATA
+  );
+  export const SetSourceCodeData = createAction<Payload.SetSourceCodeData>(
+    Type.SET_SOURCE_CODE_DATA
+  );
 }
 
 export type LogvisActions = Omit<typeof LogvisActions, 'Type'>;
