@@ -150,7 +150,9 @@ module.exports = {
     })
   ],
   devServer: {
-    historyApiFallback: true,
+    historyApiFallback: {
+      disableDotRule: true
+    },
     publicPath: '/',
     contentBase: path.resolve(__dirname, './build'),
     hot: true
