@@ -27,7 +27,7 @@ public class CreateJson {
 		List<Json> jsonList = create();
 		try {
 			PrintJson pj =new PrintJson(targetDir,FILENAME);
-			pj.printJson(jsonList);
+			pj.printJsonForDebug(jsonList);
 			System.out.println("Create json SUCCESS at " + targetDir);
 		} catch (IOException e) {
 			System.err.println("Create json FAILED");
@@ -58,7 +58,7 @@ public class CreateJson {
 					}
 					VarInfo fieldInfo = selfiles.getDataidMaps().getDataidVarMap().get(d);
 					String var = fieldInfo.getFieldname();
-					Json json = setJson(d, className, methodName, var, linenum, fieldInfo.getisPut());
+					Json json = setJson(d, className, methodName, var, linenum, fieldInfo.getInst());
 					tmpJsonList.add(json);
 					setIsPutMap(isPutMap, fieldInfo, var);
 					updatePrev(prevClassName, prevMethodName, prevLinenum, className, methodName, linenum);
@@ -70,14 +70,14 @@ public class CreateJson {
 
 	private void setIsPutMap(Map<String, Integer> isPutMap, VarInfo fieldInfo, String var) {
 		if (isPutMap.containsKey(var)) {
-			isPutMap.put(var, isPutMap.get(var) + (fieldInfo.getisPut() ? 1 : 0));
+			isPutMap.put(var, isPutMap.get(var) + (fieldInfo.getInst().equals("P") ? 1 : 0));
 		} else {
-			isPutMap.put(var, fieldInfo.getisPut() ? 1 : 0);
+			isPutMap.put(var, fieldInfo.getInst().equals("P") ? 1 : 0);
 		}
 	}
 
-	private Json setJson(String d, String className, String methodName, String var, String linenum, boolean isPut) {
-		Json json = new Json(d, className, methodName, var, linenum, isPut);
+	private Json setJson(String d, String className, String methodName, String var, String linenum, String inst) {
+		Json json = new Json(d, className, methodName, var, linenum, inst);
 		setValueList(json, d);
 		return json;
 	}
@@ -103,14 +103,14 @@ public class CreateJson {
 	/*set appearances count */
 	private int setCount(int putCount, Map<String, Integer> countMap, Json json, Integer putIndex) {
 		if (countMap.containsKey(json.getVar())) {
-			if (json.getIsPut() && ++putIndex == putCount) {
+			if (json.getInst().equals("P") && ++putIndex == putCount) {
 				json.setCount(1);
 			} else {
 				json.setCount(countMap.get(json.getVar()) + 1 + (putCount > 0 ? 1 : 0));
 			}
 			countMap.put(json.getVar(), countMap.get(json.getVar()) + 1);
 		} else {
-			if (json.getIsPut() && ++putIndex == putCount) {
+			if (json.getInst().equals("P") && ++putIndex == putCount) {
 				json.setCount(1);
 			} else {
 				json.setCount(1 + (putCount > 0 ? 1 : 0));

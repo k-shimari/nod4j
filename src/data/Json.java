@@ -10,20 +10,20 @@ public class Json {
 	private String var;
 	private String linenum;
 	//private final String _countcomment = "その行で何回目の出現か(同じ変数が行内にあったときのみカウント+)";
-	private boolean isPut;
+	private String inst;
 	private int count;
 	private List<Recentdata> valueList;
 
 	public Json() {
 	}
 
-	public Json(String dataid, String className, String methodName, String var, String linenum, boolean isPut) {
+	public Json(String dataid, String className, String methodName, String var, String linenum, String inst) {
 		this.dataid = dataid;
 		this.className = className;
 		this.methodName = methodName;
 		this.var = var;
 		this.linenum = linenum;
-		this.isPut = isPut;
+		this.inst = inst;
 	}
 
 	public String getDataid() {
@@ -82,11 +82,11 @@ public class Json {
 		this.valueList = valueList;
 	}
 
-	public boolean getIsPut() {
-		return isPut;
+	public String getInst() {
+		return inst;
 	}
 
-	public void setIsPut(boolean isPut) {
-		this.isPut = isPut;
+	public void setInst(String inst) {
+		this.inst = inst;
 	}
 }
