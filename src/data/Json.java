@@ -9,8 +9,8 @@ public class Json {
 	private String methodName;
 	private String var;
 	private String linenum;
-	//private final String _countcomment = "その行で何回目の出現か(同じ変数が行内にあったときのみカウント+)";
 	private boolean isPut;
+	/*appearance count of each var in a line*/
 	private int count;
 	private List<Recentdata> valueList;
 

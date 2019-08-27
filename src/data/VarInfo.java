@@ -6,10 +6,6 @@ public class VarInfo {
 	private boolean isPut;
 	private boolean isFail;
 
-	/* length of "FIELDNAME=" and "NAME=" */
-	private static final int FIELDNAMEINDEX = 10;
-	private static final int NAMEINDEX = 5;
-
 	public VarInfo() {
 	}
 
@@ -19,32 +15,32 @@ public class VarInfo {
 		this.isFail = isFail;
 	}
 
-	public VarInfo (String elemdat[]) {
+	public VarInfo(String elemdat[]) {
 		if (elemdat[5].equals("GET_STATIC_FIELD") | elemdat[5].equals("PUT_STATIC_FIELD")) {
-			this.fieldname=elemdat[8].substring(FIELDNAMEINDEX);
+			this.fieldname = elemdat[8].substring("FieldName=".length());
 			this.isPut = elemdat[5].equals("PUT_STATIC_FIELD");
-			this.isFail=false;
+			this.isFail = false;
 		} else if (elemdat[5].equals("GET_INSTANCE_FIELD_RESULT")
 				|| elemdat[5].equals("PUT_INSTANCE_FIELD_VALUE")) {
-			this.fieldname = elemdat[9].substring(FIELDNAMEINDEX);
+			this.fieldname = elemdat[9].substring("FieldName=".length());
 			this.isPut = elemdat[5].equals("PUT_INSTANCE_FIELD_VALUE");
-			this.isFail=false;
+			this.isFail = false;
 		} else if (elemdat[5].equals("LOCAL_STORE") || elemdat[5].equals("LOCAL_LOAD")) {
-			this.fieldname = elemdat[8].substring(NAMEINDEX);
+			this.fieldname = elemdat[8].substring("Name=".length());
 			this.isPut = elemdat[5].equals("LOCAL_STORE");
 			/*SELoggerの使用で局所変数で名前がないものが取れるので無視*/
-			this.isFail=fieldname.equals("(Unavailable)");
+			this.isFail = fieldname.equals("(Unavailable)");
 		} else if (elemdat[5].equals("LOCAL_INCREMENT")) {
 			/*TODO var=var+1の場合に記録命令が一つとなる*/
-			this.fieldname = elemdat[9].substring(NAMEINDEX);
+			this.fieldname = elemdat[9].substring("Name=".length());
 			this.isPut = true;
 			/*SELoggerの使用で局所変数で名前がないものが取れるので無視*/
-			this.isFail=fieldname.equals("(Unavailable)");
+			this.isFail = fieldname.equals("(Unavailable)");
 		} else {
 			/*命令がない時は失敗*/
 			this.fieldname = "";
 			this.isPut = false;
-			this.isFail=true;
+			this.isFail = true;
 		}
 	}
 
@@ -59,8 +55,4 @@ public class VarInfo {
 	public boolean getisFail() {
 		return isFail;
 	}
-
-
-
-
 }
