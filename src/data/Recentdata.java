@@ -22,5 +22,4 @@ public class Recentdata {
 	public String getThread() {
 		return thread;
 	}
-
 }

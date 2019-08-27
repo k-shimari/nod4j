@@ -26,7 +26,7 @@ public class CreateJson {
 		System.out.println("Create json ...");
 		List<Json> jsonList = create();
 		try {
-			PrintJson pj =new PrintJson(targetDir,FILENAME);
+			PrintJson pj = new PrintJson(targetDir, FILENAME);
 			pj.printJson(jsonList);
 			System.out.println("Create json SUCCESS at " + targetDir);
 		} catch (IOException e) {
@@ -34,7 +34,6 @@ public class CreateJson {
 			e.printStackTrace();
 		}
 	}
-
 
 	private List<Json> create() {
 		List<Json> jsonList = new ArrayList<>();
@@ -68,27 +67,6 @@ public class CreateJson {
 		return jsonList;
 	}
 
-	private void setIsPutMap(Map<String, Integer> isPutMap, VarInfo fieldInfo, String var) {
-		if (isPutMap.containsKey(var)) {
-			isPutMap.put(var, isPutMap.get(var) + (fieldInfo.getisPut() ? 1 : 0));
-		} else {
-			isPutMap.put(var, fieldInfo.getisPut() ? 1 : 0);
-		}
-	}
-
-	private Json setJson(String d, String className, String methodName, String var, String linenum, boolean isPut) {
-		Json json = new Json(d, className, methodName, var, linenum, isPut);
-		setValueList(json, d);
-		return json;
-	}
-
-	private void updatePrev(String[] prevClassName, String[] prevMethodName, String[] prevLinenum, String className,
-			String methodName, String linenum) {
-		prevClassName[0] = className;
-		prevMethodName[0] = methodName;
-		prevLinenum[0] = linenum;
-	}
-
 	private void addJsonList(List<Json> jsonList, List<Json> tmpJsonList, Map<String, Integer> isPutMap) {
 		Map<String, Integer> countMap = new HashMap<>();
 		int putIndex = 0;
@@ -98,6 +76,27 @@ public class CreateJson {
 		}
 		tmpJsonList.clear();
 		isPutMap.clear();
+	}
+
+	private Json setJson(String d, String className, String methodName, String var, String linenum, boolean isPut) {
+		Json json = new Json(d, className, methodName, var, linenum, isPut);
+		setValueList(json, d);
+		return json;
+	}
+
+	private void setIsPutMap(Map<String, Integer> isPutMap, VarInfo fieldInfo, String var) {
+		if (isPutMap.containsKey(var)) {
+			isPutMap.put(var, isPutMap.get(var) + (fieldInfo.getisPut() ? 1 : 0));
+		} else {
+			isPutMap.put(var, fieldInfo.getisPut() ? 1 : 0);
+		}
+	}
+
+	private void updatePrev(String[] prevClassName, String[] prevMethodName, String[] prevLinenum, String className,
+			String methodName, String linenum) {
+		prevClassName[0] = className;
+		prevMethodName[0] = methodName;
+		prevLinenum[0] = linenum;
 	}
 
 	/*set appearances count */
