@@ -1,11 +1,14 @@
 import * as Path from 'path';
 
-export function parseFilesPath(path: string): { parentDirs: string[]; currentDir: string } {
-  if (path.indexOf('/files') !== 0) {
+export function parsePath(
+  prefix: string,
+  path: string
+): { parentDirs: string[]; currentDir: string } {
+  if (path.indexOf('/' + prefix) !== 0) {
     throw new Error('Impossible');
   }
 
-  const relativeDir = Path.relative('files', path);
+  const relativeDir = Path.relative(prefix, path);
   const dirs = relativeDir ? relativeDir.split('/') : [];
 
   const parentDirs = dirs.length > 0 ? ['/', ...dirs.slice(0, dirs.length - 1)] : [];
