@@ -83,7 +83,7 @@ const FileTableRow: React.FunctionComponent<FileTableRowProp> = (props) => {
           <FolderIcon fontSize="small" style={{ verticalAlign: 'middle' }} />
         )}
         <span style={{ verticalAlign: 'middle', paddingLeft: 4 }}>
-          <a onClick={onClick} href={navigateTo}>
+          <a onClick={onClick} href={navigateTo} target={props.kind === 'file' ? '_blank' : ''}>
             {name}
           </a>
         </span>
