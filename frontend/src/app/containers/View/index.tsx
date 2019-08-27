@@ -1,5 +1,6 @@
 import { makeStyles, Paper } from '@material-ui/core';
 import { LogvisActions } from 'app/actions';
+import { PathNavigation } from 'app/components/organisms/pathNavigation';
 import { ValueListItemData } from 'app/components/organisms/valueList';
 import { Sourcecode } from 'app/components/sourcecode';
 import { RootState } from 'app/reducers';
@@ -39,6 +40,7 @@ export function ViewContainer() {
 
   return tokens ? (
     <div>
+      <PathNavigation parentDirs={['/', 'node_modules', 'node_modules']} currentDir={'Main.java'} />
       <Paper className={classes.paper}>
         <Sourcecode
           tokens={tokens}
