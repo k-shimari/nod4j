@@ -5,10 +5,9 @@ import { Token } from 'app/components/sourcecode/token';
 import * as React from 'react';
 const { parse } = require('java-parser');
 // const JavaLexer: Lexer = require('java-parser/src/lexer');
-import { ValueListItemData} from 'app/components/organisms/valueList';
+import { ValueListItemData } from 'app/components/organisms/valueList';
 import * as JavaLexer from 'app/models/javaLexer';
 import { VarValueData } from 'app/models/varValueData';
-
 
 const javaText = `public class HelloWorldExample{
   public static void main(String args[]){
@@ -26,7 +25,7 @@ storiesOf('Source code', module)
   .add('Basic', () => (
     <Sourcecode
       tokens={JavaLexer.tokenize(javaText)}
-      data={
+      varValueData={
         new VarValueData({
           '1': [
             ValueListItemData.create('1', 123, '1'),

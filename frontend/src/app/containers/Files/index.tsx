@@ -4,35 +4,23 @@ import { FileTable, FileTableRowProp } from 'app/components/organisms/fileTable'
 import { PathNavigation } from 'app/components/organisms/pathNavigation';
 import { ProjectItem, ProjectItemKind } from 'app/models/project';
 import { RootState } from 'app/reducers';
-import { omit } from 'app/utils';
 import * as Path from 'path';
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { RouteComponentProps, withRouter } from 'react-router';
-import { bindActionCreators, Dispatch } from 'redux';
-import { pathToFileURL } from 'url';
+import { useDispatch, useSelector } from 'react-redux';
+import useReactRouter from 'use-react-router';
 
-interface Props extends RouteComponentProps {
-  actions: LogvisActions;
-  files: RootState.FilesState;
-}
+export function FilesContainer() {
+  const { location } = useReactRouter();
+  const dispatch = useDispatch();
+  const files = useSelector<RootState, RootState.FilesState>((state) => state.logvis.files);
 
-@connect(
-  (state: RootState) => ({
-    files: state.logvis.files
-  }),
-  (dispatch: Dispatch) => ({
-    actions: bindActionCreators(omit(LogvisActions, 'Type'), dispatch)
-  })
-)
-class FilesContainerComp extends React.Component<Props> {
-  componentDidMount() {
-    const currentUrl = this.props.location.pathname;
-    this.props.actions.requestFiles({ path: currentUrl });
-  }
+  React.useEffect(() => {
+    const currentUrl = location.pathname;
+    dispatch(LogvisActions.requestFiles({ path: currentUrl }));
+  }, []);
 
-  computeLinkHref(name: string, kind: ProjectItemKind): string {
-    const currentUrl = this.props.location.pathname;
+  function computeLinkHref(name: string, kind: ProjectItemKind): string {
+    const currentUrl = location.pathname;
     console.log(currentUrl);
 
     if (kind === 'file') {
@@ -43,33 +31,28 @@ class FilesContainerComp extends React.Component<Props> {
     }
   }
 
-  mapItems(items: ProjectItem[]): FileTableRowProp[] {
+  function mapItems(items: ProjectItem[]): FileTableRowProp[] {
     return items.map((item) => ({
       name: item.name,
       author: item.author,
       lastModifiedDate: item.lastModifiedDate,
       kind: item.kind,
-      navigateTo: this.computeLinkHref(item.name, item.kind)
+      navigateTo: computeLinkHref(item.name, item.kind)
     }));
   }
 
-  render() {
-    const { files } = this.props;
-    const { currentDir, parentDirs, items, loading } = files;
+  const { currentDir, parentDirs, items, loading } = files;
 
-    return (
-      <div>
-        {loading ? (
-          <LinearProgress variant="indeterminate" />
-        ) : (
-          <React.Fragment>
-            <PathNavigation parentDirs={parentDirs} currentDir={currentDir} />
-            <FileTable data={this.mapItems(items)} />
-          </React.Fragment>
-        )}
-      </div>
-    );
-  }
+  return (
+    <div>
+      {loading ? (
+        <LinearProgress variant="indeterminate" />
+      ) : (
+        <React.Fragment>
+          <PathNavigation parentDirs={parentDirs} currentDir={currentDir} />
+          <FileTable data={mapItems(items)} />
+        </React.Fragment>
+      )}
+    </div>
+  );
 }
-
-export const FilesContainer = withRouter(FilesContainerComp);

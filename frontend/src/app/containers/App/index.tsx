@@ -1,14 +1,10 @@
-import * as React from 'react';
 import { Link } from '@material-ui/core';
+import * as React from 'react';
 
-export class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <div>
-          <Link href="/files">Files</Link>
-        </div>
-      </div>
-    );
-  }
+export function App() {
+  return (
+    <div>
+      <Link href="/files">Files</Link>
+    </div>
+  );
 }
