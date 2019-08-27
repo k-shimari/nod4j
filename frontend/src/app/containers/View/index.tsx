@@ -42,7 +42,7 @@ export function ViewContainer() {
       <Paper className={classes.paper}>
         <Sourcecode
           tokens={tokens}
-          data={filteredValueListData}
+          varValueData={filteredValueListData}
           onArrowUpwardClick={onArrowUpClick}
           onArrowDownwardClick={onArrowDownClick}
         />
