@@ -27,6 +27,7 @@ function groupTokensByLine(tokens: SourceCodeToken[]): SourceCodeToken[][] {
 
 export function Sourcecode(props: Props) {
   const [data, setData] = React.useState<ValueListItemData[] | undefined>(undefined);
+  const [activeTokenId, setActiveTokenId] = React.useState<string | undefined>(undefined);
   const [valueListVisible, setValueListVisible] = React.useState(false);
   const [popperAnchorEl, setPopperAnchorEl] = React.useState<HTMLElement | undefined>(undefined);
   const [subject] = React.useState<Subject<boolean>>(new Subject());
@@ -40,12 +41,22 @@ export function Sourcecode(props: Props) {
     });
   }, []);
 
+  React.useEffect(() => {
+    if (valueListVisible && activeTokenId) {
+      const valueListData = props.varValueData.find(activeTokenId);
+      if (valueListData) {
+        setData(valueListData);
+      }
+    }
+  }, [props.varValueData]);
+
   function onTokenEnter(tokenId: string, target: HTMLElement) {
     const valueListData = props.varValueData.find(tokenId);
     if (valueListData) {
       subject.next(true);
 
       setData(valueListData);
+      setActiveTokenId(tokenId);
       setValueListVisible(true);
       setPopperAnchorEl(target);
     }
