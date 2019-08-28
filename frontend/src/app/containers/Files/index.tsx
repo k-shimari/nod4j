@@ -1,5 +1,6 @@
 import { LinearProgress } from '@material-ui/core';
 import { LogvisActions } from 'app/actions';
+import { ContentContainer } from 'app/components/atoms/contentContainer';
 import { FileTable, FileTableRowProp } from 'app/components/organisms/fileTable';
 import { PathNavigation } from 'app/components/organisms/pathNavigation';
 import { ProjectItem, ProjectItemKind } from 'app/models/project';
@@ -48,10 +49,12 @@ export function FilesContainer() {
       {loading ? (
         <LinearProgress variant="indeterminate" />
       ) : (
-        <React.Fragment>
-          <PathNavigation parentDirs={parentDirs} currentDir={currentDir} />
-          <FileTable data={mapItems(items)} />
-        </React.Fragment>
+        <ContentContainer>
+          <React.Fragment>
+            <PathNavigation parentDirs={parentDirs} currentDir={currentDir} />
+            <FileTable data={mapItems(items)} />
+          </React.Fragment>
+        </ContentContainer>
       )}
     </div>
   );

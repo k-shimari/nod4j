@@ -1,5 +1,6 @@
 import { makeStyles, Paper } from '@material-ui/core';
 import { LogvisActions } from 'app/actions';
+import { ContentContainer } from 'app/components/atoms/contentContainer';
 import { PathNavigation } from 'app/components/organisms/pathNavigation';
 import { ValueListItemData } from 'app/components/organisms/valueList';
 import { Sourcecode } from 'app/components/sourcecode';
@@ -11,9 +12,8 @@ import useReactRouter from 'use-react-router';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    margin: theme.spacing(2),
-    padding: theme.spacing(1),
-    width: 720
+    marginTop: theme.spacing(2),
+    padding: theme.spacing(1)
   }
 }));
 
@@ -45,7 +45,7 @@ export function ViewContainer() {
   const { parentDirs, currentDir } = parsePath('view', currentUrl);
 
   return tokens ? (
-    <div>
+    <ContentContainer>
       <PathNavigation parentDirs={parentDirs} currentDir={currentDir} />
       <Paper className={classes.paper}>
         <Sourcecode
@@ -55,6 +55,6 @@ export function ViewContainer() {
           onArrowDownwardClick={onArrowDownClick}
         />
       </Paper>
-    </div>
+    </ContentContainer>
   ) : null;
 }

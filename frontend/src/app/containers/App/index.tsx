@@ -1,4 +1,5 @@
 import { Link, makeStyles, Paper, Typography } from '@material-ui/core';
+import { ContentContainer } from 'app/components/atoms/contentContainer';
 import * as React from 'react';
 
 const useStyles = makeStyles((theme) => ({
@@ -11,7 +12,7 @@ export function App() {
   const classes = useStyles();
 
   return (
-    <div>
+    <ContentContainer>
       <Paper className={classes.root}>
         <Typography variant="h5" component="h3">
           Welcome to LOGVIS
@@ -36,6 +37,6 @@ export function App() {
           </Link>
         </Typography>
       </Paper>
-    </div>
+    </ContentContainer>
   );
 }
