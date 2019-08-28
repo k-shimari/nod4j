@@ -11,8 +11,20 @@ pre code {
   font-family: 'Fira Mono', monospace;
 }
 
-.popper-wrapper {
-  transition-property: transform;
+.popper-wrapper-transform-animation {
+  transition-property: transform, opacity;
   transition-duration: 0.33s;
   transition-timing-function: ease;
+}
+.popper-wrapper.open {
+  animation: show 0.1s linear;
+}
+
+@keyframes show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
