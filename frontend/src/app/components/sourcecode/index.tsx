@@ -6,6 +6,7 @@ import { interval, Subject } from 'rxjs';
 import { debounce } from 'rxjs/operators';
 import { RangeFilterClickEventHandler, ValueList, ValueListItemData } from '../organisms/valueList';
 import { Line } from './line';
+import classNames = require('classnames');
 
 interface Props {
   tokens: SourceCodeToken[];
@@ -27,40 +28,56 @@ function groupTokensByLine(tokens: SourceCodeToken[]): SourceCodeToken[][] {
 
 export function Sourcecode(props: Props) {
   const [data, setData] = React.useState<ValueListItemData[] | undefined>(undefined);
+  const [activeTokenId, setActiveTokenId] = React.useState<string | undefined>(undefined);
   const [valueListVisible, setValueListVisible] = React.useState(false);
   const [popperAnchorEl, setPopperAnchorEl] = React.useState<HTMLElement | undefined>(undefined);
-  const [subject] = React.useState<Subject<boolean>>(new Subject());
+  const [valueListAnimationEnabled, setValueListAnimationEnabled] = React.useState(false);
+  const [showValueListRequestSubject] = React.useState<Subject<boolean>>(new Subject());
 
   React.useEffect(() => {
-    subject.pipe(debounce(() => interval(200))).subscribe((value) => {
+    showValueListRequestSubject.pipe(debounce(() => interval(200))).subscribe((value) => {
       if (value === false) {
         setValueListVisible(false);
         setPopperAnchorEl(undefined);
+        setValueListAnimationEnabled(false);
+      }
+      if (value === true) {
+        setValueListAnimationEnabled(true);
       }
     });
   }, []);
 
+  React.useEffect(() => {
+    if (valueListVisible && activeTokenId) {
+      const valueListData = props.varValueData.find(activeTokenId);
+      if (valueListData) {
+        setData(valueListData);
+      }
+    }
+  }, [props.varValueData]);
+
   function onTokenEnter(tokenId: string, target: HTMLElement) {
     const valueListData = props.varValueData.find(tokenId);
     if (valueListData) {
-      subject.next(true);
+      showValueListRequestSubject.next(true);
 
       setData(valueListData);
+      setActiveTokenId(tokenId);
       setValueListVisible(true);
       setPopperAnchorEl(target);
     }
   }
 
   function onTokenLeave(tokenId: string, target: HTMLElement) {
-    subject.next(false);
+    showValueListRequestSubject.next(false);
   }
 
   function onValueListEnter() {
-    subject.next(true);
+    showValueListRequestSubject.next(true);
   }
 
   function onValueListLeave() {
-    subject.next(false);
+    showValueListRequestSubject.next(false);
   }
 
   const { tokens, varValueData, onArrowUpwardClick, onArrowDownwardClick } = props;
@@ -82,7 +99,10 @@ export function Sourcecode(props: Props) {
         </code>
       </pre>
       <Popper
-        className="popper-wrapper open"
+        className={classNames(['popper-wrapper'], {
+          'popper-wrapper-transform-animation': valueListAnimationEnabled,
+          open: data !== undefined
+        })}
         open={valueListVisible}
         anchorEl={popperAnchorEl}
         placement="bottom"

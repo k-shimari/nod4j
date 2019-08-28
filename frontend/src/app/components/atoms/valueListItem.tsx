@@ -25,10 +25,18 @@ export const ValueListItem: React.FunctionComponent<Props> = (props) => {
     <ListItem button dense={true}>
       <ListItemText primary={value}></ListItemText>
       <ListItemSecondaryAction>
-        <IconButton size="small" onClick={() => onArrowDownwardClick && onArrowDownwardClick(item)}>
+        <IconButton
+          size="small"
+          title="Filter after"
+          onClick={() => onArrowDownwardClick && onArrowDownwardClick(item)}
+        >
           <ArrowDownward />
         </IconButton>
-        <IconButton size="small" onClick={() => onArrowUpwardClick && onArrowUpwardClick(item)}>
+        <IconButton
+          size="small"
+          title="Filter before"
+          onClick={() => onArrowUpwardClick && onArrowUpwardClick(item)}
+        >
           <ArrowUpward />
         </IconButton>
       </ListItemSecondaryAction>

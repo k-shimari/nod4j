@@ -23,10 +23,10 @@ function computeHref(index: number, dirs: string[]): string {
 export const PathNavigation: React.FunctionComponent<Props> = (props) => {
   const classes = useStyles();
   return (
-    <Paper elevation={0} className={classes.paper}>
+    <Paper className={classes.paper}>
       <Breadcrumbs separator="›" aria-label="breadcrumb">
         {props.parentDirs.map((dir, index) => (
-          <Link key={index} color="inherit" href={computeHref(index, props.parentDirs)}>
+          <Link key={index} title={dir} color="inherit" href={computeHref(index, props.parentDirs)}>
             {dir}
           </Link>
         ))}

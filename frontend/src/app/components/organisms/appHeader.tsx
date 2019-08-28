@@ -1,5 +1,5 @@
-import { AppBar, Toolbar, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
+import { AppBar, Link, Toolbar, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import * as React from 'react';
 
 interface Props {
@@ -22,9 +22,11 @@ export const AppHeader: React.FunctionComponent<Props> = (props) => {
     <div>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            {props.appName}
-          </Typography>
+          <Link href="/" color="inherit">
+            <Typography variant="h6" className={classes.title}>
+              {props.appName}
+            </Typography>
+          </Link>
         </Toolbar>
       </AppBar>
     </div>

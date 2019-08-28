@@ -1,7 +1,7 @@
 import { LogvisActions } from 'app/actions';
 import { ValueListItemData } from 'app/components/organisms/valueList';
 import * as JavaLexer from 'app/models/javaLexer';
-import { parseFilesPath } from 'app/models/pathParser';
+import { parsePath } from 'app/models/pathParser';
 import { ProjectModel } from 'app/models/project';
 import { rawSourceCode } from 'app/models/rawSourceCode';
 import { SourceCodeToken } from 'app/models/token';
@@ -42,7 +42,7 @@ function* requestFiles(action: ReturnType<typeof LogvisActions.requestFiles>) {
   console.log('Path: ' + path);
 
   // pathを操作してcurrentDirとparentDirに分離する
-  const { parentDirs, currentDir } = parseFilesPath(path);
+  const { parentDirs, currentDir } = parsePath('files', path);
 
   // itemsをproject modelから取得する
   const project = new ProjectModel();

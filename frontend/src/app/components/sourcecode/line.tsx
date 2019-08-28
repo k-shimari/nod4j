@@ -61,9 +61,9 @@ const LineNumber: React.FunctionComponent<LineNumberProps> = (props) => (
       display: 'inline-block',
       color: 'gray',
       textAlign: 'right',
-      fontSize: 12,
+      fontSize: 10,
       width: 32,
-      marginRight: 6
+      marginRight: 8
     }}
   >
     {props.number}
@@ -74,7 +74,7 @@ export const Line: React.FunctionComponent<Props> = (props) => {
   return (
     <div>
       <LineNumber number={props.line} />
-      <span style={{ display: 'inline', fontSize: 14 }}>{spreadTokens(props)}</span>
+      <span style={{ display: 'inline', fontSize: 12 }}>{spreadTokens(props)}</span>
     </div>
   );
 };
