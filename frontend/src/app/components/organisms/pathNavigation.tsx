@@ -17,7 +17,7 @@ interface Props {
 }
 
 function computeHref(index: number, dirs: string[]): string {
-  return '/' + dirs.slice(0, index + 1).join('/');
+  return '/files/' + dirs.slice(1, index + 1).join('/');
 }
 
 export const PathNavigation: React.FunctionComponent<Props> = (props) => {

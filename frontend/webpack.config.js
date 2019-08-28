@@ -30,7 +30,8 @@ module.exports = {
     // (jsnext:main directs not usually distributable es6 format, but es6 sources)
     mainFields: ['module', 'browser', 'main'],
     alias: {
-      app: path.resolve(__dirname, 'src/app/')
+      app: path.resolve(__dirname, 'src/app/'),
+      'react-dom': '@hot-loader/react-dom'
     }
   },
   module: {
@@ -149,7 +150,9 @@ module.exports = {
     })
   ],
   devServer: {
-    historyApiFallback: true,
+    historyApiFallback: {
+      disableDotRule: true
+    },
     publicPath: '/',
     contentBase: path.resolve(__dirname, './build'),
     hot: true

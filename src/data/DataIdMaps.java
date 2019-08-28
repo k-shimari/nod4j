@@ -8,7 +8,6 @@ import java.util.Map;
 public class DataIdMaps {
 	private Map<String, String> ClassIDClassMap = new HashMap<>();;
 	private Map<String, String> MethodIDMethodMap = new HashMap<>();
-
 	private Map<String, String> dataidClassMap = new HashMap<>();;
 	private Map<String, String> dataidMethodMap = new HashMap<>();
 	private Map<String, String> dataidLinenumMap = new HashMap<>();
@@ -41,7 +40,6 @@ public class DataIdMaps {
 				dataidClassMap.put(ele[0], ClassIDClassMap.get(ele[1]));
 				dataidMethodMap.put(ele[0], MethodIDMethodMap.get(ele[2]));
 				dataidLinenumMap.put(ele[0], ele[3]);
-
 			} else {
 				System.err.println("DataIdMaps.java createIDMap: ele.length < 3");
 			}
@@ -49,7 +47,6 @@ public class DataIdMaps {
 	}
 
 	/*dataid に recentdata(time,thread,data)のリストを対応付ける*/
-
 	private void createRecentdataMap(List<String> linesRecentdata) {
 		for (String line : linesRecentdata) {
 			SplitLine s = new SplitLine(line);
@@ -67,7 +64,6 @@ public class DataIdMaps {
 			String elemdat[] = linedat.split(",");
 			if (!linedat.contains("Name"))
 				continue;
-			/* fieldnameとそれがPUT命令かどうかを取得 */
 			VarInfo fi = new VarInfo(elemdat);
 			if (fi.getisFail())
 				continue;
@@ -95,5 +91,4 @@ public class DataIdMaps {
 	public Map<String, List<Recentdata>> getDataidRecentdataMap() {
 		return dataidRecentdataMap;
 	}
-
 }

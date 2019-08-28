@@ -9,7 +9,7 @@ import { Line } from './line';
 
 interface Props {
   tokens: SourceCodeToken[];
-  data: VarValueData;
+  varValueData: VarValueData;
   onArrowUpwardClick?: RangeFilterClickEventHandler;
   onArrowDownwardClick?: RangeFilterClickEventHandler;
 }
@@ -25,103 +25,80 @@ function groupTokensByLine(tokens: SourceCodeToken[]): SourceCodeToken[][] {
   return result;
 }
 
-interface State {
-  data: ValueListItemData[] | undefined;
-  valueListVisible: boolean;
-  popperAnchorEl: HTMLElement | undefined;
-}
+export function Sourcecode(props: Props) {
+  const [data, setData] = React.useState<ValueListItemData[] | undefined>(undefined);
+  const [valueListVisible, setValueListVisible] = React.useState(false);
+  const [popperAnchorEl, setPopperAnchorEl] = React.useState<HTMLElement | undefined>(undefined);
+  const [subject] = React.useState<Subject<boolean>>(new Subject());
 
-export class Sourcecode extends React.Component<Props, State> {
-  private _subject: Subject<boolean>;
-
-  constructor(props: Props, state: State) {
-    super(props, state);
-
-    this._subject = new Subject();
-
-    this.state = {
-      data: undefined,
-      valueListVisible: false,
-      popperAnchorEl: undefined
-    };
-
-    this._subject.subscribe((value) => {
-      console.log(value);
-    });
-
-    this._subject.pipe(debounce(() => interval(200))).subscribe((value) => {
+  React.useEffect(() => {
+    subject.pipe(debounce(() => interval(200))).subscribe((value) => {
       if (value === false) {
-        this.setState({
-          valueListVisible: false,
-          popperAnchorEl: undefined
-        });
+        setValueListVisible(false);
+        setPopperAnchorEl(undefined);
       }
     });
-  }
+  }, []);
 
-  onTokenEnter(tokenId: string, target: HTMLElement) {
-    const valueListData = this.props.data.find(tokenId);
+  function onTokenEnter(tokenId: string, target: HTMLElement) {
+    const valueListData = props.varValueData.find(tokenId);
     if (valueListData) {
-      this._subject.next(true);
+      subject.next(true);
 
-      this.setState({
-        data: valueListData,
-        valueListVisible: true,
-        popperAnchorEl: target
-      });
+      setData(valueListData);
+      setValueListVisible(true);
+      setPopperAnchorEl(target);
     }
   }
 
-  onTokenLeave(tokenId: string, target: HTMLElement) {
-    this._subject.next(false);
+  function onTokenLeave(tokenId: string, target: HTMLElement) {
+    subject.next(false);
   }
 
-  onValueListEnter() {
-    this._subject.next(true);
+  function onValueListEnter() {
+    subject.next(true);
   }
 
-  onValueListLeave() {
-    this._subject.next(false);
+  function onValueListLeave() {
+    subject.next(false);
   }
 
-  render() {
-    const { tokens, data, onArrowUpwardClick, onArrowDownwardClick } = this.props;
+  const { tokens, varValueData, onArrowUpwardClick, onArrowDownwardClick } = props;
 
-    return (
-      <div>
-        <pre>
-          <code>
-            {groupTokensByLine(tokens).map((lineTokens, index) => (
-              <Line
-                key={index}
-                tokens={lineTokens}
-                line={index + 1}
-                data={data}
-                onTokenEnter={this.onTokenEnter.bind(this)}
-                onTokenLeave={this.onTokenLeave.bind(this)}
-              />
-            ))}
-          </code>
-        </pre>
-        <Popper
-          className="popper-wrapper open"
-          open={this.state.valueListVisible}
-          anchorEl={this.state.popperAnchorEl}
-          placement="bottom"
-        >
-          {this.state.data ? (
-            <ValueList
-              items={this.state.data}
-              onEnter={this.onValueListEnter.bind(this)}
-              onLeave={this.onValueListLeave.bind(this)}
-              onArrowUpwardClick={onArrowUpwardClick}
-              onArrowDownwardClick={onArrowDownwardClick}
+  return (
+    <div>
+      <pre>
+        <code>
+          {groupTokensByLine(tokens).map((lineTokens, index) => (
+            <Line
+              key={index}
+              tokens={lineTokens}
+              line={index + 1}
+              data={varValueData}
+              onTokenEnter={onTokenEnter}
+              onTokenLeave={onTokenLeave}
             />
-          ) : (
-            <span> </span>
-          )}
-        </Popper>
-      </div>
-    );
-  }
+          ))}
+        </code>
+      </pre>
+      <Popper
+        className="popper-wrapper open"
+        open={valueListVisible}
+        anchorEl={popperAnchorEl}
+        placement="bottom"
+      >
+        {data ? (
+          <ValueList
+            items={data}
+            onEnter={onValueListEnter}
+            onLeave={onValueListLeave}
+            onArrowUpwardClick={onArrowUpwardClick}
+            onArrowDownwardClick={onArrowDownwardClick}
+          />
+        ) : (
+          <span> </span>
+        )}
+      </Popper>
+    </div>
+  );
 }

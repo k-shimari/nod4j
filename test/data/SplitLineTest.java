@@ -18,10 +18,6 @@ public class SplitLineTest {
 		assertArrayEquals("Error", new String[] { "1", "0", "0", "java.lang.String@11111111:\"abc\"", "0", "1" }, s2.getElements());
 		assertArrayEquals("Error", new String[] { "1", "0", "0", "java.lang.String@11111111:\"a,b,c\"", "0", "1" }, s3.getElements());
 		assertArrayEquals("Error", new String[] { "1", "0", "0", "java.lang.String@11111111:\"a,b,c,\\\"\"", "0", "1" }, s4.getElements());
-//		for(String s:s5.getElements()) {
-//			System.out.println(s);
-//		}
 		assertArrayEquals("Error", new String[] { "1", "0", "0", "java.lang.String@11111111:\",,,,,\"", "0", "1" }, s5.getElements());
-
 	}
 }
