@@ -27,7 +27,7 @@ public class CreateJson {
 		List<Json> jsonList = create();
 		try {
 			PrintJson pj = new PrintJson(targetDir, FILENAME);
-			pj.printJsonForDebug(jsonList);
+			pj.printJson(jsonList);
 			System.out.println("Create json SUCCESS at " + targetDir);
 		} catch (IOException e) {
 			System.err.println("Create json FAILED");
