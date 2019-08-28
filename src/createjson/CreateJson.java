@@ -41,7 +41,7 @@ public class CreateJson {
 		String[] prevMethodName = { "" };
 		String[] prevLinenum = { "" };
 
-		Map<String, Integer> isPutMap = new HashMap<String, Integer>();
+		Map<String, Integer> varCountinLineMap = new HashMap<>();
 		List<Json> tmpJsonList = new ArrayList<>();
 		selfiles.getDataidMaps().getDataidVarMap().keySet()
 				.stream()
@@ -50,46 +50,40 @@ public class CreateJson {
 					String className = selfiles.getDataidMaps().getDataidClassMap().get(d);
 					String methodName = selfiles.getDataidMaps().getDataidMethodMap().get(d);
 					String linenum = selfiles.getDataidMaps().getDataidLinenumMap().get(d);
-					/*for count*/
 					if (!(prevClassName[0].equals(className) && prevMethodName[0].equals(methodName)
 							&& prevLinenum[0].equals(linenum))) {
-						addJsonList(jsonList, tmpJsonList, isPutMap);
+						if (tmpJsonList.size() != 0) {
+							addJsonList(jsonList, tmpJsonList, varCountinLineMap);
+						}
+						varCountinLineMap.clear();
 					}
 					VarInfo fieldInfo = selfiles.getDataidMaps().getDataidVarMap().get(d);
 					String var = fieldInfo.getFieldname();
-					Json json = setJson(d, className, methodName, var, linenum, fieldInfo.getisPut());
+					Json json = setJson(d, className, methodName, var, linenum, fieldInfo.getInst());
 					tmpJsonList.add(json);
-					setIsPutMap(isPutMap, fieldInfo, var);
+					if (fieldInfo.getInst().equals("P")) {
+						addJsonList(jsonList, tmpJsonList, varCountinLineMap);
+					}
 					updatePrev(prevClassName, prevMethodName, prevLinenum, className, methodName, linenum);
 				});
-		addJsonList(jsonList, tmpJsonList, isPutMap);
+		if (tmpJsonList.size() != 0)
+			addJsonList(jsonList, tmpJsonList, varCountinLineMap);
 
 		return jsonList;
 	}
 
-	private void addJsonList(List<Json> jsonList, List<Json> tmpJsonList, Map<String, Integer> isPutMap) {
-		Map<String, Integer> countMap = new HashMap<>();
-		int putIndex = 0;
-		for (Json json : tmpJsonList) {
-			putIndex = setCount(isPutMap.get(json.getVar()), countMap, json, putIndex);
-			jsonList.add(json);
+	private void setVarCountinLineMap(Map<String, Integer> varCountinLineMap, String var) {
+		if (varCountinLineMap.containsKey(var)) {
+			varCountinLineMap.put(var, varCountinLineMap.get(var) + 1);
+		} else {
+			varCountinLineMap.put(var, 1);
 		}
-		tmpJsonList.clear();
-		isPutMap.clear();
 	}
 
-	private Json setJson(String d, String className, String methodName, String var, String linenum, boolean isPut) {
-		Json json = new Json(d, className, methodName, var, linenum, isPut);
+	private Json setJson(String d, String className, String methodName, String var, String linenum, String inst) {
+		Json json = new Json(d, className, methodName, var, linenum, inst);
 		setValueList(json, d);
 		return json;
-	}
-
-	private void setIsPutMap(Map<String, Integer> isPutMap, VarInfo fieldInfo, String var) {
-		if (isPutMap.containsKey(var)) {
-			isPutMap.put(var, isPutMap.get(var) + (fieldInfo.getisPut() ? 1 : 0));
-		} else {
-			isPutMap.put(var, fieldInfo.getisPut() ? 1 : 0);
-		}
 	}
 
 	private void updatePrev(String[] prevClassName, String[] prevMethodName, String[] prevLinenum, String className,
@@ -99,24 +93,43 @@ public class CreateJson {
 		prevLinenum[0] = linenum;
 	}
 
-	/*set appearances count */
-	private int setCount(int putCount, Map<String, Integer> countMap, Json json, Integer putIndex) {
-		if (countMap.containsKey(json.getVar())) {
-			if (json.getIsPut() && ++putIndex == putCount) {
-				json.setCount(1);
-			} else {
-				json.setCount(countMap.get(json.getVar()) + 1 + (putCount > 0 ? 1 : 0));
-			}
-			countMap.put(json.getVar(), countMap.get(json.getVar()) + 1);
-		} else {
-			if (json.getIsPut() && ++putIndex == putCount) {
-				json.setCount(1);
-			} else {
-				json.setCount(1 + (putCount > 0 ? 1 : 0));
-			}
-			countMap.put(json.getVar(), 1);
+	private void addJsonList(List<Json> jsonList, List<Json> tmpJsonList, Map<String, Integer> varCountinLineMap) {
+		Map<String, Integer> thisVarCountMap = new HashMap<>();
+		boolean isLastPut;
+		String lastPutVar = "";
+		isLastPut = tmpJsonList.get(tmpJsonList.size() - 1).getInst().equals("P");
+		if (isLastPut)
+			lastPutVar = tmpJsonList.get(tmpJsonList.size() - 1).getVar();
+		for (Json json : tmpJsonList) {
+			setCount(varCountinLineMap, thisVarCountMap, json, isLastPut, lastPutVar);
+			jsonList.add(json);
 		}
-		return putIndex;
+		for (Json json : tmpJsonList) {
+			setVarCountinLineMap(varCountinLineMap, json.getVar());
+		}
+		tmpJsonList.clear();
+	}
+
+	/*set appearances count */
+	private void setCount(Map<String, Integer> varCountinLineMap, Map<String, Integer> thisVarCountMap, Json json,
+			boolean isLastPut, String lastPutVar) {
+		int prevCount = varCountinLineMap.containsKey(json.getVar()) ? varCountinLineMap.get(json.getVar()) : 0;
+		int inc = (isLastPut && lastPutVar.equals(json.getVar())) ? 1 : 0;
+		if (thisVarCountMap.containsKey(json.getVar())) {
+			if (json.getInst().equals("P")) {
+				json.setCount(1 + prevCount);
+			} else {
+				json.setCount(1 + inc + thisVarCountMap.get(json.getVar()) + prevCount);
+			}
+			thisVarCountMap.put(json.getVar(), thisVarCountMap.get(json.getVar()) + 1);
+		} else {
+			if (json.getInst().equals("P")) {
+				json.setCount(1 + prevCount);
+			} else {
+				json.setCount(1 + inc + prevCount);
+			}
+			thisVarCountMap.put(json.getVar(), 1);
+		}
 	}
 
 	private void setValueList(Json json, String d) {
