@@ -35,6 +35,10 @@ export namespace ValueList {
     items: ValueListItemData[];
     onArrowUpwardClick?: RangeFilterClickEventHandler;
     onArrowDownwardClick?: RangeFilterClickEventHandler;
+    currentFilterValue: {
+      left?: string;
+      right?: string;
+    };
     onEnter?(): void;
     onLeave?(): void;
   }
@@ -58,6 +62,8 @@ export const ValueList: React.FunctionComponent<ValueList.Props> = (props) => {
           <ValueListItem
             key={item.id}
             item={item}
+            disableArrowUpward={props.currentFilterValue.right === item.timestamp}
+            disableArrowDownward={props.currentFilterValue.left === item.timestamp}
             onArrowUpwardClick={onArrowUpwardClick}
             onArrowDownwardClick={onArrowDownwardClick}
           ></ValueListItem>

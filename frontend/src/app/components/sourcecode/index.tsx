@@ -11,6 +11,10 @@ import classNames = require('classnames');
 interface Props {
   tokens: SourceCodeToken[];
   varValueData: VarValueData;
+  currentFilterValue: {
+    left?: string;
+    right?: string;
+  };
   onArrowUpwardClick?: RangeFilterClickEventHandler;
   onArrowDownwardClick?: RangeFilterClickEventHandler;
 }
@@ -109,6 +113,7 @@ export function Sourcecode(props: Props) {
       >
         {data ? (
           <ValueList
+            currentFilterValue={props.currentFilterValue}
             items={data}
             onEnter={onValueListEnter}
             onLeave={onValueListLeave}

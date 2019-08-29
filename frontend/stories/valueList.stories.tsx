@@ -10,6 +10,7 @@ const valueListRenderFunction: RenderFunction = () => {
         { id: '2', value: 456, timestamp: '2' },
         { id: '3', value: 789, timestamp: '3' }
       ]}
+      currentFilterValue={{}}
       onArrowUpwardClick={(id) => console.log('Arrow upward: ' + id)}
       onArrowDownwardClick={(id) => console.log('Arrow downward: ' + id)}
     />

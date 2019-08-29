@@ -25,6 +25,7 @@ storiesOf('Source code', module)
   .add('Basic', () => (
     <Sourcecode
       tokens={JavaLexer.tokenize(javaText)}
+      currentFilterValue={{}}
       varValueData={
         new VarValueData({
           '1': [
