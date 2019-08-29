@@ -63,7 +63,11 @@ function* requestValueListFilterChange(
   action: ReturnType<typeof LogvisActions.requestValueListFilterChange>
 ) {
   const { kind, timestamp } = action.payload!;
-  yield put(LogvisActions.setValueListFilter({ kind, timestamp }));
+  if (timestamp) {
+    yield put(LogvisActions.setValueListFilter({ kind, timestamp }));
+  } else {
+    yield put(LogvisActions.removeValueListFilter({ kind }));
+  }
 
   const state: RootState = yield select();
   const original = state.logvis.originalValueListData;

@@ -31,7 +31,7 @@ export namespace LogvisActions {
   export namespace Payload {
     export interface RequestValueListFilterChange {
       kind: RangeFilterKind;
-      timestamp: Timestamp;
+      timestamp?: Timestamp;
     }
 
     export interface SetValueListFilter {
