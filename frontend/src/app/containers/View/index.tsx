@@ -95,6 +95,7 @@ export function ViewContainer() {
         </div>
         <Divider />
         <Sourcecode
+          currentFilterValue={logvisState.filter.range}
           tokens={tokens}
           varValueData={filteredValueListData}
           onArrowUpwardClick={onArrowUpClick}

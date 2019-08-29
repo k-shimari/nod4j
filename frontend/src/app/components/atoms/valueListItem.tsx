@@ -13,12 +13,20 @@ export type ValueListItemValue = string | number;
 
 interface Props {
   item: ValueListItemData;
+  disableArrowUpward?: boolean;
+  disableArrowDownward?: boolean;
   onArrowUpwardClick?(item: ValueListItemData): void;
   onArrowDownwardClick?(item: ValueListItemData): void;
 }
 
 export const ValueListItem: React.FunctionComponent<Props> = (props) => {
-  const { item, onArrowUpwardClick, onArrowDownwardClick } = props;
+  const {
+    item,
+    disableArrowUpward,
+    disableArrowDownward,
+    onArrowUpwardClick,
+    onArrowDownwardClick
+  } = props;
   const { value } = item;
 
   return (
@@ -26,6 +34,7 @@ export const ValueListItem: React.FunctionComponent<Props> = (props) => {
       <ListItemText primary={value}></ListItemText>
       <ListItemSecondaryAction>
         <IconButton
+          disabled={disableArrowDownward}
           size="small"
           title="Filter after"
           onClick={() => onArrowDownwardClick && onArrowDownwardClick(item)}
@@ -33,6 +42,7 @@ export const ValueListItem: React.FunctionComponent<Props> = (props) => {
           <ArrowDownward />
         </IconButton>
         <IconButton
+          disabled={disableArrowUpward}
           size="small"
           title="Filter before"
           onClick={() => onArrowUpwardClick && onArrowUpwardClick(item)}
