@@ -1,4 +1,6 @@
-import { makeStyles, Paper } from '@material-ui/core';
+import { Chip, Divider, makeStyles, Paper, Typography } from '@material-ui/core';
+import ArrowDownward from '@material-ui/icons/ArrowDownward';
+import ArrowUpward from '@material-ui/icons/ArrowUpward';
 import { LogvisActions } from 'app/actions';
 import { ContentContainer } from 'app/components/atoms/contentContainer';
 import { PathNavigation } from 'app/components/organisms/pathNavigation';
@@ -14,6 +16,14 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(2),
     padding: theme.spacing(1)
+  },
+  chip: {
+    marginRight: theme.spacing(1)
+  },
+  timestampFilterSection: {
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+    marginBottom: theme.spacing(2)
   }
 }));
 
@@ -48,6 +58,29 @@ export function ViewContainer() {
     <ContentContainer>
       <PathNavigation parentDirs={parentDirs} currentDir={currentDir} />
       <Paper className={classes.paper}>
+        <div className={classes.timestampFilterSection}>
+          <Typography variant="overline" color="textSecondary" gutterBottom>
+            TIMESTAMP FILTER
+          </Typography>
+          <div>
+            <Chip
+              className={classes.chip}
+              size="small"
+              icon={<ArrowDownward />}
+              label="After: 18293"
+              color="primary"
+              onDelete={() => console.log('On delete')}
+            />
+            <Chip
+              className={classes.chip}
+              size="small"
+              icon={<ArrowUpward />}
+              label="Before: none"
+              variant="outlined"
+            />
+          </div>
+        </div>
+        <Divider />
         <Sourcecode
           tokens={tokens}
           varValueData={filteredValueListData}
