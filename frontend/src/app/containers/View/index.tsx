@@ -11,6 +11,7 @@ import { RootState } from 'app/reducers';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useReactRouter from 'use-react-router';
+import { FilterDisplay } from 'app/components/atoms/filterDisplay';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -68,7 +69,7 @@ export function ViewContainer() {
       );
 
     return (
-      <Chip
+      <FilterDisplay
         className={classes.chip}
         size="small"
         icon={icon}
