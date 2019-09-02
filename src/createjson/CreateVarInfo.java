@@ -11,7 +11,7 @@ import data.Recentdata;
 import data.SeloggerFiles;
 import data.VarInfo;
 
-public class CreateVarInfo {
+public class CreateVarInfo implements ICreateJson{
 
 	private SeloggerFiles selfiles;
 
@@ -19,6 +19,7 @@ public class CreateVarInfo {
 		this.selfiles = selfiles;
 	}
 
+	@Override
 	public List<Json> create() {
 		List<Json> jsonList = new ArrayList<>();
 		String[] prevClassName = { "" };
