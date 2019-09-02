@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import data.Json;
+import data.varinfo.VarInfoJson;
 
 public class PrintJson {
 	private String targetDir;
@@ -23,7 +23,7 @@ public class PrintJson {
 		this.filename = filename;
 	}
 
-	void printJson(List<Json> jsonList) throws IOException {
+	void printJson(List<VarInfoJson> jsonList) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		MyFormater jf = new MyFormater(jsonList);
 		ArrayList<String> lines = new ArrayList<String>();
@@ -37,7 +37,7 @@ public class PrintJson {
 	}
 
 	/*For Debug*/
-	void printJsonForDebug(List<Json> jsonList) throws IOException {
+	void printJsonForDebug(List<?> jsonList) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		List<String> lines = jsonList.stream()
 				.map(s -> {
@@ -57,13 +57,13 @@ public class PrintJson {
 	}
 
 	class MyFormater {
-		List<Json> recentdata;
+		List<VarInfoJson> recentdata;
 
-		public MyFormater(List<Json> recentdata) {
+		public MyFormater(List<VarInfoJson> recentdata) {
 			this.recentdata = recentdata;
 		}
 
-		public List<Json> getRecentdata() {
+		public List<VarInfoJson> getRecentdata() {
 			return recentdata;
 		}
 	}

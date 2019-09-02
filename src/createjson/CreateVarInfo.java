@@ -6,12 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import data.Json;
 import data.Recentdata;
 import data.SeloggerFiles;
-import data.VarInfo;
+import data.varinfo.VarInfo;
+import data.varinfo.VarInfoJson;
 
-public class CreateVarInfo implements ICreateJson{
+public class CreateVarInfo implements ICreateJson {
 
 	private SeloggerFiles selfiles;
 
@@ -20,14 +20,14 @@ public class CreateVarInfo implements ICreateJson{
 	}
 
 	@Override
-	public List<Json> create() {
-		List<Json> jsonList = new ArrayList<>();
+	public List<VarInfoJson> create() {
+		List<VarInfoJson> jsonList = new ArrayList<>();
 		String[] prevClassName = { "" };
 		String[] prevMethodName = { "" };
 		String[] prevLinenum = { "" };
 
 		Map<String, Integer> varCountinLineMap = new HashMap<>();
-		List<Json> tmpJsonList = new ArrayList<>();
+		List<VarInfoJson> tmpJsonList = new ArrayList<>();
 		selfiles.getDataidMaps().getDataidVarMap().keySet()
 				.stream()
 				.sorted(Comparator.comparing(d -> Integer.parseInt(d)))
@@ -44,7 +44,7 @@ public class CreateVarInfo implements ICreateJson{
 					}
 					VarInfo fieldInfo = selfiles.getDataidMaps().getDataidVarMap().get(d);
 					String var = fieldInfo.getFieldname();
-					Json json = setJson(d, className, methodName, var, linenum, fieldInfo.getInst());
+					VarInfoJson json = setJson(d, className, methodName, var, linenum, fieldInfo.getInst());
 					tmpJsonList.add(json);
 					if (fieldInfo.getInst().equals("P")) {
 						addJsonList(jsonList, tmpJsonList, varCountinLineMap);
@@ -65,8 +65,9 @@ public class CreateVarInfo implements ICreateJson{
 		}
 	}
 
-	private Json setJson(String d, String className, String methodName, String var, String linenum, String inst) {
-		Json json = new Json(d, className, methodName, var, linenum, inst);
+	private VarInfoJson setJson(String d, String className, String methodName, String var, String linenum,
+			String inst) {
+		VarInfoJson json = new VarInfoJson(d, className, methodName, var, linenum, inst);
 		setValueList(json, d);
 		return json;
 	}
@@ -78,26 +79,27 @@ public class CreateVarInfo implements ICreateJson{
 		prevLinenum[0] = linenum;
 	}
 
-	private void addJsonList(List<Json> jsonList, List<Json> tmpJsonList, Map<String, Integer> varCountinLineMap) {
+	private void addJsonList(List<VarInfoJson> jsonList, List<VarInfoJson> tmpJsonList,
+			Map<String, Integer> varCountinLineMap) {
 		Map<String, Integer> thisVarCountMap = new HashMap<>();
 		boolean isLastPut;
 		String lastPutVar = "";
 		isLastPut = tmpJsonList.get(tmpJsonList.size() - 1).getInst().equals("P");
 		if (isLastPut)
 			lastPutVar = tmpJsonList.get(tmpJsonList.size() - 1).getVar();
-		for (Json json : tmpJsonList) {
+		for (VarInfoJson json : tmpJsonList) {
 			setCount(varCountinLineMap, thisVarCountMap, json, isLastPut, lastPutVar);
 			jsonList.add(json);
 		}
-		for (Json json : tmpJsonList) {
+		for (VarInfoJson json : tmpJsonList) {
 			setVarCountinLineMap(varCountinLineMap, json.getVar());
 		}
 		tmpJsonList.clear();
 	}
 
 	/*set appearances count */
-	private void setCount(Map<String, Integer> varCountinLineMap, Map<String, Integer> thisVarCountMap, Json json,
-			boolean isLastPut, String lastPutVar) {
+	private void setCount(Map<String, Integer> varCountinLineMap, Map<String, Integer> thisVarCountMap,
+			VarInfoJson json, boolean isLastPut, String lastPutVar) {
 		int prevCount = varCountinLineMap.containsKey(json.getVar()) ? varCountinLineMap.get(json.getVar()) : 0;
 		int inc = (isLastPut && lastPutVar.equals(json.getVar())) ? 1 : 0;
 		if (thisVarCountMap.containsKey(json.getVar())) {
@@ -117,7 +119,7 @@ public class CreateVarInfo implements ICreateJson{
 		}
 	}
 
-	private void setValueList(Json json, String d) {
+	private void setValueList(VarInfoJson json, String d) {
 		List<Recentdata> valueList = new ArrayList<Recentdata>();
 		Map<String, List<Recentdata>> recdatamap = selfiles.getDataidMaps().getDataidRecentdataMap();
 		valueList = recdatamap.get(d);

@@ -3,7 +3,6 @@ package createjson;
 import java.io.IOException;
 import java.util.List;
 
-import data.Json;
 import data.SeloggerFiles;
 
 public class StartJson {
@@ -21,15 +20,15 @@ public class StartJson {
 		System.out.println("Create json ...");
 
 		startJson(new CreateVarInfo(selfiles), VARINFO_FILENAME);
-		startJson(new CreateStructure(selfiles), FILEINFO_FILENAME);
+		startJson(new CreateStructure(selfiles, targetDir), FILEINFO_FILENAME);
 	}
 
 	private void startJson(ICreateJson cj, String filename) {
-		List<Json> jsonList = cj.create();
+		List<?> jsonList = cj.create();
 		print(jsonList, filename);
 	}
 
-	private void print(List<Json> jsonList, String filename) {
+	private void print(List<?> jsonList, String filename) {
 		try {
 			PrintJson pj = new PrintJson(targetDir, filename);
 			pj.printJsonForDebug(jsonList);

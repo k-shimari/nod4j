@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import data.varinfo.VarInfo;
+
 public class DataIdMaps {
 	private Map<String, String> ClassIDClassMap = new HashMap<>();;
 	private Map<String, String> MethodIDMethodMap = new HashMap<>();
