@@ -1,6 +1,6 @@
 package logvis;
 
-import createjson.CreateJson;
+import createjson.StartJson;
 import data.SeloggerFiles;
 
 public class Main {
@@ -10,7 +10,7 @@ public class Main {
 	public static void main(String args[]) {
 		String dir = args[0];
 		SeloggerFiles selfiles = new SeloggerFiles(args[0]);
-		CreateJson cre = new CreateJson(selfiles, dir);
+		StartJson cre = new StartJson(selfiles, dir);
 		cre.start();
 	}
 }

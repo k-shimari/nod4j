@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import data.Json;
+import data.varinfo.VarInfoJson;
 
 public class PrintJson {
 	private String targetDir;
@@ -23,10 +23,10 @@ public class PrintJson {
 		this.filename = filename;
 	}
 
-	void printJson(List<Json> jsonList) throws IOException {
+	void printJson(List<VarInfoJson> jsonList) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
-		MyFormater jf= new MyFormater(jsonList);
-		ArrayList<String> lines= new ArrayList<String>();
+		MyFormater jf = new MyFormater(jsonList);
+		ArrayList<String> lines = new ArrayList<String>();
 		lines.add(mapper.writeValueAsString(jf));
 
 		if (Files.exists(Paths.get(targetDir, filename))) {
@@ -36,7 +36,8 @@ public class PrintJson {
 		Files.write(Paths.get(targetDir, filename), lines, Charset.forName("UTF-8"), StandardOpenOption.WRITE);
 	}
 
-	void printJsonForDebug(List<Json> jsonList) throws IOException {
+	/*For Debug*/
+	void printJsonForDebug(List<?> jsonList) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		List<String> lines = jsonList.stream()
 				.map(s -> {
@@ -55,14 +56,14 @@ public class PrintJson {
 		Files.write(Paths.get(targetDir, filename), lines, Charset.forName("UTF-8"), StandardOpenOption.WRITE);
 	}
 
-	 class MyFormater {
-		List<Json> recentdata;
+	class MyFormater {
+		List<VarInfoJson> recentdata;
 
-		public MyFormater(List<Json> recentdata) {
+		public MyFormater(List<VarInfoJson> recentdata) {
 			this.recentdata = recentdata;
 		}
 
-		public List<Json> getRecentdata() {
+		public List<VarInfoJson> getRecentdata() {
 			return recentdata;
 		}
 	}

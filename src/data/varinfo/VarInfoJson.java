@@ -1,8 +1,10 @@
-package data;
+package data.varinfo;
 
 import java.util.List;
 
-public class Json {
+import data.Recentdata;
+
+public class VarInfoJson {
 
 	private String dataid;
 	private String className;
@@ -14,10 +16,10 @@ public class Json {
 	private int count;
 	private List<Recentdata> valueList;
 
-	public Json() {
+	public VarInfoJson() {
 	}
 
-	public Json(String dataid, String className, String methodName, String var, String linenum, String inst) {
+	public VarInfoJson(String dataid, String className, String methodName, String var, String linenum, String inst) {
 		this.dataid = dataid;
 		this.className = className;
 		this.methodName = methodName;
