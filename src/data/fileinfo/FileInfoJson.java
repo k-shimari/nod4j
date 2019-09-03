@@ -7,13 +7,10 @@ public class FileInfoJson {
 	private String name;
 	private String type;
 	private ArrayList<String> content;
-	private FileInfoJson children;
+	private ArrayList<FileInfoJson> children;
 
-	public FileInfoJson() {
-	}
 
-	public FileInfoJson(String name, String type, ArrayList<String> content, FileInfoJson children) {
-		super();
+	public FileInfoJson(String name, String type, ArrayList<String> content, ArrayList<FileInfoJson> children) {
 		this.name = name;
 		this.type = type;
 		this.content = content;
@@ -44,11 +41,11 @@ public class FileInfoJson {
 		this.content = content;
 	}
 
-	public FileInfoJson getChildren() {
+	public ArrayList<FileInfoJson> getChildren() {
 		return children;
 	}
 
-	public void setChildren(FileInfoJson children) {
+	public void setChildren(ArrayList<FileInfoJson> children) {
 		this.children = children;
 	}
 

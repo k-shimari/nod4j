@@ -18,9 +18,8 @@ public class StartJson {
 
 	public void start() {
 		System.out.println("Create json ...");
-
 		startJson(new CreateVarInfo(selfiles), VARINFO_FILENAME);
-		startJson(new CreateStructure(selfiles, targetDir), FILEINFO_FILENAME);
+		startJson(new CreateStructure(targetDir + "/project"), FILEINFO_FILENAME);
 	}
 
 	private void startJson(ICreateJson cj, String filename) {
