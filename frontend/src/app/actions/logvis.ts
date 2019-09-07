@@ -1,7 +1,7 @@
 import { ProjectItem } from 'app/models/project';
 import { SourceCodeToken } from 'app/models/token';
 import { VarValueData } from 'app/models/varValueData';
-import { Timestamp } from 'app/reducers/state';
+import { TimestampRangeFilterContext } from 'app/reducers/state';
 import { createAction } from 'redux-actions';
 
 export type RangeFilterKind = 'left' | 'right';
@@ -31,11 +31,11 @@ export namespace LogvisActions {
   export namespace Payload {
     export interface RequestValueListFilterChange {
       kind: RangeFilterKind;
-      timestamp?: Timestamp;
+      context?: TimestampRangeFilterContext;
     }
 
     export interface SetValueListFilter {
-      timestamp: Timestamp;
+      context: TimestampRangeFilterContext;
       kind: RangeFilterKind;
     }
 

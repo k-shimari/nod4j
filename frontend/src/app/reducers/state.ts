@@ -8,9 +8,15 @@ export interface RootState {
 }
 
 export type Timestamp = string;
+export interface TimestampRangeFilterContext {
+  timestamp: Timestamp;
+  lineNumber: number;
+  fileName: string;
+}
+
 export interface TimeStampRangeFilter {
-  left?: Timestamp;
-  right?: Timestamp;
+  left?: TimestampRangeFilterContext;
+  right?: TimestampRangeFilterContext;
 }
 
 export namespace RootState {

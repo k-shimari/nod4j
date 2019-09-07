@@ -1,5 +1,5 @@
 import { ValueListItemData } from 'app/components/organisms/valueList';
-import { TimeStampRangeFilter } from 'app/reducers/state';
+import { TimeStampRangeFilter, TimestampRangeFilterContext } from 'app/reducers/state';
 
 type VarValueDataInner = { [varId: string]: ValueListItemData[] | undefined };
 
@@ -29,10 +29,14 @@ export class VarValueData {
     return new VarValueData(dataCopied);
   }
 
-  isInRange(value: string, left?: string, right?: string): boolean {
+  isInRange(
+    value: string,
+    left?: TimestampRangeFilterContext,
+    right?: TimestampRangeFilterContext
+  ): boolean {
     const valueAsNum = Number(value);
-    const leftThreshold = left ? Number(left) : Number.MIN_SAFE_INTEGER;
-    const rightThreshold = right ? Number(right) : Number.MAX_SAFE_INTEGER;
+    const leftThreshold = left ? Number(left.timestamp) : Number.MIN_SAFE_INTEGER;
+    const rightThreshold = right ? Number(right.timestamp) : Number.MAX_SAFE_INTEGER;
 
     const result = valueAsNum >= leftThreshold && valueAsNum <= rightThreshold;
     return result;

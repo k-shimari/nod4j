@@ -4,7 +4,10 @@ import ArrowUpward from '@material-ui/icons/ArrowUpward';
 import { LogvisActions, RangeFilterKind } from 'app/actions';
 import { ContentContainer } from 'app/components/atoms/contentContainer';
 import { PathNavigation } from 'app/components/organisms/pathNavigation';
-import { ValueListItemData } from 'app/components/organisms/valueList';
+import {
+  ValueListItemData,
+  RangeFilterClickEventHandler2
+} from 'app/components/organisms/valueList';
 import { Sourcecode } from 'app/components/sourcecode';
 import { parsePath } from 'app/models/pathParser';
 import { RootState } from 'app/reducers';
@@ -12,6 +15,7 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useReactRouter from 'use-react-router';
 import { FilterDisplay } from 'app/components/atoms/filterDisplay';
+import { SourceCodeToken } from 'app/models/token';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -31,8 +35,10 @@ const useStyles = makeStyles((theme) => ({
 export function ViewContainer() {
   const logvisState = useSelector<RootState, RootState.LogvisState>((state) => state.logvis);
   const dispatch = useDispatch();
-  const { location } = useReactRouter();
   const classes = useStyles();
+  const { location } = useReactRouter();
+  const currentUrl = location.pathname;
+  const { parentDirs, currentDir } = parsePath('view', currentUrl);
 
   React.useEffect(() => {
     dispatch(LogvisActions.requestSourceCodeData({}));
@@ -40,34 +46,53 @@ export function ViewContainer() {
 
   const tokens = logvisState.sourceCodeTokens;
   const { filteredValueListData } = logvisState;
-  function onArrowUpClick(item: ValueListItemData) {
+  const onArrowUpClick: RangeFilterClickEventHandler2 = (item, varInfo) => {
     dispatch(
-      LogvisActions.requestValueListFilterChange({ kind: 'right', timestamp: item.timestamp })
+      LogvisActions.requestValueListFilterChange({
+        kind: 'right',
+        context: {
+          timestamp: item.timestamp,
+          lineNumber: varInfo.startLine || 0,
+          fileName: currentDir
+        }
+      })
     );
-  }
+  };
 
-  function onArrowDownClick(item: ValueListItemData) {
+  const onArrowDownClick: RangeFilterClickEventHandler2 = (item, varInfo) => {
     dispatch(
-      LogvisActions.requestValueListFilterChange({ kind: 'left', timestamp: item.timestamp })
+      LogvisActions.requestValueListFilterChange({
+        kind: 'left',
+        context: {
+          timestamp: item.timestamp,
+          lineNumber: varInfo.startLine || 0,
+          fileName: currentDir
+        }
+      })
     );
-  }
-
-  const currentUrl = location.pathname;
-  const { parentDirs, currentDir } = parsePath('view', currentUrl);
+  };
 
   function renderFilterChip(leftOrRight: RangeFilterKind) {
     const { left, right } = logvisState.filter.range;
     const icon = leftOrRight === 'left' ? <ArrowDownward /> : <ArrowUpward />;
     const target = leftOrRight === 'left' ? left : right;
-    const hasValue = target !== undefined;
     const labelPrefix = leftOrRight === 'left' ? 'After' : 'Before';
-    const labelValue = hasValue ? target : 'none';
+    const labelValue = target
+      ? (() => {
+          const { fileName, lineNumber } = target;
+          return `L${lineNumber}@${fileName}`;
+        })()
+      : 'none';
     const label = `${labelPrefix}: ${labelValue}`;
     const onDelete = () =>
       dispatch(
-        LogvisActions.requestValueListFilterChange({ kind: leftOrRight, timestamp: undefined })
+        LogvisActions.requestValueListFilterChange({
+          kind: leftOrRight,
+          context: undefined
+        })
       );
 
+    const hasValue = target !== undefined;
     return (
       <FilterDisplay
         className={classes.chip}
