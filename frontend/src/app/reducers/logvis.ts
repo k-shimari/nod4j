@@ -21,14 +21,14 @@ const initialState: RootState.LogvisState = {
 export const logvisReducer = handleActions<RootState.LogvisState, any>(
   {
     [LogvisActions.Type.SET_VALUE_LIST_FILTER]: (state, action) => {
-      const { timestamp, kind } = action.payload! as LogvisActions.Payload.SetValueListFilter;
+      const { context, kind } = action.payload! as LogvisActions.Payload.SetValueListFilter;
 
-      const top = kind === 'left' ? timestamp : state.filter.range.left;
-      const bottom = kind === 'right' ? timestamp : state.filter.range.right;
+      const left = kind === 'left' ? context : state.filter.range.left;
+      const right = kind === 'right' ? context : state.filter.range.right;
 
       return {
         ...state,
-        filter: { range: { left: top, right: bottom } }
+        filter: { range: { left, right } }
       };
     },
     [LogvisActions.Type.REMOVE_VALUE_LIST_FILTER]: (state, actiion) => {

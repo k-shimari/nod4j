@@ -62,9 +62,9 @@ function* requestFiles(action: ReturnType<typeof LogvisActions.requestFiles>) {
 function* requestValueListFilterChange(
   action: ReturnType<typeof LogvisActions.requestValueListFilterChange>
 ) {
-  const { kind, timestamp } = action.payload!;
-  if (timestamp) {
-    yield put(LogvisActions.setValueListFilter({ kind, timestamp }));
+  const { kind, context } = action.payload!;
+  if (context) {
+    yield put(LogvisActions.setValueListFilter({ kind, context }));
   } else {
     yield put(LogvisActions.removeValueListFilter({ kind }));
   }

@@ -1,22 +1,24 @@
 import { Popper } from '@material-ui/core';
 import { SourceCodeToken } from 'app/models/token';
 import { VarValueData } from 'app/models/varValueData';
+import { TimeStampRangeFilter as TimestampRangeFilter } from 'app/reducers/state';
+import classNames = require('classnames');
 import * as React from 'react';
 import { interval, Subject } from 'rxjs';
 import { debounce } from 'rxjs/operators';
-import { RangeFilterClickEventHandler, ValueList, ValueListItemData } from '../organisms/valueList';
+import {
+  RangeFilterClickEventHandler2,
+  ValueList,
+  ValueListItemData
+} from '../organisms/valueList';
 import { Line } from './line';
-import classNames = require('classnames');
 
 interface Props {
   tokens: SourceCodeToken[];
   varValueData: VarValueData;
-  currentFilterValue: {
-    left?: string;
-    right?: string;
-  };
-  onArrowUpwardClick?: RangeFilterClickEventHandler;
-  onArrowDownwardClick?: RangeFilterClickEventHandler;
+  currentFilterValue: TimestampRangeFilter;
+  onArrowUpwardClick?: RangeFilterClickEventHandler2;
+  onArrowDownwardClick?: RangeFilterClickEventHandler2;
 }
 
 function groupTokensByLine(tokens: SourceCodeToken[]): SourceCodeToken[][] {
@@ -86,6 +88,10 @@ export function Sourcecode(props: Props) {
 
   const { tokens, varValueData, onArrowUpwardClick, onArrowDownwardClick } = props;
 
+  function currentToken(): SourceCodeToken {
+    return tokens.find((x) => x.id === activeTokenId)!;
+  }
+
   return (
     <div>
       <pre>
@@ -117,8 +123,12 @@ export function Sourcecode(props: Props) {
             items={data}
             onEnter={onValueListEnter}
             onLeave={onValueListLeave}
-            onArrowUpwardClick={onArrowUpwardClick}
-            onArrowDownwardClick={onArrowDownwardClick}
+            onArrowUpwardClick={(item) =>
+              onArrowUpwardClick && onArrowUpwardClick(item, currentToken())
+            }
+            onArrowDownwardClick={(item) =>
+              onArrowDownwardClick && onArrowDownwardClick(item, currentToken())
+            }
           />
         ) : (
           <span> </span>

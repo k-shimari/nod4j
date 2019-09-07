@@ -6,8 +6,9 @@ import {
   ValueListItemId,
   ValueListItemValue
 } from 'app/components/atoms/valueListItem';
-import { Timestamp } from 'app/reducers/state';
+import { Timestamp, TimeStampRangeFilter } from 'app/reducers/state';
 import * as React from 'react';
+import { SourceCodeToken } from 'app/models/token';
 
 export namespace ValueListItemData {
   export function create(
@@ -29,16 +30,17 @@ export interface RangeFilterClickEventHandler {
   (item: ValueListItemData): void;
 }
 
+export interface RangeFilterClickEventHandler2 {
+  (item: ValueListItemData, varInfo: SourceCodeToken): void;
+}
+
 export namespace ValueList {
   export interface Props {
     style?: React.CSSProperties;
     items: ValueListItemData[];
     onArrowUpwardClick?: RangeFilterClickEventHandler;
     onArrowDownwardClick?: RangeFilterClickEventHandler;
-    currentFilterValue: {
-      left?: string;
-      right?: string;
-    };
+    currentFilterValue: TimeStampRangeFilter;
     onEnter?(): void;
     onLeave?(): void;
   }
@@ -52,8 +54,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const ValueList: React.FunctionComponent<ValueList.Props> = (props) => {
-  const { style, items, onArrowDownwardClick, onArrowUpwardClick, onEnter, onLeave } = props;
+  const {
+    style,
+    items,
+    onArrowDownwardClick,
+    onArrowUpwardClick,
+    onEnter,
+    onLeave,
+    currentFilterValue
+  } = props;
   const classes = useStyles();
+  const { left, right } = currentFilterValue;
 
   return (
     <Paper style={style} className={classes.root} onPointerEnter={onEnter} onPointerLeave={onLeave}>
@@ -62,8 +73,8 @@ export const ValueList: React.FunctionComponent<ValueList.Props> = (props) => {
           <ValueListItem
             key={item.id}
             item={item}
-            disableArrowUpward={props.currentFilterValue.right === item.timestamp}
-            disableArrowDownward={props.currentFilterValue.left === item.timestamp}
+            disableArrowUpward={right && right.timestamp === item.timestamp}
+            disableArrowDownward={left && left.timestamp === item.timestamp}
             onArrowUpwardClick={onArrowUpwardClick}
             onArrowDownwardClick={onArrowDownwardClick}
           ></ValueListItem>
