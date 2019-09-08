@@ -56,12 +56,16 @@ export namespace LogvisActions {
     }
 
     export interface SetFilesDataPayload {
-      parentDirs: string[];
-      currentDir: string;
+      dirs: string[];
       items: ProjectItem[];
     }
 
-    export interface RequestSourceCodeData {}
+    export interface RequestSourceCodeData {
+      target: {
+        dirs: string[];
+        file: string;
+      };
+    }
 
     export interface SetSourceCodeData {
       tokens: SourceCodeToken[];

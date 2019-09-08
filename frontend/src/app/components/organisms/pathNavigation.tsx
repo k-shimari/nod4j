@@ -12,25 +12,28 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface Props {
-  parentDirs: string[];
-  currentDir: string;
+  items: string[];
 }
 
 function computeHref(index: number, dirs: string[]): string {
-  return '/files/' + dirs.slice(1, index + 1).join('/');
+  return '/files/' + dirs.slice(0, index).join('/');
 }
 
 export const PathNavigation: React.FunctionComponent<Props> = (props) => {
   const classes = useStyles();
+  const { items } = props;
+  const parentDirs = ['/', ...items.slice(0, items.length - 1)];
   return (
     <Paper className={classes.paper}>
       <Breadcrumbs separator="›" aria-label="breadcrumb">
-        {props.parentDirs.map((dir, index) => (
-          <Link key={index} title={dir} color="inherit" href={computeHref(index, props.parentDirs)}>
-            {dir}
+        {parentDirs.map((item, index) => (
+          <Link key={index} title={item} color="inherit" href={computeHref(index, items)}>
+            {item}
           </Link>
         ))}
-        <Typography color="textPrimary">{props.currentDir}</Typography>
+        {items.length > 0 ? (
+          <Typography color="textPrimary">{items[items.length - 1]}</Typography>
+        ) : null}
       </Breadcrumbs>
     </Paper>
   );

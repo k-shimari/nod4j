@@ -3,19 +3,15 @@ import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import ArrowUpward from '@material-ui/icons/ArrowUpward';
 import { LogvisActions, RangeFilterKind } from 'app/actions';
 import { ContentContainer } from 'app/components/atoms/contentContainer';
+import { FilterDisplay } from 'app/components/atoms/filterDisplay';
 import { PathNavigation } from 'app/components/organisms/pathNavigation';
-import {
-  ValueListItemData,
-  RangeFilterClickEventHandler2
-} from 'app/components/organisms/valueList';
+import { RangeFilterClickEventHandler2 } from 'app/components/organisms/valueList';
 import { Sourcecode } from 'app/components/sourcecode';
-import { parsePath } from 'app/models/pathParser';
+import { splitPathToDirsAndFile } from 'app/models/pathParser';
 import { RootState } from 'app/reducers';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useReactRouter from 'use-react-router';
-import { FilterDisplay } from 'app/components/atoms/filterDisplay';
-import { SourceCodeToken } from 'app/models/token';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -38,10 +34,10 @@ export function ViewContainer() {
   const classes = useStyles();
   const { location } = useReactRouter();
   const currentUrl = location.pathname;
-  const { parentDirs, currentDir } = parsePath('view', currentUrl);
+  const { dirs, file } = splitPathToDirsAndFile('view', currentUrl);
 
   React.useEffect(() => {
-    dispatch(LogvisActions.requestSourceCodeData({}));
+    dispatch(LogvisActions.requestSourceCodeData({ target: { dirs, file } }));
   }, []);
 
   const tokens = logvisState.sourceCodeTokens;
@@ -53,7 +49,7 @@ export function ViewContainer() {
         context: {
           timestamp: item.timestamp,
           lineNumber: varInfo.startLine || 0,
-          fileName: currentDir
+          fileName: file
         }
       })
     );
@@ -66,7 +62,7 @@ export function ViewContainer() {
         context: {
           timestamp: item.timestamp,
           lineNumber: varInfo.startLine || 0,
-          fileName: currentDir
+          fileName: file
         }
       })
     );
@@ -108,7 +104,7 @@ export function ViewContainer() {
 
   return tokens ? (
     <ContentContainer>
-      <PathNavigation parentDirs={parentDirs} currentDir={currentDir} />
+      <PathNavigation items={[...dirs, file]} />
       <Paper className={classes.paper}>
         <div className={classes.timestampFilterSection}>
           <Typography variant="overline" color="textSecondary" gutterBottom>
