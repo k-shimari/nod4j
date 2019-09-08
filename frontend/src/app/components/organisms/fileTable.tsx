@@ -2,7 +2,7 @@ import { Paper, Table, TableBody, TableCell, TableHead, TableRow } from '@materi
 import { makeStyles } from '@material-ui/core/styles';
 import FileIcon from '@material-ui/icons/Code';
 import FolderIcon from '@material-ui/icons/Folder';
-import { ProjectItem } from 'app/models/project';
+import { ProjectItem, ProjectItemBase } from 'app/models/project';
 import * as React from 'react';
 
 const useStyles = makeStyles((theme) => ({
@@ -51,10 +51,10 @@ export const FileTable: React.FunctionComponent<FileTableProps> = (props) => {
                 key={index}
                 {...d}
                 onClick={() => {
-                  if (d.kind === 'file' && onFileClick) {
+                  if (d.type === 'file' && onFileClick) {
                     onFileClick(d.name);
                   }
-                  if (d.kind === 'dir' && onDirClick) {
+                  if (d.type === 'dir' && onDirClick) {
                     onDirClick(d.name);
                   }
                 }}
@@ -67,17 +67,17 @@ export const FileTable: React.FunctionComponent<FileTableProps> = (props) => {
   );
 };
 
-export interface FileTableRowProp extends ProjectItem {
+export interface FileTableRowProp extends ProjectItemBase {
   navigateTo: string;
   onClick?(): void;
 }
 
 const FileTableRow: React.FunctionComponent<FileTableRowProp> = (props) => {
-  const { name, author, lastModifiedDate, navigateTo, onClick } = props;
+  const { name, navigateTo, onClick } = props;
   return (
     <TableRow>
       <TableCell>
-        {props.kind === 'file' ? (
+        {props.type === 'file' ? (
           <FileIcon fontSize="small" style={{ verticalAlign: 'middle' }} />
         ) : (
           <FolderIcon fontSize="small" style={{ verticalAlign: 'middle' }} />
@@ -87,14 +87,14 @@ const FileTableRow: React.FunctionComponent<FileTableRowProp> = (props) => {
             onClick={onClick}
             title={name}
             href={navigateTo}
-            target={props.kind === 'file' ? '_blank' : ''}
+            target={props.type === 'file' ? '_blank' : ''}
           >
             {name}
           </a>
         </span>
       </TableCell>
-      <TableCell>{author}</TableCell>
-      <TableCell>{lastModifiedDate.toLocaleString()}</TableCell>
+      <TableCell>{'k-shimari'}</TableCell>
+      <TableCell>{new Date().toLocaleString()}</TableCell>
     </TableRow>
   );
 };

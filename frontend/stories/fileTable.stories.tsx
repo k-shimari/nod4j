@@ -9,28 +9,20 @@ storiesOf('File Navigation', module)
       data={[
         {
           name: 'package.json',
-          author: 'naoto',
-          lastModifiedDate: new Date(),
-          kind: 'file',
+          type: 'file',
           navigateTo: '#'
         },
         {
           name: '.gitignore',
-          author: 'naoto',
-          lastModifiedDate: new Date(),
-          kind: 'file',
+          type: 'file',
           navigateTo: '#'
         },
         {
           name: 'node_modules',
-          author: 'naoto',
-          lastModifiedDate: new Date(),
-          kind: 'dir',
+          type: 'dir',
           navigateTo: '#'
         }
       ]}
     ></FileTable>
   ))
-  .add('Path navigation', () => (
-    <PathNavigation currentDir="atoms" parentDirs={['src', 'components']} />
-  ));
+  .add('Path navigation', () => <PathNavigation items={['src', 'components', 'atoms']} />);

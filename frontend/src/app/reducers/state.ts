@@ -25,8 +25,7 @@ export namespace RootState {
   }
 
   export interface FilesState {
-    parentDirs: string[];
-    currentDir: string;
+    dirs: string[];
     items: ProjectItem[];
     loading: boolean;
   }

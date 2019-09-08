@@ -3,7 +3,7 @@ import { LogvisActions } from 'app/actions';
 import { ContentContainer } from 'app/components/atoms/contentContainer';
 import { FileTable, FileTableRowProp } from 'app/components/organisms/fileTable';
 import { PathNavigation } from 'app/components/organisms/pathNavigation';
-import { ProjectItem, ProjectItemKind } from 'app/models/project';
+import { ProjectItem, ProjectItemType } from 'app/models/project';
 import { RootState } from 'app/reducers';
 import * as Path from 'path';
 import * as React from 'react';
@@ -20,7 +20,7 @@ export function FilesContainer() {
     dispatch(LogvisActions.requestFiles({ path: currentUrl }));
   }, []);
 
-  function computeLinkHref(name: string, kind: ProjectItemKind): string {
+  function computeLinkHref(name: string, kind: ProjectItemType): string {
     const currentUrl = location.pathname;
     console.log(currentUrl);
 
@@ -35,14 +35,12 @@ export function FilesContainer() {
   function mapItems(items: ProjectItem[]): FileTableRowProp[] {
     return items.map((item) => ({
       name: item.name,
-      author: item.author,
-      lastModifiedDate: item.lastModifiedDate,
-      kind: item.kind,
-      navigateTo: computeLinkHref(item.name, item.kind)
+      type: item.type,
+      navigateTo: computeLinkHref(item.name, item.type)
     }));
   }
 
-  const { currentDir, parentDirs, items, loading } = files;
+  const { dirs, items, loading } = files;
 
   return (
     <div>
@@ -51,7 +49,7 @@ export function FilesContainer() {
       ) : (
         <ContentContainer>
           <React.Fragment>
-            <PathNavigation parentDirs={parentDirs} currentDir={currentDir} />
+            <PathNavigation items={dirs} />
             <FileTable data={mapItems(items)} />
           </React.Fragment>
         </ContentContainer>
