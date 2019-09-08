@@ -127,8 +127,8 @@ export class ProjectModel {
     }
   }
 
-  static loadFromJsonFile(jsonDataString: string): ProjectModel | undefined {
-    const projectDir = JSON.parse(jsonDataString) as ProjectItemDirectory;
+  static loadFromJsonFile(projectJsonDataString: string): ProjectModel | undefined {
+    const projectDir = JSON.parse(projectJsonDataString) as ProjectItemDirectory;
     if (projectDir) {
       return new ProjectModel(projectDir);
     } else {

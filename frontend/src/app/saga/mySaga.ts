@@ -4,8 +4,9 @@ import * as JavaLexer from 'app/models/javaLexer';
 import { splitPathToDirs } from 'app/models/pathParser';
 import { ProjectItemFileModel, ProjectModel } from 'app/models/project';
 import { rawProjectJsonData } from 'app/models/rawProjectData';
+import { varListJsonData } from 'app/models/rawVarListData';
 import { SourceCodeToken } from 'app/models/token';
-import { JsonData, jsonData, VarInfo } from 'app/models/variable';
+import { VarInfo, VarListDataModel, VarListJsonData } from 'app/models/varListData';
 import { VarValueData } from 'app/models/varValueData';
 import { RootState } from 'app/reducers';
 import { delay, put, select, takeEvery } from 'redux-saga/effects';
@@ -21,9 +22,15 @@ function computeTokenId(variable: VarInfo, tokens: SourceCodeToken[]): string {
   return id;
 }
 
-function createVarValueData(data: JsonData, tokens: SourceCodeToken[]): VarValueData {
+function createVarValueData(
+  data: VarListJsonData,
+  file: string,
+  tokens: SourceCodeToken[]
+): VarValueData {
   let result: any = {};
-  for (const d of data.data) {
+  const model = new VarListDataModel(data);
+  const ds = model.getDataOfFile(file);
+  for (const d of ds) {
     const item: ValueListItemData[] = d.valueList.map((x, index) => ({
       id: index.toString(),
       value: x.data,
@@ -94,7 +101,7 @@ function* requestSourceCodeData(action: ReturnType<typeof LogvisActions.requestS
     })
   );
 
-  const varValueData = createVarValueData(jsonData, tokens);
+  const varValueData = createVarValueData(varListJsonData, file, tokens);
 
   yield put(
     LogvisActions.setOriginalValueListData({
