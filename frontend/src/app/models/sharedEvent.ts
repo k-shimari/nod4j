@@ -64,4 +64,8 @@ export class SharedEventModel {
   subscribeFilterChange(callback: FilterChangeEventHandler) {
     this.callbacks.push(callback);
   }
+
+  clearAllData() {
+    return localforage.clear();
+  }
 }

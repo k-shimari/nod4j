@@ -24,7 +24,10 @@ export namespace LogvisActions {
 
     // Source code系
     REQUEST_SOURCE_CODE_DATA = 'REQUEST_SOURCE_CODE_DATA',
-    SET_SOURCE_CODE_DATA = 'SET_SOURCE_CODE_DATA'
+    SET_SOURCE_CODE_DATA = 'SET_SOURCE_CODE_DATA',
+
+    // Debug系
+    CLEAR_LOCAL_STORAGE = 'CLEAR_LOCAL_STORAGE'
   }
 
   export namespace Payload {
@@ -96,6 +99,9 @@ export namespace LogvisActions {
   export const SetSourceCodeData = createAction<Payload.SetSourceCodeData>(
     Type.SET_SOURCE_CODE_DATA
   );
+
+  // Debug系
+  export const clearLocalStorage = createAction(Type.CLEAR_LOCAL_STORAGE);
 }
 
 export type LogvisActions = Omit<typeof LogvisActions, 'Type'>;

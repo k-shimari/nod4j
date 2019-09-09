@@ -13,7 +13,7 @@ import { RootState } from 'app/reducers';
 import { TimeStampRangeFilter, TimestampRangeFilterContext } from 'app/reducers/state';
 import { store } from 'app/store';
 import * as _ from 'lodash';
-import { delay, put, select, takeEvery } from 'redux-saga/effects';
+import { call, delay, put, select, takeEvery } from 'redux-saga/effects';
 
 function computeTokenId(variable: VarInfo, tokens: SourceCodeToken[]): string {
   const { linenum, count, var: varName } = variable;
@@ -138,11 +138,17 @@ function* dummyWorker() {
   yield put(LogvisActions.dummyAction());
 }
 
+function* clearLocalStorage() {
+  yield call(() => sharedEvent.clearAllData());
+  console.debug('Cleared local storage');
+}
+
 function* mySaga() {
   yield takeEvery(LogvisActions.dummyAction, dummyWorker);
   yield takeEvery(LogvisActions.requestFiles, requestFiles);
   yield takeEvery(LogvisActions.requestValueListFilterChange, requestValueListFilterChange);
   yield takeEvery(LogvisActions.requestSourceCodeData, requestSourceCodeData);
+  yield takeEvery(LogvisActions.clearLocalStorage, clearLocalStorage);
 }
 
 export default mySaga;
