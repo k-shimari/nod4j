@@ -1,11 +1,12 @@
 import { Chip, Divider, makeStyles, Paper, Typography } from '@material-ui/core';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import ArrowUpward from '@material-ui/icons/ArrowUpward';
-import { LogvisActions, RangeFilterKind } from 'app/actions';
+import { LogvisActions, TimestampRangeFilterKind } from 'app/actions';
 import { ContentContainer } from 'app/components/atoms/contentContainer';
 import { FilterDisplay } from 'app/components/atoms/filterDisplay';
 import { PathNavigation } from 'app/components/organisms/pathNavigation';
 import { RangeFilterClickEventHandler2 } from 'app/components/organisms/valueList';
+import * as _ from 'lodash';
 import { Sourcecode } from 'app/components/sourcecode';
 import { splitPathToDirsAndFile } from 'app/models/pathParser';
 import { RootState } from 'app/reducers';
@@ -50,7 +51,8 @@ export function ViewContainer() {
           timestamp: item.timestamp,
           lineNumber: varInfo.startLine || 0,
           fileName: file
-        }
+        },
+        preferNotify: true
       })
     );
   };
@@ -63,16 +65,17 @@ export function ViewContainer() {
           timestamp: item.timestamp,
           lineNumber: varInfo.startLine || 0,
           fileName: file
-        }
+        },
+        preferNotify: true
       })
     );
   };
 
-  function renderFilterChip(leftOrRight: RangeFilterKind) {
+  function renderFilterChip(kind: TimestampRangeFilterKind) {
     const { left, right } = logvisState.filter.range;
-    const icon = leftOrRight === 'left' ? <ArrowDownward /> : <ArrowUpward />;
-    const target = leftOrRight === 'left' ? left : right;
-    const labelPrefix = leftOrRight === 'left' ? 'After' : 'Before';
+    const icon = kind === 'left' ? <ArrowDownward /> : <ArrowUpward />;
+    const target = kind === 'left' ? left : right;
+    const labelPrefix = kind === 'left' ? 'After' : 'Before';
     const labelValue = target
       ? (() => {
           const { fileName, lineNumber } = target;
@@ -83,12 +86,14 @@ export function ViewContainer() {
     const onDelete = () =>
       dispatch(
         LogvisActions.requestValueListFilterChange({
-          kind: leftOrRight,
-          context: undefined
+          kind: kind,
+          context: undefined,
+          preferNotify: true
         })
       );
 
-    const hasValue = target !== undefined;
+    const hasValue = !_.isNil(target);
+
     return (
       <FilterDisplay
         className={classes.chip}

@@ -5,10 +5,14 @@ import { splitPathToDirs } from 'app/models/pathParser';
 import { ProjectItemFileModel, ProjectModel } from 'app/models/project';
 import { rawProjectJsonData } from 'app/models/rawProjectData';
 import { varListJsonData } from 'app/models/rawVarListData';
+import { SharedEventModel } from 'app/models/sharedEvent';
 import { SourceCodeToken } from 'app/models/token';
 import { VarInfo, VarListDataModel, VarListJsonData } from 'app/models/varListData';
 import { VarValueData } from 'app/models/varValueData';
 import { RootState } from 'app/reducers';
+import { TimeStampRangeFilter, TimestampRangeFilterContext } from 'app/reducers/state';
+import { store } from 'app/store';
+import * as _ from 'lodash';
 import { delay, put, select, takeEvery } from 'redux-saga/effects';
 
 function computeTokenId(variable: VarInfo, tokens: SourceCodeToken[]): string {
@@ -66,14 +70,29 @@ function* requestFiles(action: ReturnType<typeof LogvisActions.requestFiles>) {
   );
 }
 
+const sharedEvent = new SharedEventModel();
+sharedEvent.subscribeFilterChange((args) => {
+  const { kind, newValue } = args;
+
+  const context = newValue as TimestampRangeFilterContext;
+  store.dispatch(LogvisActions.requestValueListFilterChange({ kind, context }));
+});
+
 function* requestValueListFilterChange(
   action: ReturnType<typeof LogvisActions.requestValueListFilterChange>
 ) {
-  const { kind, context } = action.payload!;
-  if (context) {
-    yield put(LogvisActions.setValueListFilter({ kind, context }));
-  } else {
-    yield put(LogvisActions.removeValueListFilter({ kind }));
+  const { kind, context, preferNotify } = action.payload!;
+
+  // contextが同じであれば更新の必要はない
+  const s: TimeStampRangeFilter = yield select((state: RootState) => state.logvis.filter.range);
+  if (kind === 'left' && _.isEqual(context, s.left)) return;
+  if (kind === 'right' && _.isEqual(context, s.right)) return;
+
+  yield put(LogvisActions.setValueListFilter({ kind, context }));
+
+  // localStorageに保存することによってフィルターの変更を通知する
+  if (preferNotify) {
+    sharedEvent.notifyFilterChanged(kind, context);
   }
 
   const state: RootState = yield select();

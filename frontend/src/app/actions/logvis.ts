@@ -4,7 +4,7 @@ import { VarValueData } from 'app/models/varValueData';
 import { TimestampRangeFilterContext } from 'app/reducers/state';
 import { createAction } from 'redux-actions';
 
-export type RangeFilterKind = 'left' | 'right';
+export type TimestampRangeFilterKind = 'left' | 'right';
 
 export namespace LogvisActions {
   export enum Type {
@@ -13,7 +13,6 @@ export namespace LogvisActions {
     // Filter系
     REQUEST_VALUE_LIST_FILTER_CHANGE = 'REQUEST_VALUE_LIST_FILTER_CHANGE',
     SET_VALUE_LIST_FILTER = 'SET_VALUE_LIST_FILTER',
-    REMOVE_VALUE_LIST_FILTER = 'REMOVE_VALUE_LIST_FILTER',
     CLEAR_ALL_FILTERS = 'CLEAR_ALL_FILTERS',
 
     SET_ORIGINAL_VALUE_LIST_DATA = 'SET_ORIGINAL_VALUE_LIST_DATA',
@@ -30,17 +29,14 @@ export namespace LogvisActions {
 
   export namespace Payload {
     export interface RequestValueListFilterChange {
-      kind: RangeFilterKind;
-      context?: TimestampRangeFilterContext;
+      kind: TimestampRangeFilterKind;
+      context: TimestampRangeFilterContext | undefined;
+      preferNotify?: boolean;
     }
 
     export interface SetValueListFilter {
-      context: TimestampRangeFilterContext;
-      kind: RangeFilterKind;
-    }
-
-    export interface RemoveValueListFilter {
-      kind: RangeFilterKind;
+      kind: TimestampRangeFilterKind;
+      context: TimestampRangeFilterContext | undefined;
     }
 
     export interface SetOriginalValueListData {
@@ -80,9 +76,6 @@ export namespace LogvisActions {
   );
   export const setValueListFilter = createAction<Payload.SetValueListFilter>(
     Type.SET_VALUE_LIST_FILTER
-  );
-  export const removeValueListFilter = createAction<Payload.RemoveValueListFilter>(
-    Type.REMOVE_VALUE_LIST_FILTER
   );
   export const clearAllFilters = createAction(Type.CLEAR_ALL_FILTERS);
   export const setOriginalValueListData = createAction<Payload.SetOriginalValueListData>(
