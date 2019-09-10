@@ -25,4 +25,6 @@ storiesOf('File Navigation', module)
       ]}
     ></FileTable>
   ))
-  .add('Path navigation', () => <PathNavigation items={['src', 'components', 'atoms']} />);
+  .add('Path navigation', () => (
+    <PathNavigation projectName="demo" items={['src', 'components', 'atoms']} />
+  ));

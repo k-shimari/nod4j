@@ -13,21 +13,27 @@ const useStyles = makeStyles((theme) => ({
 
 interface Props {
   items: string[];
+  projectName: string;
 }
 
-function computeHref(index: number, dirs: string[]): string {
-  return '/files/' + dirs.slice(0, index).join('/');
+function computeHref(projectName: string, index: number, dirs: string[]): string {
+  return `/project/${projectName}/files/` + dirs.slice(0, index).join('/');
 }
 
-export const PathNavigation: React.FunctionComponent<Props> = (props) => {
+export function PathNavigation(props: Props) {
   const classes = useStyles();
-  const { items } = props;
+  const { items, projectName } = props;
   const parentDirs = ['/', ...items.slice(0, items.length - 1)];
   return (
     <Paper className={classes.paper}>
       <Breadcrumbs separator="›" aria-label="breadcrumb">
         {parentDirs.map((item, index) => (
-          <Link key={index} title={item} color="inherit" href={computeHref(index, items)}>
+          <Link
+            key={index}
+            title={item}
+            color="inherit"
+            href={computeHref(projectName, index, items)}
+          >
             {item}
           </Link>
         ))}
@@ -37,4 +43,4 @@ export const PathNavigation: React.FunctionComponent<Props> = (props) => {
       </Breadcrumbs>
     </Paper>
   );
-};
+}

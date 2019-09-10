@@ -1,4 +1,4 @@
-import { Chip, Divider, makeStyles, Paper, Typography } from '@material-ui/core';
+import { Divider, makeStyles, Paper, Typography } from '@material-ui/core';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import ArrowUpward from '@material-ui/icons/ArrowUpward';
 import { LogvisActions, TimestampRangeFilterKind } from 'app/actions';
@@ -6,10 +6,10 @@ import { ContentContainer } from 'app/components/atoms/contentContainer';
 import { FilterDisplay } from 'app/components/atoms/filterDisplay';
 import { PathNavigation } from 'app/components/organisms/pathNavigation';
 import { RangeFilterClickEventHandler2 } from 'app/components/organisms/valueList';
-import * as _ from 'lodash';
 import { Sourcecode } from 'app/components/sourcecode';
-import { splitPathToDirsAndFile } from 'app/models/pathParser';
+import { UrlParser } from 'app/models/pathParser';
 import { RootState } from 'app/reducers';
+import * as _ from 'lodash';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useReactRouter from 'use-react-router';
@@ -33,9 +33,10 @@ export function ViewContainer() {
   const logvisState = useSelector<RootState, RootState.LogvisState>((state) => state.logvis);
   const dispatch = useDispatch();
   const classes = useStyles();
-  const { location } = useReactRouter();
+  const { location, match } = useReactRouter<{ projectName: string }>();
   const currentUrl = location.pathname;
-  const { dirs, file } = splitPathToDirsAndFile('view', currentUrl);
+  const { dirs, file } = UrlParser.matchDirAndFileOfViewUrl(currentUrl);
+  const { projectName } = match.params;
 
   React.useEffect(() => {
     dispatch(LogvisActions.requestSourceCodeData({ target: { dirs, file } }));
@@ -109,7 +110,7 @@ export function ViewContainer() {
 
   return tokens ? (
     <ContentContainer>
-      <PathNavigation items={[...dirs, file]} />
+      <PathNavigation projectName={projectName} items={[...dirs, file]} />
       <Paper className={classes.paper}>
         <div className={classes.timestampFilterSection}>
           <Typography variant="overline" color="textSecondary" gutterBottom>

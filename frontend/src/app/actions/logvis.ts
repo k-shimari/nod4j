@@ -5,6 +5,7 @@ import { TimestampRangeFilterContext } from 'app/reducers/state';
 import { createAction } from 'redux-actions';
 
 export type TimestampRangeFilterKind = 'left' | 'right';
+export type Directory = string[];
 
 export namespace LogvisActions {
   export enum Type {
@@ -51,7 +52,8 @@ export namespace LogvisActions {
     }
 
     export interface RequestFilesPayload {
-      path: string;
+      projectName: string;
+      directory: Directory;
     }
 
     export interface SetFilesDataPayload {

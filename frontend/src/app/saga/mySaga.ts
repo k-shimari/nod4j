@@ -1,7 +1,6 @@
 import { LogvisActions } from 'app/actions';
 import { ValueListItemData } from 'app/components/organisms/valueList';
 import * as JavaLexer from 'app/models/javaLexer';
-import { splitPathToDirs } from 'app/models/pathParser';
 import { ProjectItemFileModel, ProjectModel } from 'app/models/project';
 import { rawProjectJsonData } from 'app/models/rawProjectData';
 import { varListJsonData } from 'app/models/rawVarListData';
@@ -49,25 +48,23 @@ function createVarValueData(
 }
 
 function* requestFiles(action: ReturnType<typeof LogvisActions.requestFiles>) {
-  const { path } = action.payload!;
-  console.log('Path: ' + path);
+  const { projectName, directory } = action.payload!;
 
-  // pathを操作してcurrentDirとparentDirに分離する
-  const { dirs } = splitPathToDirs('files', path);
+  if (projectName === 'demo') {
+    const project = ProjectModel.loadFromJsonFile(rawProjectJsonData)!;
+    const items = project.getItems(directory);
 
-  // itemsをproject modelから取得する
-
-  const project = ProjectModel.loadFromJsonFile(rawProjectJsonData)!;
-  const items = project.getItems(dirs);
-
-  // ロードしているっぽく見せるためにわざと時間差をつけている
-  yield delay(500);
-  yield put(
-    LogvisActions.setFilesData({
-      dirs,
-      items
-    })
-  );
+    // ロードしているっぽく見せるためにわざと時間差をつけている
+    yield delay(500);
+    yield put(
+      LogvisActions.setFilesData({
+        dirs: directory,
+        items
+      })
+    );
+  } else {
+    throw new Error('デモ以外のプロジェクトには現在対応していません。');
+  }
 }
 
 const sharedEvent = new SharedEventModel();

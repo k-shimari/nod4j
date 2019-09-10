@@ -20,7 +20,7 @@ function MainPanel() {
         Welcome to LOGVIS
       </Typography>
       <Typography component="p">
-        <Link href="/files">Demo</Link>
+        <Link href="/project/demo/files">Demo</Link>
       </Typography>
       <Typography component="p" color="textSecondary">
         Source code is availabe on{' '}
