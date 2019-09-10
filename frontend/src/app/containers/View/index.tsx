@@ -39,7 +39,9 @@ export function ViewContainer() {
   const { projectName } = match.params;
 
   React.useEffect(() => {
+    dispatch(LogvisActions.initViewPage({ projectName }));
     dispatch(LogvisActions.requestSourceCodeData({ target: { dirs, file } }));
+    dispatch(LogvisActions.loadInitialValueListFilter({ projectName }));
   }, []);
 
   const tokens = logvisState.sourceCodeTokens;
@@ -47,6 +49,7 @@ export function ViewContainer() {
   const onArrowUpClick: RangeFilterClickEventHandler2 = (item, varInfo) => {
     dispatch(
       LogvisActions.requestValueListFilterChange({
+        projectName,
         kind: 'right',
         context: {
           timestamp: item.timestamp,
@@ -61,6 +64,7 @@ export function ViewContainer() {
   const onArrowDownClick: RangeFilterClickEventHandler2 = (item, varInfo) => {
     dispatch(
       LogvisActions.requestValueListFilterChange({
+        projectName,
         kind: 'left',
         context: {
           timestamp: item.timestamp,
@@ -87,6 +91,7 @@ export function ViewContainer() {
     const onDelete = () =>
       dispatch(
         LogvisActions.requestValueListFilterChange({
+          projectName,
           kind: kind,
           context: undefined,
           preferNotify: true

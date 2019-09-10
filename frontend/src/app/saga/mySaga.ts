@@ -67,18 +67,10 @@ function* requestFiles(action: ReturnType<typeof LogvisActions.requestFiles>) {
   }
 }
 
-const sharedEvent = new SharedEventModel();
-sharedEvent.subscribeFilterChange((args) => {
-  const { kind, newValue } = args;
-
-  const context = newValue as TimestampRangeFilterContext;
-  store.dispatch(LogvisActions.requestValueListFilterChange({ kind, context }));
-});
-
 function* requestValueListFilterChange(
   action: ReturnType<typeof LogvisActions.requestValueListFilterChange>
 ) {
-  const { kind, context, preferNotify } = action.payload!;
+  const { projectName, kind, context, preferNotify } = action.payload!;
 
   // contextが同じであれば更新の必要はない
   const s: TimeStampRangeFilter = yield select((state: RootState) => state.logvis.filter.range);
@@ -89,6 +81,7 @@ function* requestValueListFilterChange(
 
   // localStorageに保存することによってフィルターの変更を通知する
   if (preferNotify) {
+    const sharedEvent = new SharedEventModel(projectName);
     sharedEvent.notifyFilterChanged(kind, context);
   }
 
@@ -136,8 +129,38 @@ function* dummyWorker() {
 }
 
 function* clearLocalStorage() {
-  yield call(() => sharedEvent.clearAllData());
+  yield call(() => SharedEventModel.clearAllData());
   console.debug('Cleared local storage');
+}
+
+function* loadInitialValueListFilter(
+  action: ReturnType<typeof LogvisActions.loadInitialValueListFilter>
+) {
+  const { projectName } = action.payload!;
+  const timestampFilter: TimeStampRangeFilter = yield call(() => {
+    const sharedEvent = new SharedEventModel(projectName);
+    return sharedEvent.loadData();
+  });
+  const { left, right } = timestampFilter;
+  yield put(
+    LogvisActions.requestValueListFilterChange({ projectName, kind: 'left', context: left })
+  );
+  yield put(
+    LogvisActions.requestValueListFilterChange({ projectName, kind: 'right', context: right })
+  );
+}
+
+function initViewPage(action: ReturnType<typeof LogvisActions.initViewPage>) {
+  const { projectName } = action.payload!;
+
+  const sharedEvent = new SharedEventModel(projectName);
+  sharedEvent.startWatching();
+  sharedEvent.subscribeFilterChange((args) => {
+    const { kind, newValue } = args;
+
+    const context = newValue as TimestampRangeFilterContext;
+    store.dispatch(LogvisActions.requestValueListFilterChange({ projectName, kind, context }));
+  });
 }
 
 function* mySaga() {
@@ -146,6 +169,8 @@ function* mySaga() {
   yield takeEvery(LogvisActions.requestValueListFilterChange, requestValueListFilterChange);
   yield takeEvery(LogvisActions.requestSourceCodeData, requestSourceCodeData);
   yield takeEvery(LogvisActions.clearLocalStorage, clearLocalStorage);
+  yield takeEvery(LogvisActions.loadInitialValueListFilter, loadInitialValueListFilter);
+  yield takeEvery(LogvisActions.initViewPage, initViewPage);
 }
 
 export default mySaga;
