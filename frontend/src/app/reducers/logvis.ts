@@ -30,16 +30,6 @@ export const logvisReducer = handleActions<RootState.LogvisState, any>(
         filter: { range: { left, right } }
       };
     },
-    [LogvisActions.Type.REMOVE_VALUE_LIST_FILTER]: (state, actiion) => {
-      const { kind } = actiion.payload! as LogvisActions.Payload.RemoveValueListFilter;
-      const top = kind === 'left' ? undefined : state.filter.range.left;
-      const bottom = kind === 'right' ? undefined : state.filter.range.right;
-
-      return {
-        ...state,
-        filter: { range: { left: top, right: bottom } }
-      };
-    },
     [LogvisActions.Type.CLEAR_ALL_FILTERS]: (state) => {
       return {
         ...state,

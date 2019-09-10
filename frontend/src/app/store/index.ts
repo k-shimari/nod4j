@@ -28,3 +28,5 @@ export function configureStore(initialState?: RootState): Store<RootState> {
 
   return store;
 }
+
+export const store = configureStore();

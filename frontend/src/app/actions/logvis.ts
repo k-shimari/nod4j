@@ -4,7 +4,8 @@ import { VarValueData } from 'app/models/varValueData';
 import { TimestampRangeFilterContext } from 'app/reducers/state';
 import { createAction } from 'redux-actions';
 
-export type RangeFilterKind = 'left' | 'right';
+export type TimestampRangeFilterKind = 'left' | 'right';
+export type Directory = string[];
 
 export namespace LogvisActions {
   export enum Type {
@@ -12,8 +13,8 @@ export namespace LogvisActions {
 
     // Filter系
     REQUEST_VALUE_LIST_FILTER_CHANGE = 'REQUEST_VALUE_LIST_FILTER_CHANGE',
+    LOAD_INITIAL_VALUE_LIST_FILTER = 'LOAD_INITIAL_VALUE_LIST_FILTER',
     SET_VALUE_LIST_FILTER = 'SET_VALUE_LIST_FILTER',
-    REMOVE_VALUE_LIST_FILTER = 'REMOVE_VALUE_LIST_FILTER',
     CLEAR_ALL_FILTERS = 'CLEAR_ALL_FILTERS',
 
     SET_ORIGINAL_VALUE_LIST_DATA = 'SET_ORIGINAL_VALUE_LIST_DATA',
@@ -25,22 +26,30 @@ export namespace LogvisActions {
 
     // Source code系
     REQUEST_SOURCE_CODE_DATA = 'REQUEST_SOURCE_CODE_DATA',
-    SET_SOURCE_CODE_DATA = 'SET_SOURCE_CODE_DATA'
+    SET_SOURCE_CODE_DATA = 'SET_SOURCE_CODE_DATA',
+
+    // Debug系
+    CLEAR_LOCAL_STORAGE = 'CLEAR_LOCAL_STORAGE',
+
+    // その他
+    INIT_VIEW_PAGE = 'INIT_VIEW_PAGE'
   }
 
   export namespace Payload {
     export interface RequestValueListFilterChange {
-      kind: RangeFilterKind;
-      context?: TimestampRangeFilterContext;
+      projectName: string;
+      kind: TimestampRangeFilterKind;
+      context: TimestampRangeFilterContext | undefined;
+      preferNotify?: boolean;
+    }
+
+    export interface LoadInitialValueListFilterChange {
+      projectName: string;
     }
 
     export interface SetValueListFilter {
-      context: TimestampRangeFilterContext;
-      kind: RangeFilterKind;
-    }
-
-    export interface RemoveValueListFilter {
-      kind: RangeFilterKind;
+      kind: TimestampRangeFilterKind;
+      context: TimestampRangeFilterContext | undefined;
     }
 
     export interface SetOriginalValueListData {
@@ -52,7 +61,8 @@ export namespace LogvisActions {
     }
 
     export interface RequestFilesPayload {
-      path: string;
+      projectName: string;
+      directory: Directory;
     }
 
     export interface SetFilesDataPayload {
@@ -70,6 +80,10 @@ export namespace LogvisActions {
     export interface SetSourceCodeData {
       tokens: SourceCodeToken[];
     }
+
+    export interface InitViewPage {
+      projectName: string;
+    }
   }
 
   export const dummyAction = createAction(Type.DUMMY_ACTION);
@@ -78,11 +92,11 @@ export namespace LogvisActions {
   export const requestValueListFilterChange = createAction<Payload.RequestValueListFilterChange>(
     Type.REQUEST_VALUE_LIST_FILTER_CHANGE
   );
+  export const loadInitialValueListFilter = createAction<Payload.LoadInitialValueListFilterChange>(
+    Type.LOAD_INITIAL_VALUE_LIST_FILTER
+  );
   export const setValueListFilter = createAction<Payload.SetValueListFilter>(
     Type.SET_VALUE_LIST_FILTER
-  );
-  export const removeValueListFilter = createAction<Payload.RemoveValueListFilter>(
-    Type.REMOVE_VALUE_LIST_FILTER
   );
   export const clearAllFilters = createAction(Type.CLEAR_ALL_FILTERS);
   export const setOriginalValueListData = createAction<Payload.SetOriginalValueListData>(
@@ -103,6 +117,12 @@ export namespace LogvisActions {
   export const SetSourceCodeData = createAction<Payload.SetSourceCodeData>(
     Type.SET_SOURCE_CODE_DATA
   );
+
+  // Debug系
+  export const clearLocalStorage = createAction(Type.CLEAR_LOCAL_STORAGE);
+
+  // その他
+  export const initViewPage = createAction<Payload.InitViewPage>(Type.INIT_VIEW_PAGE);
 }
 
 export type LogvisActions = Omit<typeof LogvisActions, 'Type'>;

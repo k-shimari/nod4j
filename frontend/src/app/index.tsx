@@ -10,7 +10,7 @@ export const App = hot(module)(() => (
   <div>
     <AppHeader appName="LOGVIS" />
     <Route exact path="/" component={LogvisApp} />
-    <Route path="/files" component={FilesContainer} />
-    <Route path="/view" component={ViewContainer} />
+    <Route path="/project/:projectName/files" component={FilesContainer} />
+    <Route path="/project/:projectName/view" component={ViewContainer} />
   </div>
 ));

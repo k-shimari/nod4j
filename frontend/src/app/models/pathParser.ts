@@ -1,29 +1,28 @@
-import * as Path from 'path';
+import { Directory } from 'app/actions';
 
-export function splitPathToDirsAndFile(
-  prefix: string,
-  path: string
-): { dirs: string[]; file: string } {
-  if (path.indexOf('/' + prefix) !== 0) {
-    throw new Error('Impossible');
+export namespace UrlParser {
+  export function matchDirOfProjectUrl(url: string): Directory {
+    const regex = /^\/project\/[0-9A-Za-z_-]+\/files\/?(.*)/;
+    const m = url.match(regex);
+    if (m === null) {
+      throw new Error('Parse error: ' + url);
+    } else {
+      const [, dirs] = m;
+      const r = dirs === '' ? [] : dirs.split('/');
+      return r;
+    }
   }
 
-  const relativeDir = Path.relative(prefix, path);
-  const dirs = relativeDir ? relativeDir.split('/') : [];
-
-  const parentDirs = dirs.length > 0 ? dirs.slice(0, dirs.length - 1) : [];
-  const currentDir = dirs.length > 0 ? dirs[dirs.length - 1] : '';
-
-  return { dirs: parentDirs, file: currentDir };
-}
-
-export function splitPathToDirs(prefix: string, path: string): { dirs: string[] } {
-  if (path.indexOf('/' + prefix) !== 0) {
-    throw new Error('Impossible');
+  export function matchDirAndFileOfViewUrl(url: string): { dirs: Directory; file: string } {
+    const regex = /^\/project\/[0-9A-Za-z_-]+\/view\/?(.*)\/([^\/]+)$/;
+    const m = url.match(regex);
+    if (m === null) {
+      throw new Error('Parse error: ' + url);
+    } else {
+      const [, dirs, file] = m;
+      console.log(dirs, file);
+      const r = dirs === '' ? [] : dirs.split('/');
+      return { dirs: r, file };
+    }
   }
-
-  const relativeDir = Path.relative(prefix, path);
-  const dirs = relativeDir ? relativeDir.split('/') : [];
-
-  return { dirs };
 }

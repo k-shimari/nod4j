@@ -1,14 +1,15 @@
-import { Chip, Divider, makeStyles, Paper, Typography } from '@material-ui/core';
+import { Divider, makeStyles, Paper, Typography } from '@material-ui/core';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import ArrowUpward from '@material-ui/icons/ArrowUpward';
-import { LogvisActions, RangeFilterKind } from 'app/actions';
+import { LogvisActions, TimestampRangeFilterKind } from 'app/actions';
 import { ContentContainer } from 'app/components/atoms/contentContainer';
 import { FilterDisplay } from 'app/components/atoms/filterDisplay';
 import { PathNavigation } from 'app/components/organisms/pathNavigation';
 import { RangeFilterClickEventHandler2 } from 'app/components/organisms/valueList';
 import { Sourcecode } from 'app/components/sourcecode';
-import { splitPathToDirsAndFile } from 'app/models/pathParser';
+import { UrlParser } from 'app/models/pathParser';
 import { RootState } from 'app/reducers';
+import * as _ from 'lodash';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useReactRouter from 'use-react-router';
@@ -32,12 +33,15 @@ export function ViewContainer() {
   const logvisState = useSelector<RootState, RootState.LogvisState>((state) => state.logvis);
   const dispatch = useDispatch();
   const classes = useStyles();
-  const { location } = useReactRouter();
+  const { location, match } = useReactRouter<{ projectName: string }>();
   const currentUrl = location.pathname;
-  const { dirs, file } = splitPathToDirsAndFile('view', currentUrl);
+  const { dirs, file } = UrlParser.matchDirAndFileOfViewUrl(currentUrl);
+  const { projectName } = match.params;
 
   React.useEffect(() => {
+    dispatch(LogvisActions.initViewPage({ projectName }));
     dispatch(LogvisActions.requestSourceCodeData({ target: { dirs, file } }));
+    dispatch(LogvisActions.loadInitialValueListFilter({ projectName }));
   }, []);
 
   const tokens = logvisState.sourceCodeTokens;
@@ -45,12 +49,14 @@ export function ViewContainer() {
   const onArrowUpClick: RangeFilterClickEventHandler2 = (item, varInfo) => {
     dispatch(
       LogvisActions.requestValueListFilterChange({
+        projectName,
         kind: 'right',
         context: {
           timestamp: item.timestamp,
           lineNumber: varInfo.startLine || 0,
           fileName: file
-        }
+        },
+        preferNotify: true
       })
     );
   };
@@ -58,21 +64,23 @@ export function ViewContainer() {
   const onArrowDownClick: RangeFilterClickEventHandler2 = (item, varInfo) => {
     dispatch(
       LogvisActions.requestValueListFilterChange({
+        projectName,
         kind: 'left',
         context: {
           timestamp: item.timestamp,
           lineNumber: varInfo.startLine || 0,
           fileName: file
-        }
+        },
+        preferNotify: true
       })
     );
   };
 
-  function renderFilterChip(leftOrRight: RangeFilterKind) {
+  function renderFilterChip(kind: TimestampRangeFilterKind) {
     const { left, right } = logvisState.filter.range;
-    const icon = leftOrRight === 'left' ? <ArrowDownward /> : <ArrowUpward />;
-    const target = leftOrRight === 'left' ? left : right;
-    const labelPrefix = leftOrRight === 'left' ? 'After' : 'Before';
+    const icon = kind === 'left' ? <ArrowDownward /> : <ArrowUpward />;
+    const target = kind === 'left' ? left : right;
+    const labelPrefix = kind === 'left' ? 'After' : 'Before';
     const labelValue = target
       ? (() => {
           const { fileName, lineNumber } = target;
@@ -83,12 +91,15 @@ export function ViewContainer() {
     const onDelete = () =>
       dispatch(
         LogvisActions.requestValueListFilterChange({
-          kind: leftOrRight,
-          context: undefined
+          projectName,
+          kind: kind,
+          context: undefined,
+          preferNotify: true
         })
       );
 
-    const hasValue = target !== undefined;
+    const hasValue = !_.isNil(target);
+
     return (
       <FilterDisplay
         className={classes.chip}
@@ -104,7 +115,7 @@ export function ViewContainer() {
 
   return tokens ? (
     <ContentContainer>
-      <PathNavigation items={[...dirs, file]} />
+      <PathNavigation projectName={projectName} items={[...dirs, file]} />
       <Paper className={classes.paper}>
         <div className={classes.timestampFilterSection}>
           <Typography variant="overline" color="textSecondary" gutterBottom>

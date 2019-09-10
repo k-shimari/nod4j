@@ -1,15 +1,18 @@
 import { LogvisActions } from 'app/actions';
 import { ValueListItemData } from 'app/components/organisms/valueList';
 import * as JavaLexer from 'app/models/javaLexer';
-import { splitPathToDirs } from 'app/models/pathParser';
 import { ProjectItemFileModel, ProjectModel } from 'app/models/project';
 import { rawProjectJsonData } from 'app/models/rawProjectData';
 import { varListJsonData } from 'app/models/rawVarListData';
+import { SharedEventModel } from 'app/models/sharedEvent';
 import { SourceCodeToken } from 'app/models/token';
 import { VarInfo, VarListDataModel, VarListJsonData } from 'app/models/varListData';
 import { VarValueData } from 'app/models/varValueData';
 import { RootState } from 'app/reducers';
-import { delay, put, select, takeEvery } from 'redux-saga/effects';
+import { TimeStampRangeFilter, TimestampRangeFilterContext } from 'app/reducers/state';
+import { store } from 'app/store';
+import * as _ from 'lodash';
+import { call, delay, put, select, takeEvery } from 'redux-saga/effects';
 
 function computeTokenId(variable: VarInfo, tokens: SourceCodeToken[]): string {
   const { linenum, count, var: varName } = variable;
@@ -45,35 +48,41 @@ function createVarValueData(
 }
 
 function* requestFiles(action: ReturnType<typeof LogvisActions.requestFiles>) {
-  const { path } = action.payload!;
-  console.log('Path: ' + path);
+  const { projectName, directory } = action.payload!;
 
-  // pathを操作してcurrentDirとparentDirに分離する
-  const { dirs } = splitPathToDirs('files', path);
+  if (projectName === 'demo') {
+    const project = ProjectModel.loadFromJsonFile(rawProjectJsonData)!;
+    const items = project.getItems(directory);
 
-  // itemsをproject modelから取得する
-
-  const project = ProjectModel.loadFromJsonFile(rawProjectJsonData)!;
-  const items = project.getItems(dirs);
-
-  // ロードしているっぽく見せるためにわざと時間差をつけている
-  yield delay(500);
-  yield put(
-    LogvisActions.setFilesData({
-      dirs,
-      items
-    })
-  );
+    // ロードしているっぽく見せるためにわざと時間差をつけている
+    yield delay(500);
+    yield put(
+      LogvisActions.setFilesData({
+        dirs: directory,
+        items
+      })
+    );
+  } else {
+    throw new Error('デモ以外のプロジェクトには現在対応していません。');
+  }
 }
 
 function* requestValueListFilterChange(
   action: ReturnType<typeof LogvisActions.requestValueListFilterChange>
 ) {
-  const { kind, context } = action.payload!;
-  if (context) {
-    yield put(LogvisActions.setValueListFilter({ kind, context }));
-  } else {
-    yield put(LogvisActions.removeValueListFilter({ kind }));
+  const { projectName, kind, context, preferNotify } = action.payload!;
+
+  // contextが同じであれば更新の必要はない
+  const s: TimeStampRangeFilter = yield select((state: RootState) => state.logvis.filter.range);
+  if (kind === 'left' && _.isEqual(context, s.left)) return;
+  if (kind === 'right' && _.isEqual(context, s.right)) return;
+
+  yield put(LogvisActions.setValueListFilter({ kind, context }));
+
+  // localStorageに保存することによってフィルターの変更を通知する
+  if (preferNotify) {
+    const sharedEvent = new SharedEventModel(projectName);
+    sharedEvent.notifyFilterChanged(kind, context);
   }
 
   const state: RootState = yield select();
@@ -119,11 +128,49 @@ function* dummyWorker() {
   yield put(LogvisActions.dummyAction());
 }
 
+function* clearLocalStorage() {
+  yield call(() => SharedEventModel.clearAllData());
+  console.debug('Cleared local storage');
+}
+
+function* loadInitialValueListFilter(
+  action: ReturnType<typeof LogvisActions.loadInitialValueListFilter>
+) {
+  const { projectName } = action.payload!;
+  const timestampFilter: TimeStampRangeFilter = yield call(() => {
+    const sharedEvent = new SharedEventModel(projectName);
+    return sharedEvent.loadData();
+  });
+  const { left, right } = timestampFilter;
+  yield put(
+    LogvisActions.requestValueListFilterChange({ projectName, kind: 'left', context: left })
+  );
+  yield put(
+    LogvisActions.requestValueListFilterChange({ projectName, kind: 'right', context: right })
+  );
+}
+
+function initViewPage(action: ReturnType<typeof LogvisActions.initViewPage>) {
+  const { projectName } = action.payload!;
+
+  const sharedEvent = new SharedEventModel(projectName);
+  sharedEvent.startWatching();
+  sharedEvent.subscribeFilterChange((args) => {
+    const { kind, newValue } = args;
+
+    const context = newValue as TimestampRangeFilterContext;
+    store.dispatch(LogvisActions.requestValueListFilterChange({ projectName, kind, context }));
+  });
+}
+
 function* mySaga() {
   yield takeEvery(LogvisActions.dummyAction, dummyWorker);
   yield takeEvery(LogvisActions.requestFiles, requestFiles);
   yield takeEvery(LogvisActions.requestValueListFilterChange, requestValueListFilterChange);
   yield takeEvery(LogvisActions.requestSourceCodeData, requestSourceCodeData);
+  yield takeEvery(LogvisActions.clearLocalStorage, clearLocalStorage);
+  yield takeEvery(LogvisActions.loadInitialValueListFilter, loadInitialValueListFilter);
+  yield takeEvery(LogvisActions.initViewPage, initViewPage);
 }
 
 export default mySaga;
