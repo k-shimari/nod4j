@@ -71,6 +71,7 @@ export namespace LogvisActions {
     }
 
     export interface RequestSourceCodeData {
+      projectName: string;
       target: {
         dirs: string[];
         file: string;

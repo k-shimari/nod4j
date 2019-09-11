@@ -1,9 +1,8 @@
 import { LogvisActions } from 'app/actions';
 import { ValueListItemData } from 'app/components/organisms/valueList';
+import { LogvisApi } from 'app/models/api';
 import * as JavaLexer from 'app/models/javaLexer';
 import { ProjectItemFileModel, ProjectModel } from 'app/models/project';
-import { rawProjectJsonData } from 'app/models/rawProjectData';
-import { varListJsonData } from 'app/models/rawVarListData';
 import { SharedEventModel } from 'app/models/sharedEvent';
 import { SourceCodeToken } from 'app/models/token';
 import { VarInfo, VarListDataModel, VarListJsonData } from 'app/models/varListData';
@@ -50,21 +49,23 @@ function createVarValueData(
 function* requestFiles(action: ReturnType<typeof LogvisActions.requestFiles>) {
   const { projectName, directory } = action.payload!;
 
-  if (projectName === 'demo') {
-    const project = ProjectModel.loadFromJsonFile(rawProjectJsonData)!;
-    const items = project.getItems(directory);
-
-    // ロードしているっぽく見せるためにわざと時間差をつけている
-    yield delay(500);
-    yield put(
-      LogvisActions.setFilesData({
-        dirs: directory,
-        items
-      })
-    );
-  } else {
-    throw new Error('デモ以外のプロジェクトには現在対応していません。');
+  const project: ProjectModel | undefined = yield call(() =>
+    new LogvisApi().fetchFileInfo(projectName)
+  );
+  if (!project) {
+    throw new Error('Unknown project: ' + projectName);
   }
+
+  const items = project.getItems(directory);
+
+  // ロードしているっぽく見せるためにわざと時間差をつけている
+  yield delay(300);
+  yield put(
+    LogvisActions.setFilesData({
+      dirs: directory,
+      items
+    })
+  );
 }
 
 function* requestValueListFilterChange(
@@ -93,10 +94,15 @@ function* requestValueListFilterChange(
 }
 
 function* requestSourceCodeData(action: ReturnType<typeof LogvisActions.requestSourceCodeData>) {
-  const { target } = action.payload!;
+  const { projectName, target } = action.payload!;
   const { dirs, file } = target;
 
-  const project = ProjectModel.loadFromJsonFile(rawProjectJsonData)!;
+  const api = new LogvisApi();
+  const project: ProjectModel | undefined = yield call(() => api.fetchFileInfo(projectName));
+  if (!project) {
+    throw new Error('Unknown project: ' + projectName);
+  }
+
   const requestedFile = project
     .getItems(dirs)
     .find<ProjectItemFileModel>(
@@ -110,6 +116,7 @@ function* requestSourceCodeData(action: ReturnType<typeof LogvisActions.requestS
     })
   );
 
+  const varListJsonData: VarListJsonData = yield call(() => api.fetchVarInfo(projectName));
   const varValueData = createVarValueData(varListJsonData, file, tokens);
 
   yield put(

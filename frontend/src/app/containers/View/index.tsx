@@ -40,7 +40,7 @@ export function ViewContainer() {
 
   React.useEffect(() => {
     dispatch(LogvisActions.initViewPage({ projectName }));
-    dispatch(LogvisActions.requestSourceCodeData({ target: { dirs, file } }));
+    dispatch(LogvisActions.requestSourceCodeData({ projectName, target: { dirs, file } }));
     dispatch(LogvisActions.loadInitialValueListFilter({ projectName }));
   }, []);
 

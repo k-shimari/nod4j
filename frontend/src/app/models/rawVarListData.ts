@@ -1,6 +1,3 @@
-import * as JSON5 from 'json5';
-import { VarListJsonData } from './varListData';
-
 export const rawVarListData = `
 {
     "recentdata": [
@@ -48538,5 +48535,3 @@ export const rawVarListData = `
     ]
 }
 `;
-
-export const varListJsonData = JSON5.parse(rawVarListData) as VarListJsonData;
