@@ -11,8 +11,12 @@ export class LogvisApi {
     });
   }
 
+  private pathBase(projectName: string) {
+    return `/assets/project/${projectName}`;
+  }
+
   async fetchFileInfo(projectName: string): Promise<ProjectModel | undefined> {
-    const fileInfoPath = `asset/project/${projectName}/fileinfo.json`;
+    const fileInfoPath = this.pathBase(projectName) + '/fileinfo.json';
 
     const s: string = await (projectName === 'demo'
       ? Promise.resolve(rawProjectJsonData)
@@ -28,7 +32,7 @@ export class LogvisApi {
   }
 
   async fetchVarInfo(projectName: string): Promise<VarListJsonData> {
-    const varInfoPath = `asset/project/${projectName}/varinfo.json`;
+    const varInfoPath = this.pathBase(projectName) + '/varinfo.json';
 
     const s: string = await (projectName === 'demo'
       ? Promise.resolve(rawVarListData)
