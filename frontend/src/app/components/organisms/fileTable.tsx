@@ -93,8 +93,8 @@ const FileTableRow: React.FunctionComponent<FileTableRowProp> = (props) => {
           </a>
         </span>
       </TableCell>
-      <TableCell>{'k-shimari'}</TableCell>
-      <TableCell>{new Date().toLocaleString()}</TableCell>
+      <TableCell>N/A</TableCell>
+      <TableCell>N/A</TableCell>
     </TableRow>
   );
 };
