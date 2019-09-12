@@ -1,8 +1,13 @@
 import * as JSON5 from 'json5';
 import { ProjectItemDirectory, ProjectModel } from './project';
+import { ProjectManager } from './projectManager';
 import { rawProjectJsonData } from './rawProjectData';
 import { rawVarListData } from './rawVarListData';
 import { VarListJsonData } from './varListData';
+
+export interface ProjectInfo {
+  name: string;
+}
 
 export class LogvisApi {
   private getAssetFile(path: string): Promise<string> {
@@ -41,5 +46,11 @@ export class LogvisApi {
     const json = JSON5.parse(s) as VarListJsonData;
 
     return json;
+  }
+
+  async fetchProjects(): Promise<ProjectInfo[]> {
+    const manager = new ProjectManager();
+    const projects = await manager.getAllProjects();
+    return projects;
   }
 }

@@ -1,6 +1,6 @@
 import { LogvisActions } from 'app/actions';
 import { ValueListItemData } from 'app/components/organisms/valueList';
-import { LogvisApi } from 'app/models/api';
+import { LogvisApi, ProjectInfo } from 'app/models/api';
 import * as JavaLexer from 'app/models/javaLexer';
 import { ProjectItemFileModel, ProjectModel } from 'app/models/project';
 import { SharedEventModel } from 'app/models/sharedEvent';
@@ -12,6 +12,7 @@ import { TimeStampRangeFilter, TimestampRangeFilterContext } from 'app/reducers/
 import { store } from 'app/store';
 import * as _ from 'lodash';
 import { call, delay, put, select, takeEvery } from 'redux-saga/effects';
+import { ProjectManager } from 'app/models/projectManager';
 
 function computeTokenId(variable: VarInfo, tokens: SourceCodeToken[]): string {
   const { linenum, count, var: varName } = variable;
@@ -170,6 +171,30 @@ function initViewPage(action: ReturnType<typeof LogvisActions.initViewPage>) {
   });
 }
 
+function* requestProjects() {
+  const manager = new ProjectManager();
+  const projects: ProjectInfo[] = yield call(() => manager.getAllProjects());
+  yield put(LogvisActions.setProjects({ projects }));
+}
+
+function* requestAddProject(action: ReturnType<typeof LogvisActions.requestAddProject>) {
+  const { project } = action.payload!;
+  const manager = new ProjectManager();
+  const success: boolean = yield call(() => manager.addProject(project));
+  if (success) {
+    yield put(LogvisActions.addProject({ project }));
+  }
+}
+
+function* requestRemoveProject(action: ReturnType<typeof LogvisActions.requestRemoveProject>) {
+  const { project } = action.payload!;
+  const manager = new ProjectManager();
+  const success: boolean = yield call(() => manager.removeProject(project));
+  if (success) {
+    yield put(LogvisActions.removeProject({ project }));
+  }
+}
+
 function* mySaga() {
   yield takeEvery(LogvisActions.dummyAction, dummyWorker);
   yield takeEvery(LogvisActions.requestFiles, requestFiles);
@@ -178,6 +203,9 @@ function* mySaga() {
   yield takeEvery(LogvisActions.clearLocalStorage, clearLocalStorage);
   yield takeEvery(LogvisActions.loadInitialValueListFilter, loadInitialValueListFilter);
   yield takeEvery(LogvisActions.initViewPage, initViewPage);
+  yield takeEvery(LogvisActions.requestProjects, requestProjects);
+  yield takeEvery(LogvisActions.requestAddProject, requestAddProject);
+  yield takeEvery(LogvisActions.requestRemoveProject, requestRemoveProject);
 }
 
 export default mySaga;

@@ -1,3 +1,4 @@
+import { ProjectInfo } from 'app/models/api';
 import { ProjectItem } from 'app/models/project';
 import { SourceCodeToken } from 'app/models/token';
 import { VarValueData } from 'app/models/varValueData';
@@ -31,6 +32,7 @@ export namespace RootState {
   }
 
   export interface LogvisState {
+    projects: ProjectInfo[] | undefined;
     filter: FilterState;
     originalValueListData: VarValueData;
     filteredValueListData: VarValueData;
