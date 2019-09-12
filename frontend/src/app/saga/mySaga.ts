@@ -1,9 +1,8 @@
 import { LogvisActions } from 'app/actions';
 import { ValueListItemData } from 'app/components/organisms/valueList';
+import { LogvisApi, ProjectInfo } from 'app/models/api';
 import * as JavaLexer from 'app/models/javaLexer';
 import { ProjectItemFileModel, ProjectModel } from 'app/models/project';
-import { rawProjectJsonData } from 'app/models/rawProjectData';
-import { varListJsonData } from 'app/models/rawVarListData';
 import { SharedEventModel } from 'app/models/sharedEvent';
 import { SourceCodeToken } from 'app/models/token';
 import { VarInfo, VarListDataModel, VarListJsonData } from 'app/models/varListData';
@@ -13,6 +12,7 @@ import { TimeStampRangeFilter, TimestampRangeFilterContext } from 'app/reducers/
 import { store } from 'app/store';
 import * as _ from 'lodash';
 import { call, delay, put, select, takeEvery } from 'redux-saga/effects';
+import { ProjectManager } from 'app/models/projectManager';
 
 function computeTokenId(variable: VarInfo, tokens: SourceCodeToken[]): string {
   const { linenum, count, var: varName } = variable;
@@ -50,21 +50,23 @@ function createVarValueData(
 function* requestFiles(action: ReturnType<typeof LogvisActions.requestFiles>) {
   const { projectName, directory } = action.payload!;
 
-  if (projectName === 'demo') {
-    const project = ProjectModel.loadFromJsonFile(rawProjectJsonData)!;
-    const items = project.getItems(directory);
-
-    // ロードしているっぽく見せるためにわざと時間差をつけている
-    yield delay(500);
-    yield put(
-      LogvisActions.setFilesData({
-        dirs: directory,
-        items
-      })
-    );
-  } else {
-    throw new Error('デモ以外のプロジェクトには現在対応していません。');
+  const project: ProjectModel | undefined = yield call(() =>
+    new LogvisApi().fetchFileInfo(projectName)
+  );
+  if (!project) {
+    throw new Error('Unknown project: ' + projectName);
   }
+
+  const items = project.getItems(directory);
+
+  // ロードしているっぽく見せるためにわざと時間差をつけている
+  yield delay(300);
+  yield put(
+    LogvisActions.setFilesData({
+      dirs: directory,
+      items
+    })
+  );
 }
 
 function* requestValueListFilterChange(
@@ -93,10 +95,15 @@ function* requestValueListFilterChange(
 }
 
 function* requestSourceCodeData(action: ReturnType<typeof LogvisActions.requestSourceCodeData>) {
-  const { target } = action.payload!;
+  const { projectName, target } = action.payload!;
   const { dirs, file } = target;
 
-  const project = ProjectModel.loadFromJsonFile(rawProjectJsonData)!;
+  const api = new LogvisApi();
+  const project: ProjectModel | undefined = yield call(() => api.fetchFileInfo(projectName));
+  if (!project) {
+    throw new Error('Unknown project: ' + projectName);
+  }
+
   const requestedFile = project
     .getItems(dirs)
     .find<ProjectItemFileModel>(
@@ -110,6 +117,7 @@ function* requestSourceCodeData(action: ReturnType<typeof LogvisActions.requestS
     })
   );
 
+  const varListJsonData: VarListJsonData = yield call(() => api.fetchVarInfo(projectName));
   const varValueData = createVarValueData(varListJsonData, file, tokens);
 
   yield put(
@@ -163,6 +171,30 @@ function initViewPage(action: ReturnType<typeof LogvisActions.initViewPage>) {
   });
 }
 
+function* requestProjects() {
+  const manager = new ProjectManager();
+  const projects: ProjectInfo[] = yield call(() => manager.getAllProjects());
+  yield put(LogvisActions.setProjects({ projects }));
+}
+
+function* requestAddProject(action: ReturnType<typeof LogvisActions.requestAddProject>) {
+  const { project } = action.payload!;
+  const manager = new ProjectManager();
+  const success: boolean = yield call(() => manager.addProject(project));
+  if (success) {
+    yield put(LogvisActions.addProject({ project }));
+  }
+}
+
+function* requestRemoveProject(action: ReturnType<typeof LogvisActions.requestRemoveProject>) {
+  const { project } = action.payload!;
+  const manager = new ProjectManager();
+  const success: boolean = yield call(() => manager.removeProject(project));
+  if (success) {
+    yield put(LogvisActions.removeProject({ project }));
+  }
+}
+
 function* mySaga() {
   yield takeEvery(LogvisActions.dummyAction, dummyWorker);
   yield takeEvery(LogvisActions.requestFiles, requestFiles);
@@ -171,6 +203,9 @@ function* mySaga() {
   yield takeEvery(LogvisActions.clearLocalStorage, clearLocalStorage);
   yield takeEvery(LogvisActions.loadInitialValueListFilter, loadInitialValueListFilter);
   yield takeEvery(LogvisActions.initViewPage, initViewPage);
+  yield takeEvery(LogvisActions.requestProjects, requestProjects);
+  yield takeEvery(LogvisActions.requestAddProject, requestAddProject);
+  yield takeEvery(LogvisActions.requestRemoveProject, requestRemoveProject);
 }
 
 export default mySaga;

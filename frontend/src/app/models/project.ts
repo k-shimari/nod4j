@@ -1,3 +1,5 @@
+import * as JSON5 from 'json5';
+
 export type ProjectItemType = 'file' | 'dir';
 
 export interface ProjectItemBase {
@@ -128,7 +130,7 @@ export class ProjectModel {
   }
 
   static loadFromJsonFile(projectJsonDataString: string): ProjectModel | undefined {
-    const projectDir = JSON.parse(projectJsonDataString) as ProjectItemDirectory;
+    const projectDir = JSON5.parse(projectJsonDataString) as ProjectItemDirectory;
     if (projectDir) {
       return new ProjectModel(projectDir);
     } else {

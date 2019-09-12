@@ -1,4 +1,5 @@
-export const rawProjectJsonData = `{
+export const rawProjectJsonData = `
+{
     "name": "project",
     "type": "dir",
     "content": [],
@@ -75,15 +76,15 @@ export const rawProjectJsonData = `{
                                 "import sample.Main;",
                                 "",
                                 "public class getMaxTest {",
-                                "    @Test",
-                                "    public void getMaxTest1() {",
-                                "        assertEquals(30, Main.getMax(30, 10, 20));",
-                                "        assertEquals(30, Main.getMax(30, 20, 10));",
-                                "        assertEquals(30, Main.getMax(20, 10, 30));",
-                                "        assertEquals(30, Main.getMax(20, 30, 10));",
-                                "        assertEquals(30, Main.getMax(10, 20, 30));",
-                                "        assertEquals(30, Main.getMax(10, 30, 20));",
-                                "    }",
+                                "\t@Test",
+                                "\tpublic void getMaxTest1() {",
+                                "\t\tassertEquals(30, Main.getMax(30, 10, 20));",
+                                "\t\tassertEquals(30, Main.getMax(30, 20, 10));",
+                                "\t\tassertEquals(30, Main.getMax(20, 10, 30));",
+                                "\t\tassertEquals(30, Main.getMax(20, 30, 10));",
+                                "\t\tassertEquals(30, Main.getMax(10, 20, 30));",
+                                "\t\tassertEquals(30, Main.getMax(10, 30, 20));",
+                                "\t}",
                                 "}"
                             ],
                             "children": []
@@ -93,4 +94,5 @@ export const rawProjectJsonData = `{
             ]
         }
     ]
-}`;
+}
+`;

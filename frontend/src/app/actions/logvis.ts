@@ -1,3 +1,4 @@
+import { ProjectInfo } from 'app/models/api';
 import { ProjectItem } from 'app/models/project';
 import { SourceCodeToken } from 'app/models/token';
 import { VarValueData } from 'app/models/varValueData';
@@ -10,6 +11,14 @@ export type Directory = string[];
 export namespace LogvisActions {
   export enum Type {
     DUMMY_ACTION = 'DUMMY_ACTION',
+
+    // Project系
+    REQUEST_PROJECTS = 'REQUEST_PROJECTS',
+    SET_PROJECTS = 'SET_PROJECTS',
+    REQUEST_ADD_PROJECT = 'REQUEST_ADD_PROJECT',
+    ADD_PROJECT = 'ADD_PROJECT',
+    REQUEST_REMOVE_PROJECT = 'REQUEST_REMOVE_PROJECT',
+    REMOVE_PROJECT = 'REMOVE_PROJECT',
 
     // Filter系
     REQUEST_VALUE_LIST_FILTER_CHANGE = 'REQUEST_VALUE_LIST_FILTER_CHANGE',
@@ -36,6 +45,18 @@ export namespace LogvisActions {
   }
 
   export namespace Payload {
+    export interface SetProjects {
+      projects: ProjectInfo[];
+    }
+
+    export interface RequestAddProject {
+      project: ProjectInfo;
+    }
+
+    export type AddProject = RequestAddProject;
+    export type RequestRemoveProject = RequestAddProject;
+    export type RemoveProject = RequestAddProject;
+
     export interface RequestValueListFilterChange {
       projectName: string;
       kind: TimestampRangeFilterKind;
@@ -71,6 +92,7 @@ export namespace LogvisActions {
     }
 
     export interface RequestSourceCodeData {
+      projectName: string;
       target: {
         dirs: string[];
         file: string;
@@ -87,6 +109,18 @@ export namespace LogvisActions {
   }
 
   export const dummyAction = createAction(Type.DUMMY_ACTION);
+
+  // Project系
+  export const requestProjects = createAction(Type.REQUEST_PROJECTS);
+  export const setProjects = createAction<Payload.SetProjects>(Type.SET_PROJECTS);
+  export const requestAddProject = createAction<Payload.RequestAddProject>(
+    Type.REQUEST_ADD_PROJECT
+  );
+  export const addProject = createAction<Payload.AddProject>(Type.ADD_PROJECT);
+  export const requestRemoveProject = createAction<Payload.RequestRemoveProject>(
+    Type.REQUEST_REMOVE_PROJECT
+  );
+  export const removeProject = createAction<Payload.RemoveProject>(Type.REMOVE_PROJECT);
 
   // Filter系
   export const requestValueListFilterChange = createAction<Payload.RequestValueListFilterChange>(

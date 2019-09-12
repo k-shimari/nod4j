@@ -1,5 +1,3 @@
-import { VarListJsonData } from './varListData';
-
 export const rawVarListData = `
 {
     "recentdata": [
@@ -29,7 +27,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@624325e7:",
+                    "data": "java.lang.String@624325e7:\\\"\\\"",
                     "timestamp": "18",
                     "thread": "0"
                 }
@@ -2253,7 +2251,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@738c0dcb:'org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader'",
+                    "data": "java.lang.String@738c0dcb:\\\"org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader\\\"",
                     "timestamp": "798",
                     "thread": "0"
                 }
@@ -2269,7 +2267,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@738c0dcb:'org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader'",
+                    "data": "java.lang.String@738c0dcb:\\\"org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader\\\"",
                     "timestamp": "800",
                     "thread": "0"
                 }
@@ -3274,7 +3272,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@738c0dcb:'org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader'",
+                    "data": "java.lang.String@738c0dcb:\\\"org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader\\\"",
                     "timestamp": "806",
                     "thread": "0"
                 }
@@ -3290,7 +3288,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@738c0dcb:'org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader'",
+                    "data": "java.lang.String@738c0dcb:\\\"org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader\\\"",
                     "timestamp": "812",
                     "thread": "0"
                 }
@@ -3386,7 +3384,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@738c0dcb:'org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader'",
+                    "data": "java.lang.String@738c0dcb:\\\"org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader\\\"",
                     "timestamp": "818",
                     "thread": "0"
                 }
@@ -4396,7 +4394,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@67820fc3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@67820fc3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "1852",
                     "thread": "0"
                 }
@@ -4412,7 +4410,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@67820fc3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@67820fc3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "1854",
                     "thread": "0"
                 }
@@ -5629,12 +5627,12 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@7f7a0dd5:'-1'",
+                    "data": "java.lang.String@7f7a0dd5:\\\"-1\\\"",
                     "timestamp": "9007",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@7f7a0dd5:'-1'",
+                    "data": "java.lang.String@7f7a0dd5:\\\"-1\\\"",
                     "timestamp": "9421",
                     "thread": "0"
                 }
@@ -5713,12 +5711,12 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@7c97bada:'1,testsample.getMaxTest,true,1,false,-1,testsample.getMaxTest,,'",
+                    "data": "java.lang.String@7c97bada:\\\"1,testsample.getMaxTest,true,1,false,-1,testsample.getMaxTest,,\\\"",
                     "timestamp": "9142",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@5c2fcc92:'2,getMaxTest1(testsample.getMaxTest),false,1,false,-1,getMaxTest1(testsample.getMaxTest),,'",
+                    "data": "java.lang.String@5c2fcc92:\\\"2,getMaxTest1(testsample.getMaxTest),false,1,false,-1,getMaxTest1(testsample.getMaxTest),,\\\"",
                     "timestamp": "9556",
                     "thread": "0"
                 }
@@ -5734,12 +5732,12 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@7c97bada:'1,testsample.getMaxTest,true,1,false,-1,testsample.getMaxTest,,'",
+                    "data": "java.lang.String@7c97bada:\\\"1,testsample.getMaxTest,true,1,false,-1,testsample.getMaxTest,,\\\"",
                     "timestamp": "9144",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@5c2fcc92:'2,getMaxTest1(testsample.getMaxTest),false,1,false,-1,getMaxTest1(testsample.getMaxTest),,'",
+                    "data": "java.lang.String@5c2fcc92:\\\"2,getMaxTest1(testsample.getMaxTest),false,1,false,-1,getMaxTest1(testsample.getMaxTest),,\\\"",
                     "timestamp": "9558",
                     "thread": "0"
                 }
@@ -5755,57 +5753,57 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "8959",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "9039",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@624325e7:''",
+                    "data": "java.lang.String@624325e7:\\\"\\\"",
                     "timestamp": "9077",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@624325e7:''",
+                    "data": "java.lang.String@624325e7:\\\"\\\"",
                     "timestamp": "9116",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "9373",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "9453",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@624325e7:''",
+                    "data": "java.lang.String@624325e7:\\\"\\\"",
                     "timestamp": "9491",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@624325e7:''",
+                    "data": "java.lang.String@624325e7:\\\"\\\"",
                     "timestamp": "9530",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "12384",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "20187",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "20800",
                     "thread": "0"
                 }
@@ -5821,57 +5819,57 @@ export const rawVarListData = `
             "count": 2,
             "valueList": [
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "8963",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "9043",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@624325e7:''",
+                    "data": "java.lang.String@624325e7:\\\"\\\"",
                     "timestamp": "9081",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@624325e7:''",
+                    "data": "java.lang.String@624325e7:\\\"\\\"",
                     "timestamp": "9120",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "9377",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "9457",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@624325e7:''",
+                    "data": "java.lang.String@624325e7:\\\"\\\"",
                     "timestamp": "9495",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@624325e7:''",
+                    "data": "java.lang.String@624325e7:\\\"\\\"",
                     "timestamp": "9534",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "12388",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "20191",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "20804",
                     "thread": "0"
                 }
@@ -5887,57 +5885,57 @@ export const rawVarListData = `
             "count": 3,
             "valueList": [
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "8967",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "9047",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@624325e7:''",
+                    "data": "java.lang.String@624325e7:\\\"\\\"",
                     "timestamp": "9085",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@624325e7:''",
+                    "data": "java.lang.String@624325e7:\\\"\\\"",
                     "timestamp": "9124",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "9381",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "9461",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@624325e7:''",
+                    "data": "java.lang.String@624325e7:\\\"\\\"",
                     "timestamp": "9499",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@624325e7:''",
+                    "data": "java.lang.String@624325e7:\\\"\\\"",
                     "timestamp": "9538",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "12392",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "20195",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "20808",
                     "thread": "0"
                 }
@@ -5953,57 +5951,57 @@ export const rawVarListData = `
             "count": 4,
             "valueList": [
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "8971",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "9051",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@624325e7:''",
+                    "data": "java.lang.String@624325e7:\\\"\\\"",
                     "timestamp": "9089",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@624325e7:''",
+                    "data": "java.lang.String@624325e7:\\\"\\\"",
                     "timestamp": "9128",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "9385",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "9465",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@624325e7:''",
+                    "data": "java.lang.String@624325e7:\\\"\\\"",
                     "timestamp": "9503",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@624325e7:''",
+                    "data": "java.lang.String@624325e7:\\\"\\\"",
                     "timestamp": "9542",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "12396",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "20199",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "20812",
                     "thread": "0"
                 }
@@ -6019,57 +6017,57 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "8976",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "9056",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@624325e7:''",
+                    "data": "java.lang.String@624325e7:\\\"\\\"",
                     "timestamp": "9094",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@624325e7:''",
+                    "data": "java.lang.String@624325e7:\\\"\\\"",
                     "timestamp": "9133",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "9390",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "9470",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@624325e7:''",
+                    "data": "java.lang.String@624325e7:\\\"\\\"",
                     "timestamp": "9508",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@624325e7:''",
+                    "data": "java.lang.String@624325e7:\\\"\\\"",
                     "timestamp": "9547",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "12401",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "20204",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "20817",
                     "thread": "0"
                 }
@@ -6573,7 +6571,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@624325e7:''",
+                    "data": "java.lang.String@624325e7:\\\"\\\"",
                     "timestamp": "1610",
                     "thread": "0"
                 }
@@ -7201,52 +7199,52 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@582e80f8:'%TESTC  1 v2'",
+                    "data": "java.lang.String@582e80f8:\\\"%TESTC  1 v2\\\"",
                     "timestamp": "8742",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2ee03791:'%TSTTREE1,testsample.getMaxTest,true,1,false,-1,testsample.getMaxTest,,'",
+                    "data": "java.lang.String@2ee03791:\\\"%TSTTREE1,testsample.getMaxTest,true,1,false,-1,testsample.getMaxTest,,\\\"",
                     "timestamp": "9174",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@5e12c708:'%TSTTREE2,getMaxTest1(testsample.getMaxTest),false,1,false,-1,getMaxTest1(testsample.getMaxTest),,'",
+                    "data": "java.lang.String@5e12c708:\\\"%TSTTREE2,getMaxTest1(testsample.getMaxTest),false,1,false,-1,getMaxTest1(testsample.getMaxTest),,\\\"",
                     "timestamp": "9588",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2d66c2a9:'%TESTS  2,getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2d66c2a9:\\\"%TESTS  2,getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "12419",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@163bebd:'%FAILED 2,getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@163bebd:\\\"%FAILED 2,getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "20222",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2e904dbf:'%TRACES '",
+                    "data": "java.lang.String@2e904dbf:\\\"%TRACES \\\"",
                     "timestamp": "20270",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@66f2e5e2:'java.lang.AssertionError: expected:<30> but was:<20>\\u000d\\u000a\\u0009at org.junit.Assert.fail(Assert.java:88)\\u000d\\u000a\\u0009at org.junit.Assert.failNotEquals(Assert.java:834)\\u000d\\u000a\\u0009at org.junit.Assert.assertEquals(Assert.java:645)\\u000d\\u000a\\u0009at org.junit.Assert.assertEquals(Assert.java:631)\\u000d\\u000a\\u0009at testsample.getMaxTest.getMaxTest1(getMaxTest.java:17)\\u000d\\u000a\\u0009at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\u000d\\u000a\\u0009at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\u000d\\u000a\\u0009at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\u000d\\u000a\\u0009at java.lang.reflect.Method.invoke(Method.java:498)\\u000d\\u000a\\u0009at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)\\u000d\\u000a\\u0009at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)\\u000d\\u000a\\u0009at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)\\u000d\\u000a\\u0009at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)\\u000d\\u000a\\u0009at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)\\u000d\\u000a\\u0009at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.run(ParentRunner.java:363)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:538)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:760)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:460)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:206)\\u000d\\u000a'",
+                    "data": "java.lang.String@66f2e5e2:\\\"java.lang.AssertionError: expected:<30> but was:<20>\\u000d\\u000a\\u0009at org.junit.Assert.fail(Assert.java:88)\\u000d\\u000a\\u0009at org.junit.Assert.failNotEquals(Assert.java:834)\\u000d\\u000a\\u0009at org.junit.Assert.assertEquals(Assert.java:645)\\u000d\\u000a\\u0009at org.junit.Assert.assertEquals(Assert.java:631)\\u000d\\u000a\\u0009at testsample.getMaxTest.getMaxTest1(getMaxTest.java:17)\\u000d\\u000a\\u0009at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\u000d\\u000a\\u0009at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\u000d\\u000a\\u0009at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\u000d\\u000a\\u0009at java.lang.reflect.Method.invoke(Method.java:498)\\u000d\\u000a\\u0009at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)\\u000d\\u000a\\u0009at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)\\u000d\\u000a\\u0009at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)\\u000d\\u000a\\u0009at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)\\u000d\\u000a\\u0009at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)\\u000d\\u000a\\u0009at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.run(ParentRunner.java:363)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:538)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:760)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:460)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:206)\\u000d\\u000a\\\"",
                     "timestamp": "20298",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@7d1a101f:'%TRACEE '",
+                    "data": "java.lang.String@7d1a101f:\\\"%TRACEE \\\"",
                     "timestamp": "20319",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@6110cf57:'%TESTE  2,getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@6110cf57:\\\"%TESTE  2,getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "20835",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@4d418b7f:'%RUNTIME56'",
+                    "data": "java.lang.String@4d418b7f:\\\"%RUNTIME56\\\"",
                     "timestamp": "21372",
                     "thread": "0"
                 }
@@ -7393,12 +7391,12 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@7c97bada:'1,testsample.getMaxTest,true,1,false,-1,testsample.getMaxTest,,'",
+                    "data": "java.lang.String@7c97bada:\\\"1,testsample.getMaxTest,true,1,false,-1,testsample.getMaxTest,,\\\"",
                     "timestamp": "9158",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@5c2fcc92:'2,getMaxTest1(testsample.getMaxTest),false,1,false,-1,getMaxTest1(testsample.getMaxTest),,'",
+                    "data": "java.lang.String@5c2fcc92:\\\"2,getMaxTest1(testsample.getMaxTest),false,1,false,-1,getMaxTest1(testsample.getMaxTest),,\\\"",
                     "timestamp": "9572",
                     "thread": "0"
                 }
@@ -7620,7 +7618,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@67820fc3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@67820fc3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "1873",
                     "thread": "0"
                 }
@@ -8236,7 +8234,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@2e904dbf:'%TRACES '",
+                    "data": "java.lang.String@2e904dbf:\\\"%TRACES \\\"",
                     "timestamp": "20259",
                     "thread": "0"
                 }
@@ -8300,7 +8298,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@7d1a101f:'%TRACEE '",
+                    "data": "java.lang.String@7d1a101f:\\\"%TRACEE \\\"",
                     "timestamp": "20308",
                     "thread": "0"
                 }
@@ -8358,17 +8356,17 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@653684cf:'%TESTS  '",
+                    "data": "java.lang.String@653684cf:\\\"%TESTS  \\\"",
                     "timestamp": "12269",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@f6b165f:'%FAILED '",
+                    "data": "java.lang.String@f6b165f:\\\"%FAILED \\\"",
                     "timestamp": "20072",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@70bb25fd:'%TESTE  '",
+                    "data": "java.lang.String@70bb25fd:\\\"%TESTE  \\\"",
                     "timestamp": "20685",
                     "thread": "0"
                 }
@@ -8959,17 +8957,17 @@ export const rawVarListData = `
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@3739dd77:'2'",
+                    "data": "java.lang.String@3739dd77:\\\"2\\\"",
                     "timestamp": "12349",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@3739dd77:'2'",
+                    "data": "java.lang.String@3739dd77:\\\"2\\\"",
                     "timestamp": "20152",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@3739dd77:'2'",
+                    "data": "java.lang.String@3739dd77:\\\"2\\\"",
                     "timestamp": "20765",
                     "thread": "0"
                 }
@@ -8995,17 +8993,17 @@ export const rawVarListData = `
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@3739dd77:'2'",
+                    "data": "java.lang.String@3739dd77:\\\"2\\\"",
                     "timestamp": "12351",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@3739dd77:'2'",
+                    "data": "java.lang.String@3739dd77:\\\"2\\\"",
                     "timestamp": "20154",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@3739dd77:'2'",
+                    "data": "java.lang.String@3739dd77:\\\"2\\\"",
                     "timestamp": "20767",
                     "thread": "0"
                 }
@@ -9021,17 +9019,17 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@3739dd77:'2'",
+                    "data": "java.lang.String@3739dd77:\\\"2\\\"",
                     "timestamp": "12353",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@3739dd77:'2'",
+                    "data": "java.lang.String@3739dd77:\\\"2\\\"",
                     "timestamp": "20156",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@3739dd77:'2'",
+                    "data": "java.lang.String@3739dd77:\\\"2\\\"",
                     "timestamp": "20769",
                     "thread": "0"
                 }
@@ -9089,12 +9087,12 @@ export const rawVarListData = `
             "count": 2,
             "valueList": [
                 {
-                    "data": "java.lang.String@65937f85:'1'",
+                    "data": "java.lang.String@65937f85:\\\"1\\\"",
                     "timestamp": "8899",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@3739dd77:'2'",
+                    "data": "java.lang.String@3739dd77:\\\"2\\\"",
                     "timestamp": "9313",
                     "thread": "0"
                 }
@@ -9152,12 +9150,12 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@65937f85:'1'",
+                    "data": "java.lang.String@65937f85:\\\"1\\\"",
                     "timestamp": "8904",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@3739dd77:'2'",
+                    "data": "java.lang.String@3739dd77:\\\"2\\\"",
                     "timestamp": "9318",
                     "thread": "0"
                 }
@@ -9173,12 +9171,12 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@65937f85:'1'",
+                    "data": "java.lang.String@65937f85:\\\"1\\\"",
                     "timestamp": "8924",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@3739dd77:'2'",
+                    "data": "java.lang.String@3739dd77:\\\"2\\\"",
                     "timestamp": "9338",
                     "thread": "0"
                 }
@@ -36229,7 +36227,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@df3ceaf:'expected:<30> but was:<20>'",
+                    "data": "java.lang.String@df3ceaf:\\\"expected:<30> but was:<20>\\\"",
                     "timestamp": "19646",
                     "thread": "0"
                 }
@@ -36245,7 +36243,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@df3ceaf:'expected:<30> but was:<20>'",
+                    "data": "java.lang.String@df3ceaf:\\\"expected:<30> but was:<20>\\\"",
                     "timestamp": "19649",
                     "thread": "0"
                 }
@@ -38321,7 +38319,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@624325e7:''",
+                    "data": "java.lang.String@624325e7:\\\"\\\"",
                     "timestamp": "19587",
                     "thread": "0"
                 }
@@ -38399,7 +38397,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@1880ca23:'30'",
+                    "data": "java.lang.String@1880ca23:\\\"30\\\"",
                     "timestamp": "19595",
                     "thread": "0"
                 }
@@ -38431,7 +38429,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@b15f92a:'20'",
+                    "data": "java.lang.String@b15f92a:\\\"20\\\"",
                     "timestamp": "19601",
                     "thread": "0"
                 }
@@ -38447,7 +38445,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@1880ca23:'30'",
+                    "data": "java.lang.String@1880ca23:\\\"30\\\"",
                     "timestamp": "19603",
                     "thread": "0"
                 }
@@ -38463,7 +38461,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@b15f92a:'20'",
+                    "data": "java.lang.String@b15f92a:\\\"20\\\"",
                     "timestamp": "19604",
                     "thread": "0"
                 }
@@ -38529,7 +38527,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@624325e7:''",
+                    "data": "java.lang.String@624325e7:\\\"\\\"",
                     "timestamp": "19613",
                     "thread": "0"
                 }
@@ -38545,7 +38543,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@1880ca23:'30'",
+                    "data": "java.lang.String@1880ca23:\\\"30\\\"",
                     "timestamp": "19621",
                     "thread": "0"
                 }
@@ -38561,7 +38559,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@b15f92a:'20'",
+                    "data": "java.lang.String@b15f92a:\\\"20\\\"",
                     "timestamp": "19629",
                     "thread": "0"
                 }
@@ -38817,17 +38815,17 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "8135",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "10001",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "10458",
                     "thread": "0"
                 }
@@ -38945,7 +38943,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@6d75da19:'getMaxTest1'",
+                    "data": "java.lang.String@6d75da19:\\\"getMaxTest1\\\"",
                     "timestamp": "8389",
                     "thread": "0"
                 }
@@ -39053,7 +39051,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@6d75da19:'getMaxTest1'",
+                    "data": "java.lang.String@6d75da19:\\\"getMaxTest1\\\"",
                     "timestamp": "8403",
                     "thread": "0"
                 }
@@ -39069,7 +39067,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "8407",
                     "thread": "0"
                 }
@@ -39156,32 +39154,32 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@6e7cb5be:'No Tests'",
+                    "data": "java.lang.String@6e7cb5be:\\\"No Tests\\\"",
                     "timestamp": "8002",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@4d49579c:'Test mechanism'",
+                    "data": "java.lang.String@4d49579c:\\\"Test mechanism\\\"",
                     "timestamp": "8073",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "8147",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "8428",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "10013",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "10470",
                     "thread": "0"
                 }
@@ -39197,32 +39195,32 @@ export const rawVarListData = `
             "count": 2,
             "valueList": [
                 {
-                    "data": "java.lang.String@6e7cb5be:'No Tests'",
+                    "data": "java.lang.String@6e7cb5be:\\\"No Tests\\\"",
                     "timestamp": "8003",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@4d49579c:'Test mechanism'",
+                    "data": "java.lang.String@4d49579c:\\\"Test mechanism\\\"",
                     "timestamp": "8074",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "8148",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "8429",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "10014",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "10471",
                     "thread": "0"
                 }
@@ -39320,32 +39318,32 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@6e7cb5be:'No Tests'",
+                    "data": "java.lang.String@6e7cb5be:\\\"No Tests\\\"",
                     "timestamp": "8027",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@4d49579c:'Test mechanism'",
+                    "data": "java.lang.String@4d49579c:\\\"Test mechanism\\\"",
                     "timestamp": "8098",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "8172",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "8453",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "10038",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "10495",
                     "thread": "0"
                 }
@@ -39361,32 +39359,32 @@ export const rawVarListData = `
             "count": 2,
             "valueList": [
                 {
-                    "data": "java.lang.String@6e7cb5be:'No Tests'",
+                    "data": "java.lang.String@6e7cb5be:\\\"No Tests\\\"",
                     "timestamp": "8028",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@4d49579c:'Test mechanism'",
+                    "data": "java.lang.String@4d49579c:\\\"Test mechanism\\\"",
                     "timestamp": "8099",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "8173",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "8454",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "10039",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "10496",
                     "thread": "0"
                 }
@@ -39402,32 +39400,32 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@6e7cb5be:'No Tests'",
+                    "data": "java.lang.String@6e7cb5be:\\\"No Tests\\\"",
                     "timestamp": "8032",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@4d49579c:'Test mechanism'",
+                    "data": "java.lang.String@4d49579c:\\\"Test mechanism\\\"",
                     "timestamp": "8103",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "8177",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "8458",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "10043",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "10500",
                     "thread": "0"
                 }
@@ -39525,32 +39523,32 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@6e7cb5be:'No Tests'",
+                    "data": "java.lang.String@6e7cb5be:\\\"No Tests\\\"",
                     "timestamp": "8038",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@4d49579c:'Test mechanism'",
+                    "data": "java.lang.String@4d49579c:\\\"Test mechanism\\\"",
                     "timestamp": "8109",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "8183",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "8464",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "10049",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "10506",
                     "thread": "0"
                 }
@@ -39566,32 +39564,32 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@6e7cb5be:'No Tests'",
+                    "data": "java.lang.String@6e7cb5be:\\\"No Tests\\\"",
                     "timestamp": "8040",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@4d49579c:'Test mechanism'",
+                    "data": "java.lang.String@4d49579c:\\\"Test mechanism\\\"",
                     "timestamp": "8111",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "8185",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "8466",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "10051",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "10508",
                     "thread": "0"
                 }
@@ -39607,32 +39605,32 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@6e7cb5be:'No Tests'",
+                    "data": "java.lang.String@6e7cb5be:\\\"No Tests\\\"",
                     "timestamp": "8042",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@4d49579c:'Test mechanism'",
+                    "data": "java.lang.String@4d49579c:\\\"Test mechanism\\\"",
                     "timestamp": "8113",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "8187",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "8468",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "10053",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "10510",
                     "thread": "0"
                 }
@@ -39648,32 +39646,32 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@6e7cb5be:'No Tests'",
+                    "data": "java.lang.String@6e7cb5be:\\\"No Tests\\\"",
                     "timestamp": "8044",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@4d49579c:'Test mechanism'",
+                    "data": "java.lang.String@4d49579c:\\\"Test mechanism\\\"",
                     "timestamp": "8115",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "8189",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "8470",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "10055",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "10512",
                     "thread": "0"
                 }
@@ -39771,37 +39769,37 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "8949",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "9027",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "9363",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "9441",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "12374",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "20177",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "20790",
                     "thread": "0"
                 }
@@ -40026,37 +40024,37 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "8881",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@57c014c3:'testsample.getMaxTest'",
+                    "data": "java.lang.String@57c014c3:\\\"testsample.getMaxTest\\\"",
                     "timestamp": "8916",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "9295",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "9330",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "12304",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "20107",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "20720",
                     "thread": "0"
                 }
@@ -40150,17 +40148,17 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "12338",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "20141",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "20754",
                     "thread": "0"
                 }
@@ -40202,17 +40200,17 @@ export const rawVarListData = `
             "count": 2,
             "valueList": [
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "12341",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "20144",
                     "thread": "0"
                 },
                 {
-                    "data": "java.lang.String@2eeba929:'getMaxTest1(testsample.getMaxTest)'",
+                    "data": "java.lang.String@2eeba929:\\\"getMaxTest1(testsample.getMaxTest)\\\"",
                     "timestamp": "20757",
                     "thread": "0"
                 }
@@ -41666,7 +41664,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@f6b165f:'%FAILED '",
+                    "data": "java.lang.String@f6b165f:\\\"%FAILED \\\"",
                     "timestamp": "19950",
                     "thread": "0"
                 }
@@ -41846,7 +41844,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@f6b165f:'%FAILED '",
+                    "data": "java.lang.String@f6b165f:\\\"%FAILED \\\"",
                     "timestamp": "19964",
                     "thread": "0"
                 }
@@ -48220,7 +48218,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@f6b165f:'%FAILED '",
+                    "data": "java.lang.String@f6b165f:\\\"%FAILED \\\"",
                     "timestamp": "20020",
                     "thread": "0"
                 }
@@ -48236,7 +48234,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@f6b165f:'%FAILED '",
+                    "data": "java.lang.String@f6b165f:\\\"%FAILED \\\"",
                     "timestamp": "20022",
                     "thread": "0"
                 }
@@ -48252,7 +48250,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@66f2e5e2:'java.lang.AssertionError: expected:<30> but was:<20>\\u000d\\u000a\\u0009at org.junit.Assert.fail(Assert.java:88)\\u000d\\u000a\\u0009at org.junit.Assert.failNotEquals(Assert.java:834)\\u000d\\u000a\\u0009at org.junit.Assert.assertEquals(Assert.java:645)\\u000d\\u000a\\u0009at org.junit.Assert.assertEquals(Assert.java:631)\\u000d\\u000a\\u0009at testsample.getMaxTest.getMaxTest1(getMaxTest.java:17)\\u000d\\u000a\\u0009at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\u000d\\u000a\\u0009at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\u000d\\u000a\\u0009at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\u000d\\u000a\\u0009at java.lang.reflect.Method.invoke(Method.java:498)\\u000d\\u000a\\u0009at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)\\u000d\\u000a\\u0009at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)\\u000d\\u000a\\u0009at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)\\u000d\\u000a\\u0009at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)\\u000d\\u000a\\u0009at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)\\u000d\\u000a\\u0009at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.run(ParentRunner.java:363)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:538)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:760)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:460)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:206)\\u000d\\u000a'",
+                    "data": "java.lang.String@66f2e5e2:\\\"java.lang.AssertionError: expected:<30> but was:<20>\\u000d\\u000a\\u0009at org.junit.Assert.fail(Assert.java:88)\\u000d\\u000a\\u0009at org.junit.Assert.failNotEquals(Assert.java:834)\\u000d\\u000a\\u0009at org.junit.Assert.assertEquals(Assert.java:645)\\u000d\\u000a\\u0009at org.junit.Assert.assertEquals(Assert.java:631)\\u000d\\u000a\\u0009at testsample.getMaxTest.getMaxTest1(getMaxTest.java:17)\\u000d\\u000a\\u0009at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\u000d\\u000a\\u0009at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\u000d\\u000a\\u0009at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\u000d\\u000a\\u0009at java.lang.reflect.Method.invoke(Method.java:498)\\u000d\\u000a\\u0009at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)\\u000d\\u000a\\u0009at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)\\u000d\\u000a\\u0009at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)\\u000d\\u000a\\u0009at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)\\u000d\\u000a\\u0009at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)\\u000d\\u000a\\u0009at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.run(ParentRunner.java:363)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:538)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:760)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:460)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:206)\\u000d\\u000a\\\"",
                     "timestamp": "20024",
                     "thread": "0"
                 }
@@ -48268,7 +48266,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@66f2e5e2:'java.lang.AssertionError: expected:<30> but was:<20>\\u000d\\u000a\\u0009at org.junit.Assert.fail(Assert.java:88)\\u000d\\u000a\\u0009at org.junit.Assert.failNotEquals(Assert.java:834)\\u000d\\u000a\\u0009at org.junit.Assert.assertEquals(Assert.java:645)\\u000d\\u000a\\u0009at org.junit.Assert.assertEquals(Assert.java:631)\\u000d\\u000a\\u0009at testsample.getMaxTest.getMaxTest1(getMaxTest.java:17)\\u000d\\u000a\\u0009at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\u000d\\u000a\\u0009at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\u000d\\u000a\\u0009at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\u000d\\u000a\\u0009at java.lang.reflect.Method.invoke(Method.java:498)\\u000d\\u000a\\u0009at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)\\u000d\\u000a\\u0009at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)\\u000d\\u000a\\u0009at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)\\u000d\\u000a\\u0009at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)\\u000d\\u000a\\u0009at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)\\u000d\\u000a\\u0009at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.run(ParentRunner.java:363)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:538)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:760)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:460)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:206)\\u000d\\u000a'",
+                    "data": "java.lang.String@66f2e5e2:\\\"java.lang.AssertionError: expected:<30> but was:<20>\\u000d\\u000a\\u0009at org.junit.Assert.fail(Assert.java:88)\\u000d\\u000a\\u0009at org.junit.Assert.failNotEquals(Assert.java:834)\\u000d\\u000a\\u0009at org.junit.Assert.assertEquals(Assert.java:645)\\u000d\\u000a\\u0009at org.junit.Assert.assertEquals(Assert.java:631)\\u000d\\u000a\\u0009at testsample.getMaxTest.getMaxTest1(getMaxTest.java:17)\\u000d\\u000a\\u0009at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\u000d\\u000a\\u0009at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\u000d\\u000a\\u0009at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\u000d\\u000a\\u0009at java.lang.reflect.Method.invoke(Method.java:498)\\u000d\\u000a\\u0009at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)\\u000d\\u000a\\u0009at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)\\u000d\\u000a\\u0009at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)\\u000d\\u000a\\u0009at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)\\u000d\\u000a\\u0009at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)\\u000d\\u000a\\u0009at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.run(ParentRunner.java:363)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:538)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:760)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:460)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:206)\\u000d\\u000a\\\"",
                     "timestamp": "20026",
                     "thread": "0"
                 }
@@ -48346,7 +48344,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@f6b165f:'%FAILED '",
+                    "data": "java.lang.String@f6b165f:\\\"%FAILED \\\"",
                     "timestamp": "20059",
                     "thread": "0"
                 }
@@ -48362,7 +48360,7 @@ export const rawVarListData = `
             "count": 1,
             "valueList": [
                 {
-                    "data": "java.lang.String@66f2e5e2:'java.lang.AssertionError: expected:<30> but was:<20>\\u000d\\u000a\\u0009at org.junit.Assert.fail(Assert.java:88)\\u000d\\u000a\\u0009at org.junit.Assert.failNotEquals(Assert.java:834)\\u000d\\u000a\\u0009at org.junit.Assert.assertEquals(Assert.java:645)\\u000d\\u000a\\u0009at org.junit.Assert.assertEquals(Assert.java:631)\\u000d\\u000a\\u0009at testsample.getMaxTest.getMaxTest1(getMaxTest.java:17)\\u000d\\u000a\\u0009at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\u000d\\u000a\\u0009at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\u000d\\u000a\\u0009at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\u000d\\u000a\\u0009at java.lang.reflect.Method.invoke(Method.java:498)\\u000d\\u000a\\u0009at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)\\u000d\\u000a\\u0009at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)\\u000d\\u000a\\u0009at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)\\u000d\\u000a\\u0009at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)\\u000d\\u000a\\u0009at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)\\u000d\\u000a\\u0009at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.run(ParentRunner.java:363)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:538)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:760)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:460)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:206)\\u000d\\u000a'",
+                    "data": "java.lang.String@66f2e5e2:\\\"java.lang.AssertionError: expected:<30> but was:<20>\\u000d\\u000a\\u0009at org.junit.Assert.fail(Assert.java:88)\\u000d\\u000a\\u0009at org.junit.Assert.failNotEquals(Assert.java:834)\\u000d\\u000a\\u0009at org.junit.Assert.assertEquals(Assert.java:645)\\u000d\\u000a\\u0009at org.junit.Assert.assertEquals(Assert.java:631)\\u000d\\u000a\\u0009at testsample.getMaxTest.getMaxTest1(getMaxTest.java:17)\\u000d\\u000a\\u0009at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\\u000d\\u000a\\u0009at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\\u000d\\u000a\\u0009at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\u000d\\u000a\\u0009at java.lang.reflect.Method.invoke(Method.java:498)\\u000d\\u000a\\u0009at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)\\u000d\\u000a\\u0009at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)\\u000d\\u000a\\u0009at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)\\u000d\\u000a\\u0009at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)\\u000d\\u000a\\u0009at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)\\u000d\\u000a\\u0009at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)\\u000d\\u000a\\u0009at org.junit.runners.ParentRunner.run(ParentRunner.java:363)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:538)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:760)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:460)\\u000d\\u000a\\u0009at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:206)\\u000d\\u000a\\\"",
                     "timestamp": "20285",
                     "thread": "0"
                 }
@@ -48537,5 +48535,3 @@ export const rawVarListData = `
     ]
 }
 `;
-
-export const varListJsonData = JSON.parse(rawVarListData) as VarListJsonData;

@@ -11,6 +11,7 @@ var outPath = path.join(__dirname, './build');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var MiniCssExtractPlugin = require('mini-css-extract-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   context: sourcePath,
@@ -147,7 +148,13 @@ module.exports = {
         description: package.description,
         keywords: Array.isArray(package.keywords) ? package.keywords.join(',') : undefined
       }
-    })
+    }),
+    new CopyWebpackPlugin([
+      {
+        from: './assets/project',
+        to: "assets/project"
+      }
+    ])
   ],
   devServer: {
     historyApiFallback: {

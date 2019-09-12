@@ -4,6 +4,7 @@ import { handleActions } from 'redux-actions';
 import { RootState } from './index';
 
 const initialState: RootState.LogvisState = {
+  projects: undefined,
   filter: {
     range: {}
   },
@@ -75,6 +76,36 @@ export const logvisReducer = handleActions<RootState.LogvisState, any>(
       return {
         ...state,
         sourceCodeTokens: tokens
+      };
+    },
+    [LogvisActions.Type.SET_PROJECTS]: (state, action) => {
+      const { projects } = action.payload! as LogvisActions.Payload.SetProjects;
+
+      return {
+        ...state,
+        projects
+      };
+    },
+    [LogvisActions.Type.ADD_PROJECT]: (state, action) => {
+      const { project } = action.payload! as LogvisActions.Payload.AddProject;
+
+      return {
+        ...state,
+        projects: [...(state.projects || []), project]
+      };
+    },
+    [LogvisActions.Type.REMOVE_PROJECT]: (state, action) => {
+      const { project } = action.payload! as LogvisActions.Payload.RemoveProject;
+
+      let projects = state.projects || [];
+      const index = projects.map((x) => x.name).indexOf(project.name);
+      if (index >= 0) {
+        projects = [...projects.slice(0, index), ...projects.slice(index + 1)];
+      }
+
+      return {
+        ...state,
+        projects
       };
     }
   },
