@@ -1,7 +1,6 @@
 package createjson;
 
 import java.io.IOException;
-import java.util.List;
 
 import data.SeloggerFiles;
 
@@ -23,14 +22,15 @@ public class StartJson {
 	}
 
 	private void startJson(ICreateJson cj, String filename) {
-		List<?> jsonList = cj.create();
-		print(jsonList, filename);
+		Object json = cj.create();
+		print(json, filename);
 	}
 
-	private void print(List<?> jsonList, String filename) {
+	private void print(Object json, String filename) {
 		try {
 			PrintJson pj = new PrintJson(targetDir, filename);
-			pj.printJsonForDebug(jsonList);
+			pj.printJson(json);
+			//pj.printJsonForDebug(jsonList);
 			System.out.println("Create json SUCCESS at " + targetDir);
 		} catch (IOException e) {
 			System.err.println("Create json FAILED");

@@ -22,4 +22,8 @@ public class Recentdata {
 	public String getThread() {
 		return thread;
 	}
+
+	public void setData(String data) {
+		this.data = data;
+	}
 }
