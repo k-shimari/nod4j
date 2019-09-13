@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 
 import data.fileinfo.FileInfoJson;
 
@@ -19,10 +18,8 @@ public class CreateStructure implements ICreateJson {
 	}
 
 	@Override
-	public List<FileInfoJson> create() {
-		ArrayList<FileInfoJson> list = new ArrayList<FileInfoJson>();
-		list.add(getDirInfo(new File(targetDir)));
-		return list;
+	public FileInfoJson create() {
+		return getDirInfo(new File(targetDir));
 	}
 
 	private FileInfoJson getFileInfo(File f) throws IOException {

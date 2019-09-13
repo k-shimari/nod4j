@@ -12,8 +12,6 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import data.varinfo.VarInfoJson;
-
 public class PrintJson {
 	private String targetDir;
 	private String filename;
@@ -23,11 +21,10 @@ public class PrintJson {
 		this.filename = filename;
 	}
 
-	void printJson(List<VarInfoJson> jsonList) throws IOException {
+	void printJson(Object json) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
-		MyFormater jf = new MyFormater(jsonList);
-		ArrayList<String> lines = new ArrayList<String>();
-		lines.add(mapper.writeValueAsString(jf));
+		List<String> lines=new ArrayList<>();
+		lines.add(mapper.writeValueAsString(json));
 
 		if (Files.exists(Paths.get(targetDir, filename))) {
 			Files.delete(Paths.get(targetDir, filename));
@@ -56,15 +53,4 @@ public class PrintJson {
 		Files.write(Paths.get(targetDir, filename), lines, Charset.forName("UTF-8"), StandardOpenOption.WRITE);
 	}
 
-	class MyFormater {
-		List<VarInfoJson> recentdata;
-
-		public MyFormater(List<VarInfoJson> recentdata) {
-			this.recentdata = recentdata;
-		}
-
-		public List<VarInfoJson> getRecentdata() {
-			return recentdata;
-		}
-	}
 }

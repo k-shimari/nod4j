@@ -10,6 +10,7 @@ import data.Recentdata;
 import data.SeloggerFiles;
 import data.varinfo.VarInfo;
 import data.varinfo.VarInfoJson;
+import data.varinfo.WVarInfoJson;
 
 public class CreateVarInfo implements ICreateJson {
 
@@ -20,7 +21,12 @@ public class CreateVarInfo implements ICreateJson {
 	}
 
 	@Override
-	public List<VarInfoJson> create() {
+	public WVarInfoJson create() {
+		return new WVarInfoJson(createjsonList());
+	}
+
+	private List<VarInfoJson> createjsonList() {
+
 		List<VarInfoJson> jsonList = new ArrayList<>();
 		String[] prevClassName = { "" };
 		String[] prevMethodName = { "" };
@@ -120,9 +126,14 @@ public class CreateVarInfo implements ICreateJson {
 	}
 
 	private void setValueList(VarInfoJson json, String d) {
-		List<Recentdata> valueList = new ArrayList<Recentdata>();
 		Map<String, List<Recentdata>> recdatamap = selfiles.getDataidMaps().getDataidRecentdataMap();
-		valueList = recdatamap.get(d);
+		List<Recentdata> valueList = new ArrayList<Recentdata>();
+		if (recdatamap.containsKey(d)) {
+			for (Recentdata r : recdatamap.get(d)) {
+				r.setData(r.getData().replace("\"", "\\\""));
+				valueList.add(r);
+			}
+		}
 		json.setValueList(valueList);
 	}
 }
