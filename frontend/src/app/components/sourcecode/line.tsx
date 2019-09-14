@@ -45,7 +45,7 @@ function spreadTokens(props: Props): React.ReactElement[] {
       </Token>
     );
 
-    preEndColumn = endColumn!;
+    preEndColumn = endColumn;
   }
 
   return result;
