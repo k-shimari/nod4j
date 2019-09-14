@@ -1,6 +1,6 @@
 import { ILexingResult } from 'chevrotain';
 import { SourceCodeToken } from './token';
-const JavaLexer = require('@maxfield/java-parser/src/lexer');
+const JavaLexer = require('java-parser/src/lexer');
 
 export function tokenize(text: string): SourceCodeToken[] {
   const lexResult: ILexingResult = JavaLexer.tokenize(text);
