@@ -3,6 +3,7 @@ import { ValueListItemData } from 'app/components/organisms/valueList';
 import { LogvisApi, ProjectInfo } from 'app/models/api';
 import * as JavaLexer from 'app/models/javaLexer';
 import { ProjectItemFileModel, ProjectModel } from 'app/models/project';
+import { ProjectManager } from 'app/models/projectManager';
 import { SharedEventModel } from 'app/models/sharedEvent';
 import { SourceCodeToken } from 'app/models/token';
 import { VarInfo, VarListDataModel, VarListJsonData } from 'app/models/varListData';
@@ -12,7 +13,6 @@ import { TimeStampRangeFilter, TimestampRangeFilterContext } from 'app/reducers/
 import { store } from 'app/store';
 import * as _ from 'lodash';
 import { call, delay, put, select, takeEvery } from 'redux-saga/effects';
-import { ProjectManager } from 'app/models/projectManager';
 
 function computeTokenId(variable: VarInfo, tokens: SourceCodeToken[]): string {
   const { linenum, count, var: varName } = variable;
@@ -40,8 +40,12 @@ function createVarValueData(
       timestamp: x.timestamp
     }));
 
-    const id = computeTokenId(d, tokens);
-    result[id] = item;
+    try {
+      const tokenId = computeTokenId(d, tokens);
+      result[tokenId] = item;
+    } catch (e) {
+      // ignore
+    }
   }
 
   return new VarValueData(result);

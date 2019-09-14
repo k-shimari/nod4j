@@ -6,9 +6,9 @@ import {
   ValueListItemId,
   ValueListItemValue
 } from 'app/components/atoms/valueListItem';
+import { SourceCodeToken } from 'app/models/token';
 import { Timestamp, TimeStampRangeFilter } from 'app/reducers/state';
 import * as React from 'react';
-import { SourceCodeToken } from 'app/models/token';
 
 export namespace ValueListItemData {
   export function create(

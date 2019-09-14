@@ -41,8 +41,8 @@ export const FileTable: React.FunctionComponent<FileTableProps> = (props) => {
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
-              <TableCell>Author</TableCell>
-              <TableCell>Last modified</TableCell>
+              {/* <TableCell>Author</TableCell>
+              <TableCell>Last modified</TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -93,8 +93,8 @@ const FileTableRow: React.FunctionComponent<FileTableRowProp> = (props) => {
           </a>
         </span>
       </TableCell>
-      <TableCell>N/A</TableCell>
-      <TableCell>N/A</TableCell>
+      {/* <TableCell>N/A</TableCell>
+      <TableCell>N/A</TableCell> */}
     </TableRow>
   );
 };

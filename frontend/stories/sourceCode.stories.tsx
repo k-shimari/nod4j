@@ -1,11 +1,11 @@
 import { storiesOf } from '@storybook/react';
+import { ValueListItemData } from 'app/components/organisms/valueList';
 import { Sourcecode } from 'app/components/sourcecode';
 import { Line } from 'app/components/sourcecode/line';
 import { Token } from 'app/components/sourcecode/token';
-import * as React from 'react';
-import { ValueListItemData } from 'app/components/organisms/valueList';
 import * as JavaLexer from 'app/models/javaLexer';
 import { VarValueData } from 'app/models/varValueData';
+import * as React from 'react';
 
 const javaText = `public class HelloWorldExample{
   public static void main(String args[]){
