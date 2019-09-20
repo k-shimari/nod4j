@@ -1,4 +1,8 @@
 # LOGVIS
+# Sample
+You can try our viewer at http://sel.ist.osaka-u.ac.jp/people/k-simari/ICSME2019/ .
+Try our viewer following [README](/sample/README.md)
+
 # Trace Recorder
 1. Clone the repo
 1. Create new dir and put your project source code in `project`
@@ -62,3 +66,4 @@ $ npm run server
 
 
 
+# Viewer Usage
