@@ -1,7 +1,7 @@
 # LOGVIS
 # Sample
 You can try our viewer at http://sel.ist.osaka-u.ac.jp/people/k-simari/ICSME2019/ .
-Try our viewer following [README](/sample/README.md)
+Try our viewer following [README](/sample/README.md).
 
 # Trace Recorder
 1. Clone the repo
@@ -14,7 +14,7 @@ $ cp yourSrc project/yourSrc
 ```
 1. Record your program execution with the Java Agent
 ```
-java  -jar  -javaagent:/path/to/selogger-0.0.1-SNAPSHOT.jar=output=/path/to/yourProject/selogger,format=latesttime,size=32,keepobj=true yourApp.jar 
+$ java  -jar  -javaagent:/path/to/selogger-0.0.1-SNAPSHOT.jar=output=/path/to/yourProject/selogger,format=latesttime,size=32,keepobj=true yourApp.jar 
 ```
   1. Options are described at https://github.com/takashi-ishio/selogger/tree/v0.1
   1. In our method using `format=latesttime` option
@@ -63,7 +63,9 @@ $ npm run server
 
 ![image](https://user-images.githubusercontent.com/7913793/64902108-62c90080-d6dc-11e9-8013-ace20abf0add.png)
 
-
-
-
-# Viewer Usage
+## Viewer Usage
+You can find down and up arrows at right side of each value.
+The down arrow means the start point and the up arrow means the end point.
+This interactive view can filter the value based on the execution order of each instruction by setting the start and/or end point.
+You can check filter information at `TIMESTAMP FILTER` and delete filters by clicking buttons.
+If no values are contained in the variable during the filtered period, the highlighting of the variable is turned off.
