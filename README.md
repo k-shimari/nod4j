@@ -14,18 +14,17 @@ $ mkdir project
 $ cp yourSrc project/yourSrc
 ```
 ### Collect trace 
+```
+$ java -jar -javaagent:/path/to/selogger-0.0.1-SNAPSHOT.jar=output=/path/to/yourProject/selogger,format=latesttime,size=32,keepobj=true yourApp.jar 
+```
  *  Options are described at https://github.com/takashi-ishio/selogger/tree/v0.1
-   *  In our method using `format=latesttime` option
-```
-$ java  -jar  -javaagent:/path/to/selogger-0.0.1-SNAPSHOT.jar=output=/path/to/yourProject/selogger,format=latesttime,size=32,keepobj=true yourApp.jar 
-```
+ *  In our method using `format=latesttime` option
 ### Convert json format
 1. Run LOGVIS.jar to convert json format
 1. You can get `fileinfo.json` and `varinfo.json` at /path/to/yourProject
 ```
 $ java -jar LOGVIS.jar /path/to/yourProject
 ```
-
 
 ## Viewer 
 
@@ -67,8 +66,8 @@ $ npm run server
 ![image](https://user-images.githubusercontent.com/7913793/64902108-62c90080-d6dc-11e9-8013-ace20abf0add.png)
 
 ### Viewer Usage
-You can find down and up arrows at right side of each value.
-The down arrow means the start point and the up arrow means the end point.
-This interactive view can filter the value based on the execution order of each instruction by setting the start and/or end point.
-You can check filter information at `TIMESTAMP FILTER` and delete filters by clicking buttons.
-If no values are contained in the variable during the filtered period, the highlighting of the variable is turned off.
+1. You can find down and up arrows at right side of each value.
+1. The down arrow means the start point and the up arrow means the end point.
+1. This interactive view can filter the value based on the execution order of each instruction by setting the start and/or end point.
+1. You can check filter information at `TIMESTAMP FILTER` and delete filters by clicking buttons.
+1. If no values are contained in the variable during the filtered period, the highlighting of the variable is turned off.
