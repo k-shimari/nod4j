@@ -1,8 +1,17 @@
 # LOGVIS
+This tool shows the value of variables in the execution.
+
+Each variables contains the values at most "k" times. (k is the parmeter you can set when you execute 
+logger named selogger as ' size')
+
+* This tool supports showing primitive field value, string value, object ID.
+
+You can read the detail Implementation here [].
+
 ## Sample
 You can try our viewer at http://sel.ist.osaka-u.ac.jp/people/k-simari/ICSME2019/ 
 
-Try our viewer following [README](/sample/README.md).
+Try our viewer following [sample/README](/sample/README.md).
 
 ## Trace Recorder
 1. Clone the repo
@@ -15,7 +24,7 @@ $ cp yourSrc project/yourSrc
 ```
 ### Collect trace 
 ```
-$ java -jar -javaagent:/path/to/selogger-0.0.1-SNAPSHOT.jar=output=/path/to/yourProject/selogger,format=latesttime,size=32,keepobj=true yourApp.jar 
+$ java -jar -javaagent:/path/to/selogger-0.0.1-SNAPSHOT-shaded.jar=output=/path/to/yourProject/selogger,format=latesttime,size=32,keepobj=true yourApp.jar 
 ```
  *  Options are described at https://github.com/takashi-ishio/selogger/tree/v0.1
  *  In our method using `format=latesttime` option
@@ -71,3 +80,12 @@ $ npm run server
 1. This interactive view can filter the value based on the execution order of each instruction by setting the start and/or end point.
 1. You can check filter information at `TIMESTAMP FILTER` and delete filters by clicking buttons.
 1. If no values are contained in the variable during the filtered period, the highlighting of the variable is turned off.
+
+## Limitation
+  * This tool cannot get following variables in current implementation.
+    * Method actual arguments
+    * Method return value at caller method
+    * Related to some kinds of operand 
+      * ++, +=, --, -=
+    * multiple lines expression
+
