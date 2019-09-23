@@ -1,10 +1,7 @@
 # LOGVIS
-This tool shows the value of variables in the execution.
+This tool shows the values of variables in the execution.
 
-Each variables contains the values at most "k" times. (k is the parmeter you can set when you execute 
-logger named selogger as ' size')
-
-* This tool supports showing primitive field value, string value, object ID.
+Each variable contains the values at most "k" times. (You can set "k" when you execute logger named selogger)
 
 You can read the detail Implementation here [].
 
@@ -13,14 +10,16 @@ You can try our viewer at http://sel.ist.osaka-u.ac.jp/people/k-simari/ICSME2019
 
 Try our viewer following [sample/README](/sample/README.md).
 
-## Trace Recorder
+
+## Trace Recorder Usage
+### Collect trace 
 1. Clone the repo
 1. Create new dir and put your project source code in `project`
 ```
-$ mkdir yourProject
-$ cd yourProject
+$ mkdir <PROJECT_NAME>
+$ cd <PROJECT_NAME>
 $ mkdir project
-$ cp yourSrc project/yourSrc
+$ cp yourSrc <PROJECT_NAME>/project/yourSrc
 ```
 ### Collect trace 
 ```
@@ -35,7 +34,7 @@ $ java -jar -javaagent:/path/to/selogger-0.0.1-SNAPSHOT-shaded.jar=output=/path/
 $ java -jar LOGVIS.jar /path/to/yourProject
 ```
 
-## Viewer 
+## Viewer Usage
 
 ### Pre-requirements
 
@@ -43,7 +42,6 @@ $ java -jar LOGVIS.jar /path/to/yourProject
 * npm
 
 ### Getting started
-
 
 1. Run the commands below. You can check our sample.
 ```
@@ -74,7 +72,7 @@ $ npm run server
 
 ![image](https://user-images.githubusercontent.com/7913793/64902108-62c90080-d6dc-11e9-8013-ace20abf0add.png)
 
-### Viewer Usage
+### Viewer 
 1. You can find down and up arrows at right side of each value.
 1. The down arrow means the start point and the up arrow means the end point.
 1. This interactive view can filter the value based on the execution order of each instruction by setting the start and/or end point.
