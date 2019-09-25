@@ -4,7 +4,7 @@ import { ProjectInfo } from './api';
 let localforage = extendPrototype(LF);
 
 export class ProjectManager {
-  private static projectsKey = 'logvis.projects';
+  private static projectsKey = 'nod3v.projects';
   private async readProjects(): Promise<string[]> {
     return (await localforage.getItem<string[]>(ProjectManager.projectsKey)) || [];
   }

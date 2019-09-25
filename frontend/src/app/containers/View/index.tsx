@@ -1,7 +1,7 @@
 import { Divider, makeStyles, Paper, Typography } from '@material-ui/core';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import ArrowUpward from '@material-ui/icons/ArrowUpward';
-import { LogvisActions, TimestampRangeFilterKind } from 'app/actions';
+import { nod3vActions, TimestampRangeFilterKind } from 'app/actions';
 import { ContentContainer } from 'app/components/atoms/contentContainer';
 import { FilterDisplay } from 'app/components/atoms/filterDisplay';
 import { PathNavigation } from 'app/components/organisms/pathNavigation';
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function ViewContainer() {
-  const logvisState = useSelector<RootState, RootState.LogvisState>((state) => state.logvis);
+  const nod3vState = useSelector<RootState, RootState.nod3vState>((state) => state.nod3v);
   const dispatch = useDispatch();
   const classes = useStyles();
   const { location, match } = useReactRouter<{ projectName: string }>();
@@ -39,16 +39,16 @@ export function ViewContainer() {
   const { projectName } = match.params;
 
   React.useEffect(() => {
-    dispatch(LogvisActions.initViewPage({ projectName }));
-    dispatch(LogvisActions.requestSourceCodeData({ projectName, target: { dirs, file } }));
-    dispatch(LogvisActions.loadInitialValueListFilter({ projectName }));
+    dispatch(nod3vActions.initViewPage({ projectName }));
+    dispatch(nod3vActions.requestSourceCodeData({ projectName, target: { dirs, file } }));
+    dispatch(nod3vActions.loadInitialValueListFilter({ projectName }));
   }, []);
 
-  const tokens = logvisState.sourceCodeTokens;
-  const { filteredValueListData } = logvisState;
+  const tokens = nod3vState.sourceCodeTokens;
+  const { filteredValueListData } = nod3vState;
   const onArrowUpClick: RangeFilterClickEventHandler2 = (item, varInfo) => {
     dispatch(
-      LogvisActions.requestValueListFilterChange({
+      nod3vActions.requestValueListFilterChange({
         projectName,
         kind: 'right',
         context: {
@@ -63,7 +63,7 @@ export function ViewContainer() {
 
   const onArrowDownClick: RangeFilterClickEventHandler2 = (item, varInfo) => {
     dispatch(
-      LogvisActions.requestValueListFilterChange({
+      nod3vActions.requestValueListFilterChange({
         projectName,
         kind: 'left',
         context: {
@@ -77,7 +77,7 @@ export function ViewContainer() {
   };
 
   function renderFilterChip(kind: TimestampRangeFilterKind) {
-    const { left, right } = logvisState.filter.range;
+    const { left, right } = nod3vState.filter.range;
     const icon = kind === 'left' ? <ArrowDownward /> : <ArrowUpward />;
     const target = kind === 'left' ? left : right;
     const labelPrefix = kind === 'left' ? 'After' : 'Before';
@@ -90,7 +90,7 @@ export function ViewContainer() {
     const label = `${labelPrefix}: ${labelValue}`;
     const onDelete = () =>
       dispatch(
-        LogvisActions.requestValueListFilterChange({
+        nod3vActions.requestValueListFilterChange({
           projectName,
           kind: kind,
           context: undefined,
@@ -128,7 +128,7 @@ export function ViewContainer() {
         </div>
         <Divider />
         <Sourcecode
-          currentFilterValue={logvisState.filter.range}
+          currentFilterValue={nod3vState.filter.range}
           tokens={tokens}
           varValueData={filteredValueListData}
           onArrowUpwardClick={onArrowUpClick}
