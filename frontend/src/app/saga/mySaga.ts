@@ -1,6 +1,6 @@
-import { nod3vActions } from 'app/actions';
+import { LogvisActions } from 'app/actions';
 import { ValueListItemData } from 'app/components/organisms/valueList';
-import { nod3vApi, ProjectInfo } from 'app/models/api';
+import { LogvisApi, ProjectInfo } from 'app/models/api';
 import * as JavaLexer from 'app/models/javaLexer';
 import { ProjectItemFileModel, ProjectModel } from 'app/models/project';
 import { ProjectManager } from 'app/models/projectManager';
@@ -51,11 +51,11 @@ function createVarValueData(
   return new VarValueData(result);
 }
 
-function* requestFiles(action: ReturnType<typeof nod3vActions.requestFiles>) {
+function* requestFiles(action: ReturnType<typeof LogvisActions.requestFiles>) {
   const { projectName, directory } = action.payload!;
 
   const project: ProjectModel | undefined = yield call(() =>
-    new nod3vApi().fetchFileInfo(projectName)
+    new LogvisApi().fetchFileInfo(projectName)
   );
   if (!project) {
     throw new Error('Unknown project: ' + projectName);
@@ -66,7 +66,7 @@ function* requestFiles(action: ReturnType<typeof nod3vActions.requestFiles>) {
   // ロードしているっぽく見せるためにわざと時間差をつけている
   yield delay(300);
   yield put(
-    nod3vActions.setFilesData({
+    LogvisActions.setFilesData({
       dirs: directory,
       items
     })
@@ -74,16 +74,16 @@ function* requestFiles(action: ReturnType<typeof nod3vActions.requestFiles>) {
 }
 
 function* requestValueListFilterChange(
-  action: ReturnType<typeof nod3vActions.requestValueListFilterChange>
+  action: ReturnType<typeof LogvisActions.requestValueListFilterChange>
 ) {
   const { projectName, kind, context, preferNotify } = action.payload!;
 
   // contextが同じであれば更新の必要はない
-  const s: TimeStampRangeFilter = yield select((state: RootState) => state.nod3v.filter.range);
+  const s: TimeStampRangeFilter = yield select((state: RootState) => state.logvis.filter.range);
   if (kind === 'left' && _.isEqual(context, s.left)) return;
   if (kind === 'right' && _.isEqual(context, s.right)) return;
 
-  yield put(nod3vActions.setValueListFilter({ kind, context }));
+  yield put(LogvisActions.setValueListFilter({ kind, context }));
 
   // localStorageに保存することによってフィルターの変更を通知する
   if (preferNotify) {
@@ -92,17 +92,17 @@ function* requestValueListFilterChange(
   }
 
   const state: RootState = yield select();
-  const original = state.nod3v.originalValueListData;
-  const filtered = original.filterByRange(state.nod3v.filter.range);
+  const original = state.logvis.originalValueListData;
+  const filtered = original.filterByRange(state.logvis.filter.range);
 
-  yield put(nod3vActions.setFilteredValueListData({ data: filtered }));
+  yield put(LogvisActions.setFilteredValueListData({ data: filtered }));
 }
 
-function* requestSourceCodeData(action: ReturnType<typeof nod3vActions.requestSourceCodeData>) {
+function* requestSourceCodeData(action: ReturnType<typeof LogvisActions.requestSourceCodeData>) {
   const { projectName, target } = action.payload!;
   const { dirs, file } = target;
 
-  const api = new nod3vApi();
+  const api = new LogvisApi();
   const project: ProjectModel | undefined = yield call(() => api.fetchFileInfo(projectName));
   if (!project) {
     throw new Error('Unknown project: ' + projectName);
@@ -116,7 +116,7 @@ function* requestSourceCodeData(action: ReturnType<typeof nod3vActions.requestSo
 
   const tokens = JavaLexer.tokenize(requestedFile.joinedContent);
   yield put(
-    nod3vActions.SetSourceCodeData({
+    LogvisActions.SetSourceCodeData({
       tokens
     })
   );
@@ -125,19 +125,19 @@ function* requestSourceCodeData(action: ReturnType<typeof nod3vActions.requestSo
   const varValueData = createVarValueData(varListJsonData, file, tokens);
 
   yield put(
-    nod3vActions.setOriginalValueListData({
+    LogvisActions.setOriginalValueListData({
       data: varValueData
     })
   );
   yield put(
-    nod3vActions.setFilteredValueListData({
+    LogvisActions.setFilteredValueListData({
       data: varValueData
     })
   );
 }
 
 function* dummyWorker() {
-  yield put(nod3vActions.dummyAction());
+  yield put(LogvisActions.dummyAction());
 }
 
 function* clearLocalStorage() {
@@ -146,7 +146,7 @@ function* clearLocalStorage() {
 }
 
 function* loadInitialValueListFilter(
-  action: ReturnType<typeof nod3vActions.loadInitialValueListFilter>
+  action: ReturnType<typeof LogvisActions.loadInitialValueListFilter>
 ) {
   const { projectName } = action.payload!;
   const timestampFilter: TimeStampRangeFilter = yield call(() => {
@@ -155,14 +155,14 @@ function* loadInitialValueListFilter(
   });
   const { left, right } = timestampFilter;
   yield put(
-    nod3vActions.requestValueListFilterChange({ projectName, kind: 'left', context: left })
+    LogvisActions.requestValueListFilterChange({ projectName, kind: 'left', context: left })
   );
   yield put(
-    nod3vActions.requestValueListFilterChange({ projectName, kind: 'right', context: right })
+    LogvisActions.requestValueListFilterChange({ projectName, kind: 'right', context: right })
   );
 }
 
-function initViewPage(action: ReturnType<typeof nod3vActions.initViewPage>) {
+function initViewPage(action: ReturnType<typeof LogvisActions.initViewPage>) {
   const { projectName } = action.payload!;
 
   const sharedEvent = new SharedEventModel(projectName);
@@ -171,45 +171,45 @@ function initViewPage(action: ReturnType<typeof nod3vActions.initViewPage>) {
     const { kind, newValue } = args;
 
     const context = newValue as TimestampRangeFilterContext;
-    store.dispatch(nod3vActions.requestValueListFilterChange({ projectName, kind, context }));
+    store.dispatch(LogvisActions.requestValueListFilterChange({ projectName, kind, context }));
   });
 }
 
 function* requestProjects() {
   const manager = new ProjectManager();
   const projects: ProjectInfo[] = yield call(() => manager.getAllProjects());
-  yield put(nod3vActions.setProjects({ projects }));
+  yield put(LogvisActions.setProjects({ projects }));
 }
 
-function* requestAddProject(action: ReturnType<typeof nod3vActions.requestAddProject>) {
+function* requestAddProject(action: ReturnType<typeof LogvisActions.requestAddProject>) {
   const { project } = action.payload!;
   const manager = new ProjectManager();
   const success: boolean = yield call(() => manager.addProject(project));
   if (success) {
-    yield put(nod3vActions.addProject({ project }));
+    yield put(LogvisActions.addProject({ project }));
   }
 }
 
-function* requestRemoveProject(action: ReturnType<typeof nod3vActions.requestRemoveProject>) {
+function* requestRemoveProject(action: ReturnType<typeof LogvisActions.requestRemoveProject>) {
   const { project } = action.payload!;
   const manager = new ProjectManager();
   const success: boolean = yield call(() => manager.removeProject(project));
   if (success) {
-    yield put(nod3vActions.removeProject({ project }));
+    yield put(LogvisActions.removeProject({ project }));
   }
 }
 
 function* mySaga() {
-  yield takeEvery(nod3vActions.dummyAction, dummyWorker);
-  yield takeEvery(nod3vActions.requestFiles, requestFiles);
-  yield takeEvery(nod3vActions.requestValueListFilterChange, requestValueListFilterChange);
-  yield takeEvery(nod3vActions.requestSourceCodeData, requestSourceCodeData);
-  yield takeEvery(nod3vActions.clearLocalStorage, clearLocalStorage);
-  yield takeEvery(nod3vActions.loadInitialValueListFilter, loadInitialValueListFilter);
-  yield takeEvery(nod3vActions.initViewPage, initViewPage);
-  yield takeEvery(nod3vActions.requestProjects, requestProjects);
-  yield takeEvery(nod3vActions.requestAddProject, requestAddProject);
-  yield takeEvery(nod3vActions.requestRemoveProject, requestRemoveProject);
+  yield takeEvery(LogvisActions.dummyAction, dummyWorker);
+  yield takeEvery(LogvisActions.requestFiles, requestFiles);
+  yield takeEvery(LogvisActions.requestValueListFilterChange, requestValueListFilterChange);
+  yield takeEvery(LogvisActions.requestSourceCodeData, requestSourceCodeData);
+  yield takeEvery(LogvisActions.clearLocalStorage, clearLocalStorage);
+  yield takeEvery(LogvisActions.loadInitialValueListFilter, loadInitialValueListFilter);
+  yield takeEvery(LogvisActions.initViewPage, initViewPage);
+  yield takeEvery(LogvisActions.requestProjects, requestProjects);
+  yield takeEvery(LogvisActions.requestAddProject, requestAddProject);
+  yield takeEvery(LogvisActions.requestRemoveProject, requestRemoveProject);
 }
 
 export default mySaga;

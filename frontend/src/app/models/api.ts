@@ -9,7 +9,7 @@ export interface ProjectInfo {
   name: string;
 }
 
-export class nod3vApi {
+export class LogvisApi {
   private getAssetFile(path: string): Promise<string> {
     return fetch(path).then((res) => {
       return res.text();

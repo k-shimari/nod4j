@@ -1,4 +1,4 @@
-# nod3v
+# LOGVIS
 This tool shows the values of variables in the execution.
 
 Each variable contains the values at most "k" times. (You can set "k" when you execute logger named selogger)
@@ -28,10 +28,10 @@ $ java -jar -javaagent:/path/to/selogger-0.0.1-SNAPSHOT-shaded.jar=output=/path/
  *  Options are described at https://github.com/takashi-ishio/selogger/tree/v0.1
  *  In our method using `format=latesttime` option
 ### Convert json format
-1. Run nod3v.jar to convert json format
+1. Run LOGVIS.jar to convert json format
 1. You can get `fileinfo.json` and `varinfo.json` at /path/to/yourProject
 ```
-$ java -jar nod3v.jar /path/to/yourProject
+$ java -jar LOGVIS.jar /path/to/yourProject
 ```
 
 ## Viewer Usage
@@ -45,7 +45,7 @@ $ java -jar nod3v.jar /path/to/yourProject
 
 1. Run the commands below. You can check our sample.
 ```
-$ cd nod3v/frontend
+$ cd LOGVIS/frontend
 $ npm install
 $ npm start
 ```
