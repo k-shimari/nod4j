@@ -1,12 +1,89 @@
 # LOGVIS
-### How to Use
-1. Create jar File (Main class is logvis/Main.java. You can get LOGVIS.jar)
-1. Create target directory (e.g., mkdir target_directory)
-    1. Create three directories(src, output, and selogger) in the target_directory
-1. Execute selogger for your target project and put the logs(e.g., methods.txt, recentdata.txt...) in target_directory/selogger
-1. Put the source files of the target project in target_project/src
-1. Execute LOGVIS.jar
-    1. The arguments are "target_project" and "target files in target_project/src" (e.g., java -jar LOGVIS.jar /path/to/target_project a.java b.java....) 
-1. Finally you can get HTML files for checking the program execution in target_project/output
+This tool shows the values of variables in the execution.
 
+Each variable contains the values at most "k" times. (You can set "k" when you execute logger named selogger)
+
+You can read the detail Implementation here [].
+
+## Sample
+You can try our viewer at http://sel.ist.osaka-u.ac.jp/people/k-simari/ICSME2019/ 
+
+Try our viewer following [sample/README](/sample/README.md).
+
+
+## Trace Recorder Usage
+### Collect trace 
+1. Clone the repo
+1. Create new dir and put your project source code in `project`
+```
+$ mkdir <PROJECT_NAME>
+$ cd <PROJECT_NAME>
+$ mkdir project
+$ cp yourSrc <PROJECT_NAME>/project/yourSrc
+```
+### Collect trace 
+```
+$ java -jar -javaagent:/path/to/selogger-0.0.1-SNAPSHOT-shaded.jar=output=/path/to/yourProject/selogger,format=latesttime,size=32,keepobj=true yourApp.jar 
+```
+ *  Options are described at https://github.com/takashi-ishio/selogger/tree/v0.1
+ *  In our method using `format=latesttime` option
+### Convert json format
+1. Run LOGVIS.jar to convert json format
+1. You can get `fileinfo.json` and `varinfo.json` at /path/to/yourProject
+```
+$ java -jar LOGVIS.jar /path/to/yourProject
+```
+
+## Viewer Usage
+
+### Pre-requirements
+
+* Node.js
+* npm
+
+### Getting started
+
+1. Run the commands below. You can check our sample.
+```
+$ cd LOGVIS/frontend
+$ npm install
+$ npm start
+```
+
+### Develop
+
+```
+$ npm start
+```
+
+> Note: Hot reload is enabled.
+
+### Build and Run
+
+```
+$ npm run build
+$ npm run server
+```
+
+### Open your project
+
+1. Locate `fileinfo.json` and `varinfo.json` at `src/assets/project/<PROJECT_NAME>`
+1. Add <PROJECT_NAME> on the main page
+
+![image](https://user-images.githubusercontent.com/7913793/64902108-62c90080-d6dc-11e9-8013-ace20abf0add.png)
+
+### Viewer 
+1. You can find down and up arrows at right side of each value.
+1. The down arrow means the start point and the up arrow means the end point.
+1. This interactive view can filter the value based on the execution order of each instruction by setting the start and/or end point.
+1. You can check filter information at `TIMESTAMP FILTER` and delete filters by clicking buttons.
+1. If no values are contained in the variable during the filtered period, the highlighting of the variable is turned off.
+
+## Limitation
+  * This tool cannot get following variables in current implementation.
+    * Method actual arguments
+    * Method return value at caller method
+    * Related to some kinds of operand 
+      * ++, +=, --, -=
+    * multiple lines expression
 
