@@ -4,7 +4,7 @@ import { SourceCodeToken } from 'app/models/token';
 import { VarValueData } from 'app/models/varValueData';
 
 export interface RootState {
-  nod3v: RootState.nod3vState;
+  logvis: RootState.LogvisState;
   router?: any;
 }
 
@@ -31,7 +31,7 @@ export namespace RootState {
     loading: boolean;
   }
 
-  export interface nod3vState {
+  export interface LogvisState {
     projects: ProjectInfo[] | undefined;
     filter: FilterState;
     originalValueListData: VarValueData;
