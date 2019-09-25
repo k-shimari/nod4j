@@ -23,4 +23,7 @@ public class Recentdata {
 		return thread;
 	}
 
+	public void setData(String data) {
+		this.data = data;
+	}
 }
