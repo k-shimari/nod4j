@@ -68,7 +68,7 @@ export class SharedEventModel {
   }
 
   private keyBase() {
-    return `logvis.project.${this._projectName}.filter.timestamp`;
+    return `nod3v.project.${this._projectName}.filter.timestamp`;
   }
 
   notifyFilterChanged(
