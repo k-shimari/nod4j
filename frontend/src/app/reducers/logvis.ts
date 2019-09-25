@@ -1,9 +1,9 @@
-import { LogvisActions } from 'app/actions';
+import { nod3vActions } from 'app/actions';
 import { VarValueData } from 'app/models/varValueData';
 import { handleActions } from 'redux-actions';
 import { RootState } from './index';
 
-const initialState: RootState.LogvisState = {
+const initialState: RootState.nod3vState = {
   projects: undefined,
   filter: {
     range: {}
@@ -18,10 +18,10 @@ const initialState: RootState.LogvisState = {
   sourceCodeTokens: undefined
 };
 
-export const logvisReducer = handleActions<RootState.LogvisState, any>(
+export const nod3vReducer = handleActions<RootState.nod3vState, any>(
   {
-    [LogvisActions.Type.SET_VALUE_LIST_FILTER]: (state, action) => {
-      const { context, kind } = action.payload! as LogvisActions.Payload.SetValueListFilter;
+    [nod3vActions.Type.SET_VALUE_LIST_FILTER]: (state, action) => {
+      const { context, kind } = action.payload! as nod3vActions.Payload.SetValueListFilter;
 
       const left = kind === 'left' ? context : state.filter.range.left;
       const right = kind === 'right' ? context : state.filter.range.right;
@@ -31,29 +31,29 @@ export const logvisReducer = handleActions<RootState.LogvisState, any>(
         filter: { range: { left, right } }
       };
     },
-    [LogvisActions.Type.CLEAR_ALL_FILTERS]: (state) => {
+    [nod3vActions.Type.CLEAR_ALL_FILTERS]: (state) => {
       return {
         ...state,
         filter: { range: { left: undefined, right: undefined } }
       };
     },
-    [LogvisActions.Type.SET_ORIGINAL_VALUE_LIST_DATA]: (state, action) => {
-      const { data } = action.payload! as LogvisActions.Payload.SetOriginalValueListData;
+    [nod3vActions.Type.SET_ORIGINAL_VALUE_LIST_DATA]: (state, action) => {
+      const { data } = action.payload! as nod3vActions.Payload.SetOriginalValueListData;
 
       return {
         ...state,
         originalValueListData: data
       };
     },
-    [LogvisActions.Type.SET_FILTERED_VALUE_LIST_DATA]: (state, action) => {
-      const { data } = action.payload! as LogvisActions.Payload.SetFilteredValueListData;
+    [nod3vActions.Type.SET_FILTERED_VALUE_LIST_DATA]: (state, action) => {
+      const { data } = action.payload! as nod3vActions.Payload.SetFilteredValueListData;
 
       return {
         ...state,
         filteredValueListData: data
       };
     },
-    [LogvisActions.Type.REQUEST_FILES]: (state) => {
+    [nod3vActions.Type.REQUEST_FILES]: (state) => {
       return {
         ...state,
         files: {
@@ -62,40 +62,40 @@ export const logvisReducer = handleActions<RootState.LogvisState, any>(
         }
       };
     },
-    [LogvisActions.Type.SET_FILES_DATA]: (state, action) => {
-      const { dirs, items } = action.payload! as LogvisActions.Payload.SetFilesDataPayload;
+    [nod3vActions.Type.SET_FILES_DATA]: (state, action) => {
+      const { dirs, items } = action.payload! as nod3vActions.Payload.SetFilesDataPayload;
 
       return {
         ...state,
         files: { dirs, items, loading: false }
       };
     },
-    [LogvisActions.Type.SET_SOURCE_CODE_DATA]: (state, action) => {
-      const { tokens } = action.payload! as LogvisActions.Payload.SetSourceCodeData;
+    [nod3vActions.Type.SET_SOURCE_CODE_DATA]: (state, action) => {
+      const { tokens } = action.payload! as nod3vActions.Payload.SetSourceCodeData;
 
       return {
         ...state,
         sourceCodeTokens: tokens
       };
     },
-    [LogvisActions.Type.SET_PROJECTS]: (state, action) => {
-      const { projects } = action.payload! as LogvisActions.Payload.SetProjects;
+    [nod3vActions.Type.SET_PROJECTS]: (state, action) => {
+      const { projects } = action.payload! as nod3vActions.Payload.SetProjects;
 
       return {
         ...state,
         projects
       };
     },
-    [LogvisActions.Type.ADD_PROJECT]: (state, action) => {
-      const { project } = action.payload! as LogvisActions.Payload.AddProject;
+    [nod3vActions.Type.ADD_PROJECT]: (state, action) => {
+      const { project } = action.payload! as nod3vActions.Payload.AddProject;
 
       return {
         ...state,
         projects: [...(state.projects || []), project]
       };
     },
-    [LogvisActions.Type.REMOVE_PROJECT]: (state, action) => {
-      const { project } = action.payload! as LogvisActions.Payload.RemoveProject;
+    [nod3vActions.Type.REMOVE_PROJECT]: (state, action) => {
+      const { project } = action.payload! as nod3vActions.Payload.RemoveProject;
 
       let projects = state.projects || [];
       const index = projects.map((x) => x.name).indexOf(project.name);

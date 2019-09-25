@@ -8,7 +8,7 @@ import { createAction } from 'redux-actions';
 export type TimestampRangeFilterKind = 'left' | 'right';
 export type Directory = string[];
 
-export namespace LogvisActions {
+export namespace nod3vActions {
   export enum Type {
     DUMMY_ACTION = 'DUMMY_ACTION',
 
@@ -159,4 +159,4 @@ export namespace LogvisActions {
   export const initViewPage = createAction<Payload.InitViewPage>(Type.INIT_VIEW_PAGE);
 }
 
-export type LogvisActions = Omit<typeof LogvisActions, 'Type'>;
+export type nod3vActions = Omit<typeof nod3vActions, 'Type'>;

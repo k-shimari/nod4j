@@ -16,7 +16,7 @@ import {
 } from '@material-ui/core';
 import { Clear as ClearIcon } from '@material-ui/icons';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { LogvisActions } from 'app/actions';
+import { nod3vActions } from 'app/actions';
 import { ContentContainer } from 'app/components/atoms/contentContainer';
 import { ProjectInfo } from 'app/models/api';
 import { RootState } from 'app/reducers';
@@ -35,11 +35,11 @@ function MainPanel() {
   return (
     <Paper className={classes.root}>
       <Typography variant="h5" component="h3" gutterBottom>
-        Welcome to LOGVIS
+        Welcome to nod3v
       </Typography>
       <Typography component="p" color="textSecondary">
         Source code is availabe on{' '}
-        <MULink href="https://github.com/k-shimari/LOGVIS" target="_blank">
+        <MULink href="https://github.com/k-shimari/nod3v" target="_blank">
           GitHub
         </MULink>
         .
@@ -62,7 +62,7 @@ function ProjectListItem(props: ProjectInfo) {
 
   const { name } = props;
   function onClickClearButton() {
-    dispatch(LogvisActions.requestRemoveProject({ project: { name } }));
+    dispatch(nod3vActions.requestRemoveProject({ project: { name } }));
   }
 
   return (
@@ -82,13 +82,13 @@ function OpenProjectPanel() {
 
   const dispatch = useDispatch();
   React.useEffect(() => {
-    dispatch(LogvisActions.requestProjects());
+    dispatch(nod3vActions.requestProjects());
   }, []);
 
-  const projects = useSelector((state: RootState) => state.logvis.projects);
+  const projects = useSelector((state: RootState) => state.nod3v.projects);
 
   function addProject(projectName: string) {
-    dispatch(LogvisActions.requestAddProject({ project: { name: projectName } }));
+    dispatch(nod3vActions.requestAddProject({ project: { name: projectName } }));
     setAddProejctName('');
   }
 
@@ -138,7 +138,7 @@ function OpenProjectPanel() {
       </Box>
       <Box mt={1}>
         <Typography variant="caption">
-          <MULink href="https://github.com/k-shimari/LOGVIS" target="_blank">
+          <MULink href="https://github.com/k-shimari/nod3v" target="_blank">
             Check how to import your project in details.
           </MULink>
         </Typography>
@@ -160,7 +160,7 @@ function DebugPanel() {
         <Button
           variant="outlined"
           size="small"
-          onClick={() => dispatch(LogvisActions.clearLocalStorage())}
+          onClick={() => dispatch(nod3vActions.clearLocalStorage())}
         >
           Clear localStorage
           <DeleteIcon />
