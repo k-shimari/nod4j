@@ -162,7 +162,7 @@ function DebugPanel() {
           size="small"
           onClick={() => dispatch(nod3vActions.clearLocalStorage())}
         >
-          Clear localStorage
+          Clear Timestamp Filter
           <DeleteIcon />
         </Button>
       </div>

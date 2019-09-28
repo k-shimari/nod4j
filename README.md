@@ -1,18 +1,18 @@
 # nod3v
 This tool shows the values of variables in the execution.
 
-Each variable contains the values at most "k" times. (You can set "k" when you execute logger named selogger)
+Each variable contains the values at most "k" times. (You can set "k" when you execute logger named [selogger](https://github.com/takashi-ishio/selogger/tree/v0.1))
 
-You can read the detail Implementation here [].
+You can read the detail Implementation [here](http://sel.ist.osaka-u.ac.jp/lab-db/betuzuri/archive/1172/1172.pdf) .
 
 ## Sample
-You can try our viewer at http://sel.ist.osaka-u.ac.jp/people/k-simari/ICSME2019/ 
+You can try our viewer at http://sel-nod3v.ics.es.osaka-u.ac.jp
 
 Try our viewer following [sample/README](/sample/README.md).
 
 
 ## Trace Recorder Usage
-### Collect trace 
+### Setup 
 1. Clone the repo
 1. Create new dir and put your project source code in `project`
 ```
@@ -23,7 +23,7 @@ $ cp yourSrc <PROJECT_NAME>/project/yourSrc
 ```
 ### Collect trace 
 ```
-$ java -jar -javaagent:/path/to/selogger-0.0.1-SNAPSHOT-shaded.jar=output=/path/to/yourProject/selogger,format=latesttime,size=32,keepobj=true yourApp.jar 
+$ java -jar -javaagent:/path/to/selogger0.1.jar=output=/path/to/yourProject/selogger,format=latesttime,size=32,keepobj=true yourApp.jar 
 ```
  *  Options are described at https://github.com/takashi-ishio/selogger/tree/v0.1
  *  In our method using `format=latesttime` option
