@@ -1,12 +1,12 @@
 # nod3v
 This tool shows the values of variables in the execution.
 
-Each variable contains the values at most "k" times. (You can set "k" when you execute logger named selogger)
+Each variable contains the values at most "k" times. (You can set "k" when you execute logger named [selogger](https://github.com/takashi-ishio/selogger/tree/v0.1))
 
-You can read the detail Implementation here [].
+You can read the detail Implementation [here](http://sel.ist.osaka-u.ac.jp/lab-db/betuzuri/archive/1172/1172.pdf) .
 
 ## Sample
-You can try our viewer at http://sel.ist.osaka-u.ac.jp/people/k-simari/ICSME2019/ 
+You can try our viewer at http://sel-nod3v.ics.es.osaka-u.ac.jp
 
 Try our viewer following [sample/README](/sample/README.md).
 
