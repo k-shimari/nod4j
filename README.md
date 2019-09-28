@@ -12,7 +12,7 @@ Try our viewer following [sample/README](/sample/README.md).
 
 
 ## Trace Recorder Usage
-### Collect trace 
+### Setup 
 1. Clone the repo
 1. Create new dir and put your project source code in `project`
 ```
