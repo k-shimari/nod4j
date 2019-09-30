@@ -23,7 +23,7 @@ $ cp yourSrc <PROJECT_NAME>/project/yourSrc
 ```
 ### Collect trace 
 ```
-$ java -jar -javaagent:/path/to/selogger0.1.jar=output=/path/to/yourProject/selogger,format=latesttime,size=32,keepobj=true yourApp.jar 
+$ java -jar -javaagent:/path/to/selogger0.1.jar=output=/path/to/yourProject/selogger,weave=ALL,format=latesttime,size=32,keepobj=true yourApp.jar 
 ```
  *  Options are described at https://github.com/takashi-ishio/selogger/tree/v0.1
  *  In our method using `format=latesttime` option
