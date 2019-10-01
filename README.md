@@ -67,7 +67,7 @@ $ npm run server
 
 ### Open your project
 
-1. Locate `fileinfo.json` and `varinfo.json` at `src/assets/project/<PROJECT_NAME>`
+1. Locate `fileinfo.json` and `varinfo.json` at `frontend/src/assets/project/<PROJECT_NAME>`
 1. Add <PROJECT_NAME> on the main page
 
 ![image](https://user-images.githubusercontent.com/7913793/64902108-62c90080-d6dc-11e9-8013-ace20abf0add.png)
