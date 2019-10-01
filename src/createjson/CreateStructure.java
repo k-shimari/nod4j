@@ -23,8 +23,12 @@ public class CreateStructure implements ICreateJson {
 	}
 
 	private FileInfoJson getFileInfo(File f) throws IOException {
-		return new FileInfoJson(f.getName(), TYPEFILE, (ArrayList<String>) Files.readAllLines(Paths.get(f.getPath())),
-				new ArrayList<FileInfoJson>());
+		ArrayList<String> tmplist=(ArrayList<String>) Files.readAllLines(Paths.get(f.getPath()));
+		ArrayList<String> list= new ArrayList<String>();
+		for(String s: tmplist) {
+			list.add(s.replace("\"", "\\\""));
+		}
+		return new FileInfoJson(f.getName(), TYPEFILE, list, new ArrayList<FileInfoJson>());
 
 	}
 
