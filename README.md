@@ -23,7 +23,7 @@ $ cp yourSrc <PROJECT_NAME>/project/yourSrc
 ```
 ### Collect trace 
 ```
-$ java -jar -javaagent:/path/to/selogger0.1.jar=output=/path/to/yourProject/selogger,weave=ALL,format=latesttime,size=32,keepobj=true yourApp.jar 
+$ java -jar -javaagent:/path/to/selogger-0.1.jar=output=/path/to/yourProject/selogger,weave=ALL,format=latesttime,size=32,keepobj=true yourApp.jar 
 ```
  *  Options are described at https://github.com/takashi-ishio/selogger/tree/v0.1
  *  In our method using `format=latesttime` option
@@ -60,6 +60,7 @@ $ npm start
 
 ### Build and Run
 
+1. Locate `fileinfo.json` and `varinfo.json` at `frontend/src/assets/project/<PROJECT_NAME>`
 ```
 $ npm run build
 $ npm run server
@@ -67,7 +68,6 @@ $ npm run server
 
 ### Open your project
 
-1. Locate `fileinfo.json` and `varinfo.json` at `frontend/src/assets/project/<PROJECT_NAME>`
 1. Add <PROJECT_NAME> on the main page
 
 ![image](https://user-images.githubusercontent.com/31942441/65929436-17973900-e3d0-11e9-99ad-14ac83bf491b.png)
