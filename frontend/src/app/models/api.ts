@@ -9,6 +9,16 @@ export interface ProjectInfo {
   name: string;
 }
 
+function receiver(key: any, value: any): any {
+  // ダブルクオーテーションのエスケープを処理するために使用
+  // See: https://github.com/k-shimari/nod3v/issues/97
+  if (typeof value === 'string') {
+    return value.replace(/\\\"/g, '"');
+  } else {
+    return value;
+  }
+}
+
 export class nod3vApi {
   private getAssetFile(path: string): Promise<string> {
     return fetch(path).then((res) => {
@@ -27,7 +37,7 @@ export class nod3vApi {
       ? Promise.resolve(rawProjectJsonData)
       : this.getAssetFile(fileInfoPath));
 
-    const projectDir = JSON5.parse(s) as ProjectItemDirectory;
+    const projectDir = JSON5.parse(s, receiver) as ProjectItemDirectory;
 
     if (projectDir) {
       return new ProjectModel(projectDir);
@@ -43,7 +53,7 @@ export class nod3vApi {
       ? Promise.resolve(rawVarListData)
       : this.getAssetFile(varInfoPath));
 
-    const json = JSON5.parse(s) as VarListJsonData;
+    const json = JSON5.parse(s, receiver) as VarListJsonData;
 
     return json;
   }
