@@ -48,7 +48,7 @@ export namespace ValueList {
 const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 240,
-    maxHeight: 320,
+    maxHeight: 400,
     overflowY: 'auto'
   }
 }));
