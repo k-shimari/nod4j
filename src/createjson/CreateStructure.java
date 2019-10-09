@@ -23,9 +23,9 @@ public class CreateStructure implements ICreateJson {
 	}
 
 	private FileInfoJson getFileInfo(File f) throws IOException {
-		ArrayList<String> tmplist=(ArrayList<String>) Files.readAllLines(Paths.get(f.getPath()));
-		ArrayList<String> list= new ArrayList<String>();
-		for(String s: tmplist) {
+		ArrayList<String> tmplist = (ArrayList<String>) Files.readAllLines(Paths.get(f.getPath()));
+		ArrayList<String> list = new ArrayList<String>();
+		for (String s : tmplist) {
 			list.add(s.replace("\"", "\\\""));
 		}
 		return new FileInfoJson(f.getName(), TYPEFILE, list, new ArrayList<FileInfoJson>());
@@ -51,7 +51,6 @@ public class CreateStructure implements ICreateJson {
 			}
 		}
 		ArrayList<String> a = new ArrayList<String>();
-
 		return new FileInfoJson(dir.getName(), TYPEDIR, a, list);
 	}
 

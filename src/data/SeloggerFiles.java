@@ -6,6 +6,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import data.methodparam.MethodParam;
+
 public class SeloggerFiles {
 
 	private List<String> linesRecentdata = new ArrayList<>();
@@ -16,7 +18,7 @@ public class SeloggerFiles {
 	public SeloggerFiles(String dir) {
 		try {
 			this.linesRecentdata = Files.readAllLines(Paths.get(dir, "selogger", "recentdata.txt"));
-			this.linesDataids = Files.readAllLines(Paths.get(dir, "selogger", "dataids.txt"));
+			this.linesDataids = setLineDataids(dir);
 			this.linesMethods = Files.readAllLines(Paths.get(dir, "selogger", "methods.txt"));
 			this.dataidMaps = new DataIdMaps();
 			CreateMap();
@@ -25,8 +27,20 @@ public class SeloggerFiles {
 		}
 	}
 
+	private List<String> setLineDataids(String dir) throws IOException {
+		/*TODO
+		 * replace line number at method_param from 0 to acutal one*/
+
+		MethodParam m = new MethodParam(dir);
+
+		List<String> list = m.getLineDataids(dir);
+		// List<String> list = Files.readAllLines(Paths.get(dir, "selogger", "dataids.txt"));
+
+		return list;
+	}
+
 	private void CreateMap() {
-		dataidMaps.createMap(linesDataids, linesMethods,linesRecentdata);
+		dataidMaps.createMap(linesDataids, linesMethods, linesRecentdata);
 	}
 
 	public List<String> getLinesRecentdata() {
