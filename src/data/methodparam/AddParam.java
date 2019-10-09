@@ -26,6 +26,7 @@ public class AddParam {
 	public List<ParamInfo> getParamInfo(String f) {
 		try {
 			// Create a lexer
+			System.out.println("aa"+f);
 			CharStream stream = CharStreams.fromFileName(f);
 			Java9Lexer lexer = new Java9Lexer(stream);
 			CommonTokenStream tokens = new CommonTokenStream(lexer);

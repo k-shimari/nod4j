@@ -18,10 +18,16 @@ public class SeloggerFiles {
 	public SeloggerFiles(String dir) {
 		try {
 			this.linesRecentdata = Files.readAllLines(Paths.get(dir, "selogger", "recentdata.txt"));
-			this.linesDataids = setLineDataids(dir);
 			this.linesMethods = Files.readAllLines(Paths.get(dir, "selogger", "methods.txt"));
 			this.dataidMaps = new DataIdMaps();
-			CreateMap();
+
+			dataidMaps.createNameMap(linesMethods);
+			//List<String> tmpLinesDataids = Files.readAllLines(Paths.get(dir, "selogger", "dataids.txt"));
+
+
+			this.linesDataids = setLineDataids(dir);
+			dataidMaps.createMap(linesDataids, linesMethods, linesRecentdata);
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -31,17 +37,13 @@ public class SeloggerFiles {
 		/*TODO
 		 * replace line number at method_param from 0 to acutal one*/
 
-		MethodParam m = new MethodParam(dir);
-
+		MethodParam m = new MethodParam(dir,dataidMaps.getMethodIDMethodMap());
 		List<String> list = m.getLineDataids(dir);
-		// List<String> list = Files.readAllLines(Paths.get(dir, "selogger", "dataids.txt"));
+
 
 		return list;
 	}
 
-	private void CreateMap() {
-		dataidMaps.createMap(linesDataids, linesMethods, linesRecentdata);
-	}
 
 	public List<String> getLinesRecentdata() {
 		return linesRecentdata;
