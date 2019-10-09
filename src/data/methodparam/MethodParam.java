@@ -57,9 +57,7 @@ public class MethodParam {
 			for (String line : lines) {
 				String[] elem = line.split(",");
 				if (elem[5].equals("METHOD_PARAM")) {
-					List<ParamInfo> list = fileMethodParamMap.get(methodIDMethodMap.get(elem[2]));
-					elem[3] = String.valueOf(list.get(0).getLine());
-					list.remove(0);
+					rewriteLine(elem);
 				}
 				rewriteList.add(String.join(",", elem));
 			}
@@ -67,5 +65,15 @@ public class MethodParam {
 			e.printStackTrace();
 		}
 		return rewriteList;
+	}
+
+	private void rewriteLine(String[] elem) {
+		if (methodIDMethodMap.containsKey(elem[2]) && fileMethodParamMap.containsKey(methodIDMethodMap.get(elem[2]))) {
+			List<ParamInfo> list = fileMethodParamMap.get(methodIDMethodMap.get(elem[2]));
+			if (list.isEmpty()) {
+				elem[3] = String.valueOf(list.get(0).getLine());
+				list.remove(0);
+			}
+		}
 	}
 }

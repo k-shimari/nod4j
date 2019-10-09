@@ -77,6 +77,7 @@ public class AddParam {
 			methodParams.add(new ParamInfo(
 					ctx.getParent().getParent().getParent().getStart().getText(),
 					ctx.getStop().getText(), ctx.getStart().getText(), ctx.getStop().getLine()));
+			System.out.println();
 			return super.visitFormalParameter(ctx);
 		}
 
