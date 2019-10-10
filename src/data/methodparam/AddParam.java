@@ -26,7 +26,6 @@ public class AddParam {
 	public List<ParamInfo> getParamInfo(String f) {
 		try {
 			// Create a lexer
-			System.out.println("aa"+f);
 			CharStream stream = CharStreams.fromFileName(f);
 			Java9Lexer lexer = new Java9Lexer(stream);
 			CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -38,14 +37,14 @@ public class AddParam {
 			MethodParamVisitor v = new MethodParamVisitor();
 			c.accept(v);
 
-			System.out.println("::Arg----");
+
 			List<ParamInfo> paramList = new ArrayList<ParamInfo>();
 			for (ParamInfo p : v.methodParams) {
 				paramList.add(p);
-				System.out.println(f + ": " + p.getMethodName() + ", " + p.getArgumentName() + ", " + p.getType() + ", "
-						+ p.getLine());
+			//	System.out.println(f + ": " + p.getMethodName() + ", " + p.getArgumentName() + ", " + p.getType() + ", "
+			//			+ p.getLine());
 			}
-			System.out.println("----");
+
 			return paramList;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -77,7 +76,6 @@ public class AddParam {
 			methodParams.add(new ParamInfo(
 					ctx.getParent().getParent().getParent().getStart().getText(),
 					ctx.getStop().getText(), ctx.getStart().getText(), ctx.getStop().getLine()));
-			System.out.println();
 			return super.visitFormalParameter(ctx);
 		}
 

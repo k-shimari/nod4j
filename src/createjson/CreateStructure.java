@@ -37,7 +37,6 @@ public class CreateStructure implements ICreateJson {
 		ArrayList<FileInfoJson> list = new ArrayList<FileInfoJson>();
 		if (files != null) {
 			for (File f : files) {
-				System.out.println(dir);
 				try {
 					if (f.isFile()) {
 						list.add(getFileInfo(f));

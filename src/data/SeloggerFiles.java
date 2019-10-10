@@ -22,9 +22,6 @@ public class SeloggerFiles {
 			this.dataidMaps = new DataIdMaps();
 
 			dataidMaps.createNameMap(linesMethods);
-			//List<String> tmpLinesDataids = Files.readAllLines(Paths.get(dir, "selogger", "dataids.txt"));
-
-
 			this.linesDataids = setLineDataids(dir);
 			dataidMaps.createMap(linesDataids, linesMethods, linesRecentdata);
 
@@ -37,7 +34,7 @@ public class SeloggerFiles {
 		/*TODO
 		 * replace line number at method_param from 0 to acutal one*/
 
-		MethodParam m = new MethodParam(dir,dataidMaps.getMethodIDMethodMap());
+		MethodParam m = new MethodParam(dir,dataidMaps.getClassIDClassMap());
 		List<String> list = m.getLineDataids(dir);
 
 

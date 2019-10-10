@@ -8,6 +8,7 @@ public class VarInfo {
 
 	/* length of "FIELDNAME=" and "NAME=" */
 	private static final int FIELDNAMEINDEX = 10;
+	private static final int PARAMNAMEINDEX = 10;
 	private static final int NAMEINDEX = 5;
 
 	public VarInfo() {
@@ -40,6 +41,11 @@ public class VarInfo {
 			this.inst = "I";
 			/*SELoggerの使用で局所変数で名前がないものが取れるので無視*/
 			this.isFail = fieldname.equals("(Unavailable)");
+		} else if (elemdat[5].equals("METHOD_PARAM")) {
+			/*use value processed in MethodParam.java*/
+			this.fieldname = elemdat[6].substring(PARAMNAMEINDEX);
+			this.inst = "G";
+			this.isFail = false;
 		} else {
 			/*命令がない時は失敗*/
 			this.fieldname = "";

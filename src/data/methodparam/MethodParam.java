@@ -13,13 +13,13 @@ public class MethodParam {
 	private String pathSelogger;
 	private String pathProject;
 	private HashMap<String, List<ParamInfo>> fileMethodParamMap;
-	private Map<String, String> methodIDMethodMap;
+	private Map<String, String> classIDClassMap;
 
-	public MethodParam(String dir, Map<String, String> methoIDMethodMap) {
+	public MethodParam(String dir, Map<String, String> classIDClassMap) {
 		pathSelogger = dir + "/selogger";
 		pathProject = dir + "/project";
 		this.fileMethodParamMap = new HashMap<String, List<ParamInfo>>();
-		this.methodIDMethodMap = methoIDMethodMap;
+		this.classIDClassMap = classIDClassMap;
 	}
 
 	public List<String> getLineDataids(String dir) {
@@ -34,6 +34,8 @@ public class MethodParam {
 			for (File f : files) {
 				try {
 					if (f.isFile()) {
+						//@TODO edit hashmap key
+						//System.out.println("path:::" + f.getName());
 						this.fileMethodParamMap.put(f.getName(), getFileInfo(f));
 					} else {
 						getDirInfo(f);
@@ -57,7 +59,7 @@ public class MethodParam {
 			for (String line : lines) {
 				String[] elem = line.split(",");
 				if (elem[5].equals("METHOD_PARAM")) {
-					rewriteLine(elem);
+					elem = rewriteLine(elem);
 				}
 				rewriteList.add(String.join(",", elem));
 			}
@@ -67,13 +69,18 @@ public class MethodParam {
 		return rewriteList;
 	}
 
-	private void rewriteLine(String[] elem) {
-		if (methodIDMethodMap.containsKey(elem[2]) && fileMethodParamMap.containsKey(methodIDMethodMap.get(elem[2]))) {
-			List<ParamInfo> list = fileMethodParamMap.get(methodIDMethodMap.get(elem[2]));
-			if (list.isEmpty()) {
-				elem[3] = String.valueOf(list.get(0).getLine());
-				list.remove(0);
+	private String[] rewriteLine(String[] elem) {
+		if (classIDClassMap.containsKey(elem[1])) {
+			String classname = classIDClassMap.get(elem[1]);
+			if (fileMethodParamMap.containsKey(classname)) {
+				List<ParamInfo> list = fileMethodParamMap.get(classname);
+				if (!list.isEmpty()) {
+					elem[3] = String.valueOf(list.get(0).getLine());
+					elem[5] += ",ParamName=" + list.get(0).getArgumentName();
+					list.remove(0);
+				}
 			}
 		}
+		return elem;
 	}
 }

@@ -17,11 +17,9 @@ public class DataIdMaps {
 	private Map<String, VarInfo> dataidVarMap = new HashMap<>();
 
 	public void createMap(List<String> linesDataids, List<String> linesMethods, List<String> linesRecentdata) {
-
 		createIDMap(linesDataids);
 		createRecentdataMap(linesRecentdata);
 		createVarInfoMap(linesDataids);
-
 	}
 
 	public void createNameMap(List<String> linesMethods) {
@@ -97,6 +95,10 @@ public class DataIdMaps {
 
 	public Map<String, String> getMethodIDMethodMap() {
 		return methodIDMethodMap;
+	}
+
+	public Map<String, String> getClassIDClassMap() {
+		return classIDClassMap;
 	}
 
 }
