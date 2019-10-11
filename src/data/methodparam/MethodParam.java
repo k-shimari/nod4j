@@ -35,8 +35,11 @@ public class MethodParam {
 				try {
 					if (f.isFile()) {
 						//@TODO edit hashmap key
-						System.out.println("path:::" + f.getParent());
-						this.fileMethodParamMap.put(f.getName(), getFileInfo(f));
+						String packageName = f.getParent().replace("\\", "/");
+						String filePath = packageName.replace(pathProject + "/", "").replaceFirst("^src\\/","").replaceFirst("^test\\/","")
+								+"/"+ f.getName().replace(".java", "");
+						System.out.println(filePath);
+						this.fileMethodParamMap.put(filePath, getFileInfo(f));
 					} else {
 						getDirInfo(f);
 					}
@@ -72,6 +75,7 @@ public class MethodParam {
 	private String[] rewriteLine(String[] elem) {
 		if (classIDClassMap.containsKey(elem[1])) {
 			String classname = classIDClassMap.get(elem[1]);
+					System.out.println("class:::" + classname);
 			if (fileMethodParamMap.containsKey(classname)) {
 				List<ParamInfo> list = fileMethodParamMap.get(classname);
 				if (!list.isEmpty()) {

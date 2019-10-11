@@ -26,7 +26,7 @@ public class DataIdMaps {
 		for (String line : linesMethods) {
 			String ele[] = line.split(",");
 			if (ele.length > 6) {
-				classIDClassMap.put(ele[0], ele[6]);
+				classIDClassMap.put(ele[0], ele[2]);
 				methodIDMethodMap.put(ele[1], ele[3]);
 			} else {
 				System.err.println("DataIdMaps.java createNameMap: ele.length < 3");
