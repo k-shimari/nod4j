@@ -31,7 +31,11 @@ export const ValueListItem: React.FunctionComponent<Props> = (props) => {
 
   return (
     <ListItem button dense={true}>
-      <ListItemText primary={value}></ListItemText>
+      <ListItemText
+        primary={value}
+        primaryTypographyProps={{ variant: 'caption' }}
+        style={{ marginRight: 24 }}
+      ></ListItemText>
       <ListItemSecondaryAction>
         <IconButton
           disabled={disableArrowDownward}
@@ -39,7 +43,7 @@ export const ValueListItem: React.FunctionComponent<Props> = (props) => {
           title="Filter after"
           onClick={() => onArrowDownwardClick && onArrowDownwardClick(item)}
         >
-          <ArrowDownward />
+          <ArrowDownward fontSize="small" />
         </IconButton>
         <IconButton
           disabled={disableArrowUpward}
@@ -47,7 +51,7 @@ export const ValueListItem: React.FunctionComponent<Props> = (props) => {
           title="Filter before"
           onClick={() => onArrowUpwardClick && onArrowUpwardClick(item)}
         >
-          <ArrowUpward />
+          <ArrowUpward fontSize="small" />
         </IconButton>
       </ListItemSecondaryAction>
     </ListItem>
