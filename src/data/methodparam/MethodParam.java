@@ -35,7 +35,7 @@ public class MethodParam {
 				try {
 					if (f.isFile()) {
 						//@TODO edit hashmap key
-						//System.out.println("path:::" + f.getName());
+						System.out.println("path:::" + f.getParent());
 						this.fileMethodParamMap.put(f.getName(), getFileInfo(f));
 					} else {
 						getDirInfo(f);

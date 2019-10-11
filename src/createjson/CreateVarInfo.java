@@ -26,7 +26,6 @@ public class CreateVarInfo implements ICreateJson {
 	}
 
 	private List<VarInfoJson> createjsonList() {
-
 		List<VarInfoJson> jsonList = new ArrayList<>();
 		String[] prevClassName = { "" };
 		String[] prevMethodName = { "" };
@@ -34,33 +33,67 @@ public class CreateVarInfo implements ICreateJson {
 
 		Map<String, Integer> varCountinLineMap = new HashMap<>();
 		List<VarInfoJson> tmpJsonList = new ArrayList<>();
-		selfiles.getDataidMaps().getDataidVarMap().keySet()
-				.stream()
-				.sorted(Comparator.comparing(d -> Integer.parseInt(d)))
-				.forEach(d -> {
-					String className = selfiles.getDataidMaps().getDataidClassMap().get(d);
-					String methodName = selfiles.getDataidMaps().getDataidMethodMap().get(d);
-					String linenum = selfiles.getDataidMaps().getDataidLinenumMap().get(d);
-					if (!(prevClassName[0].equals(className) && prevMethodName[0].equals(methodName)
-							&& prevLinenum[0].equals(linenum))) {
-						if (tmpJsonList.size() != 0) {
-							addJsonList(jsonList, tmpJsonList, varCountinLineMap);
-						}
-						varCountinLineMap.clear();
-					}
-					VarInfo fieldInfo = selfiles.getDataidMaps().getDataidVarMap().get(d);
-					String var = fieldInfo.getFieldname();
-					VarInfoJson json = setJson(d, className, methodName, var, linenum, fieldInfo.getInst());
-					tmpJsonList.add(json);
-					if (fieldInfo.getInst().equals("P")) {
-						addJsonList(jsonList, tmpJsonList, varCountinLineMap);
-					}
-					updatePrev(prevClassName, prevMethodName, prevLinenum, className, methodName, linenum);
-				});
+
+		List<String> sortedKeyList = getSortedKeyList();
+
+		sortedKeyList.forEach(d -> {
+			String className = selfiles.getDataidMaps().getDataidClassMap().get(d);
+			String methodName = selfiles.getDataidMaps().getDataidMethodMap().get(d);
+			String linenum = selfiles.getDataidMaps().getDataidLinenumMap().get(d);
+			/*when lines changed*/
+			if (!(prevClassName[0].equals(className) && prevMethodName[0].equals(methodName)
+					&& prevLinenum[0].equals(linenum))) {
+				if (tmpJsonList.size() != 0) {
+					addJsonList(jsonList, tmpJsonList, varCountinLineMap);
+				}
+				varCountinLineMap.clear();
+			}
+			VarInfo fieldInfo = selfiles.getDataidMaps().getDataidVarMap().get(d);
+			String var = fieldInfo.getFieldname();
+			VarInfoJson json = setJson(d, className, methodName, var, linenum, fieldInfo.getInst());
+			tmpJsonList.add(json);
+			if (fieldInfo.getInst().equals("P")) {
+				addJsonList(jsonList, tmpJsonList, varCountinLineMap);
+			}
+			updatePrev(prevClassName, prevMethodName, prevLinenum, className, methodName, linenum);
+		});
 		if (tmpJsonList.size() != 0)
 			addJsonList(jsonList, tmpJsonList, varCountinLineMap);
 
 		return jsonList;
+	}
+
+	private List<String> getSortedKeyList() {
+		List<String> list = new ArrayList<String>();
+		List<String> methodVarList = new ArrayList<String>();
+		String[] prevMethodName = { "" };
+		selfiles.getDataidMaps().getDataidVarMap().keySet()
+				.stream()
+				.sorted(Comparator.comparing(d -> Integer.parseInt(d)))
+				.forEach(d -> {
+					String methodName = selfiles.getDataidMaps().getDataidMethodMap().get(d);
+					;
+					if (!(prevMethodName[0].equals(methodName))) {
+						if (methodVarList.size() != 0) {
+							methodVarList.stream()
+									.sorted(Comparator
+											.comparing(e -> Integer.parseInt(selfiles.getDataidMaps().getDataidLinenumMap().get(e))))
+									.forEach(e -> {
+										list.add(e);
+									});
+							methodVarList.clear();
+						}
+					}
+					methodVarList.add(d);
+					prevMethodName[0] = methodName;
+				});
+		methodVarList.stream()
+				.sorted(Comparator
+						.comparing(e -> selfiles.getDataidMaps().getDataidLinenumMap().get(e)))
+				.forEach(e -> {
+					list.add(e);
+				});
+		return list;
 	}
 
 	private void setVarCountinLineMap(Map<String, Integer> varCountinLineMap, String var) {
