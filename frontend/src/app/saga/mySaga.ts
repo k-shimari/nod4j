@@ -33,6 +33,7 @@ function createVarValueData(
   let result: any = {};
   const model = new VarListDataModel(data);
   const ds = model.getDataOfFile(file);
+
   for (const d of ds) {
     const item: ValueListItemData[] = d.valueList.map((x, index) => ({
       id: index.toString(),
@@ -101,6 +102,8 @@ function* requestValueListFilterChange(
 function* requestSourceCodeData(action: ReturnType<typeof nod3vActions.requestSourceCodeData>) {
   const { projectName, target } = action.payload!;
   const { dirs, file } = target;
+  const filepath = dirs.slice(1).join("/")+"/"+file;
+  
 
   const api = new nod3vApi();
   const project: ProjectModel | undefined = yield call(() => api.fetchFileInfo(projectName));
@@ -122,7 +125,7 @@ function* requestSourceCodeData(action: ReturnType<typeof nod3vActions.requestSo
   );
 
   const varListJsonData: VarListJsonData = yield call(() => api.fetchVarInfo(projectName));
-  const varValueData = createVarValueData(varListJsonData, file, tokens);
+  const varValueData = createVarValueData(varListJsonData, filepath, tokens);
 
   yield put(
     nod3vActions.setOriginalValueListData({

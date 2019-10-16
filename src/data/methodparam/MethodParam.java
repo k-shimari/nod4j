@@ -38,7 +38,7 @@ public class MethodParam {
 						String packageName = f.getParent().replace("\\", "/");
 						String filePath = packageName.replace(pathProject + "/", "").replaceFirst("^src\\/","").replaceFirst("^test\\/","")
 								+"/"+ f.getName().replace(".java", "");
-						System.out.println(filePath);
+						System.out.println("filePath:::"+filePath);
 						this.fileMethodParamMap.put(filePath, getFileInfo(f));
 					} else {
 						getDirInfo(f);
