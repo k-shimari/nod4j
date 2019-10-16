@@ -37,7 +37,9 @@ public class CreateVarInfo implements ICreateJson {
 		List<String> sortedKeyList = getSortedKeyList();
 
 		sortedKeyList.forEach(d -> {
-			String className = selfiles.getDataidMaps().getDataidClassMap().get(d);
+			String className = selfiles.getDataidMaps().getDataidClassMap().get(d)
+					//.substring(selfiles.getDataidMaps().getDataidClassMap().get(d).lastIndexOf("/")+1)
+					+".java";
 			String methodName = selfiles.getDataidMaps().getDataidMethodMap().get(d);
 			String linenum = selfiles.getDataidMaps().getDataidLinenumMap().get(d);
 			/*when lines changed*/

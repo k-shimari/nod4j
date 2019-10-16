@@ -20,7 +20,7 @@ export namespace UrlParser {
       throw new Error('Parse error: ' + url);
     } else {
       const [, dirs, file] = m;
-      console.log(dirs, file);
+      // console.log(dirs, file);
       const r = dirs === '' ? [] : dirs.split('/');
       return { dirs: r, file };
     }
