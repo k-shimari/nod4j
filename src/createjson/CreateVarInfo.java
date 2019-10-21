@@ -42,7 +42,7 @@ public class CreateVarInfo implements ICreateJson {
 					+ ".java";
 			String methodName = selfiles.getDataidMaps().getDataidMethodMap().get(d);
 			String linenum = selfiles.getDataidMaps().getDataidLinenumMap().get(d);
-			/*when lines changed*/
+			/*when entering next line*/
 			if (!(prevClassName[0].equals(className) && prevMethodName[0].equals(methodName)
 					&& prevLinenum[0].equals(linenum))) {
 				if (tmpJsonList.size() != 0) {
@@ -54,9 +54,6 @@ public class CreateVarInfo implements ICreateJson {
 			String var = fieldInfo.getFieldname();
 			VarInfoJson json = setJson(d, className, methodName, var, linenum, fieldInfo.getInst());
 			tmpJsonList.add(json);
-			//if (fieldInfo.getInst().equals("P")) {
-			//	addJsonList(jsonList, tmpJsonList, varCountinLineMap);
-			//}
 			updatePrev(prevClassName, prevMethodName, prevLinenum, className, methodName, linenum);
 		});
 		if (tmpJsonList.size() != 0)
@@ -99,14 +96,6 @@ public class CreateVarInfo implements ICreateJson {
 		return list;
 	}
 
-	/*	private void setVarCountinLineMap(Map<String, Integer> varCountinLineMap, String var) {
-			if (varCountinLineMap.containsKey(var)) {
-				varCountinLineMap.put(var, varCountinLineMap.get(var) + 1);
-			} else {
-				varCountinLineMap.put(var, 1);
-			}
-		}
-	*/
 	private VarInfoJson setJson(String d, String className, String methodName, String var, String linenum,
 			String inst) {
 		VarInfoJson json = new VarInfoJson(d, className, methodName, var, linenum, inst);
@@ -136,20 +125,12 @@ public class CreateVarInfo implements ICreateJson {
 			}
 			idx++;
 		}
-		/*		for (VarInfoJson json : tmpJsonList) {
-					setVarCountinLineMap(varCountinLineMap, json.getVar());
-				}
-		*/
 		tmpJsonList.clear();
 	}
 
 	/*set appearances count */
-	/* @param varCountinLineMap the map about the number of appearance a certain var at line
-	 * @param thisVarCountMap the map about the number of appearance a certain var at line in this method call
-	 * */
 	private void setCount(Map<String, Integer> varCountinLineMap,
 			VarInfoJson json, boolean isLastPut, String lastPutVar) {
-		//int prevCount = varCountinLineMap.containsKey(json.getVar()) ? varCountinLineMap.get(json.getVar()) : 0;
 		int inc = (isLastPut && lastPutVar.equals(json.getVar())) ? 1 : 0;
 		if (varCountinLineMap.containsKey(json.getVar())) {
 			if (json.getInst().equals("P")) {
