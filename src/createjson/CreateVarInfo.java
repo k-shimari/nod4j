@@ -62,6 +62,7 @@ public class CreateVarInfo implements ICreateJson {
 		return jsonList;
 	}
 
+	/*sorting by linenum*/
 	private List<String> getSortedKeyList() {
 		List<String> list = new ArrayList<String>();
 		List<String> methodVarList = new ArrayList<String>();
@@ -71,7 +72,6 @@ public class CreateVarInfo implements ICreateJson {
 				.sorted(Comparator.comparing(d -> Integer.parseInt(d)))
 				.forEach(d -> {
 					String methodName = selfiles.getDataidMaps().getDataidMethodMap().get(d);
-					;
 					if (!(prevMethodName[0].equals(methodName))) {
 						if (methodVarList.size() != 0) {
 							methodVarList.stream()
@@ -117,13 +117,13 @@ public class CreateVarInfo implements ICreateJson {
 
 		if (isLastPut)
 			lastPutVar = tmpJsonList.get(tmpJsonList.size() - 1).getVar();
-		int idx = 0;
+		//int idx = 0;
 		for (VarInfoJson json : tmpJsonList) {
-			if (json.getInst().equals("G") || idx == tmpJsonList.size() - 1) {
+		//	if (json.getInst().equals("G") || json.getInst().equals("I") || idx == tmpJsonList.size() - 1) {
 				setCount(varCountinLineMap, json, isLastPut, lastPutVar);
 				jsonList.add(json);
-			}
-			idx++;
+		//	}
+		//	idx++;
 		}
 		tmpJsonList.clear();
 	}
