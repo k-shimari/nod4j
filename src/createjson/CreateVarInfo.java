@@ -15,6 +15,9 @@ import data.varinfo.WVarInfoJson;
 public class CreateVarInfo implements ICreateJson {
 
 	private SeloggerFiles selfiles;
+	private static final String NAMERETURN = "_return";
+	private static final String ARRAYLOAD = "_arrayLoad";
+	private static final String ARRAYSTORE = "_arrayStore";
 
 	public CreateVarInfo(SeloggerFiles selfiles) {
 		this.selfiles = selfiles;
@@ -54,6 +57,7 @@ public class CreateVarInfo implements ICreateJson {
 			VarInfoJson json = setJson(d, className, methodName, var, linenum, fieldInfo.getInst());
 			if(!json.getValueList().isEmpty())
 				tmpJsonList.add(json);
+
 			updatePrev(prevClassName, prevMethodName, prevLinenum, className, methodName, linenum);
 		});
 		if (!tmpJsonList.isEmpty())
@@ -123,7 +127,13 @@ public class CreateVarInfo implements ICreateJson {
 		//int idx = 0;
 		for (VarInfoJson json : tmpJsonList) {
 			//	if (json.getInst().equals("G") || json.getInst().equals("I") || idx == tmpJsonList.size() - 1) {
-			setCount(varCountinLineMap, json, isLastPut, lastPutVar);
+			if(!(json.getVar().equals(NAMERETURN)||json.getVar().equals(ARRAYLOAD)||json.getVar().equals(ARRAYSTORE))) {
+				setCount(varCountinLineMap, json, isLastPut, lastPutVar);
+			}
+			/*for variable only recording as json*/
+			else {
+				json.setCount(-1);
+			}
 			jsonList.add(json);
 			//	}
 			//	idx++;
