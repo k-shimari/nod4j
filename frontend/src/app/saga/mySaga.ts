@@ -102,9 +102,17 @@ function* requestValueListFilterChange(
 function* requestSourceCodeData(action: ReturnType<typeof nod3vActions.requestSourceCodeData>) {
   const { projectName, target } = action.payload!;
   const { dirs, file } = target;
-  const filepath = dirs.slice(1).join("/")+"/"+file;
-  
+  let filepath;
 
+  console.log(dirs.slice(0,3).join("/"))
+  if(dirs.length >= 3 && (dirs.slice(0,3).join("/") === "src/main/java" ||dirs.slice(0,3).join("/") === "src/test/java" ||dirs.slice(0,3).join("/") === "test/main/java")) {
+      filepath =  dirs.slice(3).join("/")+"/"+file;    
+  }else if(dirs.length >= 1 && (dirs[0] === "src"||dirs[0] === "test")){
+    filepath =  dirs.slice(1).join("/")+"/"+file;
+  }else{
+    filepath = dirs.join("/")+"/"+file
+  }
+  console.log(filepath)
   const api = new nod3vApi();
   const project: ProjectModel | undefined = yield call(() => api.fetchFileInfo(projectName));
   if (!project) {

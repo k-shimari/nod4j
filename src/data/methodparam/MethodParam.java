@@ -33,12 +33,16 @@ public class MethodParam {
 		if (files != null) {
 			for (File f : files) {
 				try {
-					if (f.isFile()) {
+					if (f.isFile() && f.getName().substring(f.getName().length() - 5).equals(".java")) {
 						//@TODO edit hashmap key
 						String packageName = f.getParent().replace("\\", "/");
-						String filePath = packageName.replace(pathProject + "/", "").replaceFirst("^src\\/","").replaceFirst("^test\\/","")
-								+"/"+ f.getName().replace(".java", "");
-						System.out.println("filePath:::"+filePath);
+						String filePath = packageName.replace(pathProject + "/", "").replaceFirst("^src\\/main\\/java\\/", "")
+								.replaceFirst("^src\\/test\\/java\\/", "")
+								.replaceFirst("^test\\/main\\/java\\/", "")
+								.replaceFirst("^src\\/", "")
+								.replaceFirst("^test\\/", "")
+								+ "/" + f.getName().replace(".java", "");
+						System.out.println("filePath:::" + filePath);
 						this.fileMethodParamMap.put(filePath, getFileInfo(f));
 					} else {
 						getDirInfo(f);
@@ -75,7 +79,7 @@ public class MethodParam {
 	private String[] rewriteLine(String[] elem) {
 		if (classIDClassMap.containsKey(elem[1])) {
 			String classname = classIDClassMap.get(elem[1]);
-					System.out.println("class:::" + classname);
+			System.out.println("class:::" + classname);
 			if (fileMethodParamMap.containsKey(classname)) {
 				List<ParamInfo> list = fileMethodParamMap.get(classname);
 				if (!list.isEmpty()) {

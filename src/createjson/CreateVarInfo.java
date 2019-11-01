@@ -33,7 +33,6 @@ public class CreateVarInfo implements ICreateJson {
 
 		//Map<String, Integer> varCountinLineMap = new HashMap<>();
 		List<VarInfoJson> tmpJsonList = new ArrayList<>();
-
 		List<String> sortedKeyList = getSortedKeyList();
 
 		sortedKeyList.forEach(d -> {
@@ -53,10 +52,11 @@ public class CreateVarInfo implements ICreateJson {
 			VarInfo fieldInfo = selfiles.getDataidMaps().getDataidVarMap().get(d);
 			String var = fieldInfo.getFieldname();
 			VarInfoJson json = setJson(d, className, methodName, var, linenum, fieldInfo.getInst());
-			tmpJsonList.add(json);
+			if(!json.getValueList().isEmpty())
+				tmpJsonList.add(json);
 			updatePrev(prevClassName, prevMethodName, prevLinenum, className, methodName, linenum);
 		});
-		if (tmpJsonList.size() != 0)
+		if (!tmpJsonList.isEmpty())
 			addJsonList(jsonList, tmpJsonList);
 
 		return jsonList;
@@ -72,20 +72,23 @@ public class CreateVarInfo implements ICreateJson {
 				.sorted(Comparator.comparing(d -> Integer.parseInt(d)))
 				.forEach(d -> {
 					String methodName = selfiles.getDataidMaps().getDataidMethodMap().get(d);
-					if (!(prevMethodName[0].equals(methodName))) {
-						if (methodVarList.size() != 0) {
-							methodVarList.stream()
-									.sorted(Comparator
-											.comparing(e -> Integer
-													.parseInt(selfiles.getDataidMaps().getDataidLinenumMap().get(e))))
-									.forEach(e -> {
-										list.add(e);
-									});
-							methodVarList.clear();
+					if (methodName != null) {
+						if (!(prevMethodName[0].equals(methodName))) {
+							if (methodVarList.size() != 0) {
+								methodVarList.stream()
+										.sorted(Comparator
+												.comparing(e -> Integer
+														.parseInt(
+																selfiles.getDataidMaps().getDataidLinenumMap().get(e))))
+										.forEach(e -> {
+											list.add(e);
+										});
+								methodVarList.clear();
+							}
 						}
+						methodVarList.add(d);
+						prevMethodName[0] = methodName;
 					}
-					methodVarList.add(d);
-					prevMethodName[0] = methodName;
 				});
 		methodVarList.stream()
 				.sorted(Comparator
@@ -119,11 +122,11 @@ public class CreateVarInfo implements ICreateJson {
 			lastPutVar = tmpJsonList.get(tmpJsonList.size() - 1).getVar();
 		//int idx = 0;
 		for (VarInfoJson json : tmpJsonList) {
-		//	if (json.getInst().equals("G") || json.getInst().equals("I") || idx == tmpJsonList.size() - 1) {
-				setCount(varCountinLineMap, json, isLastPut, lastPutVar);
-				jsonList.add(json);
-		//	}
-		//	idx++;
+			//	if (json.getInst().equals("G") || json.getInst().equals("I") || idx == tmpJsonList.size() - 1) {
+			setCount(varCountinLineMap, json, isLastPut, lastPutVar);
+			jsonList.add(json);
+			//	}
+			//	idx++;
 		}
 		tmpJsonList.clear();
 	}

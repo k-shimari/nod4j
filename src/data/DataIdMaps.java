@@ -29,7 +29,8 @@ public class DataIdMaps {
 				classIDClassMap.put(ele[0], ele[2]);
 				methodIDMethodMap.put(ele[1], ele[3]);
 			} else {
-				System.err.println("DataIdMaps.java createNameMap: ele.length < 3");
+
+				System.err.println("DataIdMaps.java createNameMap: ele.length < 3 " + line);
 			}
 		}
 	}
@@ -42,7 +43,7 @@ public class DataIdMaps {
 				dataidMethodMap.put(ele[0], methodIDMethodMap.get(ele[2]));
 				dataidLinenumMap.put(ele[0], ele[3]);
 			} else {
-				System.err.println("DataIdMaps.java createIDMap: ele.length < 3");
+				System.err.println("DataIdMaps.java createIDMap: ele.length < 3 ");
 			}
 		}
 	}
