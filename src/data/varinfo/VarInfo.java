@@ -10,6 +10,9 @@ public class VarInfo {
 	private static final int FIELDNAMEINDEX = 10;
 	private static final int PARAMNAMEINDEX = 10;
 	private static final int NAMEINDEX = 5;
+	private static final String NAMERETURN = "_return";
+	private static final String ARRAYLOAD = "_arrayLoad";
+	private static final String ARRAYSTORE = "_arrayStore";
 
 	public VarInfo() {
 	}
@@ -41,9 +44,30 @@ public class VarInfo {
 			this.inst = "I";
 			/*SELoggerの使用で局所変数で名前がないものが取れるので無視*/
 			this.isFail = fieldname.equals("(Unavailable)");
-		} else if (elemdat[5].equals("METHOD_PARAM")) {
+		} else if (elemdat[5].equals("METHOD_PARAM") && elemdat[6].startsWith("ParamName=")) {
 			/*use value processed in MethodParam.java*/
 			this.fieldname = elemdat[6].substring(PARAMNAMEINDEX);
+			this.inst = "G";
+			this.isFail = false;
+		}
+		/*not for view but for logs*/
+		else if (elemdat[5].equals("ARRAY_LOAD_RESULT")) {
+			this.fieldname = ARRAYLOAD;
+			this.inst = "G";
+			this.isFail = false;
+		} else if (elemdat[5].equals("ARRAY_STORE_VALUE")) {
+			/*use value processed in MethodParam.java*/
+			this.fieldname = ARRAYSTORE;
+			this.inst = "P";
+			this.isFail = false;
+		} else if (elemdat[5].equals("ARRAY_LENGTH_RESULT")) {
+			/*use value processed in MethodParam.java*/
+			this.fieldname = NAMERETURN;
+			this.inst = "G";
+			this.isFail = false;
+		} else if (elemdat[5].equals("CALL_RETURN")) {
+			/*use value processed in MethodParam.java*/
+			this.fieldname = NAMERETURN;
 			this.inst = "G";
 			this.isFail = false;
 		} else {

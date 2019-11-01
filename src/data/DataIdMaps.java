@@ -64,8 +64,6 @@ public class DataIdMaps {
 	private void createVarInfoMap(List<String> linesDataids) {
 		for (String linedat : linesDataids) {
 			String elemdat[] = linedat.split(",");
-			if (!linedat.contains("Name"))
-				continue;
 			VarInfo fi = new VarInfo(elemdat);
 			if (fi.getisFail())
 				continue;
