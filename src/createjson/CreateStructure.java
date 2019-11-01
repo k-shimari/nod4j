@@ -2,6 +2,7 @@ package createjson;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -23,7 +24,9 @@ public class CreateStructure implements ICreateJson {
 	}
 
 	private FileInfoJson getFileInfo(File f) throws IOException {
-		ArrayList<String> tmplist = (ArrayList<String>) Files.readAllLines(Paths.get(f.getPath()));
+		System.out.println(f.getPath());
+		ArrayList<String> tmplist;
+		tmplist = (ArrayList<String>) Files.readAllLines(Paths.get(f.getPath()),StandardCharsets.UTF_8);
 		ArrayList<String> list = new ArrayList<String>();
 		for (String s : tmplist) {
 			list.add(s.replace("\"", "\\\""));
@@ -38,7 +41,7 @@ public class CreateStructure implements ICreateJson {
 		if (files != null) {
 			for (File f : files) {
 				try {
-					if (f.isFile()) {
+					if (f.isFile() && f.getName().substring(f.getName().length()-5).equals(".java")) {
 						list.add(getFileInfo(f));
 					} else {
 						list.add(getDirInfo(f));
