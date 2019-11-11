@@ -1,5 +1,5 @@
-import { Divider, makeStyles, Paper, Typography } from '@material-ui/core';
-import { nod3vActions, TimestampRangeFilterKind } from 'app/actions';
+import { makeStyles, Paper } from '@material-ui/core';
+import { nod3vActions} from 'app/actions';
 import { ContentContainer } from 'app/components/atoms/contentContainer';
 import { PathNavigation } from 'app/components/organisms/pathNavigation';
 import { JsonLogs } from 'app/components/jsonLog';
@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as _ from 'lodash';
 import * as React from 'react';
 import useReactRouter from 'use-react-router';
-import { VarInfo } from 'app/models/varListData';
+
 
 
 
@@ -32,7 +32,6 @@ export function LogsContainer() {
     const nod3vState = useSelector<RootState, RootState.nod3vState>((state) => state.nod3v);
 
     const dispatch = useDispatch();
-    //  const files = useSelector<RootState, RootState.FilesState>((state) => state.nod3v.files);
     const classes = useStyles();
     const { location, match } = useReactRouter<{ projectName: string }>();
     const currentUrl = location.pathname;

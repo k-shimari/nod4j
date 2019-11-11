@@ -9,7 +9,6 @@ interface Props {
 export function JsonLogs(props: Props) {
   const { data } = props;
 
-
   return (
     <div>
       <pre>
