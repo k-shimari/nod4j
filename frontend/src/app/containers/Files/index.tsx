@@ -19,7 +19,6 @@ export function FilesContainer() {
 
   React.useEffect(() => {
     const directory = UrlParser.matchDirOfProjectUrl(location.pathname);
-
     dispatch(nod3vActions.requestFiles({ projectName, directory }));
   }, []);
 

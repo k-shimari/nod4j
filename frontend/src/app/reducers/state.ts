@@ -2,6 +2,7 @@ import { ProjectInfo } from 'app/models/api';
 import { ProjectItem } from 'app/models/project';
 import { SourceCodeToken } from 'app/models/token';
 import { VarValueData } from 'app/models/varValueData';
+import { VarInfo } from 'app/models/varListData';
 
 export interface RootState {
   nod3v: RootState.nod3vState;
@@ -38,5 +39,6 @@ export namespace RootState {
     filteredValueListData: VarValueData;
     files: FilesState;
     sourceCodeTokens: SourceCodeToken[] | undefined;
+    recentdata: VarInfo[] | undefined;
   }
 }

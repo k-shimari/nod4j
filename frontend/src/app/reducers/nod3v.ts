@@ -1,4 +1,5 @@
 import { nod3vActions } from 'app/actions';
+//import { VarInfo } from 'app/models/varListData';
 import { VarValueData } from 'app/models/varValueData';
 import { handleActions } from 'redux-actions';
 import { RootState } from './index';
@@ -15,7 +16,8 @@ const initialState: RootState.nod3vState = {
     items: [],
     loading: true
   },
-  sourceCodeTokens: undefined
+  sourceCodeTokens: undefined,
+  recentdata:  undefined
 };
 
 export const nod3vReducer = handleActions<RootState.nod3vState, any>(
@@ -78,6 +80,23 @@ export const nod3vReducer = handleActions<RootState.nod3vState, any>(
         sourceCodeTokens: tokens
       };
     },
+ /*   [nod3vActions.Type.REQUEST_JSON]: (state) => {
+      return {
+       ...state,
+       recentdata: {
+          ...state.recentdata
+      }
+     };
+   },
+ */
+   [nod3vActions.Type.SET_VAR_LIST_JSON_DATA]: (state, action) => {
+      const { data } = action.payload! as nod3vActions.Payload.SetVarListJsonData;
+      return {
+        ...state,
+        recentdata: data
+      };
+    },
+
     [nod3vActions.Type.SET_PROJECTS]: (state, action) => {
       const { projects } = action.payload! as nod3vActions.Payload.SetProjects;
 

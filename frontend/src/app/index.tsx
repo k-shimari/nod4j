@@ -1,6 +1,7 @@
 import { App as nod3vApp } from 'app/containers/App';
 import { FilesContainer } from 'app/containers/Files';
 import { ViewContainer } from 'app/containers/View';
+import { LogsContainer } from 'app/containers/Logs';
 import * as React from 'react';
 import { hot } from 'react-hot-loader';
 import { Route } from 'react-router-dom';
@@ -14,5 +15,6 @@ export const App = hot(module)(() => (
     <Route exact path="/open" component={OpenProject} />
     <Route path="/project/:projectName/files" component={FilesContainer} />
     <Route path="/project/:projectName/view" component={ViewContainer} />
+    <Route path="/project/:projectName/logs" component={LogsContainer} />
   </div>
 ));
