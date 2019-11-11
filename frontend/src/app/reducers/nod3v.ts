@@ -80,15 +80,6 @@ export const nod3vReducer = handleActions<RootState.nod3vState, any>(
         sourceCodeTokens: tokens
       };
     },
- /*   [nod3vActions.Type.REQUEST_JSON]: (state) => {
-      return {
-       ...state,
-       recentdata: {
-          ...state.recentdata
-      }
-     };
-   },
- */
    [nod3vActions.Type.SET_VAR_LIST_JSON_DATA]: (state, action) => {
       const { data } = action.payload! as nod3vActions.Payload.SetVarListJsonData;
       return {

@@ -39,13 +39,10 @@ export function LogsContainer() {
     const { dirs, file } = UrlParser.matchDirAndFileOfLogsUrl(currentUrl);
     const { projectName } = match.params;
 
-
     React.useEffect(() => {
         dispatch(nod3vActions.requestJson({ projectName, target: { dirs, file } }));
     }, []);
-
     const data = nod3vState.recentdata;
-
 
     return data ? (
         <ContentContainer>

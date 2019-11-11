@@ -1,8 +1,4 @@
-import { SourceCodeToken } from 'app/models/token';
 import * as React from 'react';
-import { interval, Subject } from 'rxjs';
-import { debounce } from 'rxjs/operators';
-
 import { Line } from './line';
 import { VarInfo } from 'app/models/varListData';
 
@@ -17,10 +13,9 @@ export function JsonLogs(props: Props) {
   return (
     <div>
       <pre>
-        <code>          
-          {data.map((data, index) => (
+        <code>
+          {data.map((data) => (
             <Line
-              line={index + 1}
               data={data}
             >
             </Line>
