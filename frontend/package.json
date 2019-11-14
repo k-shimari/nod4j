@@ -93,6 +93,7 @@
     "redux-actions": "^2.6.4",
     "redux-saga": "^1.0.2",
     "rxjs": "^6.5.2",
+    "ts-node": "^8.4.1",
     "urijs": "^1.19.1",
     "use-react-router": "^1.0.7"
   }

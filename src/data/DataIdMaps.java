@@ -8,8 +8,8 @@ import java.util.Map;
 import data.varinfo.VarInfo;
 
 public class DataIdMaps {
-	private Map<String, String> ClassIDClassMap = new HashMap<>();;
-	private Map<String, String> MethodIDMethodMap = new HashMap<>();
+	private Map<String, String> classIDClassMap = new HashMap<>();;
+	private Map<String, String> methodIDMethodMap = new HashMap<>();
 	private Map<String, String> dataidClassMap = new HashMap<>();;
 	private Map<String, String> dataidMethodMap = new HashMap<>();
 	private Map<String, String> dataidLinenumMap = new HashMap<>();
@@ -17,7 +17,6 @@ public class DataIdMaps {
 	private Map<String, VarInfo> dataidVarMap = new HashMap<>();
 
 	public void createMap(List<String> linesDataids, List<String> linesMethods, List<String> linesRecentdata) {
-		createNameMap(linesMethods);
 		createIDMap(linesDataids);
 		createRecentdataMap(linesRecentdata);
 		createVarInfoMap(linesDataids);
@@ -27,10 +26,11 @@ public class DataIdMaps {
 		for (String line : linesMethods) {
 			String ele[] = line.split(",");
 			if (ele.length > 6) {
-				ClassIDClassMap.put(ele[0], ele[6]);
-				MethodIDMethodMap.put(ele[1], ele[3]);
+				classIDClassMap.put(ele[0], ele[2]);
+				methodIDMethodMap.put(ele[1], ele[3]);
 			} else {
-				System.err.println("DataIdMaps.java createNameMap: ele.length < 3");
+
+				System.err.println("DataIdMaps.java createNameMap: ele.length < 3 " + line);
 			}
 		}
 	}
@@ -39,11 +39,11 @@ public class DataIdMaps {
 		for (String line : linesDataids) {
 			String ele[] = line.split(",");
 			if (ele.length > 3) {
-				dataidClassMap.put(ele[0], ClassIDClassMap.get(ele[1]));
-				dataidMethodMap.put(ele[0], MethodIDMethodMap.get(ele[2]));
+				dataidClassMap.put(ele[0], classIDClassMap.get(ele[1]));
+				dataidMethodMap.put(ele[0], methodIDMethodMap.get(ele[2]));
 				dataidLinenumMap.put(ele[0], ele[3]);
 			} else {
-				System.err.println("DataIdMaps.java createIDMap: ele.length < 3");
+				System.err.println("DataIdMaps.java createIDMap: ele.length < 3 ");
 			}
 		}
 	}
@@ -64,8 +64,6 @@ public class DataIdMaps {
 	private void createVarInfoMap(List<String> linesDataids) {
 		for (String linedat : linesDataids) {
 			String elemdat[] = linedat.split(",");
-			if (!linedat.contains("Name"))
-				continue;
 			VarInfo fi = new VarInfo(elemdat);
 			if (fi.getisFail())
 				continue;
@@ -93,4 +91,13 @@ public class DataIdMaps {
 	public Map<String, List<Recentdata>> getDataidRecentdataMap() {
 		return dataidRecentdataMap;
 	}
+
+	public Map<String, String> getMethodIDMethodMap() {
+		return methodIDMethodMap;
+	}
+
+	public Map<String, String> getClassIDClassMap() {
+		return classIDClassMap;
+	}
+
 }

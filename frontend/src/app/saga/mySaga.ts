@@ -13,6 +13,7 @@ import { TimeStampRangeFilter, TimestampRangeFilterContext } from 'app/reducers/
 import { store } from 'app/store';
 import * as _ from 'lodash';
 import { call, delay, put, select, takeEvery } from 'redux-saga/effects';
+import { JsonLogs } from 'app/components/jsonLog';
 
 function computeTokenId(variable: VarInfo, tokens: SourceCodeToken[]): string {
   const { linenum, count, var: varName } = variable;
@@ -33,6 +34,7 @@ function createVarValueData(
   let result: any = {};
   const model = new VarListDataModel(data);
   const ds = model.getDataOfFile(file);
+
   for (const d of ds) {
     const item: ValueListItemData[] = d.valueList.map((x, index) => ({
       id: index.toString(),
@@ -50,6 +52,7 @@ function createVarValueData(
 
   return new VarValueData(result);
 }
+
 
 function* requestFiles(action: ReturnType<typeof nod3vActions.requestFiles>) {
   const { projectName, directory } = action.payload!;
@@ -101,6 +104,16 @@ function* requestValueListFilterChange(
 function* requestSourceCodeData(action: ReturnType<typeof nod3vActions.requestSourceCodeData>) {
   const { projectName, target } = action.payload!;
   const { dirs, file } = target;
+  let filepath;
+
+  console.log(dirs.slice(0, 3).join("/"))
+  if (dirs.length >= 3 && (dirs.slice(0, 3).join("/") === "src/main/java" || dirs.slice(0, 3).join("/") === "src/test/java" || dirs.slice(0, 3).join("/") === "test/main/java")) {
+    filepath = dirs.slice(3).join("/") + "/" + file;
+  } else if (dirs.length >= 1 && (dirs[0] === "src" || dirs[0] === "test")) {
+    filepath = dirs.slice(1).join("/") + "/" + file;
+  } else {
+    filepath = dirs.join("/") + "/" + file
+  }
 
   const api = new nod3vApi();
   const project: ProjectModel | undefined = yield call(() => api.fetchFileInfo(projectName));
@@ -122,7 +135,7 @@ function* requestSourceCodeData(action: ReturnType<typeof nod3vActions.requestSo
   );
 
   const varListJsonData: VarListJsonData = yield call(() => api.fetchVarInfo(projectName));
-  const varValueData = createVarValueData(varListJsonData, file, tokens);
+  const varValueData = createVarValueData(varListJsonData, filepath, tokens);
 
   yield put(
     nod3vActions.setOriginalValueListData({
@@ -135,6 +148,47 @@ function* requestSourceCodeData(action: ReturnType<typeof nod3vActions.requestSo
     })
   );
 }
+
+
+function* requestJson(action: ReturnType<typeof nod3vActions.requestJson>) {
+  const { projectName, target } = action.payload!;
+  const { dirs, file } = target;
+  const api = new nod3vApi();
+
+  let filepath;
+
+  console.log(dirs.slice(0, 3).join("/"))
+  if (dirs.length >= 3 && (dirs.slice(0, 3).join("/") === "src/main/java" || dirs.slice(0, 3).join("/") === "src/test/java" || dirs.slice(0, 3).join("/") === "test/main/java")) {
+    filepath = dirs.slice(3).join("/") + "/" + file;
+  } else if (dirs.length >= 1 && (dirs[0] === "src" || dirs[0] === "test")) {
+    filepath = dirs.slice(1).join("/") + "/" + file;
+  } else {
+    filepath = dirs.join("/") + "/" + file
+  }
+
+  const varListJsonData: VarListJsonData = yield call(() => api.fetchVarInfo(projectName));
+  const model = new VarListDataModel(varListJsonData);
+
+
+  const ds = model.getDataOfFile(filepath);
+
+  console.log("-----------s");
+  //console.log("json:");
+  //console.log(varListJsonData);
+  console.log("model:");
+  console.log(model);
+  console.log("filepath:");  
+  console.log(filepath);  
+  console.log("ds:");
+  console.log(ds);
+  console.log("-----------e");
+  yield put(
+    nod3vActions.setVarListJsonData({
+      data: ds
+    })
+  );
+}
+
 
 function* dummyWorker() {
   yield put(nod3vActions.dummyAction());
@@ -204,6 +258,8 @@ function* mySaga() {
   yield takeEvery(nod3vActions.requestFiles, requestFiles);
   yield takeEvery(nod3vActions.requestValueListFilterChange, requestValueListFilterChange);
   yield takeEvery(nod3vActions.requestSourceCodeData, requestSourceCodeData);
+  yield takeEvery(nod3vActions.requestJson, requestJson);
+  
   yield takeEvery(nod3vActions.clearLocalStorage, clearLocalStorage);
   yield takeEvery(nod3vActions.loadInitialValueListFilter, loadInitialValueListFilter);
   yield takeEvery(nod3vActions.initViewPage, initViewPage);

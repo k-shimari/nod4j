@@ -1,9 +1,11 @@
 import { ProjectInfo } from 'app/models/api';
 import { ProjectItem } from 'app/models/project';
 import { SourceCodeToken } from 'app/models/token';
+//import { JsonLogs } from 'app/models/json';
 import { VarValueData } from 'app/models/varValueData';
 import { TimestampRangeFilterContext } from 'app/reducers/state';
 import { createAction } from 'redux-actions';
+import { VarInfo } from 'app/models/varListData';
 
 export type TimestampRangeFilterKind = 'left' | 'right';
 export type Directory = string[];
@@ -36,6 +38,10 @@ export namespace nod3vActions {
     // Source code系
     REQUEST_SOURCE_CODE_DATA = 'REQUEST_SOURCE_CODE_DATA',
     SET_SOURCE_CODE_DATA = 'SET_SOURCE_CODE_DATA',
+
+    // Logs系
+    REQUEST_JSON = 'REQUEST_JSON',
+    SET_VAR_LIST_JSON_DATA = 'SET_VAR_LIST_JSON_DATA',
 
     // Debug系
     CLEAR_LOCAL_STORAGE = 'CLEAR_LOCAL_STORAGE',
@@ -85,6 +91,7 @@ export namespace nod3vActions {
       projectName: string;
       directory: Directory;
     }
+    
 
     export interface SetFilesDataPayload {
       dirs: string[];
@@ -101,6 +108,18 @@ export namespace nod3vActions {
 
     export interface SetSourceCodeData {
       tokens: SourceCodeToken[];
+    }
+
+    export interface RequestJson {
+      projectName: string;
+      target: {
+        dirs: string[];
+        file: string;
+      };
+    }
+
+    export interface SetVarListJsonData {
+      data: VarInfo[];
     }
 
     export interface InitViewPage {
@@ -151,6 +170,10 @@ export namespace nod3vActions {
   export const SetSourceCodeData = createAction<Payload.SetSourceCodeData>(
     Type.SET_SOURCE_CODE_DATA
   );
+
+  //JsonLog系
+  export const requestJson = createAction<Payload.RequestJson>(Type.REQUEST_JSON);
+  export const setVarListJsonData = createAction<Payload.SetVarListJsonData>(Type.SET_VAR_LIST_JSON_DATA);
 
   // Debug系
   export const clearLocalStorage = createAction(Type.CLEAR_LOCAL_STORAGE);
