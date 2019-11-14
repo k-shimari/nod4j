@@ -131,7 +131,7 @@ export function ViewContainer() {
 
     <div>
         <Button className={classes.button} href={props.logUrl} target="_blank" rel="noopener">
-          Logs
+          All Logs
         </Button>
     </div>
   
