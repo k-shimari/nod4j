@@ -13,7 +13,8 @@ import * as _ from 'lodash';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useReactRouter from 'use-react-router';
-
+import Button from '@material-ui/core/Button';
+  
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(2),
@@ -26,6 +27,12 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
     marginBottom: theme.spacing(2)
+  },
+  button: {
+    margin: theme.spacing(1),
+  },
+  input: {
+    display: 'none',
   }
 }));
 
@@ -35,6 +42,7 @@ export function ViewContainer() {
   const classes = useStyles();
   const { location, match } = useReactRouter<{ projectName: string }>();
   const currentUrl = location.pathname;
+  const logUrl = currentUrl.replace(/\/view/, '/logs');
   const { dirs, file } = UrlParser.matchDirAndFileOfViewUrl(currentUrl);
   const { projectName } = match.params;
 
@@ -113,6 +121,22 @@ export function ViewContainer() {
     );
   }
 
+
+
+  interface LogUrlProps {
+    logUrl: string;
+  }
+
+  const LogUrl: React.FunctionComponent<LogUrlProps> = (props) => (
+
+    <div>
+        <Button className={classes.button} href={props.logUrl} target="_blank" rel="noopener">
+          All Logs
+        </Button>
+    </div>
+  
+  );
+
   return tokens ? (
     <ContentContainer>
       <PathNavigation projectName={projectName} items={[...dirs, file]} />
@@ -126,6 +150,9 @@ export function ViewContainer() {
             {renderFilterChip('right')}
           </div>
         </div>
+        <Divider />
+        <LogUrl logUrl={logUrl} /> 
+
         <Divider />
         <Sourcecode
           currentFilterValue={nod3vState.filter.range}

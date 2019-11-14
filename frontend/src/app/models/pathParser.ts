@@ -25,4 +25,19 @@ export namespace UrlParser {
       return { dirs: r, file };
     }
   }
+
+  export function matchDirAndFileOfLogsUrl(url: string): { dirs: Directory; file: string } {
+    const regex = /^\/project\/[0-9A-Za-z_-]+\/logs\/?(.*)\/([^\/]+)$/;
+    const m = url.match(regex);
+    if (m === null) {
+      throw new Error('Parse error: ' + url);
+    } else {
+      const [, dirs, file] = m;
+      // console.log(dirs, file);
+      const r = dirs === '' ? [] : dirs.split('/');
+      return { dirs: r, file };
+    }
+  }
+
+
 }
