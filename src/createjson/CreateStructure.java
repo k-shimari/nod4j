@@ -11,8 +11,10 @@ import data.fileinfo.FileInfoJson;
 
 public class CreateStructure implements ICreateJson {
 	private String targetDir;
-	private static final String TYPEFILE = "file";
 	private static final String TYPEDIR = "dir";
+	private static final String TYPEFILE = "file";
+//	private static final String TYPEJAVAFILE = "javafile";
+//	private static final String _JAVAFILE = ".java";
 
 	public CreateStructure(String dir) {
 		this.targetDir = dir;
@@ -41,8 +43,10 @@ public class CreateStructure implements ICreateJson {
 		if (files != null) {
 			for (File f : files) {
 				try {
-					if (f.isFile() && f.getName().substring(f.getName().length()-5).equals(".java")) {
-						list.add(getFileInfo(f));
+					if (f.isFile()) {
+//						if(f.getName().substring(f.getName().length()-5).equals(_JAVAFILE)) {
+							list.add(getFileInfo(f));
+//						}
 					} else {
 						list.add(getDirInfo(f));
 					}
