@@ -13,8 +13,9 @@ export function JsonLogs(props: Props) {
     <div>
       <pre>
         <code>
-          {data.map((data) => (
+          {data.map((data,index) => (
             <Line
+              key={index+1}
               data={data}
             >
             </Line>
