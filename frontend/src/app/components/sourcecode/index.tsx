@@ -131,8 +131,8 @@ export function Sourcecode(props: Props) {
             }
           />
         ) : (
-          <span> </span>
-        )}
+            <span> </span>
+          )}
       </Popper>
     </div>
   );
