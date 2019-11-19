@@ -167,7 +167,8 @@ public class CreateVarInfo implements ICreateJson {
 		List<Recentdata> valueList = new ArrayList<Recentdata>();
 		if (recdatamap.containsKey(d)) {
 			for (Recentdata r : recdatamap.get(d)) {
-				r.setData(r.getData().replace("\"", "\\\""));
+				r.setData(r.getData().replace("\"", "\\\"").replace("\u2028","\\u2028").replace("\u2029","\\u2029"));
+
 				valueList.add(r);
 			}
 		}
