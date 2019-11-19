@@ -80,7 +80,7 @@
     "express": "^4.17.1",
     "history": "^4.10.1",
     "java-parser": "^0.3.2",
-    "json5": "^2.1.1",
+    "json5": "2.1.0",
     "localforage": "^1.7.3",
     "localforage-observable": "^2.0.0",
     "lodash": "^4.17.15",
