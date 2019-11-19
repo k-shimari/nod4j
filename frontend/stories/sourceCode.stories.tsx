@@ -38,7 +38,7 @@ storiesOf('Source code', module)
     />
   ))
   .add('Line', () => (
-    <Line line={0} tokens={JavaLexer.tokenize(javaText2)} data={new VarValueData({})} />
+    <Line key={0} line={0} tokens={JavaLexer.tokenize(javaText2)} data={new VarValueData({})} />
   ))
   .add('Token', () => (
     <Token id="1" highlighted={false}>
