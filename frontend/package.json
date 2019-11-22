@@ -7,7 +7,7 @@
   "scripts": {
     "predeploy": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --mode development --hot --progress --color --port 3000 --open",
+    "start": "webpack-dev-server --mode development --hot --progress --color --port 3000 --open --max_old_space_size=2048 --gc_interval=100",
     "build": "webpack -p --progress --colors",
     "prettier": "prettier --write \"src/**/*.{ts,tsx,css}\"",
     "server": "nodemon ./scripts/server.ts --exec ts-node",
@@ -79,7 +79,7 @@
     "copy-webpack-plugin": "^5.0.5",
     "express": "^4.17.1",
     "history": "^4.10.1",
-    "java-parser": "^0.3.2",
+    "java-parser": "^0.4.0",
     "json5": "2.1.0",
     "localforage": "^1.7.3",
     "localforage-observable": "^2.0.0",

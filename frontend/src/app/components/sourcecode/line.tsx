@@ -3,6 +3,7 @@ import { VarValueData } from 'app/models/varValueData';
 import * as React from 'react';
 import { Space } from './space';
 import { Token } from './token';
+import { Comment } from './Comment';
 
 interface Props {
   onTokenEnter?(tokenId: string, target: HTMLElement): void;
@@ -15,9 +16,8 @@ interface Props {
 function spreadTokens(props: Props): React.ReactElement[] {
   const { tokens, data, onTokenEnter, onTokenLeave } = props;
   if (tokens.length === 0) {
-    return [<span key={props.line+"s"}> </span>];
+    return [<span key={props.line + "s"}> </span>];
   }
-
   const result: React.ReactElement[] = [];
   let preEndColumn = 0;
   let spaceId = 99999;
@@ -32,6 +32,17 @@ function spreadTokens(props: Props): React.ReactElement[] {
 
     const valueList = data.find(token.id);
     const valueListExists = valueList !== undefined;
+    if (Object.prototype.hasOwnProperty.call(token, "leadingComments")) {
+      console.log("lc: " + props.line);
+      result.push(
+        <Comment
+          key={token.id + "lc"}
+          comments={Object.values(token)[Object.getOwnPropertyNames(token).length - 1]}
+          id={token.id}
+        >
+        </Comment>
+      );
+    }
     result.push(
       <Token
         key={token.id}
@@ -44,7 +55,18 @@ function spreadTokens(props: Props): React.ReactElement[] {
         {token.image}
       </Token>
     );
-
+    if (Object.prototype.hasOwnProperty.call(token, "trailingComments")) {
+      console.log("tc: " + props.line);
+      console.log(Object.getOwnPropertyNames(token));
+      result.push(
+        <Comment
+          key={token.id + "tc"}
+          comments={Object.values(token)[Object.getOwnPropertyNames(token).length - 1]}
+          id={token.id}
+        >
+        </Comment>
+      );
+    }
     preEndColumn = endColumn;
   }
 

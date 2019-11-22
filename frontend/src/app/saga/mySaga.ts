@@ -13,7 +13,7 @@ import { TimeStampRangeFilter, TimestampRangeFilterContext } from 'app/reducers/
 import { store } from 'app/store';
 import * as _ from 'lodash';
 import { call, delay, put, select, takeEvery } from 'redux-saga/effects';
-import { JsonLogs } from 'app/components/jsonLog';
+
 
 function computeTokenId(variable: VarInfo, tokens: SourceCodeToken[]): string {
   const { linenum, count, var: varName } = variable;
@@ -128,6 +128,7 @@ function* requestSourceCodeData(action: ReturnType<typeof nod3vActions.requestSo
     )!;
 
   const tokens = JavaLexer.tokenize(requestedFile.joinedContent);
+  
   yield put(
     nod3vActions.SetSourceCodeData({
       tokens
