@@ -13,6 +13,7 @@ import {
 } from '../organisms/valueList';
 import { Line } from './line';
 
+
 interface Props {
   tokens: SourceCodeToken[];
   varValueData: VarValueData;
@@ -22,15 +23,38 @@ interface Props {
 }
 
 function groupTokensByLine(tokens: SourceCodeToken[]): SourceCodeToken[][] {
-  const lineCount = tokens[tokens.length - 1].startLine!;
+  //const lineCount = tokens[tokens.length - 1].startLine!;
+  const lineCount = 10000;
   const result: SourceCodeToken[][] = Array.from({ length: lineCount }, (v, k) => k).map(() => []);
 
+  console.log("start-------" + tokens.length)
   for (const token of tokens) {
-    result[token.startLine! - 1].push(token);
+    pushToken(result, token);
   }
-
+  console.log("fin-------------------")
   return result;
 }
+
+function pushToken(result: SourceCodeToken[][], token: SourceCodeToken) {
+  let t = { ...token };
+  if (t.image.match(/\n/g) === null) {
+    result[t.startLine! - 1].push(t);
+  } else {
+    let index = 0;
+    let tmpt;
+    while (t.image.match(/\n/g) != null) {
+      tmpt = { ...t };
+      tmpt.image = t.image.slice(0, t.image.indexOf("\n"));
+      result[token.startLine! - 1 + index++].push(tmpt);
+      t.image = t.image.slice(t.image.indexOf("\n") + 2);
+      console.log("bbb" + t.image)
+    }
+    result[t.startLine! - 1 + index].push(t);
+  }
+
+}
+
+
 
 export function Sourcecode(props: Props) {
   const [data, setData] = React.useState<ValueListItemData[] | undefined>(undefined);
