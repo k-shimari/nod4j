@@ -27,11 +27,9 @@ function groupTokensByLine(tokens: SourceCodeToken[]): SourceCodeToken[][] {
   const lineCount = 10000;
   const result: SourceCodeToken[][] = Array.from({ length: lineCount }, (v, k) => k).map(() => []);
 
-  console.log("start-------" + tokens.length)
   for (const token of tokens) {
     pushToken(result, token);
   }
-  console.log("fin-------------------")
   return result;
 }
 
@@ -47,7 +45,6 @@ function pushToken(result: SourceCodeToken[][], token: SourceCodeToken) {
       tmpt.image = t.image.slice(0, t.image.indexOf("\n"));
       result[token.startLine! - 1 + index++].push(tmpt);
       t.image = t.image.slice(t.image.indexOf("\n") + 2);
-      console.log("bbb" + t.image)
     }
     result[t.startLine! - 1 + index].push(t);
   }
