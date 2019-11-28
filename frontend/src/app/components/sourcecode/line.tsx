@@ -4,27 +4,28 @@ import * as React from 'react';
 import { Space } from './space';
 import { Token } from './token';
 
+
 interface Props {
   onTokenEnter?(tokenId: string, target: HTMLElement): void;
   onTokenLeave?(tokenId: string, target: HTMLElement): void;
   line: number;
   tokens: SourceCodeToken[];
   data: VarValueData;
+
 }
 
 function spreadTokens(props: Props): React.ReactElement[] {
   const { tokens, data, onTokenEnter, onTokenLeave } = props;
   if (tokens.length === 0) {
-    return [<span key={props.line+"s"}> </span>];
+    return [<span key={props.line + "s"}> </span>];
   }
-
   const result: React.ReactElement[] = [];
   let preEndColumn = 0;
   let spaceId = 99999;
+
   for (const token of tokens) {
     const startColumn = token.startColumn!;
     const endColumn = token.endColumn!;
-
     const delta = startColumn - preEndColumn - 1;
     if (delta > 0) {
       result.push(<Space key={spaceId++} length={delta} />);
@@ -44,7 +45,6 @@ function spreadTokens(props: Props): React.ReactElement[] {
         {token.image}
       </Token>
     );
-
     preEndColumn = endColumn;
   }
 
@@ -70,7 +70,7 @@ const LineNumber: React.FunctionComponent<LineNumberProps> = (props) => (
   </span>
 );
 
-export const Line: React.FunctionComponent<Props> = (props) => {
+export const Line: React.FunctionComponent<Props> = (props, ref) => {
   return (
     <div>
       <LineNumber key={props.line} number={props.line} />

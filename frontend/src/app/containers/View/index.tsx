@@ -14,7 +14,7 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useReactRouter from 'use-react-router';
 import Button from '@material-ui/core/Button';
-  
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(2),
@@ -91,9 +91,9 @@ export function ViewContainer() {
     const labelPrefix = kind === 'left' ? 'After' : 'Before';
     const labelValue = target
       ? (() => {
-          const { fileName, lineNumber } = target;
-          return `L${lineNumber}@${fileName}`;
-        })()
+        const { fileName, lineNumber } = target;
+        return `L${lineNumber}@${fileName}`;
+      })()
       : 'none';
     const label = `${labelPrefix}: ${labelValue}`;
     const onDelete = () =>
@@ -130,11 +130,11 @@ export function ViewContainer() {
   const LogUrl: React.FunctionComponent<LogUrlProps> = (props) => (
 
     <div>
-        <Button className={classes.button} href={props.logUrl} target="_blank" rel="noopener">
-          All Logs
+      <Button className={classes.button} href={props.logUrl} target="_blank" rel="noopener">
+        All Logs
         </Button>
     </div>
-  
+
   );
 
   return tokens ? (
@@ -151,7 +151,7 @@ export function ViewContainer() {
           </div>
         </div>
         <Divider />
-        <LogUrl logUrl={logUrl} /> 
+        <LogUrl logUrl={logUrl} />
 
         <Divider />
         <Sourcecode

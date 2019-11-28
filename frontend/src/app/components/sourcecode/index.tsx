@@ -13,6 +13,7 @@ import {
 } from '../organisms/valueList';
 import { Line } from './line';
 
+
 interface Props {
   tokens: SourceCodeToken[];
   varValueData: VarValueData;
@@ -26,11 +27,30 @@ function groupTokensByLine(tokens: SourceCodeToken[]): SourceCodeToken[][] {
   const result: SourceCodeToken[][] = Array.from({ length: lineCount }, (v, k) => k).map(() => []);
 
   for (const token of tokens) {
-    result[token.startLine! - 1].push(token);
+    pushToken(result, token);
   }
-
   return result;
 }
+
+function pushToken(result: SourceCodeToken[][], token: SourceCodeToken) {
+  let t = { ...token };
+  if (t.image.match(/\n/g) === null) {
+    result[t.startLine! - 1].push(t);
+  } else {
+    let index = 0;
+    let tmpt;
+    while (t.image.match(/\n/g) != null) {
+      tmpt = { ...t };
+      tmpt.image = t.image.slice(0, t.image.indexOf("\n"));
+      result[token.startLine! - 1 + index++].push(tmpt);
+      t.image = t.image.slice(t.image.indexOf("\n") + 2);
+    }
+    result[t.startLine! - 1 + index].push(t);
+  }
+
+}
+
+
 
 export function Sourcecode(props: Props) {
   const [data, setData] = React.useState<ValueListItemData[] | undefined>(undefined);
