@@ -23,8 +23,7 @@ interface Props {
 }
 
 function groupTokensByLine(tokens: SourceCodeToken[]): SourceCodeToken[][] {
-  //const lineCount = tokens[tokens.length - 1].startLine!;
-  const lineCount = 10000;
+  const lineCount = tokens[tokens.length - 1].startLine!;
   const result: SourceCodeToken[][] = Array.from({ length: lineCount }, (v, k) => k).map(() => []);
 
   for (const token of tokens) {
