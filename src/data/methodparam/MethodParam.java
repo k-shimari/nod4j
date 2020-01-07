@@ -33,10 +33,12 @@ public class MethodParam {
 		if (files != null) {
 			for (File f : files) {
 				try {
-					if (f.isFile() && f.getName().substring(f.getName().length() - 5).equals(".java")) {
+					if (f.isFile() && f.getName().length() >= 6
+							&& f.getName().substring(f.getName().length() - 5).equals(".java")) {
 						//@TODO edit hashmap key
 						String packageName = f.getParent().replace("\\", "/");
-						String filePath = packageName.replace(pathProject + "/", "").replaceFirst("^src\\/main\\/java\\/", "")
+						String filePath = packageName.replace(pathProject + "/", "")
+								.replaceFirst("^src\\/main\\/java\\/", "")
 								.replaceFirst("^src\\/test\\/java\\/", "")
 								.replaceFirst("^test\\/main\\/java\\/", "")
 								.replaceFirst("^src\\/", "")
