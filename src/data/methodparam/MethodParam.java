@@ -18,7 +18,7 @@ public class MethodParam {
 	public MethodParam(String dir, Map<String, String> classIDClassMap) {
 		pathSelogger = dir + "/selogger";
 		pathProject = dir + "/project";
-		this.fileMethodParamMap = new HashMap<String, List<ParamInfo>>();
+		this.fileMethodParamMap = new HashMap<>();
 		this.classIDClassMap = classIDClassMap;
 	}
 
