@@ -8,9 +8,9 @@ import java.util.Map;
 import data.varinfo.VarInfo;
 
 public class DataIdMaps {
-	private Map<String, String> classIDClassMap = new HashMap<>();;
+	private Map<String, String> classIDClassMap = new HashMap<>();
 	private Map<String, String> methodIDMethodMap = new HashMap<>();
-	private Map<String, String> dataidClassMap = new HashMap<>();;
+	private Map<String, String> dataidClassMap = new HashMap<>();
 	private Map<String, String> dataidMethodMap = new HashMap<>();
 	private Map<String, String> dataidLinenumMap = new HashMap<>();
 	private Map<String, List<Recentdata>> dataidRecentdataMap = new HashMap<>();
@@ -24,26 +24,26 @@ public class DataIdMaps {
 
 	public void createNameMap(List<String> linesMethods) {
 		for (String line : linesMethods) {
-			String ele[] = line.split(",");
+			String[] ele = line.split(",");
 			if (ele.length > 6) {
 				classIDClassMap.put(ele[0], ele[2]);
 				methodIDMethodMap.put(ele[1], ele[3]);
 			} else {
 
-				System.err.println("DataIdMaps.java createNameMap: ele.length < 3 " + line);
+				System.err.println("DataIdMaps.java createNameMap: ele.length <= 6 " + line);
 			}
 		}
 	}
 
 	public void createIDMap(List<String> linesDataids) {
 		for (String line : linesDataids) {
-			String ele[] = line.split(",");
+			String[] ele = line.split(",");
 			if (ele.length > 3) {
 				dataidClassMap.put(ele[0], classIDClassMap.get(ele[1]));
 				dataidMethodMap.put(ele[0], methodIDMethodMap.get(ele[2]));
 				dataidLinenumMap.put(ele[0], ele[3]);
 			} else {
-				System.err.println("DataIdMaps.java createIDMap: ele.length < 3 ");
+				System.err.println("DataIdMaps.java createIDMap: ele.length <= 3 ");
 			}
 		}
 	}
@@ -63,7 +63,7 @@ public class DataIdMaps {
 
 	private void createVarInfoMap(List<String> linesDataids) {
 		for (String linedat : linesDataids) {
-			String elemdat[] = linedat.split(",");
+			String[] elemdat = linedat.split(",");
 			VarInfo fi = new VarInfo(elemdat);
 			if (fi.getisFail())
 				continue;

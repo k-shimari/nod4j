@@ -7,7 +7,7 @@ public class Main {
 	/**
 	 * args[0] = targetdir
 	 */
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		String dir = args[0];
 
 		SeloggerFiles selFiles = new SeloggerFiles(args[0]);
