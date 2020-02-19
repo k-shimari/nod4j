@@ -57,6 +57,11 @@ public class VarInfo {
 					this.fieldname = elemdat[6].substring(PARAMNAMEINDEX);
 					this.inst = "G";
 					this.isFail = false;
+				} else {
+					/*命令がない時は失敗*/
+					this.fieldname = "";
+					this.inst = "";
+					this.isFail = true;
 				}
 				break;
 		/*not for view but for logs*/
