@@ -107,9 +107,9 @@ function* requestSourceCodeData(action: ReturnType<typeof nod3vActions.requestSo
   let filepath;
 
   console.log(dirs.slice(0, 3).join("/"))
-  if (dirs.length >= 3 && (dirs.slice(0, 3).join("/") === "src/main/java" || dirs.slice(0, 3).join("/") === "src/test/java" || dirs.slice(0, 3).join("/") === "test/main/java")) {
+  if (dirs.length >= 3 && (dirs.slice(0, 3).join("/") === "src/main/java" || dirs.slice(0, 3).join("/") === "src/test/java" || dirs.slice(0, 3).join("/") === "test/main/java"|| dirs.slice(0, 3).join("/") === "tests/main/java")) {
     filepath = dirs.slice(3).join("/") + "/" + file;
-  } else if (dirs.length >= 1 && (dirs[0] === "src" || dirs[0] === "test")) {
+  } else if (dirs.length >= 1 && (dirs[0] === "src" || dirs[0] === "source" || dirs[0] === "sources" || dirs[0] === "test" || dirs[0] === "tests")) {
     filepath = dirs.slice(1).join("/") + "/" + file;
   } else {
     filepath = dirs.join("/") + "/" + file
@@ -128,7 +128,7 @@ function* requestSourceCodeData(action: ReturnType<typeof nod3vActions.requestSo
     )!;
 
   const tokens = JavaLexer.tokenize(requestedFile.joinedContent);
-  
+
   yield put(
     nod3vActions.SetSourceCodeData({
       tokens
@@ -178,8 +178,8 @@ function* requestJson(action: ReturnType<typeof nod3vActions.requestJson>) {
   //console.log(varListJsonData);
   console.log("model:");
   console.log(model);
-  console.log("filepath:");  
-  console.log(filepath);  
+  console.log("filepath:");
+  console.log(filepath);
   console.log("ds:");
   console.log(ds);
   console.log("-----------e");
@@ -260,7 +260,7 @@ function* mySaga() {
   yield takeEvery(nod3vActions.requestValueListFilterChange, requestValueListFilterChange);
   yield takeEvery(nod3vActions.requestSourceCodeData, requestSourceCodeData);
   yield takeEvery(nod3vActions.requestJson, requestJson);
-  
+
   yield takeEvery(nod3vActions.clearLocalStorage, clearLocalStorage);
   yield takeEvery(nod3vActions.loadInitialValueListFilter, loadInitialValueListFilter);
   yield takeEvery(nod3vActions.initViewPage, initViewPage);
