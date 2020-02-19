@@ -30,63 +30,61 @@ public class CreateVarInfo implements ICreateJson {
 
 	private List<VarInfoJson> createjsonList() {
 		List<VarInfoJson> jsonList = new ArrayList<>();
-		String[] prevClassName = { "" };
-		String[] prevMethodName = { "" };
-		String[] prevLinenum = { "" };
+		String prevClassName = "";
+		String prevMethodName = "";
+		String prevLinenum = "";
 
 		//Map<String, Integer> varCountinLineMap = new HashMap<>();
 		List<VarInfoJson> tmpJsonList = new ArrayList<>();
 		List<String> sortedKeyList = getSortedKeyList();
 
-		sortedKeyList.forEach(d -> {
+		for(String d : sortedKeyList){
 			String className = selfiles.getDataidMaps().getDataidClassMap().get(d)
 					//.substring(selfiles.getDataidMaps().getDataidClassMap().get(d).lastIndexOf("/")+1)
 					+ ".java";
 			String methodName = selfiles.getDataidMaps().getDataidMethodMap().get(d);
 			String linenum = selfiles.getDataidMaps().getDataidLinenumMap().get(d);
 			/*when entering next line*/
-			if (!(prevClassName[0].equals(className) && prevMethodName[0].equals(methodName)
-					&& prevLinenum[0].equals(linenum))) {
+			if (!(prevClassName.equals(className) && prevMethodName.equals(methodName)
+					&& prevLinenum.equals(linenum))) {
 				if (tmpJsonList.size() != 0) {
-					addJsonList(jsonList, tmpJsonList);
+					jsonList.addAll(setCountToJsonList(tmpJsonList));
+					tmpJsonList.clear();
 				}
-
 			}
 			VarInfo fieldInfo = selfiles.getDataidMaps().getDataidVarMap().get(d);
 			String var = fieldInfo.getFieldname();
 			VarInfoJson json = setJson(d, className, methodName, var, linenum, fieldInfo.getInst());
-			if(!json.getValueList().isEmpty())
+			if (!json.getValueList().isEmpty()) {
 				tmpJsonList.add(json);
-
-			updatePrev(prevClassName, prevMethodName, prevLinenum, className, methodName, linenum);
-		});
-		if (!tmpJsonList.isEmpty())
-			addJsonList(jsonList, tmpJsonList);
+			}
+			prevClassName = className;
+			prevMethodName = methodName;
+			prevLinenum = linenum;
+		}
+		if (!tmpJsonList.isEmpty()) {
+			jsonList.addAll(setCountToJsonList(tmpJsonList));
+		}
 
 		return jsonList;
 	}
 
 	/*sorting by linenum*/
 	private List<String> getSortedKeyList() {
-		List<String> list = new ArrayList<String>();
-		List<String> methodVarList = new ArrayList<String>();
-		String[] prevMethodName = { "" };
+		List<String> list = new ArrayList<>();
+		List<String> methodVarList = new ArrayList<>();
+		String[] prevMethodName = {""};
 		selfiles.getDataidMaps().getDataidVarMap().keySet()
 				.stream()
-				.sorted(Comparator.comparing(d -> Integer.parseInt(d)))
-				.forEach(d -> {
+				.sorted(Comparator.comparing(Integer::parseInt))
+				.forEachOrdered(d -> {
 					String methodName = selfiles.getDataidMaps().getDataidMethodMap().get(d);
 					if (methodName != null) {
 						if (!(prevMethodName[0].equals(methodName))) {
 							if (methodVarList.size() != 0) {
-								methodVarList.stream()
-										.sorted(Comparator
-												.comparing(e -> Integer
-														.parseInt(
-																selfiles.getDataidMaps().getDataidLinenumMap().get(e))))
-										.forEach(e -> {
-											list.add(e);
-										});
+								methodVarList.sort(Comparator.comparing(e -> Integer.parseInt(
+										selfiles.getDataidMaps().getDataidLinenumMap().get(e))));
+								list.addAll(methodVarList);
 								methodVarList.clear();
 							}
 						}
@@ -94,56 +92,48 @@ public class CreateVarInfo implements ICreateJson {
 						prevMethodName[0] = methodName;
 					}
 				});
-		methodVarList.stream()
-				.sorted(Comparator
-						.comparing(e -> selfiles.getDataidMaps().getDataidLinenumMap().get(e)))
-				.forEach(e -> {
-					list.add(e);
-				});
+		methodVarList.sort(Comparator.comparing(e -> Integer.parseInt(
+				selfiles.getDataidMaps().getDataidLinenumMap().get(e))));
+		list.addAll(methodVarList);
 		return list;
 	}
 
 	private VarInfoJson setJson(String d, String className, String methodName, String var, String linenum,
-			String inst) {
+								String inst) {
 		VarInfoJson json = new VarInfoJson(d, className, methodName, var, linenum, inst);
 		setValueList(json, d);
 		return json;
 	}
 
-	private void updatePrev(String[] prevClassName, String[] prevMethodName, String[] prevLinenum, String className,
-			String methodName, String linenum) {
-		prevClassName[0] = className;
-		prevMethodName[0] = methodName;
-		prevLinenum[0] = linenum;
-	}
-
-	private void addJsonList(List<VarInfoJson> jsonList, List<VarInfoJson> tmpJsonList) {
+	private List<VarInfoJson> setCountToJsonList(List<VarInfoJson> tmpJsonList) {
+		List<VarInfoJson> result = new ArrayList<>();
 		Map<String, Integer> varCountinLineMap = new HashMap<>();
 		boolean isLastPut = tmpJsonList.get(tmpJsonList.size() - 1).getInst().equals("P");
 		String lastPutVar = "";
 
-		if (isLastPut)
+		if (isLastPut) {
 			lastPutVar = tmpJsonList.get(tmpJsonList.size() - 1).getVar();
+		}
 		//int idx = 0;
 		for (VarInfoJson json : tmpJsonList) {
 			//	if (json.getInst().equals("G") || json.getInst().equals("I") || idx == tmpJsonList.size() - 1) {
-			if(!(json.getVar().equals(NAMERETURN)||json.getVar().equals(ARRAYLOAD)||json.getVar().equals(ARRAYSTORE))) {
+			if (!(json.getVar().equals(NAMERETURN) || json.getVar().equals(ARRAYLOAD) || json.getVar().equals(ARRAYSTORE))) {
 				setCount(varCountinLineMap, json, isLastPut, lastPutVar);
 			}
 			/*for variable only recording as json*/
 			else {
 				json.setCount(-1);
 			}
-			jsonList.add(json);
+			result.add(json);
 			//	}
 			//	idx++;
 		}
-		tmpJsonList.clear();
+		return result;
 	}
 
 	/*set appearances count */
 	private void setCount(Map<String, Integer> varCountinLineMap,
-			VarInfoJson json, boolean isLastPut, String lastPutVar) {
+						  VarInfoJson json, boolean isLastPut, String lastPutVar) {
 		int inc = (isLastPut && lastPutVar.equals(json.getVar())) ? 1 : 0;
 		if (varCountinLineMap.containsKey(json.getVar())) {
 			if (json.getInst().equals("P")) {
@@ -164,11 +154,14 @@ public class CreateVarInfo implements ICreateJson {
 
 	private void setValueList(VarInfoJson json, String d) {
 		Map<String, List<Recentdata>> recdatamap = selfiles.getDataidMaps().getDataidRecentdataMap();
-		List<Recentdata> valueList = new ArrayList<Recentdata>();
+		List<Recentdata> valueList = new ArrayList<>();
 		if (recdatamap.containsKey(d)) {
 			for (Recentdata r : recdatamap.get(d)) {
-				r.setData(r.getData().replace("\"", "\\\"").replace("\u2028","\\u2028").replace("\u2029","\\u2029"));
-
+				r.setData(r.getData()
+						.replace("\"", "\\\"")
+						.replace("\u2028", "\\u2028")
+						.replace("\u2029", "\\u2029")
+				);
 				valueList.add(r);
 			}
 		}

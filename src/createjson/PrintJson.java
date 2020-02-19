@@ -2,6 +2,7 @@ package createjson;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -30,7 +31,7 @@ public class PrintJson {
 			Files.delete(Paths.get(targetDir, filename));
 		}
 		Files.createFile(Paths.get(targetDir, filename));
-		Files.write(Paths.get(targetDir, filename), lines, Charset.forName("UTF-8"), StandardOpenOption.WRITE);
+		Files.write(Paths.get(targetDir, filename), lines, StandardCharsets.UTF_8, StandardOpenOption.WRITE);
 	}
 
 	/*For Debug*/
@@ -50,7 +51,7 @@ public class PrintJson {
 			Files.delete(Paths.get(targetDir, filename));
 		}
 		Files.createFile(Paths.get(targetDir, filename));
-		Files.write(Paths.get(targetDir, filename), lines, Charset.forName("UTF-8"), StandardOpenOption.WRITE);
+		Files.write(Paths.get(targetDir, filename), lines, StandardCharsets.UTF_8, StandardOpenOption.WRITE);
 	}
 
 }
