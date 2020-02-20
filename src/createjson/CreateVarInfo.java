@@ -92,8 +92,7 @@ public class CreateVarInfo implements ICreateJson {
 						prevMethodName[0] = methodName;
 					}
 				});
-		methodVarList.sort(Comparator.comparing(e -> Integer.parseInt(
-				selFiles.getDataidMaps().getDataidLinenumMap().get(e))));
+		methodVarList.sort(Comparator.comparing(e -> selFiles.getDataidMaps().getDataidLinenumMap().get(e)));
 		list.addAll(methodVarList);
 		return list;
 	}
