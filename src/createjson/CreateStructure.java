@@ -29,7 +29,7 @@ public class CreateStructure implements ICreateJson {
 
 
 	private FileInfoJson getFileInfo(File f) {
-		ArrayList<String> list = new ArrayList<>();
+		List<String> list = new ArrayList<>();
 		System.out.println(f.getPath());
 		List<String> tmplist;
 		try {
@@ -55,7 +55,7 @@ public class CreateStructure implements ICreateJson {
 
 	private FileInfoJson getDirInfo(File dir) {
 		File[] files = dir.listFiles();
-		ArrayList<FileInfoJson> list = new ArrayList<>();
+		List<FileInfoJson> list = new ArrayList<>();
 		if (files != null) {
 			for (File f : files) {
 				if (f.isFile()) {

@@ -1,16 +1,17 @@
 package data.fileinfo;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FileInfoJson {
 	//private String project;
 	private String name;
 	private String type;
-	private ArrayList<String> content;
-	private ArrayList<FileInfoJson> children;
+	private List<String> content;
+	private List<FileInfoJson> children;
 
 
-	public FileInfoJson(String name, String type, ArrayList<String> content, ArrayList<FileInfoJson> children) {
+	public FileInfoJson(String name, String type, List<String> content, List<FileInfoJson> children) {
 		this.name = name;
 		this.type = type;
 		this.content = content;
@@ -33,7 +34,7 @@ public class FileInfoJson {
 		this.type = type;
 	}
 
-	public ArrayList<String> getContent() {
+	public List<String> getContent() {
 		return content;
 	}
 
@@ -41,7 +42,7 @@ public class FileInfoJson {
 		this.content = content;
 	}
 
-	public ArrayList<FileInfoJson> getChildren() {
+	public List<FileInfoJson> getChildren() {
 		return children;
 	}
 

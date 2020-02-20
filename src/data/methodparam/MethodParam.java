@@ -12,7 +12,7 @@ import java.util.Map;
 public class MethodParam {
 	private String pathSelogger;
 	private String pathProject;
-	private HashMap<String, List<ParamInfo>> fileMethodParamMap;
+	private Map<String, List<ParamInfo>> fileMethodParamMap;
 	private Map<String, String> classIDClassMap;
 
 	public MethodParam(String dir, Map<String, String> classIDClassMap) {
@@ -62,13 +62,13 @@ public class MethodParam {
 	}
 
 	private List<String> getAddedDataids() {
-		List<String> rewriteList = new ArrayList<String>();
+		List<String> rewriteList = new ArrayList<>();
 		try {
 			List<String> lines = Files.readAllLines(Paths.get(pathSelogger, "dataids.txt"));
 			for (String line : lines) {
 				String[] elem = line.split(",");
 				if (elem[5].equals("METHOD_PARAM")) {
-					elem = rewriteLine(elem);
+					rewriteLine(elem);
 				}
 				rewriteList.add(String.join(",", elem));
 			}
@@ -78,7 +78,7 @@ public class MethodParam {
 		return rewriteList;
 	}
 
-	private String[] rewriteLine(String[] elem) {
+	private void rewriteLine(String[] elem) {
 		if (classIDClassMap.containsKey(elem[1])) {
 			String classname = classIDClassMap.get(elem[1]);
 			System.out.println("class:::" + classname);
@@ -91,6 +91,5 @@ public class MethodParam {
 				}
 			}
 		}
-		return elem;
 	}
 }
