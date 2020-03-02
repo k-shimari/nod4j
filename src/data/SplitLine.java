@@ -15,29 +15,29 @@ public class SplitLine {
 
 	public String[] splitRecentdata(String line) {
 		String[] tmpsl = line.split(",");
-		ArrayList<String> l = new ArrayList<String>();
+		ArrayList<String> result = new ArrayList<>();
 		String storeStr = "";
 		for (String s : tmpsl) {
 			if (storeStr.equals("")) {
 				if (s.startsWith("java.lang.String@")) {
 					if (s.endsWith("\"") && !s.endsWith("\\\"") && s.length() != LoStrPrefix) {
-						l.add(s);
+						result.add(s);
 					} else {
 						storeStr = s + ",";
 					}
 				} else {
-					l.add(s);
+					result.add(s);
 				}
 			} else {
 				if (s.endsWith("\"") && !s.endsWith("\\\"")) {
-					l.add(storeStr + s);
+					result.add(storeStr + s);
 					storeStr = "";
 				} else {
 					storeStr = storeStr + s + ",";
 				}
 			}
 		}
-		return l.toArray(new String[l.size()]);
+		return result.toArray(new String[0]);
 	}
 
 	public String getLine() {

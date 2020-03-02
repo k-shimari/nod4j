@@ -7,6 +7,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 
 import data.fileinfo.FileInfoJson;
 
@@ -28,35 +29,35 @@ public class CreateStructure implements ICreateJson {
 
 
 	private FileInfoJson getFileInfo(File f) {
-		ArrayList<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		System.out.println(f.getPath());
-		ArrayList<String> tmplist=new ArrayList<String>();
+		List<String> tmplist;
 		try {
-			tmplist = (ArrayList<String>) Files.readAllLines(Paths.get(f.getPath()),StandardCharsets.UTF_8);
+			tmplist = Files.readAllLines(Paths.get(f.getPath()), StandardCharsets.UTF_8);
 			for (String s : tmplist) {
 				list.add(s.replace("\"", "\\\""));
 			}
 		} catch (IOException e) {
 			try {
-				tmplist = (ArrayList<String>) Files.readAllLines(Paths.get(f.getPath()),Charset.forName("SHIFT_JIS"));
+				tmplist = Files.readAllLines(Paths.get(f.getPath()), Charset.forName("SHIFT_JIS"));
 				for (String s : tmplist) {
 					list.add(s.replace("\"", "\\\""));
 				}
 			} catch (IOException e1) {
+				System.err.println("CreateStructure.java getFileInfo: file encoding is not UTF-8 nor SHIFT_JIS.");
 				e1.printStackTrace();
 			}
 		}
-		return new FileInfoJson(f.getName(), TYPEFILE, list, new ArrayList<FileInfoJson>());
+		return new FileInfoJson(f.getName(), TYPEFILE, list, new ArrayList<>());
 
 
 	}
 
 	private FileInfoJson getDirInfo(File dir) {
 		File[] files = dir.listFiles();
-		ArrayList<FileInfoJson> list = new ArrayList<FileInfoJson>();
+		List<FileInfoJson> list = new ArrayList<>();
 		if (files != null) {
 			for (File f : files) {
-
 				if (f.isFile()) {
 					//						if(f.getName().substring(f.getName().length()-5).equals(_JAVAFILE)) {
 					list.add(getFileInfo(f));
@@ -64,11 +65,9 @@ public class CreateStructure implements ICreateJson {
 				} else {
 					list.add(getDirInfo(f));
 				}
-
 			}
 		}
-		ArrayList<String> a = new ArrayList<String>();
-		return new FileInfoJson(dir.getName(), TYPEDIR, a, list);
+		return new FileInfoJson(dir.getName(), TYPEDIR, new ArrayList<>(), list);
 	}
 
 }

@@ -38,26 +38,24 @@ public class AddParam {
 			c.accept(v);
 
 
-			List<ParamInfo> paramList = new ArrayList<ParamInfo>();
-			for (ParamInfo p : v.methodParams) {
-				paramList.add(p);
-			//	System.out.println(f + ": " + p.getMethodName() + ", " + p.getArgumentName() + ", " + p.getType() + ", "
-			//			+ p.getLine());
-			}
-
-			return paramList;
+			//			for (ParamInfo p : v.methodParams) {
+			//				paramList.add(p);
+			//				System.out.println(f + ": " + p.getMethodName() + ", " + p.getArgumentName() + ", " + p.getType() + ", "
+			//							+ p.getLine());
+			//			}
+			return new ArrayList<>(v.methodParams);
 		} catch (IOException e) {
 			e.printStackTrace();
-			return new ArrayList<ParamInfo>();
+			return new ArrayList<>();
 		}
 	}
 
 	public static class MethodParamVisitor extends Java9BaseVisitor<Void> {
 
-		private ArrayList<String> methodNames = new ArrayList<>();
-		private ArrayList<String> methodLines = new ArrayList<>();
-		private ArrayList<ParamInfo> methodParams = new ArrayList<ParamInfo>();
-		private ArrayList<ParamInfo> methodLastParams = new ArrayList<ParamInfo>();
+		private List<String> methodNames = new ArrayList<>();
+		private List<String> methodLines = new ArrayList<>();
+		private List<ParamInfo> methodParams = new ArrayList<>();
+		private List<ParamInfo> methodLastParams = new ArrayList<>();
 
 		@Override
 		public Void visitMethodDeclaration(MethodDeclarationContext ctx) {
