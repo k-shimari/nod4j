@@ -33,6 +33,12 @@ interface FileTableProps {
 export const FileTable: React.FunctionComponent<FileTableProps> = (props) => {
   const classes = useStyles();
   const { data, onFileClick, onDirClick } = props;
+  const fileData = data.filter(d => {
+    return d.type === 'file'
+  });
+  const dirData = data.filter(d => {
+    return d.type === 'dir'
+  });
 
   return (
     <div>
@@ -46,16 +52,24 @@ export const FileTable: React.FunctionComponent<FileTableProps> = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((d, index) => (
+            {dirData.map((d, index) => (
               <FileTableRow
-                key={index}
+                key={"dir" + index}
                 {...d}
                 onClick={() => {
-                  if (d.type === 'file' && onFileClick) {
-                    onFileClick(d.name);
-                  }
-                  if (d.type === 'dir' && onDirClick) {
+                  if (onDirClick) {
                     onDirClick(d.name);
+                  }
+                }}
+              />
+            ))}
+            {fileData.map((d, index) => (
+              <FileTableRow
+                key={"file" + index}
+                {...d}
+                onClick={() => {
+                  if (onFileClick) {
+                    onFileClick(d.name);
                   }
                 }}
               />
@@ -80,8 +94,8 @@ const FileTableRow: React.FunctionComponent<FileTableRowProp> = (props) => {
         {props.type === 'file' ? (
           <FileIcon fontSize="small" style={{ verticalAlign: 'middle' }} />
         ) : (
-          <FolderIcon fontSize="small" style={{ verticalAlign: 'middle' }} />
-        )}
+            <FolderIcon fontSize="small" style={{ verticalAlign: 'middle' }} />
+          )}
         <span style={{ verticalAlign: 'middle', paddingLeft: 4 }}>
           <a
             onClick={onClick}
