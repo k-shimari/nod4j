@@ -104,15 +104,14 @@ function* requestValueListFilterChange(
 function* requestSourceCodeData(action: ReturnType<typeof nod3vActions.requestSourceCodeData>) {
   const { projectName, target } = action.payload!;
   const { dirs, file } = target;
-  let filepath;
+  let filePath = getFilePath(dirs, file);
 
-  console.log(dirs.slice(0, 3).join("/"))
-  if (dirs.length >= 3 && (dirs.slice(0, 3).join("/") === "src/main/java" || dirs.slice(0, 3).join("/") === "src/test/java" || dirs.slice(0, 3).join("/") === "test/main/java"|| dirs.slice(0, 3).join("/") === "tests/main/java")) {
-    filepath = dirs.slice(3).join("/") + "/" + file;
+  if (dirs.length >= 3 && (dirs.slice(0, 3).join("/") === "src/main/java" || dirs.slice(0, 3).join("/") === "src/test/java" || dirs.slice(0, 3).join("/") === "test/main/java" || dirs.slice(0, 3).join("/") === "tests/main/java")) {
+    filePath = dirs.slice(3).join("/") + "/" + file;
   } else if (dirs.length >= 1 && (dirs[0] === "src" || dirs[0] === "source" || dirs[0] === "sources" || dirs[0] === "test" || dirs[0] === "tests")) {
-    filepath = dirs.slice(1).join("/") + "/" + file;
+    filePath = dirs.slice(1).join("/") + "/" + file;
   } else {
-    filepath = dirs.join("/") + "/" + file
+    filePath = dirs.join("/") + "/" + file;
   }
 
   const api = new nod3vApi();
@@ -136,7 +135,7 @@ function* requestSourceCodeData(action: ReturnType<typeof nod3vActions.requestSo
   );
 
   const varListJsonData: VarListJsonData = yield call(() => api.fetchVarInfo(projectName));
-  const varValueData = createVarValueData(varListJsonData, filepath, tokens);
+  const varValueData = createVarValueData(varListJsonData, filePath, tokens);
 
   yield put(
     nod3vActions.setOriginalValueListData({
@@ -150,39 +149,28 @@ function* requestSourceCodeData(action: ReturnType<typeof nod3vActions.requestSo
   );
 }
 
+function getFilePath(dirs: string[], file: string): string {
+  if (dirs.length >= 3 && (dirs.slice(0, 3).join("/") === "src/main/java" || dirs.slice(0, 3).join("/") === "src/test/java" || dirs.slice(0, 3).join("/") === "test/main/java" || dirs.slice(0, 3).join("/") === "tests/main/java")) {
+    return dirs.slice(3).join("/") + "/" + file;
+  } else if (dirs.length >= 1 && (dirs[0] === "src" || dirs[0] === "source" || dirs[0] === "sources" || dirs[0] === "test" || dirs[0] === "tests")) {
+    return dirs.slice(1).join("/") + "/" + file;
+  } else {
+    return dirs.join("/") + "/" + file;
+  }
+}
 
 function* requestJson(action: ReturnType<typeof nod3vActions.requestJson>) {
   const { projectName, target } = action.payload!;
   const { dirs, file } = target;
   const api = new nod3vApi();
 
-  let filepath;
+  let filePath = getFilePath(dirs, file);
 
-  console.log(dirs.slice(0, 3).join("/"))
-  if (dirs.length >= 3 && (dirs.slice(0, 3).join("/") === "src/main/java" || dirs.slice(0, 3).join("/") === "src/test/java" || dirs.slice(0, 3).join("/") === "test/main/java")) {
-    filepath = dirs.slice(3).join("/") + "/" + file;
-  } else if (dirs.length >= 1 && (dirs[0] === "src" || dirs[0] === "test")) {
-    filepath = dirs.slice(1).join("/") + "/" + file;
-  } else {
-    filepath = dirs.join("/") + "/" + file
-  }
-
+  console.log(filePath);
   const varListJsonData: VarListJsonData = yield call(() => api.fetchVarInfo(projectName));
   const model = new VarListDataModel(varListJsonData);
+  const ds = model.getDataOfFile(filePath);
 
-
-  const ds = model.getDataOfFile(filepath);
-
-  console.log("-----------s");
-  //console.log("json:");
-  //console.log(varListJsonData);
-  console.log("model:");
-  console.log(model);
-  console.log("filepath:");
-  console.log(filepath);
-  console.log("ds:");
-  console.log(ds);
-  console.log("-----------e");
   yield put(
     nod3vActions.setVarListJsonData({
       data: ds
