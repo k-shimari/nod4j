@@ -17,22 +17,30 @@ Try our viewer following [sample/README](/sample/README.md).
 1. Create new dir and put your project source code in `project`
 ```
 $ mkdir <PROJECT_NAME>
-$ cd <PROJECT_NAME>
-$ mkdir project
-$ cp yourSrc <PROJECT_NAME>/project/yourSrc
+$ mkdir <PROJECT_NAME>/project
+$ cp -r /path/to/<YOUR_SOURCE_CODE_DIR> <PROJECT_NAME>/project/<YOUR_SOURCE_CODE_DIR>
 ```
-### Collect trace 
+### Collect Execution Trace 
 ```
-$ java -jar -javaagent:/path/to/selogger-0.1.jar=output=/path/to/yourProject/selogger,weave=ALL,format=latesttime,size=32,keepobj=true yourApp.jar 
+$ java -jar -javaagent:/path/to/selogger-0.2.jar=output=/path/to/<PROJECT_NAME>/selogger,weave=ALL,format=near-omni,size=32,keepobj=true <YOUR_APP.jar>
 ```
- *  Options are described at https://github.com/takashi-ishio/selogger/tree/v0.1
- *  In our method using `format=latesttime` option
-### Convert json format
-1. Run nod3v.jar to convert json format
-1. You can get `fileinfo.json` and `varinfo.json` at /path/to/yourProject
+ *  Options are described at https://github.com/takashi-ishio/selogger/tree/v0.2
+ *  In our method using `format=near-omni` option
+
+You can find the execution trace in /path/to/<PROJECT_NAME>/selogger.
+## Post Processor Usage
+### Convert in the Format of JSON
+Run nod3v.jar, which is in the project root, to convert the execution trace in the format of JSON.
+
 ```
 $ java -jar nod3v.jar /path/to/yourProject
 ```
+
+You can get `fileinfo.json` and `varinfo.json` at /path/to/<PROJECT_NAME>.
+
+`fileinfo.json` contains the information of source code.
+
+`varinfo.json` contains the information of values of variable.
 
 ## Viewer Usage
 
@@ -45,7 +53,7 @@ $ java -jar nod3v.jar /path/to/yourProject
 
 1. Run the commands below. You can check our sample.
 ```
-$ cd nod3v/frontend
+$ cd src/main/frontend
 $ npm install
 $ npm start
 ```
@@ -60,7 +68,8 @@ $ npm start
 
 ### Build and Run
 
-1. Locate `fileinfo.json` and `varinfo.json` at `frontend/src/assets/project/<PROJECT_NAME>`
+1. Make directory `src/main/frontend/src/assets/project/<PROJECT_NAME>`
+1. Locate `fileinfo.json` and `varinfo.json` at `src/main/frontend/src/assets/project/<PROJECT_NAME>`
 ```
 $ npm run build
 $ npm run server
@@ -80,10 +89,9 @@ $ npm run server
 1. If no values are contained in the variable during the filtered period, the highlighting of the variable is turned off.
 
 ## Limitation
-  * This tool cannot get following variables in current implementation.
-    * Method actual arguments
+  * This tool does not show following variables in current implementation but we can confirm them clicking the `ALL LOGS` button in view.
     * Method return value at caller method
-    * Related to some kinds of operand 
+    * Related to some kinds of operand correctly
       * ++, +=, --, -=
-    * multiple lines expression
+    * multiple lines expression 
 

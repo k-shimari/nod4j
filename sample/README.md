@@ -1,3 +1,69 @@
+This pages describe how to create and use our viewer on sample.
+
+If you want to know only how to use our viewer, jump <a href="#Viewer">Viewer</a>
+
+# Trace Recorder Usage
+### Collect Execution Trace 
+```
+// run junit test
+$ java -jar -javaagent:/path/to/selogger-0.2.jar=output=/path/to/sample/demo/selogger,weave=ALL,format=near-omni,size=32,keepobj=true /path/to/sample/demo/sample.jar
+```
+ *  Options are described at https://github.com/takashi-ishio/selogger/tree/v0.2
+ *  In our method using `format=near-omni` option
+
+You can find the execution trace in /path/to/sample/demo/selogger.
+## Post Processor Usage
+### Convert in the Format of JSON
+Run nod3v.jar, which is in the project root, to convert the execution trace in the format of JSON.
+
+```
+$ java -jar nod3v.jar /path/to/sample/demo
+```
+
+You can get `fileinfo.json` and `varinfo.json` at /path/to/sample/demo.
+
+`fileinfo.json` contains the information of source code.
+
+`varinfo.json` contains the information of values of variable.
+
+
+
+# Viewer Generator Usage
+
+## Pre-requirements
+
+* Node.js
+* npm
+
+## Getting started
+
+1. Run the commands below. You can check our sample.
+```
+$ cd nod3v/frontend
+$ npm install
+$ npm start
+```
+
+## Develop
+
+```
+$ npm start
+```
+
+> Note: Hot reload is enabled.
+
+## Build and Run
+
+1. Locate `fileinfo.json` and `varinfo.json` at `frontend/src/assets/project/demo`
+```
+$ npm run build
+$ npm run server
+```
+
+## Open your project
+
+1. Add <PROJECT_NAME> on the main page
+
 # Viewer 
 ## Sample Overview 
 This README describes our sample.
