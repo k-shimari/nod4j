@@ -12,6 +12,10 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * This class prints the information of file and variable values in the format of JSON.
+ * @author k-simari
+ */
 public class PrintJson {
 	private String targetDir;
 	private String filename;
@@ -23,7 +27,7 @@ public class PrintJson {
 
 	void printJson(Object json) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
-		List<String> lines=new ArrayList<>();
+		List<String> lines = new ArrayList<>();
 		lines.add(mapper.writeValueAsString(json));
 
 		if (Files.exists(Paths.get(targetDir, filename))) {

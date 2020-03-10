@@ -4,6 +4,10 @@ import java.io.IOException;
 
 import jp.ac.osaka_u.ist.sel.data.SeloggerFiles;
 
+/**
+ * This class calls the module which creates varInfo.json and fileInfo.json, and print them.
+ * @author k-simari
+ */
 public class StartJson {
 	private SeloggerFiles selFiles;
 	private String targetDir;

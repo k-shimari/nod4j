@@ -12,6 +12,11 @@ import jp.ac.osaka_u.ist.sel.data.varinfo.VarInfo;
 import jp.ac.osaka_u.ist.sel.data.varinfo.VarInfoJson;
 import jp.ac.osaka_u.ist.sel.data.varinfo.WVarInfoJson;
 
+/**
+ * This class creates varInfo.json and return it in the format of JSON.
+ * @author k-simari
+ */
+
 public class CreateVarInfo implements ICreateJson {
 
 	private SeloggerFiles selFiles;
@@ -28,23 +33,23 @@ public class CreateVarInfo implements ICreateJson {
 		return new WVarInfoJson(createJsonList());
 	}
 
+	/**
+	 * Mapping variable information in source code and execution trace(variable information at recentdata.txt)
+	 * @return The contents of varInfo.json
+	 */
 	private List<VarInfoJson> createJsonList() {
 		List<VarInfoJson> jsonList = new ArrayList<>();
 		String prevClassName = "";
 		String prevMethodName = "";
 		String prevLinenum = "";
-
-		//Map<String, Integer> varCountinLineMap = new HashMap<>();
 		List<VarInfoJson> tmpJsonList = new ArrayList<>();
 		List<String> sortedKeyList = getSortedKeyList();
 
-		for(String d : sortedKeyList){
-			String className = selFiles.getDataidMaps().getDataidClassMap().get(d)
-					//.substring(selfiles.getDataidMaps().getDataidClassMap().get(d).lastIndexOf("/")+1)
-					+ ".java";
+		for (String d : sortedKeyList) {
+			String className = selFiles.getDataidMaps().getDataidClassMap().get(d) + ".java";
 			String methodName = selFiles.getDataidMaps().getDataidMethodMap().get(d);
 			String linenum = selFiles.getDataidMaps().getDataidLinenumMap().get(d);
-			/*when entering next line*/
+			/* when entering next line */
 			if (!(prevClassName.equals(className) && prevMethodName.equals(methodName)
 					&& prevLinenum.equals(linenum))) {
 				if (tmpJsonList.size() != 0) {
@@ -65,15 +70,17 @@ public class CreateVarInfo implements ICreateJson {
 		if (!tmpJsonList.isEmpty()) {
 			jsonList.addAll(setCountToJsonList(tmpJsonList));
 		}
-
 		return jsonList;
 	}
 
-	/*sorting by linenum*/
+	/**
+	 * sort variable information of dataids.txt in ascending order by line number.
+	 * @return sorted list
+	 */
 	private List<String> getSortedKeyList() {
 		List<String> list = new ArrayList<>();
 		List<String> methodVarList = new ArrayList<>();
-		String[] prevMethodName = {""};
+		String[] prevMethodName = { "" };
 		selFiles.getDataidMaps().getDataidVarMap().keySet()
 				.stream()
 				.sorted(Comparator.comparing(Integer::parseInt))
@@ -97,42 +104,54 @@ public class CreateVarInfo implements ICreateJson {
 		return list;
 	}
 
+	/**
+	 * Set the variable information to Json
+	 */
 	private VarInfoJson setJson(String d, String className, String methodName, String var, String linenum,
-								String inst) {
+			String inst) {
 		VarInfoJson json = new VarInfoJson(d, className, methodName, var, linenum, inst);
 		setValueList(json, d);
 		return json;
 	}
 
-	private List<VarInfoJson> setCountToJsonList(List<VarInfoJson> tmpJsonList) {
+	/**
+	 * Set appearance count in each line to jsonList
+	 * @param jsonList
+	 * @return json List(count is set)
+	 */
+	private List<VarInfoJson> setCountToJsonList(List<VarInfoJson> jsonList) {
 		List<VarInfoJson> result = new ArrayList<>();
 		Map<String, Integer> varCountinLineMap = new HashMap<>();
-		boolean isLastPut = tmpJsonList.get(tmpJsonList.size() - 1).getInst().equals("P");
+		boolean isLastPut = jsonList.get(jsonList.size() - 1).getInst().equals("P");
 		String lastPutVar = "";
 
 		if (isLastPut) {
-			lastPutVar = tmpJsonList.get(tmpJsonList.size() - 1).getVar();
+			lastPutVar = jsonList.get(jsonList.size() - 1).getVar();
 		}
-		//int idx = 0;
-		for (VarInfoJson json : tmpJsonList) {
-			//	if (json.getInst().equals("G") || json.getInst().equals("I") || idx == tmpJsonList.size() - 1) {
-			if (!(json.getVar().equals(NAMERETURN) || json.getVar().equals(ARRAYLOAD) || json.getVar().equals(ARRAYSTORE))) {
+		for (VarInfoJson json : jsonList) {
+			/* The variable which is assignment or reference */
+			if (!(json.getVar().equals(NAMERETURN) || json.getVar().equals(ARRAYLOAD)
+					|| json.getVar().equals(ARRAYSTORE))) {
 				setCount(varCountinLineMap, json, isLastPut, lastPutVar);
 			}
-			/*for variable only recording as json*/
+			/* The variable only showing on Log Window */
 			else {
 				json.setCount(-1);
 			}
 			result.add(json);
-			//	}
-			//	idx++;
 		}
 		return result;
 	}
 
-	/*set appearances count */
+	/**
+	 * Set how many times the json.getVar() appears to var Count in LineMap
+	 * @param varCountInLineMap: How many times each variable appears in this line
+	 * @param json: The information containing one dataid
+	 * @param isLastPut: Is the previous variable processing in this line Put(e.g., PUT_STATIC_FIELD)?
+	 * @param lastPutVar: The previous Put variable processing in this line
+	 */
 	private void setCount(Map<String, Integer> varCountInLineMap,
-						  VarInfoJson json, boolean isLastPut, String lastPutVar) {
+			VarInfoJson json, boolean isLastPut, String lastPutVar) {
 		int inc = (isLastPut && lastPutVar.equals(json.getVar())) ? 1 : 0;
 		if (varCountInLineMap.containsKey(json.getVar())) {
 			if (json.getInst().equals("P")) {
@@ -151,16 +170,20 @@ public class CreateVarInfo implements ICreateJson {
 		}
 	}
 
-	private void setValueList(VarInfoJson json, String d) {
+	/**
+	 * Set the variable values to json and format some character (e.g., line separator) for json
+	 * @param json
+	 * @param dataid
+	 */
+	private void setValueList(VarInfoJson json, String dataid) {
 		Map<String, List<Recentdata>> recDataMap = selFiles.getDataidMaps().getDataidRecentdataMap();
 		List<Recentdata> valueList = new ArrayList<>();
-		if (recDataMap.containsKey(d)) {
-			for (Recentdata r : recDataMap.get(d)) {
+		if (recDataMap.containsKey(dataid)) {
+			for (Recentdata r : recDataMap.get(dataid)) {
 				r.setData(r.getData()
 						.replace("\"", "\\\"")
 						.replace("\u2028", "\\u2028")
-						.replace("\u2029", "\\u2029")
-				);
+						.replace("\u2029", "\\u2029"));
 				valueList.add(r);
 			}
 		}

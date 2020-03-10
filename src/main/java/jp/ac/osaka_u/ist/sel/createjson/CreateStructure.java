@@ -11,6 +11,10 @@ import java.util.List;
 
 import jp.ac.osaka_u.ist.sel.data.fileinfo.FileInfoJson;
 
+/**
+ * @author k-simari
+ * This class gets the target project information (e.g., lines, structure...).
+ */
 public class CreateStructure implements ICreateJson {
 	private String targetDir;
 	private static final String TYPEDIR = "dir";
@@ -27,7 +31,9 @@ public class CreateStructure implements ICreateJson {
 		return getDirInfo(new File(targetDir));
 	}
 
-
+	/**
+	 * @return file information including its contents(lines)
+	 */
 	private FileInfoJson getFileInfo(File f) {
 		List<String> list = new ArrayList<>();
 		System.out.println(f.getPath());
@@ -49,10 +55,11 @@ public class CreateStructure implements ICreateJson {
 			}
 		}
 		return new FileInfoJson(f.getName(), TYPEFILE, list, new ArrayList<>());
-
-
 	}
 
+	/**
+	 * @return directory information including its contents(structure in this directory)
+	 */
 	private FileInfoJson getDirInfo(File dir) {
 		File[] files = dir.listFiles();
 		List<FileInfoJson> list = new ArrayList<>();
