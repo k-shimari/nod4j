@@ -1,5 +1,10 @@
 package jp.ac.osaka_u.ist.sel.data;
 
+/**
+ * This data class contains the value at each dataid in recentdata.txt.
+ * @author k-simari
+ *
+ */
 public class Recentdata {
 	private String data;
 	private String timestamp;

@@ -4,16 +4,19 @@ import java.util.List;
 
 import jp.ac.osaka_u.ist.sel.data.Recentdata;
 
+/**
+ * The data for varinfo.json.
+ * @author k-simari
+ *
+ */
 public class VarInfoJson {
-
 	private String dataid;
 	private String className;
 	private String methodName;
 	private String var;
 	private String linenum;
-	//private final String _countcomment = "その行で何回目の出現か(同じ変数が行内にあったときのみカウント+)";
 	private String inst;
-	private int count;
+	private int count; // how many times the specific variable appears in line
 	private List<Recentdata> valueList;
 
 	public VarInfoJson() {

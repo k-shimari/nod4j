@@ -17,11 +17,15 @@ import antlr4.jp.naist.se.parser.Java9Parser.InterfaceMethodDeclarationContext;
 import antlr4.jp.naist.se.parser.Java9Parser.LastFormalParameterContext;
 import antlr4.jp.naist.se.parser.Java9Parser.MethodDeclarationContext;
 
+/**
+ * Get argument values
+ * @author k-simari
+ *
+ */
 public class AddParam {
-
 	/**
-	 *
-	 * @param f path + filename e.g., src/main/filename.java
+	 * get method arguments information
+	 * @param f path + filename (e.g., src/main/filename.java)
 	 */
 	public List<ParamInfo> getParamInfo(String f) {
 		try {
@@ -36,13 +40,6 @@ public class AddParam {
 
 			MethodParamVisitor v = new MethodParamVisitor();
 			c.accept(v);
-
-
-			//			for (ParamInfo p : v.methodParams) {
-			//				paramList.add(p);
-			//				System.out.println(f + ": " + p.getMethodName() + ", " + p.getArgumentName() + ", " + p.getType() + ", "
-			//							+ p.getLine());
-			//			}
 			return new ArrayList<>(v.methodParams);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -50,8 +47,12 @@ public class AddParam {
 		}
 	}
 
+	/**
+	 * get method argument information
+	 * @author k-simari
+	 *
+	 */
 	public static class MethodParamVisitor extends Java9BaseVisitor<Void> {
-
 		private List<String> methodNames = new ArrayList<>();
 		private List<String> methodLines = new ArrayList<>();
 		private List<ParamInfo> methodParams = new ArrayList<>();
@@ -81,7 +82,5 @@ public class AddParam {
 		public Void visitLastFormalParameter(LastFormalParameterContext ctx) {
 			return super.visitLastFormalParameter(ctx);
 		}
-
 	}
-
 }

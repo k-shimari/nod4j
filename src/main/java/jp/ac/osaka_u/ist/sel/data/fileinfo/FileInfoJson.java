@@ -3,8 +3,12 @@ package jp.ac.osaka_u.ist.sel.data.fileinfo;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The data for fileinfo.json.
+ * @author k-simari
+ *
+ */
 public class FileInfoJson {
-	//private String project;
 	private String name;
 	private String type;
 	private List<String> content;

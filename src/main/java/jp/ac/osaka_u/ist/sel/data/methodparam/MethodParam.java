@@ -9,6 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * add method parameter information to dataids
+ * @author k-simari
+ */
 public class MethodParam {
 	private String pathSelogger;
 	private String pathProject;
@@ -22,12 +26,20 @@ public class MethodParam {
 		this.classIDClassMap = classIDClassMap;
 	}
 
+	/**
+	 * Add method param line info
+	 * @param dir
+	 * @return
+	 */
 	public List<String> getLineDataids(String dir) {
-		/*add method param line info*/
 		getDirInfo(new File(pathProject));
-		return getAddedDataids();
+		return getrewrittenDataids();
 	}
 
+	/**
+	 * map filepath to file.
+	 * @param dir
+	 */
 	private void getDirInfo(File dir) {
 		File[] files = dir.listFiles();
 		if (files != null) {
@@ -61,7 +73,11 @@ public class MethodParam {
 		return a.getParamInfo(f.getAbsolutePath());
 	}
 
-	private List<String> getAddedDataids() {
+	/**
+	 * add method param inforamtion to dataids.txt
+	 * @return
+	 */
+	private List<String> getrewrittenDataids() {
 		List<String> rewriteList = new ArrayList<>();
 		try {
 			List<String> lines = Files.readAllLines(Paths.get(pathSelogger, "dataids.txt"));
@@ -78,6 +94,10 @@ public class MethodParam {
 		return rewriteList;
 	}
 
+	/**
+	 * Add parameter Name to dataids
+	 * @param elem
+	 */
 	private void rewriteLine(String[] elem) {
 		if (classIDClassMap.containsKey(elem[1])) {
 			String classname = classIDClassMap.get(elem[1]);

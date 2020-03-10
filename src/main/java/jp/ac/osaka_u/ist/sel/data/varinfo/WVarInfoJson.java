@@ -2,8 +2,13 @@ package jp.ac.osaka_u.ist.sel.data.varinfo;
 
 import java.util.List;
 
-public class WVarInfoJson {
 
+/**
+ * This class for format of output json.
+ * @author k-simari
+ *
+ */
+public class WVarInfoJson {
 	List<VarInfoJson> recentdata;
 
 	public WVarInfoJson(List<VarInfoJson> recentdata) {
@@ -13,5 +18,4 @@ public class WVarInfoJson {
 	public List<VarInfoJson> getRecentdata() {
 		return recentdata;
 	}
-
 }

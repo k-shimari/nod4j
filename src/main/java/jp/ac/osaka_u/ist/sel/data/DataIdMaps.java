@@ -7,6 +7,11 @@ import java.util.Map;
 
 import jp.ac.osaka_u.ist.sel.data.varinfo.VarInfo;
 
+/**
+ * This class has maps dataid to much information.
+ * @author k-simari
+ *
+ */
 public class DataIdMaps {
 	private Map<String, String> classIDClassMap = new HashMap<>();
 	private Map<String, String> methodIDMethodMap = new HashMap<>();
@@ -22,6 +27,11 @@ public class DataIdMaps {
 		createVarInfoMap(linesDataids);
 	}
 
+	/**
+	 * map classID to className.
+	 * map methodID to methodName.
+	 * @param linesMethods
+	 */
 	public void createNameMap(List<String> linesMethods) {
 		for (String line : linesMethods) {
 			String[] ele = line.split(",");
@@ -29,12 +39,17 @@ public class DataIdMaps {
 				classIDClassMap.put(ele[0], ele[2]);
 				methodIDMethodMap.put(ele[1], ele[3]);
 			} else {
-
 				System.err.println("DataIdMaps.java createNameMap: ele.length <= 6 " + line);
 			}
 		}
 	}
 
+	/**
+	 * map dataID to className.
+	 * map dataID to methodName.
+	 * map dataID to line number.
+	 * @param linesDataids
+	 */
 	public void createIDMap(List<String> linesDataids) {
 		for (String line : linesDataids) {
 			String[] ele = line.split(",");
@@ -48,7 +63,10 @@ public class DataIdMaps {
 		}
 	}
 
-	/*dataid に recentdata(time,thread,data)のリストを対応付ける*/
+	/**
+	 * map dataID to value information(recentdata: time, thread, data)
+	 * @param linesDataids
+	 */
 	private void createRecentdataMap(List<String> linesRecentdata) {
 		for (String line : linesRecentdata) {
 			SplitLine s = new SplitLine(line);
@@ -61,6 +79,10 @@ public class DataIdMaps {
 		}
 	}
 
+	/**
+	 * map dataid to variable information(fieldname, assignment or reference...)
+	 * @param linesDataids
+	 */
 	private void createVarInfoMap(List<String> linesDataids) {
 		for (String linedat : linesDataids) {
 			String[] elemdat = linedat.split(",");
@@ -99,5 +121,4 @@ public class DataIdMaps {
 	public Map<String, String> getClassIDClassMap() {
 		return classIDClassMap;
 	}
-
 }
