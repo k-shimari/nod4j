@@ -30,7 +30,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>nod3v.Main</mainClass>
+							<mainClass>jp.ac.osaka_u.ist.sel.nod3v.Main</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
