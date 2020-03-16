@@ -7,13 +7,13 @@ If you want to know only how to use our viewer, jump <a href="#Viewer">Viewer</a
 Apache Maven 
 ### Collect Execution Trace 
 ```
-$ cd ./sample/demo/for/build
+$ cd ./sample/demo/for_build
 $ mvn test
 ```
  *  Our recorder options are written in line 20.
    *  Options are described at https://github.com/takashi-ishio/selogger/tree/v0.2
  *  In our method using `format=near-omni` option
- *  In this example, we do not record the execution of internal junit.(by setting option -e "org/junit/,e=...")
+ *  In this example, we do not record the execution of internal junit. (by setting option -e "org/junit/,e=...")
  
 You can find the execution trace in /path/to/sample/demo/selogger.
 ## Post Processor Usage
