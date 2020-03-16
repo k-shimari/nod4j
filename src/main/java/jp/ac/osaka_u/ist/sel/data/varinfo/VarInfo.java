@@ -75,14 +75,12 @@ public class VarInfo {
 			this.isFail = false;
 			break;
 		case "ARRAY_STORE_VALUE":
-			/* use value processed in MethodParam.java */
 			this.fieldname = ARRAYSTORE;
 			this.inst = "P";
 			this.isFail = false;
 			break;
 		case "ARRAY_LENGTH_RESULT":
 		case "CALL_RETURN":
-			/* use value processed in MethodParam.java */
 			this.fieldname = NAMERETURN;
 			this.inst = "G";
 			this.isFail = false;
