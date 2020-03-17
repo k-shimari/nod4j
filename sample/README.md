@@ -1,3 +1,76 @@
+This pages describe how to create and use our viewer on sample.
+
+If you want to know only how to use our viewer, jump <a href="#Viewer">Viewer</a>
+
+# Trace Recorder Usage
+## Pre-requirements
+Apache Maven 
+JDK 1.8
+### Collect Execution Trace 
+```
+$ cd ./sample/demo/for_build
+$ mvn test
+```
+
+The test will fail.
+
+If you can confirm the following message, our recorder can collect right information about the failing unit test.
+```
+[ERROR] Failures:
+[ERROR]   getMaxTest.getMaxTest1:17 expected:<30> but was:<20>
+[INFO]
+[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0
+```
+
+You can find the execution trace in /path/to/sample/demo/selogger.
+
+(Our recorder options are written in pom.xml at line 20. (The detail is described at https://github.com/takashi-ishio/selogger/tree/v0.2))
+
+## Post Processor Usage
+### Convert in the Format of JSON
+Run nod3v.jar, which is in the project root, to convert the execution trace in the format of JSON.
+
+```
+$ java -jar nod3v.jar /path/to/sample/demo
+```
+
+You can get `fileinfo.json` and `varinfo.json` at /path/to/sample/demo.
+
+`fileinfo.json` contains the information of source code.
+
+`varinfo.json` contains the information of values of variable.
+
+
+# Viewer Generator Usage
+
+## Pre-requirements
+
+* Node.js (10.13.0)
+* npm (6.13.7)
+
+
+## Getting started
+
+1. Run the commands below. You can check our sample.
+```
+$ cd nod3v/src/main/frontend
+$ npm install
+```
+
+
+## Build and Run
+
+1. Locate `fileinfo.json` and `varinfo.json` at `frontend/src/assets/project/demo`
+```
+$ npm run build
+$ npm run server
+```
+
+## Open your project
+
+1. Access localhost:8070
+1. Add <PROJECT_NAME> on the main page
+
 # Viewer 
 ## Sample Overview 
 This README describes our sample.
