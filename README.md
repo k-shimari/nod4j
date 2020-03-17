@@ -21,6 +21,9 @@ $ mkdir <PROJECT_NAME>/project
 $ cp -r /path/to/<YOUR_SOURCE_CODE_DIR> <PROJECT_NAME>/project/<YOUR_SOURCE_CODE_DIR>
 ```
 ### Collect Execution Trace 
+
+For example, using the following option, you can collect information about the execution.
+
 ```
 $ java -jar -javaagent:/path/to/selogger-0.2.jar=output=/path/to/<PROJECT_NAME>/selogger,weave=ALL,format=near-omni,size=32,keepobj=true <YOUR_APP.jar>
 ```
@@ -28,6 +31,7 @@ $ java -jar -javaagent:/path/to/selogger-0.2.jar=output=/path/to/<PROJECT_NAME>/
  *  In our method using `format=near-omni` option
 
 You can find the execution trace in /path/to/<PROJECT_NAME>/selogger.
+
 ## Post Processor Usage
 ### Convert in the Format of JSON
 Run nod3v.jar, which is in the project root, to convert the execution trace in the format of JSON.
@@ -46,25 +50,16 @@ You can get `fileinfo.json` and `varinfo.json` at /path/to/<PROJECT_NAME>.
 
 ### Pre-requirements
 
-* Node.js
-* npm
+* Node.js (10.13.0)
+* npm (6.13.7)
 
 ### Getting started
 
 1. Run the commands below. You can check our sample.
 ```
-$ cd src/main/frontend
+$ cd nod3v/src/main/frontend
 $ npm install
-$ npm start
 ```
-
-### Develop
-
-```
-$ npm start
-```
-
-> Note: Hot reload is enabled.
 
 ### Build and Run
 
@@ -76,7 +71,7 @@ $ npm run server
 ```
 
 ### Open your project
-
+1. Access localhost:8070
 1. Add <PROJECT_NAME> on the main page
 
 ![image](https://user-images.githubusercontent.com/31942441/65929436-17973900-e3d0-11e9-99ad-14ac83bf491b.png)
@@ -87,6 +82,12 @@ $ npm run server
 1. This interactive view can filter the value based on the execution order of each instruction by setting the start and/or end point.
 1. You can check filter information at `TIMESTAMP FILTER` and delete filters by clicking buttons.
 1. If no values are contained in the variable during the filtered period, the highlighting of the variable is turned off.
+
+### Raw logs Viewer 
+1. Clicking `ALL LOGS` button, you can see all raw execution trace.
+1. `ID` is unique each source code location.
+1. `L` means line number and `var` is variable name.
+1. `T` is the timestamp and `D` is the value of variable.
 
 ## Limitation
   * This tool does not show following variables in current implementation but we can confirm them clicking the `ALL LOGS` button in view.

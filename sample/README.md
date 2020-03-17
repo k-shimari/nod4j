@@ -5,17 +5,27 @@ If you want to know only how to use our viewer, jump <a href="#Viewer">Viewer</a
 # Trace Recorder Usage
 ## Pre-requirements
 Apache Maven 
+JDK 1.8
 ### Collect Execution Trace 
 ```
 $ cd ./sample/demo/for_build
 $ mvn test
 ```
- *  Our recorder options are written in line 20.
-   *  Options are described at https://github.com/takashi-ishio/selogger/tree/v0.2
- *  In our method using `format=near-omni` option
- *  In this example, we do not record the execution of internal junit. (by setting option -e "org/junit/,e=...")
- 
+
+The test will fail.
+
+If you can confirm the following message, our recorder can collect right information about the failing unit test.
+```
+[ERROR] Failures:
+[ERROR]   getMaxTest.getMaxTest1:17 expected:<30> but was:<20>
+[INFO]
+[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0
+```
+
 You can find the execution trace in /path/to/sample/demo/selogger.
+
+(Our recorder options are written in pom.xml at line 20. (The detail is described at https://github.com/takashi-ishio/selogger/tree/v0.2))
+
 ## Post Processor Usage
 ### Convert in the Format of JSON
 Run nod3v.jar, which is in the project root, to convert the execution trace in the format of JSON.
@@ -35,25 +45,18 @@ You can get `fileinfo.json` and `varinfo.json` at /path/to/sample/demo.
 
 ## Pre-requirements
 
-* Node.js
-* npm
+* Node.js (10.13.0)
+* npm (6.13.7)
+
 
 ## Getting started
 
 1. Run the commands below. You can check our sample.
 ```
-$ cd nod3v/frontend
+$ cd nod3v/src/main/frontend
 $ npm install
-$ npm start
 ```
 
-## Develop
-
-```
-$ npm start
-```
-
-> Note: Hot reload is enabled.
 
 ## Build and Run
 
@@ -65,6 +68,7 @@ $ npm run server
 
 ## Open your project
 
+1. Access localhost:8070
 1. Add <PROJECT_NAME> on the main page
 
 # Viewer 
