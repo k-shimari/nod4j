@@ -98,6 +98,13 @@ function OpenProjectPanel() {
       <Typography variant="h5" component="h3" gutterBottom>
         Open project
       </Typography>
+      <div>
+        <List dense>
+          {projects
+            ? projects.map((item, index) => <ProjectListItem key={index} {...item} />)
+            : null}
+        </List>
+      </div>
       <Box display="flex" alignItems="center" mt={1} mb={1}>
         <Box flexGrow={1}>
           <TextField
