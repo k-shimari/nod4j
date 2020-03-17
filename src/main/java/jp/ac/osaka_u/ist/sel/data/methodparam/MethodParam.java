@@ -20,6 +20,9 @@ public class MethodParam {
 	private Map<String, String> classIDClassMap;
 
 	public MethodParam(String dir, Map<String, String> classIDClassMap) {
+		/*when path finish /*/
+		if (dir.endsWith("/"))
+			dir = dir.substring(0, dir.length() - 1);
 		pathSelogger = dir + "/selogger";
 		pathProject = dir + "/project";
 		this.fileMethodParamMap = new HashMap<>();
