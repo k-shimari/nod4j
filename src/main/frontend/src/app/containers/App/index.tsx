@@ -98,22 +98,6 @@ function OpenProjectPanel() {
       <Typography variant="h5" component="h3" gutterBottom>
         Open project
       </Typography>
-      <div>
-        <List dense>
-          <ListItem button component="a" href={`project/demo/files`}>
-            <ListItemText
-              key={-1}
-              primary="Demo"
-              secondary="This is the demo project."
-              primaryTypographyProps={{ color: 'primary' }}
-            />
-          </ListItem>
-          {projects
-            ? projects.map((item, index) => <ProjectListItem key={index} {...item} />)
-            : null}
-        </List>
-      </div>
-      <Divider />
       <Box display="flex" alignItems="center" mt={1} mb={1}>
         <Box flexGrow={1}>
           <TextField
@@ -138,8 +122,8 @@ function OpenProjectPanel() {
       </Box>
       <Box mt={1}>
         <Typography variant="caption">
-          <MULink href="https://github.com/k-shimari/nod3v" target="_blank">
-            Check how to import your project in details.
+          <MULink href="https://github.com/k-shimari/nod3v" target="_blank"> 
+          You can check how to import your project here.
           </MULink>
         </Typography>
       </Box>
