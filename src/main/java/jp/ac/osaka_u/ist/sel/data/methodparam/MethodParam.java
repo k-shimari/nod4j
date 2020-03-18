@@ -20,8 +20,9 @@ public class MethodParam {
 	private Map<String, String> classIDClassMap;
 
 	public MethodParam(String dir, Map<String, String> classIDClassMap) {
-		/*when path finish /*/
-		if (dir.endsWith("/"))
+		/* when path finish /or\ */
+		//if (dir.endsWith(System.getProperty("file.separator")))
+		if (dir.endsWith("\\") || dir.endsWith("/"))
 			dir = dir.substring(0, dir.length() - 1);
 		pathSelogger = dir + "/selogger";
 		pathProject = dir + "/project";
