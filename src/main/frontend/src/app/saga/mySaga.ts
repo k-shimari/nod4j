@@ -66,7 +66,7 @@ function* requestFiles(action: ReturnType<typeof nod3vActions.requestFiles>) {
 
   const items = project.getItems(directory);
 
-  // ロードしているっぽく見せるためにわざと時間差をつけている
+  // for loading
   yield delay(300);
   yield put(
     nod3vActions.setFilesData({
@@ -81,14 +81,14 @@ function* requestValueListFilterChange(
 ) {
   const { projectName, kind, context, preferNotify } = action.payload!;
 
-  // contextが同じであれば更新の必要はない
+  // If the context is same, update does not need.
   const s: TimeStampRangeFilter = yield select((state: RootState) => state.nod3v.filter.range);
   if (kind === 'left' && _.isEqual(context, s.left)) return;
   if (kind === 'right' && _.isEqual(context, s.right)) return;
 
   yield put(nod3vActions.setValueListFilter({ kind, context }));
 
-  // localStorageに保存することによってフィルターの変更を通知する
+  // Notify the changing of filtering by storing at localStorage
   if (preferNotify) {
     const sharedEvent = new SharedEventModel(projectName);
     sharedEvent.notifyFilterChanged(kind, context);

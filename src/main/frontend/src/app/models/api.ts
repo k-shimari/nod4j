@@ -10,7 +10,7 @@ export interface ProjectInfo {
 }
 
 function receiver(key: any, value: any): any {
-  // ダブルクオーテーションのエスケープを処理するために使用
+  // To handle escaping double quotes
   // See: https://github.com/k-shimari/nod3v/issues/97
   if (typeof value === 'string') {
     return value.replace(/\\\"/g, '"');

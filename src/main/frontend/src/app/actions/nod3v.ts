@@ -14,7 +14,7 @@ export namespace nod3vActions {
   export enum Type {
     DUMMY_ACTION = 'DUMMY_ACTION',
 
-    // Project系
+    // Project
     REQUEST_PROJECTS = 'REQUEST_PROJECTS',
     SET_PROJECTS = 'SET_PROJECTS',
     REQUEST_ADD_PROJECT = 'REQUEST_ADD_PROJECT',
@@ -22,7 +22,7 @@ export namespace nod3vActions {
     REQUEST_REMOVE_PROJECT = 'REQUEST_REMOVE_PROJECT',
     REMOVE_PROJECT = 'REMOVE_PROJECT',
 
-    // Filter系
+    // Filter
     REQUEST_VALUE_LIST_FILTER_CHANGE = 'REQUEST_VALUE_LIST_FILTER_CHANGE',
     LOAD_INITIAL_VALUE_LIST_FILTER = 'LOAD_INITIAL_VALUE_LIST_FILTER',
     SET_VALUE_LIST_FILTER = 'SET_VALUE_LIST_FILTER',
@@ -31,22 +31,22 @@ export namespace nod3vActions {
     SET_ORIGINAL_VALUE_LIST_DATA = 'SET_ORIGINAL_VALUE_LIST_DATA',
     SET_FILTERED_VALUE_LIST_DATA = 'SET_FILTERED_VALUE_LIST_DATA',
 
-    // Files系
+    // Files
     REQUEST_FILES = 'REQUEST_FILES',
     SET_FILES_DATA = 'SET_FILES_DATA',
 
-    // Source code系
+    // Source code
     REQUEST_SOURCE_CODE_DATA = 'REQUEST_SOURCE_CODE_DATA',
     SET_SOURCE_CODE_DATA = 'SET_SOURCE_CODE_DATA',
 
-    // Logs系
+    // Logs
     REQUEST_JSON = 'REQUEST_JSON',
     SET_VAR_LIST_JSON_DATA = 'SET_VAR_LIST_JSON_DATA',
 
-    // Debug系
+    // Debug
     CLEAR_LOCAL_STORAGE = 'CLEAR_LOCAL_STORAGE',
 
-    // その他
+    // Others
     INIT_VIEW_PAGE = 'INIT_VIEW_PAGE'
   }
 
@@ -129,7 +129,7 @@ export namespace nod3vActions {
 
   export const dummyAction = createAction(Type.DUMMY_ACTION);
 
-  // Project系
+  // Project
   export const requestProjects = createAction(Type.REQUEST_PROJECTS);
   export const setProjects = createAction<Payload.SetProjects>(Type.SET_PROJECTS);
   export const requestAddProject = createAction<Payload.RequestAddProject>(
@@ -141,7 +141,7 @@ export namespace nod3vActions {
   );
   export const removeProject = createAction<Payload.RemoveProject>(Type.REMOVE_PROJECT);
 
-  // Filter系
+  // Filter
   export const requestValueListFilterChange = createAction<Payload.RequestValueListFilterChange>(
     Type.REQUEST_VALUE_LIST_FILTER_CHANGE
   );
@@ -159,11 +159,11 @@ export namespace nod3vActions {
     Type.SET_FILTERED_VALUE_LIST_DATA
   );
 
-  // Files系
+  // Files
   export const requestFiles = createAction<Payload.RequestFilesPayload>(Type.REQUEST_FILES);
   export const setFilesData = createAction<Payload.SetFilesDataPayload>(Type.SET_FILES_DATA);
 
-  // Source code系
+  // Source code
   export const requestSourceCodeData = createAction<Payload.RequestSourceCodeData>(
     Type.REQUEST_SOURCE_CODE_DATA
   );
@@ -171,14 +171,14 @@ export namespace nod3vActions {
     Type.SET_SOURCE_CODE_DATA
   );
 
-  //JsonLog系
+  //JsonLog
   export const requestJson = createAction<Payload.RequestJson>(Type.REQUEST_JSON);
   export const setVarListJsonData = createAction<Payload.SetVarListJsonData>(Type.SET_VAR_LIST_JSON_DATA);
 
-  // Debug系
+  // Debug
   export const clearLocalStorage = createAction(Type.CLEAR_LOCAL_STORAGE);
 
-  // その他
+  // Others
   export const initViewPage = createAction<Payload.InitViewPage>(Type.INIT_VIEW_PAGE);
 }
 
