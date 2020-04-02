@@ -57,8 +57,12 @@ public class MethodParam {
 								.replaceFirst("^src\\/main\\/java\\/", "")
 								.replaceFirst("^src\\/test\\/java\\/", "")
 								.replaceFirst("^test\\/main\\/java\\/", "")
+								.replaceFirst("^tests\\/main\\/java\\/", "")
+								.replaceFirst("^source\\/", "")
+								.replaceFirst("^sources\\/", "")
 								.replaceFirst("^src\\/", "")
 								.replaceFirst("^test\\/", "")
+								.replaceFirst("^tests\\/", "")
 								+ "/" + f.getName().replace(".java", "");
 						System.out.println("filePath:::" + filePath);
 						this.fileMethodParamMap.put(filePath, getFileInfo(f));
