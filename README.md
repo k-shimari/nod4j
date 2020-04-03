@@ -87,9 +87,9 @@ $ npm run server
 
 ### Raw logs Viewer 
 1. Clicking `ALL LOGS` button, you can see all raw execution trace.
-1. `ID` is unique each source code location.
-1. `L` means line number and `var` is variable name.
-1. `T` is the timestamp and `D` is the value of variable.
+1. `ID` is unique ID each source code location.
+1. `Line` means line number and `Variable` means variable name.
+1. `Timestamp` is the timestamp and `Data` is the value of variable.
 
 ## Limitation
   * This tool does not display the following variables in the current implementation, or does not display them correctly, but we can confirm these values clicking `ALL LOGS` button in view.
