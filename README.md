@@ -74,7 +74,7 @@ $ npm run server
 1. Access localhost:8070
 1. Add <PROJECT_NAME> on the main page
 
-![image](https://user-images.githubusercontent.com/31942441/65929436-17973900-e3d0-11e9-99ad-14ac83bf491b.png)
+![toppage2](https://user-images.githubusercontent.com/31942441/78315256-77e18000-7597-11ea-9035-0ed23ad908ea.png)
 
 ### Viewer 
 1. You can find down and up arrows at right side of each value.
@@ -83,6 +83,8 @@ $ npm run server
 1. You can check filter information at `TIMESTAMP FILTER` and delete filters by clicking buttons.
 1. If no values are contained in the variable during the filtered period, the highlighting of the variable is turned off.
 
+![traceviews](https://user-images.githubusercontent.com/31942441/78317041-2c7da080-759c-11ea-8d27-13e6cf4fb998.png)
+
 ### Raw logs Viewer 
 1. Clicking `ALL LOGS` button, you can see all raw execution trace.
 1. `ID` is unique each source code location.
@@ -90,7 +92,7 @@ $ npm run server
 1. `T` is the timestamp and `D` is the value of variable.
 
 ## Limitation
-  * This tool does not show following variables in current implementation but we can confirm them clicking the `ALL LOGS` button in view.
+  * This tool does not display the following variables in the current implementation, or does not display them correctly, but we can confirm these values clicking `ALL LOGS` button in view.
     * Method return value at caller method
     * Related to some kinds of operand correctly
       * ++, +=, --, -=

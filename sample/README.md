@@ -1,4 +1,4 @@
-This pages describe how to create and use our viewer on sample.
+This page describes how to create and use our viewer on sample.
 
 If you want to know only how to use our viewer, jump <a href="#Viewer">Viewer</a>
 
@@ -12,7 +12,7 @@ $ cd ./sample/demo/for_build
 $ mvn test
 ```
 
-The test will fail.
+This test will fail.
 
 If you can confirm the following message, our recorder can collect right information about the failing unit test.
 ```
