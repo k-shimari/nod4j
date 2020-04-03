@@ -1,4 +1,4 @@
-package jp.ac.osaka_u.ist.sel.createjson;
+package jp.ac.osaka_u.ist.sel.nod3v.createjson;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -6,11 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import jp.ac.osaka_u.ist.sel.data.Recentdata;
-import jp.ac.osaka_u.ist.sel.data.SeloggerFiles;
-import jp.ac.osaka_u.ist.sel.data.varinfo.VarInfo;
-import jp.ac.osaka_u.ist.sel.data.varinfo.VarInfoJson;
-import jp.ac.osaka_u.ist.sel.data.varinfo.WVarInfoJson;
+import jp.ac.osaka_u.ist.sel.nod3v.data.Recentdata;
+import jp.ac.osaka_u.ist.sel.nod3v.data.SeloggerFiles;
+import jp.ac.osaka_u.ist.sel.nod3v.data.varinfo.VarInfo;
+import jp.ac.osaka_u.ist.sel.nod3v.data.varinfo.VarInfoJson;
+import jp.ac.osaka_u.ist.sel.nod3v.data.varinfo.WVarInfoJson;
 
 /**
  * This class creates varInfo.json and return it in the format of JSON.

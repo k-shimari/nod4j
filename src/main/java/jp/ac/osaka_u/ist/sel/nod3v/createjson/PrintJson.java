@@ -1,4 +1,4 @@
-package jp.ac.osaka_u.ist.sel.createjson;
+package jp.ac.osaka_u.ist.sel.nod3v.createjson;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

@@ -1,4 +1,4 @@
-package jp.ac.osaka_u.ist.sel.data.fileinfo;
+package jp.ac.osaka_u.ist.sel.nod3v.data.fileinfo;
 
 import java.util.ArrayList;
 import java.util.List;
