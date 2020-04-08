@@ -19,8 +19,7 @@ function receiver(key: any, value: any): any {
   }
 }
 
-export class nod4j
-Api {
+export class nod4jApi {
   private getAssetFile(path: string): Promise<string> {
     return fetch(path).then((res) => {
       return res.text();
