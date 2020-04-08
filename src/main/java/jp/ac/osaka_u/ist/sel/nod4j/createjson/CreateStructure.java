@@ -16,19 +16,19 @@ import jp.ac.osaka_u.ist.sel.nod4j.data.fileinfo.FileInfoJson;
  * This class gets the target project information (e.g., lines, structure...).
  */
 public class CreateStructure implements ICreateJson {
-	private String targetDir;
+	private String projectDir;
 	private static final String TYPEDIR = "dir";
 	private static final String TYPEFILE = "file";
 	//	private static final String TYPEJAVAFILE = "javafile";
 	//	private static final String _JAVAFILE = ".java";
 
-	public CreateStructure(String dir) {
-		this.targetDir = dir;
+	public CreateStructure(String projectDir) {
+		this.projectDir = projectDir;
 	}
 
 	@Override
 	public FileInfoJson create() {
-		return getDirInfo(new File(targetDir));
+		return getDirInfo(new File(projectDir));
 	}
 
 	/**

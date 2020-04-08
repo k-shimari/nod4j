@@ -14,18 +14,20 @@ import java.util.Map;
  * @author k-simari
  */
 public class MethodParam {
-	private String pathSelogger;
-	private String pathProject;
+	private String traceDir;
+	private String projectDir;
 	private Map<String, List<ParamInfo>> fileMethodParamMap;
 	private Map<String, String> classIDClassMap;
 
-	public MethodParam(String dir, Map<String, String> classIDClassMap) {
+	public MethodParam(String projectDir, String traceDir, Map<String, String> classIDClassMap) {
 		/* when path finish /or\ */
 		//if (dir.endsWith(System.getProperty("file.separator")))
-		if (dir.endsWith("\\") || dir.endsWith("/"))
-			dir = dir.substring(0, dir.length() - 1);
-		pathSelogger = dir + "/selogger";
-		pathProject = dir + "/project";
+		if (projectDir.endsWith("\\") || projectDir.endsWith("/"))
+			projectDir = projectDir.substring(0, projectDir.length() - 1);
+		if (traceDir.endsWith("\\") || traceDir.endsWith("/"))
+			traceDir = traceDir.substring(0, traceDir.length() - 1);
+		this.traceDir = traceDir;
+		this.projectDir = projectDir;
 		this.fileMethodParamMap = new HashMap<>();
 		this.classIDClassMap = classIDClassMap;
 	}
@@ -36,7 +38,7 @@ public class MethodParam {
 	 * @return
 	 */
 	public List<String> getLineDataids(String dir) {
-		getDirInfo(new File(pathProject));
+		getDirInfo(new File(projectDir));
 		return getrewrittenDataids();
 	}
 
@@ -53,7 +55,7 @@ public class MethodParam {
 							&& f.getName().substring(f.getName().length() - 5).equals(".java")) {
 						//@TODO edit hashmap key
 						String packageName = f.getParent().replace("\\", "/");
-						String filePath = packageName.replace(pathProject + "/", "")
+						String filePath = packageName.replace(projectDir + "/", "")
 								.replaceFirst("^src\\/main\\/java\\/", "")
 								.replaceFirst("^src\\/test\\/java\\/", "")
 								.replaceFirst("^test\\/main\\/java\\/", "")
@@ -88,7 +90,7 @@ public class MethodParam {
 	private List<String> getrewrittenDataids() {
 		List<String> rewriteList = new ArrayList<>();
 		try {
-			List<String> lines = Files.readAllLines(Paths.get(pathSelogger, "dataids.txt"));
+			List<String> lines = Files.readAllLines(Paths.get(traceDir, "dataids.txt"));
 			for (String line : lines) {
 				String[] elem = line.split(",");
 				if (elem[5].equals("METHOD_PARAM")) {
