@@ -1,8 +1,8 @@
-package jp.ac.osaka_u.ist.sel.nod3v.data.varinfo;
+package jp.ac.osaka_u.ist.sel.nod4j.data.varinfo;
 
 import java.util.List;
 
-import jp.ac.osaka_u.ist.sel.nod3v.data.Recentdata;
+import jp.ac.osaka_u.ist.sel.nod4j.data.Recentdata;
 
 /**
  * The data for varinfo.json.

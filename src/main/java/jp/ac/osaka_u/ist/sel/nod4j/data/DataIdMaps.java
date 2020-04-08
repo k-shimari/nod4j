@@ -1,11 +1,11 @@
-package jp.ac.osaka_u.ist.sel.nod3v.data;
+package jp.ac.osaka_u.ist.sel.nod4j.data;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import jp.ac.osaka_u.ist.sel.nod3v.data.varinfo.VarInfo;
+import jp.ac.osaka_u.ist.sel.nod4j.data.varinfo.VarInfo;
 
 /**
  * This class has maps dataid to much information.

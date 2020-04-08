@@ -1,4 +1,4 @@
-# nod3v
+# nod4j
 This tool shows the values of variables in the execution.
 
 Each variable contains the values at most "k" times. (You can set "k" when you execute logger named [selogger](https://github.com/takashi-ishio/selogger/tree/v0.1))
@@ -34,10 +34,10 @@ You can find the execution trace in /path/to/<PROJECT_NAME>/selogger.
 
 ## Post Processor Usage
 ### Convert in the Format of JSON
-Run nod3v.jar, which is in the project root, to convert the execution trace in the format of JSON.
+Run nod4j.jar, which is in the project root, to convert the execution trace in the format of JSON.
 
 ```
-$ java -jar nod3v.jar /path/to/yourProject
+$ java -jar nod4j.jar /path/to/yourProject
 ```
 
 You can get `fileinfo.json` and `varinfo.json` at /path/to/<PROJECT_NAME>.
@@ -57,7 +57,7 @@ You can get `fileinfo.json` and `varinfo.json` at /path/to/<PROJECT_NAME>.
 
 1. Run the commands below. You can check our sample.
 ```
-$ cd nod3v/src/main/frontend
+$ cd nod4j/src/main/frontend
 $ npm install
 ```
 

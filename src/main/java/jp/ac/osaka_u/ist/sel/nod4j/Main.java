@@ -1,7 +1,7 @@
-package jp.ac.osaka_u.ist.sel.nod3v;
+package jp.ac.osaka_u.ist.sel.nod4j;
 
-import jp.ac.osaka_u.ist.sel.nod3v.createjson.StartJson;
-import jp.ac.osaka_u.ist.sel.nod3v.data.SeloggerFiles;
+import jp.ac.osaka_u.ist.sel.nod4j.createjson.StartJson;
+import jp.ac.osaka_u.ist.sel.nod4j.data.SeloggerFiles;
 
 public class Main {
 

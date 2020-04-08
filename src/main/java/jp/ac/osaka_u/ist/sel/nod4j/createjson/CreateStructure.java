@@ -1,4 +1,4 @@
-package jp.ac.osaka_u.ist.sel.nod3v.createjson;
+package jp.ac.osaka_u.ist.sel.nod4j.createjson;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import jp.ac.osaka_u.ist.sel.nod3v.data.fileinfo.FileInfoJson;
+import jp.ac.osaka_u.ist.sel.nod4j.data.fileinfo.FileInfoJson;
 
 /**
  * @author k-simari

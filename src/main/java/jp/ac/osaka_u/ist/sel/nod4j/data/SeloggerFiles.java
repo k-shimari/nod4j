@@ -1,4 +1,4 @@
-package jp.ac.osaka_u.ist.sel.nod3v.data;
+package jp.ac.osaka_u.ist.sel.nod4j.data;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -6,7 +6,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import jp.ac.osaka_u.ist.sel.nod3v.data.methodparam.MethodParam;
+import jp.ac.osaka_u.ist.sel.nod4j.data.methodparam.MethodParam;
 
 /**
  * create maps by selogger output

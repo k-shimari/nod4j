@@ -1,10 +1,10 @@
-import { nod3vActions } from 'app/actions';
+import { nod4jActions } from 'app/actions';
 //import { VarInfo } from 'app/models/varListData';
 import { VarValueData } from 'app/models/varValueData';
 import { handleActions } from 'redux-actions';
 import { RootState } from './index';
 
-const initialState: RootState.nod3vState = {
+const initialState: RootState.nod4jState = {
   projects: undefined,
   filter: {
     range: {}
@@ -20,10 +20,10 @@ const initialState: RootState.nod3vState = {
   recentdata:  undefined
 };
 
-export const nod3vReducer = handleActions<RootState.nod3vState, any>(
+export const nod4jReducer = handleActions<RootState.nod4jState, any>(
   {
-    [nod3vActions.Type.SET_VALUE_LIST_FILTER]: (state, action) => {
-      const { context, kind } = action.payload! as nod3vActions.Payload.SetValueListFilter;
+    [nod4jActions.Type.SET_VALUE_LIST_FILTER]: (state, action) => {
+      const { context, kind } = action.payload! as nod4jActions.Payload.SetValueListFilter;
 
       const left = kind === 'left' ? context : state.filter.range.left;
       const right = kind === 'right' ? context : state.filter.range.right;
@@ -33,29 +33,29 @@ export const nod3vReducer = handleActions<RootState.nod3vState, any>(
         filter: { range: { left, right } }
       };
     },
-    [nod3vActions.Type.CLEAR_ALL_FILTERS]: (state) => {
+    [nod4jActions.Type.CLEAR_ALL_FILTERS]: (state) => {
       return {
         ...state,
         filter: { range: { left: undefined, right: undefined } }
       };
     },
-    [nod3vActions.Type.SET_ORIGINAL_VALUE_LIST_DATA]: (state, action) => {
-      const { data } = action.payload! as nod3vActions.Payload.SetOriginalValueListData;
+    [nod4jActions.Type.SET_ORIGINAL_VALUE_LIST_DATA]: (state, action) => {
+      const { data } = action.payload! as nod4jActions.Payload.SetOriginalValueListData;
 
       return {
         ...state,
         originalValueListData: data
       };
     },
-    [nod3vActions.Type.SET_FILTERED_VALUE_LIST_DATA]: (state, action) => {
-      const { data } = action.payload! as nod3vActions.Payload.SetFilteredValueListData;
+    [nod4jActions.Type.SET_FILTERED_VALUE_LIST_DATA]: (state, action) => {
+      const { data } = action.payload! as nod4jActions.Payload.SetFilteredValueListData;
 
       return {
         ...state,
         filteredValueListData: data
       };
     },
-    [nod3vActions.Type.REQUEST_FILES]: (state) => {
+    [nod4jActions.Type.REQUEST_FILES]: (state) => {
       return {
         ...state,
         files: {
@@ -64,48 +64,48 @@ export const nod3vReducer = handleActions<RootState.nod3vState, any>(
         }
       };
     },
-    [nod3vActions.Type.SET_FILES_DATA]: (state, action) => {
-      const { dirs, items } = action.payload! as nod3vActions.Payload.SetFilesDataPayload;
+    [nod4jActions.Type.SET_FILES_DATA]: (state, action) => {
+      const { dirs, items } = action.payload! as nod4jActions.Payload.SetFilesDataPayload;
 
       return {
         ...state,
         files: { dirs, items, loading: false }
       };
     },
-    [nod3vActions.Type.SET_SOURCE_CODE_DATA]: (state, action) => {
-      const { tokens } = action.payload! as nod3vActions.Payload.SetSourceCodeData;
+    [nod4jActions.Type.SET_SOURCE_CODE_DATA]: (state, action) => {
+      const { tokens } = action.payload! as nod4jActions.Payload.SetSourceCodeData;
 
       return {
         ...state,
         sourceCodeTokens: tokens
       };
     },
-   [nod3vActions.Type.SET_VAR_LIST_JSON_DATA]: (state, action) => {
-      const { data } = action.payload! as nod3vActions.Payload.SetVarListJsonData;
+   [nod4jActions.Type.SET_VAR_LIST_JSON_DATA]: (state, action) => {
+      const { data } = action.payload! as nod4jActions.Payload.SetVarListJsonData;
       return {
         ...state,
         recentdata: data
       };
     },
 
-    [nod3vActions.Type.SET_PROJECTS]: (state, action) => {
-      const { projects } = action.payload! as nod3vActions.Payload.SetProjects;
+    [nod4jActions.Type.SET_PROJECTS]: (state, action) => {
+      const { projects } = action.payload! as nod4jActions.Payload.SetProjects;
 
       return {
         ...state,
         projects
       };
     },
-    [nod3vActions.Type.ADD_PROJECT]: (state, action) => {
-      const { project } = action.payload! as nod3vActions.Payload.AddProject;
+    [nod4jActions.Type.ADD_PROJECT]: (state, action) => {
+      const { project } = action.payload! as nod4jActions.Payload.AddProject;
 
       return {
         ...state,
         projects: [...(state.projects || []), project]
       };
     },
-    [nod3vActions.Type.REMOVE_PROJECT]: (state, action) => {
-      const { project } = action.payload! as nod3vActions.Payload.RemoveProject;
+    [nod4jActions.Type.REMOVE_PROJECT]: (state, action) => {
+      const { project } = action.payload! as nod4jActions.Payload.RemoveProject;
 
       let projects = state.projects || [];
       const index = projects.map((x) => x.name).indexOf(project.name);

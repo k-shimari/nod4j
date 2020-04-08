@@ -10,7 +10,7 @@ import { VarInfo } from 'app/models/varListData';
 export type TimestampRangeFilterKind = 'left' | 'right';
 export type Directory = string[];
 
-export namespace nod3vActions {
+export namespace nod4jActions {
   export enum Type {
     DUMMY_ACTION = 'DUMMY_ACTION',
 
@@ -182,4 +182,4 @@ export namespace nod3vActions {
   export const initViewPage = createAction<Payload.InitViewPage>(Type.INIT_VIEW_PAGE);
 }
 
-export type nod3vActions = Omit<typeof nod3vActions, 'Type'>;
+export type nod4jActions = Omit<typeof nod4jActions, 'Type'>;

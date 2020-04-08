@@ -1,5 +1,5 @@
 import { LinearProgress } from '@material-ui/core';
-import { nod3vActions } from 'app/actions';
+import { nod4jActions } from 'app/actions';
 import { ContentContainer } from 'app/components/atoms/contentContainer';
 import { FileTable, FileTableRowProp } from 'app/components/organisms/fileTable';
 import { PathNavigation } from 'app/components/organisms/pathNavigation';
@@ -14,12 +14,12 @@ import useReactRouter from 'use-react-router';
 export function FilesContainer() {
   const { location, match } = useReactRouter<{ projectName: string }>();
   const dispatch = useDispatch();
-  const files = useSelector<RootState, RootState.FilesState>((state) => state.nod3v.files);
+  const files = useSelector<RootState, RootState.FilesState>((state) => state.nod4j.files);
   const projectName = match.params.projectName;
 
   React.useEffect(() => {
     const directory = UrlParser.matchDirOfProjectUrl(location.pathname);
-    dispatch(nod3vActions.requestFiles({ projectName, directory }));
+    dispatch(nod4jActions.requestFiles({ projectName, directory }));
   }, []);
 
   function computeLinkHref(name: string, kind: ProjectItemType): string {

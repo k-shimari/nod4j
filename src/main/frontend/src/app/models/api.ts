@@ -11,7 +11,7 @@ export interface ProjectInfo {
 
 function receiver(key: any, value: any): any {
   // To handle escaping double quotes
-  // See: https://github.com/k-shimari/nod3v/issues/97
+  // See: https://github.com/k-shimari/nod4j/issues/97
   if (typeof value === 'string') {
     return value.replace(/\\\"/g, '"');
   } else {
@@ -19,7 +19,8 @@ function receiver(key: any, value: any): any {
   }
 }
 
-export class nod3vApi {
+export class nod4j
+Api {
   private getAssetFile(path: string): Promise<string> {
     return fetch(path).then((res) => {
       return res.text();

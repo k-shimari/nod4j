@@ -1,8 +1,8 @@
-package jp.ac.osaka_u.ist.sel.nod3v.createjson;
+package jp.ac.osaka_u.ist.sel.nod4j.createjson;
 
 import java.io.IOException;
 
-import jp.ac.osaka_u.ist.sel.nod3v.data.SeloggerFiles;
+import jp.ac.osaka_u.ist.sel.nod4j.data.SeloggerFiles;
 
 /**
  * This class calls the module which creates varInfo.json and fileInfo.json, and print them.

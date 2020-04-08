@@ -1,4 +1,4 @@
-package jp.ac.osaka_u.ist.sel.nod3v.data;
+package jp.ac.osaka_u.ist.sel.nod4j.data;
 
 import java.util.ArrayList;
 

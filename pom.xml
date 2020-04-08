@@ -2,8 +2,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>nod3v</groupId>
-	<artifactId>nod3v</artifactId>
+	<groupId>nod4j</groupId>
+	<artifactId>nod4j</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
@@ -23,14 +23,14 @@
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>3.0.0</version>
 				<configuration>
-					<finalName>nod3v</finalName>
+					<finalName>nod4j</finalName>
 					<appendAssemblyId>false</appendAssemblyId>
 					<descriptorRefs>
 						<descriptorRef>jar-with-dependencies</descriptorRef>
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>jp.ac.osaka_u.ist.sel.nod3v.Main</mainClass>
+							<mainClass>jp.ac.osaka_u.ist.sel.nod4j.Main</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

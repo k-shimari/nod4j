@@ -1,6 +1,6 @@
-import { nod3vActions } from 'app/actions';
+import { nod4jActions } from 'app/actions';
 import { ValueListItemData } from 'app/components/organisms/valueList';
-import { nod3vApi, ProjectInfo } from 'app/models/api';
+import { nod4jApi, ProjectInfo } from 'app/models/api';
 import * as JavaLexer from 'app/models/javaLexer';
 import { ProjectItemFileModel, ProjectModel } from 'app/models/project';
 import { ProjectManager } from 'app/models/projectManager';
@@ -54,11 +54,11 @@ function createVarValueData(
 }
 
 
-function* requestFiles(action: ReturnType<typeof nod3vActions.requestFiles>) {
+function* requestFiles(action: ReturnType<typeof nod4jActions.requestFiles>) {
   const { projectName, directory } = action.payload!;
 
   const project: ProjectModel | undefined = yield call(() =>
-    new nod3vApi().fetchFileInfo(projectName)
+    new nod4jApi().fetchFileInfo(projectName)
   );
   if (!project) {
     throw new Error('Unknown project: ' + projectName);
@@ -69,7 +69,7 @@ function* requestFiles(action: ReturnType<typeof nod3vActions.requestFiles>) {
   // for loading
   yield delay(300);
   yield put(
-    nod3vActions.setFilesData({
+    nod4jActions.setFilesData({
       dirs: directory,
       items
     })
@@ -77,16 +77,16 @@ function* requestFiles(action: ReturnType<typeof nod3vActions.requestFiles>) {
 }
 
 function* requestValueListFilterChange(
-  action: ReturnType<typeof nod3vActions.requestValueListFilterChange>
+  action: ReturnType<typeof nod4jActions.requestValueListFilterChange>
 ) {
   const { projectName, kind, context, preferNotify } = action.payload!;
 
   // If the context is same, update does not need.
-  const s: TimeStampRangeFilter = yield select((state: RootState) => state.nod3v.filter.range);
+  const s: TimeStampRangeFilter = yield select((state: RootState) => state.nod4j.filter.range);
   if (kind === 'left' && _.isEqual(context, s.left)) return;
   if (kind === 'right' && _.isEqual(context, s.right)) return;
 
-  yield put(nod3vActions.setValueListFilter({ kind, context }));
+  yield put(nod4jActions.setValueListFilter({ kind, context }));
 
   // Notify the changing of filtering by storing at localStorage
   if (preferNotify) {
@@ -95,13 +95,13 @@ function* requestValueListFilterChange(
   }
 
   const state: RootState = yield select();
-  const original = state.nod3v.originalValueListData;
-  const filtered = original.filterByRange(state.nod3v.filter.range);
+  const original = state.nod4j.originalValueListData;
+  const filtered = original.filterByRange(state.nod4j.filter.range);
 
-  yield put(nod3vActions.setFilteredValueListData({ data: filtered }));
+  yield put(nod4jActions.setFilteredValueListData({ data: filtered }));
 }
 
-function* requestSourceCodeData(action: ReturnType<typeof nod3vActions.requestSourceCodeData>) {
+function* requestSourceCodeData(action: ReturnType<typeof nod4jActions.requestSourceCodeData>) {
   const { projectName, target } = action.payload!;
   const { dirs, file } = target;
   let filePath = getFilePath(dirs, file);
@@ -114,7 +114,7 @@ function* requestSourceCodeData(action: ReturnType<typeof nod3vActions.requestSo
     filePath = dirs.join("/") + "/" + file;
   }
 
-  const api = new nod3vApi();
+  const api = new nod4jApi();
   const project: ProjectModel | undefined = yield call(() => api.fetchFileInfo(projectName));
   if (!project) {
     throw new Error('Unknown project: ' + projectName);
@@ -129,7 +129,7 @@ function* requestSourceCodeData(action: ReturnType<typeof nod3vActions.requestSo
   const tokens = JavaLexer.tokenize(requestedFile.joinedContent);
 
   yield put(
-    nod3vActions.SetSourceCodeData({
+    nod4jActions.SetSourceCodeData({
       tokens
     })
   );
@@ -138,12 +138,12 @@ function* requestSourceCodeData(action: ReturnType<typeof nod3vActions.requestSo
   const varValueData = createVarValueData(varListJsonData, filePath, tokens);
 
   yield put(
-    nod3vActions.setOriginalValueListData({
+    nod4jActions.setOriginalValueListData({
       data: varValueData
     })
   );
   yield put(
-    nod3vActions.setFilteredValueListData({
+    nod4jActions.setFilteredValueListData({
       data: varValueData
     })
   );
@@ -159,10 +159,10 @@ function getFilePath(dirs: string[], file: string): string {
   }
 }
 
-function* requestJson(action: ReturnType<typeof nod3vActions.requestJson>) {
+function* requestJson(action: ReturnType<typeof nod4jActions.requestJson>) {
   const { projectName, target } = action.payload!;
   const { dirs, file } = target;
-  const api = new nod3vApi();
+  const api = new nod4jApi();
 
   let filePath = getFilePath(dirs, file);
 
@@ -172,7 +172,7 @@ function* requestJson(action: ReturnType<typeof nod3vActions.requestJson>) {
   const ds = model.getDataOfFile(filePath);
 
   yield put(
-    nod3vActions.setVarListJsonData({
+    nod4jActions.setVarListJsonData({
       data: ds
     })
   );
@@ -180,7 +180,7 @@ function* requestJson(action: ReturnType<typeof nod3vActions.requestJson>) {
 
 
 function* dummyWorker() {
-  yield put(nod3vActions.dummyAction());
+  yield put(nod4jActions.dummyAction());
 }
 
 function* clearLocalStorage() {
@@ -189,7 +189,7 @@ function* clearLocalStorage() {
 }
 
 function* loadInitialValueListFilter(
-  action: ReturnType<typeof nod3vActions.loadInitialValueListFilter>
+  action: ReturnType<typeof nod4jActions.loadInitialValueListFilter>
 ) {
   const { projectName } = action.payload!;
   const timestampFilter: TimeStampRangeFilter = yield call(() => {
@@ -198,14 +198,14 @@ function* loadInitialValueListFilter(
   });
   const { left, right } = timestampFilter;
   yield put(
-    nod3vActions.requestValueListFilterChange({ projectName, kind: 'left', context: left })
+    nod4jActions.requestValueListFilterChange({ projectName, kind: 'left', context: left })
   );
   yield put(
-    nod3vActions.requestValueListFilterChange({ projectName, kind: 'right', context: right })
+    nod4jActions.requestValueListFilterChange({ projectName, kind: 'right', context: right })
   );
 }
 
-function initViewPage(action: ReturnType<typeof nod3vActions.initViewPage>) {
+function initViewPage(action: ReturnType<typeof nod4jActions.initViewPage>) {
   const { projectName } = action.payload!;
 
   const sharedEvent = new SharedEventModel(projectName);
@@ -214,47 +214,47 @@ function initViewPage(action: ReturnType<typeof nod3vActions.initViewPage>) {
     const { kind, newValue } = args;
 
     const context = newValue as TimestampRangeFilterContext;
-    store.dispatch(nod3vActions.requestValueListFilterChange({ projectName, kind, context }));
+    store.dispatch(nod4jActions.requestValueListFilterChange({ projectName, kind, context }));
   });
 }
 
 function* requestProjects() {
   const manager = new ProjectManager();
   const projects: ProjectInfo[] = yield call(() => manager.getAllProjects());
-  yield put(nod3vActions.setProjects({ projects }));
+  yield put(nod4jActions.setProjects({ projects }));
 }
 
-function* requestAddProject(action: ReturnType<typeof nod3vActions.requestAddProject>) {
+function* requestAddProject(action: ReturnType<typeof nod4jActions.requestAddProject>) {
   const { project } = action.payload!;
   const manager = new ProjectManager();
   const success: boolean = yield call(() => manager.addProject(project));
   if (success) {
-    yield put(nod3vActions.addProject({ project }));
+    yield put(nod4jActions.addProject({ project }));
   }
 }
 
-function* requestRemoveProject(action: ReturnType<typeof nod3vActions.requestRemoveProject>) {
+function* requestRemoveProject(action: ReturnType<typeof nod4jActions.requestRemoveProject>) {
   const { project } = action.payload!;
   const manager = new ProjectManager();
   const success: boolean = yield call(() => manager.removeProject(project));
   if (success) {
-    yield put(nod3vActions.removeProject({ project }));
+    yield put(nod4jActions.removeProject({ project }));
   }
 }
 
 function* mySaga() {
-  yield takeEvery(nod3vActions.dummyAction, dummyWorker);
-  yield takeEvery(nod3vActions.requestFiles, requestFiles);
-  yield takeEvery(nod3vActions.requestValueListFilterChange, requestValueListFilterChange);
-  yield takeEvery(nod3vActions.requestSourceCodeData, requestSourceCodeData);
-  yield takeEvery(nod3vActions.requestJson, requestJson);
+  yield takeEvery(nod4jActions.dummyAction, dummyWorker);
+  yield takeEvery(nod4jActions.requestFiles, requestFiles);
+  yield takeEvery(nod4jActions.requestValueListFilterChange, requestValueListFilterChange);
+  yield takeEvery(nod4jActions.requestSourceCodeData, requestSourceCodeData);
+  yield takeEvery(nod4jActions.requestJson, requestJson);
 
-  yield takeEvery(nod3vActions.clearLocalStorage, clearLocalStorage);
-  yield takeEvery(nod3vActions.loadInitialValueListFilter, loadInitialValueListFilter);
-  yield takeEvery(nod3vActions.initViewPage, initViewPage);
-  yield takeEvery(nod3vActions.requestProjects, requestProjects);
-  yield takeEvery(nod3vActions.requestAddProject, requestAddProject);
-  yield takeEvery(nod3vActions.requestRemoveProject, requestRemoveProject);
+  yield takeEvery(nod4jActions.clearLocalStorage, clearLocalStorage);
+  yield takeEvery(nod4jActions.loadInitialValueListFilter, loadInitialValueListFilter);
+  yield takeEvery(nod4jActions.initViewPage, initViewPage);
+  yield takeEvery(nod4jActions.requestProjects, requestProjects);
+  yield takeEvery(nod4jActions.requestAddProject, requestAddProject);
+  yield takeEvery(nod4jActions.requestRemoveProject, requestRemoveProject);
 }
 
 export default mySaga;

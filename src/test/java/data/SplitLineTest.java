@@ -2,7 +2,7 @@ package data;
 
 import static org.junit.Assert.*;
 
-import jp.ac.osaka_u.ist.sel.nod3v.data.SplitLine;
+import jp.ac.osaka_u.ist.sel.nod4j.data.SplitLine;
 
 public class SplitLineTest {
 	public void splitRecentdataTest() {
