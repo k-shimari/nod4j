@@ -1,2 +1,2 @@
-Weave: file:/C:/Users/k-simari/pleiades/workspace/nod3v/sample/demo/for_build/target/test-classes//testsample/getMaxTest
-Weave: file:/C:/Users/k-simari/pleiades/workspace/nod3v/sample/demo/for_build/target/classes//sample/Main
+Weave: file:/C:/Users/k-simari/pleiades/workspace/nod4j/sample/demo/for_build/target/test-classes//testsample/getMaxTest
+Weave: file:/C:/Users/k-simari/pleiades/workspace/nod4j/sample/demo/for_build/target/classes//sample/Main
