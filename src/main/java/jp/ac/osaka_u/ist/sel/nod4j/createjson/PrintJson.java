@@ -29,8 +29,10 @@ public class PrintJson {
 		ObjectMapper mapper = new ObjectMapper();
 		List<String> lines = new ArrayList<>();
 		lines.add(mapper.writeValueAsString(json));
-		if (Files.exists(Paths.get(outputDir, filename))) {
-			Files.delete(Paths.get(outputDir, filename));
+		if (Files.exists(Paths.get(outputDir))) {
+			Files.deleteIfExists(Paths.get(outputDir, filename));
+		} else {
+			Files.createDirectory(Paths.get(outputDir));
 		}
 		Files.createFile(Paths.get(outputDir, filename));
 		Files.write(Paths.get(outputDir, filename), lines, StandardCharsets.UTF_8, StandardOpenOption.WRITE);
