@@ -66,7 +66,7 @@ public class CreateStructure implements ICreateJson {
 		if (files != null) {
 			for (File f : files) {
 				if (f.isFile()) {
-					if(f.getName().substring(f.getName().length()-5).equals(_JAVAFILE)) {
+					if (f.getName().length() > 5 && f.getName().substring(f.getName().length() - 5).equals(_JAVAFILE)) {
 						list.add(getFileInfo(f));
 					}
 				} else {
