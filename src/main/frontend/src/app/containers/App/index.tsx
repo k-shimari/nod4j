@@ -16,7 +16,7 @@ import {
 } from '@material-ui/core';
 import { Clear as ClearIcon } from '@material-ui/icons';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { nod3vActions } from 'app/actions';
+import { nod4jActions } from 'app/actions';
 import { ContentContainer } from 'app/components/atoms/contentContainer';
 import { ProjectInfo } from 'app/models/api';
 import { RootState } from 'app/reducers';
@@ -35,11 +35,11 @@ function MainPanel() {
   return (
     <Paper className={classes.root}>
       <Typography variant="h5" component="h3" gutterBottom>
-        Welcome to nod3v
+        Welcome to nod4j
       </Typography>
       <Typography component="p" color="textSecondary">
         Source code is availabe on{' '}
-        <MULink href="https://github.com/k-shimari/nod3v" target="_blank">
+        <MULink href="https://github.com/k-shimari/nod4j" target="_blank">
           GitHub
         </MULink>
         .
@@ -62,7 +62,7 @@ function ProjectListItem(props: ProjectInfo) {
 
   const { name } = props;
   function onClickClearButton() {
-    dispatch(nod3vActions.requestRemoveProject({ project: { name } }));
+    dispatch(nod4jActions.requestRemoveProject({ project: { name } }));
   }
 
   return (
@@ -82,13 +82,13 @@ function OpenProjectPanel() {
 
   const dispatch = useDispatch();
   React.useEffect(() => {
-    dispatch(nod3vActions.requestProjects());
+    dispatch(nod4jActions.requestProjects());
   }, []);
 
-  const projects = useSelector((state: RootState) => state.nod3v.projects);
+  const projects = useSelector((state: RootState) => state.nod4j.projects);
 
   function addProject(projectName: string) {
-    dispatch(nod3vActions.requestAddProject({ project: { name: projectName } }));
+    dispatch(nod4jActions.requestAddProject({ project: { name: projectName } }));
     setAddProejctName('');
   }
 
@@ -129,7 +129,7 @@ function OpenProjectPanel() {
       </Box>
       <Box mt={1}>
         <Typography variant="caption">
-          <MULink href="https://github.com/k-shimari/nod3v" target="_blank"> 
+          <MULink href="https://github.com/k-shimari/nod4j" target="_blank"> 
           You can check how to import your project here.
           </MULink>
         </Typography>
@@ -151,7 +151,7 @@ function DebugPanel() {
         <Button
           variant="outlined"
           size="small"
-          onClick={() => dispatch(nod3vActions.clearLocalStorage())}
+          onClick={() => dispatch(nod4jActions.clearLocalStorage())}
         >
           Clear Timestamp Filter
           <DeleteIcon />

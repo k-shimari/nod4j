@@ -1,4 +1,4 @@
-This pages describe how to create and use our viewer on sample.
+This page describes how to create and use our viewer on sample.
 
 If you want to know only how to use our viewer, jump <a href="#Viewer">Viewer</a>
 
@@ -12,7 +12,7 @@ $ cd ./sample/demo/for_build
 $ mvn test
 ```
 
-The test will fail.
+This test will fail.
 
 If you can confirm the following message, our recorder can collect right information about the failing unit test.
 ```
@@ -28,10 +28,10 @@ You can find the execution trace in /path/to/sample/demo/selogger.
 
 ## Post Processor Usage
 ### Convert in the Format of JSON
-Run nod3v.jar, which is in the project root, to convert the execution trace in the format of JSON.
+Run nod4j.jar, which is in the project root, to convert the execution trace in the format of JSON.
 
 ```
-$ java -jar nod3v.jar /path/to/sample/demo
+$ java -jar nod4j.jar /path/to/sample/demo
 ```
 
 You can get `fileinfo.json` and `varinfo.json` at /path/to/sample/demo.
@@ -53,7 +53,7 @@ You can get `fileinfo.json` and `varinfo.json` at /path/to/sample/demo.
 
 1. Run the commands below. You can check our sample.
 ```
-$ cd nod3v/src/main/frontend
+$ cd nod4j/src/main/frontend
 $ npm install
 ```
 

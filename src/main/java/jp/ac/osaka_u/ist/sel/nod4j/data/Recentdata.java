@@ -1,4 +1,4 @@
-package jp.ac.osaka_u.ist.sel.data;
+package jp.ac.osaka_u.ist.sel.nod4j.data;
 
 /**
  * This data class contains the value at each dataid in recentdata.txt.

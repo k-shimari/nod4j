@@ -1,4 +1,4 @@
-package jp.ac.osaka_u.ist.sel.createjson;
+package jp.ac.osaka_u.ist.sel.nod4j.createjson;
 
 /**
  * Use this interface when creating json.

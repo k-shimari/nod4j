@@ -1,5 +1,5 @@
 import { makeStyles, Paper } from '@material-ui/core';
-import { nod3vActions} from 'app/actions';
+import { nod4jActions} from 'app/actions';
 import { ContentContainer } from 'app/components/atoms/contentContainer';
 import { PathNavigation } from 'app/components/organisms/pathNavigation';
 import { JsonLogs } from 'app/components/jsonLog';
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function LogsContainer() {
-    const nod3vState = useSelector<RootState, RootState.nod3vState>((state) => state.nod3v);
+    const nod4jState = useSelector<RootState, RootState.nod4jState>((state) => state.nod4j);
 
     const dispatch = useDispatch();
     const classes = useStyles();
@@ -39,9 +39,9 @@ export function LogsContainer() {
     const { projectName } = match.params;
 
     React.useEffect(() => {
-        dispatch(nod3vActions.requestJson({ projectName, target: { dirs, file } }));
+        dispatch(nod4jActions.requestJson({ projectName, target: { dirs, file } }));
     }, []);
-    const data = nod3vState.recentdata;
+    const data = nod4jState.recentdata;
 
     return data ? (
         <ContentContainer>

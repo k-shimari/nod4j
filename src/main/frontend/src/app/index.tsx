@@ -1,4 +1,4 @@
-import { App as nod3vApp } from 'app/containers/App';
+import { App as nod4jApp } from 'app/containers/App';
 import { FilesContainer } from 'app/containers/Files';
 import { ViewContainer } from 'app/containers/View';
 import { LogsContainer } from 'app/containers/Logs';
@@ -10,8 +10,8 @@ import { OpenProject } from './containers/OpenProject';
 
 export const App = hot(module)(() => (
   <div>
-    <AppHeader appName="nod3v" />
-    <Route exact path="/" component={nod3vApp} />
+    <AppHeader appName="nod4j" />
+    <Route exact path="/" component={nod4jApp} />
     <Route exact path="/open" component={OpenProject} />
     <Route path="/project/:projectName/files" component={FilesContainer} />
     <Route path="/project/:projectName/view" component={ViewContainer} />

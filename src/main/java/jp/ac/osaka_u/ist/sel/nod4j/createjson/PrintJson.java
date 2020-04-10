@@ -1,4 +1,4 @@
-package jp.ac.osaka_u.ist.sel.createjson;
+package jp.ac.osaka_u.ist.sel.nod4j.createjson;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -17,11 +17,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author k-simari
  */
 public class PrintJson {
-	private String targetDir;
+	private String outputDir;
 	private String filename;
 
 	public PrintJson(String dir, String filename) {
-		this.targetDir = dir;
+		this.outputDir = dir;
 		this.filename = filename;
 	}
 
@@ -29,12 +29,13 @@ public class PrintJson {
 		ObjectMapper mapper = new ObjectMapper();
 		List<String> lines = new ArrayList<>();
 		lines.add(mapper.writeValueAsString(json));
-
-		if (Files.exists(Paths.get(targetDir, filename))) {
-			Files.delete(Paths.get(targetDir, filename));
+		if (Files.exists(Paths.get(outputDir))) {
+			Files.deleteIfExists(Paths.get(outputDir, filename));
+		} else {
+			Files.createDirectory(Paths.get(outputDir));
 		}
-		Files.createFile(Paths.get(targetDir, filename));
-		Files.write(Paths.get(targetDir, filename), lines, StandardCharsets.UTF_8, StandardOpenOption.WRITE);
+		Files.createFile(Paths.get(outputDir, filename));
+		Files.write(Paths.get(outputDir, filename), lines, StandardCharsets.UTF_8, StandardOpenOption.WRITE);
 	}
 
 	/*For Debug*/
@@ -50,11 +51,11 @@ public class PrintJson {
 					}
 				})
 				.collect(Collectors.toList());
-		if (Files.exists(Paths.get(targetDir, filename))) {
-			Files.delete(Paths.get(targetDir, filename));
+		if (Files.exists(Paths.get(outputDir, filename))) {
+			Files.delete(Paths.get(outputDir, filename));
 		}
-		Files.createFile(Paths.get(targetDir, filename));
-		Files.write(Paths.get(targetDir, filename), lines, StandardCharsets.UTF_8, StandardOpenOption.WRITE);
+		Files.createFile(Paths.get(outputDir, filename));
+		Files.write(Paths.get(outputDir, filename), lines, StandardCharsets.UTF_8, StandardOpenOption.WRITE);
 	}
 
 }

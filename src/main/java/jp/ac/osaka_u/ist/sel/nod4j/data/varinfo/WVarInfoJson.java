@@ -1,4 +1,4 @@
-package jp.ac.osaka_u.ist.sel.data.varinfo;
+package jp.ac.osaka_u.ist.sel.nod4j.data.varinfo;
 
 import java.util.List;
 

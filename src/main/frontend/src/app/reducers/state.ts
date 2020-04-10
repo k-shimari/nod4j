@@ -5,7 +5,7 @@ import { VarValueData } from 'app/models/varValueData';
 import { VarInfo } from 'app/models/varListData';
 
 export interface RootState {
-  nod3v: RootState.nod3vState;
+  nod4j: RootState.nod4jState;
   router?: any;
 }
 
@@ -32,7 +32,7 @@ export namespace RootState {
     loading: boolean;
   }
 
-  export interface nod3vState {
+  export interface nod4jState {
     projects: ProjectInfo[] | undefined;
     filter: FilterState;
     originalValueListData: VarValueData;

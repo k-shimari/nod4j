@@ -1,4 +1,4 @@
-package jp.ac.osaka_u.ist.sel.data.varinfo;
+package jp.ac.osaka_u.ist.sel.nod4j.data.varinfo;
 
 /**
  * Set variable information(fieldname, assignment or reference, whether recorded correctly )
@@ -14,9 +14,10 @@ public class VarInfo {
 	private static final int FIELDNAMEINDEX = 10;
 	private static final int PARAMNAMEINDEX = 10;
 	private static final int NAMEINDEX = 5;
-	private static final String NAMERETURN = "_return";
-	private static final String ARRAYLOAD = "_arrayLoad";
-	private static final String ARRAYSTORE = "_arrayStore";
+	private static final String CALLRETURN = "_ReturnValue";
+	private static final String ARRAYLENGTH = "_ArrayLength";
+	private static final String ARRAYLOAD = "_ArrayLoad";
+	private static final String ARRAYSTORE = "_ArrayStore";
 
 	public VarInfo() {
 	}
@@ -49,7 +50,7 @@ public class VarInfo {
 			this.isFail = fieldname.equals("(Unavailable)");
 			break;
 		case "LOCAL_INCREMENT":
-			/* TODO var=var+1の場合に記録命令が一つとなる */
+			/* TODO when var=var+1, the recorded instruction is one. */
 			this.fieldname = elemdat[9].substring(NAMEINDEX);
 			this.inst = "I";
 			/* If the variable name (unavailable) is got, it fails. (The specification of SELogger) */
@@ -80,8 +81,12 @@ public class VarInfo {
 			this.isFail = false;
 			break;
 		case "ARRAY_LENGTH_RESULT":
+			this.fieldname = ARRAYLENGTH;
+			this.inst = "G";
+			this.isFail = false;
+			break;
 		case "CALL_RETURN":
-			this.fieldname = NAMERETURN;
+			this.fieldname = CALLRETURN;
 			this.inst = "G";
 			this.isFail = false;
 			break;

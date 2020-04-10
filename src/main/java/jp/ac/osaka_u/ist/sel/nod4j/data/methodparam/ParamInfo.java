@@ -1,4 +1,4 @@
-package jp.ac.osaka_u.ist.sel.data.methodparam;
+package jp.ac.osaka_u.ist.sel.nod4j.data.methodparam;
 
 class ParamInfo {
 	private String methodName;

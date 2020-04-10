@@ -1,8 +1,8 @@
-package jp.ac.osaka_u.ist.sel.createjson;
+package jp.ac.osaka_u.ist.sel.nod4j.createjson;
 
 import java.io.IOException;
 
-import jp.ac.osaka_u.ist.sel.data.SeloggerFiles;
+import jp.ac.osaka_u.ist.sel.nod4j.data.SeloggerFiles;
 
 /**
  * This class calls the module which creates varInfo.json and fileInfo.json, and print them.
@@ -10,18 +10,21 @@ import jp.ac.osaka_u.ist.sel.data.SeloggerFiles;
  */
 public class StartJson {
 	private SeloggerFiles selFiles;
-	private String targetDir;
+	private String projectDir;
+	private String traceDir;
+	private String outputDir;
 	private static final String VARINFO_FILENAME = "varinfo.json";
 	private static final String FILEINFO_FILENAME = "fileinfo.json";
 
-	public StartJson(SeloggerFiles selFiles, String dir) {
+	public StartJson(SeloggerFiles selFiles, String projectDir, String outputDir) {
 		this.selFiles = selFiles;
-		this.targetDir = dir;
+		this.projectDir = projectDir;
+		this.outputDir = outputDir;
 	}
 
 	public void start() {
 		System.out.println("Create json ...");
-		startJson(new CreateStructure(targetDir + "/project"), FILEINFO_FILENAME);
+		startJson(new CreateStructure(projectDir), FILEINFO_FILENAME);
 		startJson(new CreateVarInfo(selFiles), VARINFO_FILENAME);
 	}
 
@@ -32,10 +35,10 @@ public class StartJson {
 
 	private void print(Object json, String filename) {
 		try {
-			PrintJson pj = new PrintJson(targetDir, filename);
+			PrintJson pj = new PrintJson(outputDir, filename);
 			pj.printJson(json);
 			//pj.printJsonForDebug(jsonList);
-			System.out.println("Create json SUCCESS at " + targetDir);
+			System.out.println("Create json SUCCESS at " + outputDir);
 		} catch (IOException e) {
 			System.err.println("Create json FAILED");
 			e.printStackTrace();

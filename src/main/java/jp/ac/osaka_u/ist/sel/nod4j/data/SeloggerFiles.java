@@ -1,4 +1,4 @@
-package jp.ac.osaka_u.ist.sel.data;
+package jp.ac.osaka_u.ist.sel.nod4j.data;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -6,7 +6,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import jp.ac.osaka_u.ist.sel.data.methodparam.MethodParam;
+import jp.ac.osaka_u.ist.sel.nod4j.data.methodparam.MethodParam;
 
 /**
  * create maps by selogger output
@@ -19,28 +19,25 @@ public class SeloggerFiles {
 	private List<String> linesMethods = new ArrayList<>();
 	private DataIdMaps dataidMaps;
 
-	public SeloggerFiles(String dir) {
+	public SeloggerFiles(String projectDir, String traceDir) {
 		try {
-			this.linesRecentdata = Files.readAllLines(Paths.get(dir, "selogger", "recentdata.txt"));
-			this.linesMethods = Files.readAllLines(Paths.get(dir, "selogger", "methods.txt"));
+			this.linesRecentdata = Files.readAllLines(Paths.get(traceDir, "recentdata.txt"));
+			this.linesMethods = Files.readAllLines(Paths.get(traceDir, "methods.txt"));
 			this.dataidMaps = new DataIdMaps();
 
 			dataidMaps.createNameMap(linesMethods);
-			this.linesDataids = setLineDataids(dir);
+			this.linesDataids = setLineDataids(projectDir, traceDir);
 			dataidMaps.createMap(linesDataids, linesMethods, linesRecentdata);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private List<String> setLineDataids(String dir) throws IOException {
-		/*TODO
-		 * replace line number at method param from 0 to acutal one*/
-		MethodParam m = new MethodParam(dir,dataidMaps.getClassIDClassMap());
-		List<String> list = m.getLineDataids(dir);
+	private List<String> setLineDataids(String projectDir, String traceDir) throws IOException {
+		MethodParam m = new MethodParam(projectDir, traceDir, dataidMaps.getClassIDClassMap());
+		List<String> list = m.getLineDataids(traceDir);
 		return list;
 	}
-
 
 	public List<String> getLinesRecentdata() {
 		return linesRecentdata;
