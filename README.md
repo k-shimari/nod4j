@@ -8,7 +8,7 @@ You can read the detail Implementation [here](http://sel.ist.osaka-u.ac.jp/lab-d
 ## Sample
 You can try our viewer at http://sel-nod3v.ics.es.osaka-u.ac.jp
 
-Try our viewer following [wiki page](/wiki/Try-our-viewer-in-a-debugging-sample).
+Try our viewer following [wiki page](https://github.com/k-shimari/nod4j/wiki/Try-our-viewer-in-a-debugging-sample).
 
 
 ## Trace Recorder Usage
@@ -21,7 +21,7 @@ $ git clone https://github.com/k-shimari/nod4j.git
 
 ### Collect Execution Trace 
 
-At first, you can record the execution trace with our tool.
+At first, you record the execution trace with our tool.
 
 For example, using the following option, you can collect information about the execution of your program.
 
@@ -31,11 +31,11 @@ $ java -jar -javaagent:/path/to/selogger-0.2.1.jar=output=/path/to/<Directory yo
 
  *  Options are described at https://github.com/takashi-ishio/selogger/tree/v0.2.1
 
-You can find the execution trace in /path/to/<Directory you want to output>.
+You can find the execution trace in `/path/to/<Directory you want to output>`.
 
 ## Post Processor Usage
 ### Convert in the Format of JSON
-Run nod4j.jar, which is in the project root, to convert the execution trace in the format of JSON.
+Run `nod4j.jar`, which is in the project root, to convert the execution trace in the format of JSON.
 
 ```
 $ java -jar nod4j.jar /path/to/<YOUR_PROJECT_DIRECTORY> /path/to/<YOUR_PROJECT_DIRECTORY> /path/to/<Directory you want to output> src/main/frontend/src/assets/project/<YOUR_PROJECT_NAME>
@@ -86,9 +86,9 @@ $ npm run server
 1. `Timestamp` is the timestamp and `Data` is the value of variable.
 
 ## Limitation
-  * This tool does not display the following variables in the current implementation, or does not display them correctly, but we can confirm these values clicking `ALL LOGS` button in view.
+  * This tool does not display the following variables in the current implementation, or does not display them correctly.
     * Method return value at caller method
     * Related to some kinds of operand correctly
       * ++, +=, --, -=
     * multiple lines expression 
-
+  * We can confirm these invisible values clicking `ALL LOGS` button in view.
