@@ -24,7 +24,6 @@ public class SeloggerFiles {
 			this.linesRecentdata = Files.readAllLines(Paths.get(traceDir, "recentdata.txt"));
 			this.linesMethods = Files.readAllLines(Paths.get(traceDir, "methods.txt"));
 			this.dataidMaps = new DataIdMaps();
-
 			dataidMaps.createNameMap(linesMethods);
 			this.linesDataids = setLineDataids(projectDir, traceDir);
 			dataidMaps.createMap(linesDataids, linesMethods, linesRecentdata);
