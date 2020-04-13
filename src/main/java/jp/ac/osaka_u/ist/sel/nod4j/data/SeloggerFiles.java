@@ -24,7 +24,6 @@ public class SeloggerFiles {
 			this.linesRecentdata = Files.readAllLines(Paths.get(traceDir, "recentdata.txt"));
 			this.linesMethods = Files.readAllLines(Paths.get(traceDir, "methods.txt"));
 			this.dataidMaps = new DataIdMaps();
-
 			dataidMaps.createNameMap(linesMethods);
 			this.linesDataids = setLineDataids(projectDir, traceDir);
 			dataidMaps.createMap(linesDataids, linesMethods, linesRecentdata);
@@ -35,7 +34,7 @@ public class SeloggerFiles {
 
 	private List<String> setLineDataids(String projectDir, String traceDir) throws IOException {
 		MethodParam m = new MethodParam(projectDir, traceDir, dataidMaps.getClassIDClassMap());
-		List<String> list = m.getLineDataids(traceDir);
+		List<String> list = m.getLineDataids();
 		return list;
 	}
 

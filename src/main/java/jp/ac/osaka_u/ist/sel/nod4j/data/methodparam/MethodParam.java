@@ -37,7 +37,7 @@ public class MethodParam {
 	 * @param dir
 	 * @return
 	 */
-	public List<String> getLineDataids(String dir) {
+	public List<String> getLineDataids() {
 		getDirInfo(new File(projectDir));
 		return getrewrittenDataids();
 	}
@@ -51,23 +51,25 @@ public class MethodParam {
 		if (files != null) {
 			for (File f : files) {
 				try {
-					if (f.isFile() && f.getName().length() >= 6
-							&& f.getName().substring(f.getName().length() - 5).equals(".java")) {
-						//@TODO edit hashmap key
-						String packageName = f.getParent().replace("\\", "/");
-						String filePath = packageName.replace(projectDir + "/", "")
-								.replaceFirst("^src\\/main\\/java\\/", "")
-								.replaceFirst("^src\\/test\\/java\\/", "")
-								.replaceFirst("^test\\/main\\/java\\/", "")
-								.replaceFirst("^tests\\/main\\/java\\/", "")
-								.replaceFirst("^source\\/", "")
-								.replaceFirst("^sources\\/", "")
-								.replaceFirst("^src\\/", "")
-								.replaceFirst("^test\\/", "")
-								.replaceFirst("^tests\\/", "")
-								+ "/" + f.getName().replace(".java", "");
-						System.out.println("filePath:::" + filePath);
-						this.fileMethodParamMap.put(filePath, getFileInfo(f));
+					if (f.isFile()) {
+						if (f.getName().length() >= 6
+								&& f.getName().substring(f.getName().length() - 5).equals(".java")) {
+							//@TODO edit hashmap key
+							String packageName = f.getParent().replace("\\", "/");
+							String filePath = packageName.replace(projectDir.replace("\\", "/") + "/", "")
+									.replaceFirst("^src\\/main\\/java\\/", "")
+									.replaceFirst("^src\\/test\\/java\\/", "")
+									.replaceFirst("^test\\/main\\/java\\/", "")
+									.replaceFirst("^tests\\/main\\/java\\/", "")
+									.replaceFirst("^source\\/", "")
+									.replaceFirst("^sources\\/", "")
+									.replaceFirst("^src\\/", "")
+									.replaceFirst("^test\\/", "")
+									.replaceFirst("^tests\\/", "")
+									+ "/" + f.getName().replace(".java", "");
+							System.out.println("filePath:::" + filePath);
+							this.fileMethodParamMap.put(filePath, getFileInfo(f));
+						}
 					} else {
 						getDirInfo(f);
 					}
