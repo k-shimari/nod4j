@@ -5,6 +5,13 @@ Each variable contains the values at most "k" times. (You can set "k" when you e
 
 You can read the detail Implementation [here](http://sel.ist.osaka-u.ac.jp/lab-db/betuzuri/archive/1172/1172.pdf) .
 
+## Build
+Build a jar file with Maven.
+```
+mvn package
+```
+
+
 ## Sample
 You can try our viewer at http://sel-nod3v.ics.es.osaka-u.ac.jp
 
