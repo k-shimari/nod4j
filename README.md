@@ -1,46 +1,47 @@
 # nod4j
 This tool shows the values of variables in the execution.
 
-Each variable contains the values at most "k" times. (You can set "k" when you execute logger named [selogger](https://github.com/takashi-ishio/selogger/tree/v0.1))
+Each variable contains the values at most "k" times. (You can set "k" when you execute logger named [selogger](https://github.com/takashi-ishio/selogger/tree/v0.2.1))
 
 You can read the detail Implementation [here](http://sel.ist.osaka-u.ac.jp/lab-db/betuzuri/archive/1172/1172.pdf) .
 
 ## Sample
 You can try our viewer at http://sel-nod3v.ics.es.osaka-u.ac.jp
 
-Try our viewer following [sample/README](/sample/README.md).
+Try our viewer following [wiki page](/wiki/Try-our-viewer-in-a-debugging-sample).
 
 
 ## Trace Recorder Usage
 ### Setup 
-1. Clone the repo
-1. Create new dir and put your project source code in `project`
+Clone our repository.
+
 ```
-$ mkdir <PROJECT_NAME>
-$ mkdir <PROJECT_NAME>/project
-$ cp -r /path/to/<YOUR_SOURCE_CODE_DIR> <PROJECT_NAME>/project/<YOUR_SOURCE_CODE_DIR>
+$ git clone https://github.com/k-shimari/nod4j.git
 ```
+
 ### Collect Execution Trace 
 
-For example, using the following option, you can collect information about the execution.
+At first, you can record the execution trace with our tool.
+
+For example, using the following option, you can collect information about the execution of your program.
 
 ```
-$ java -jar -javaagent:/path/to/selogger-0.2.jar=output=/path/to/<PROJECT_NAME>/selogger,weave=ALL,format=near-omni,size=32,keepobj=true <YOUR_APP.jar>
+$ java -jar -javaagent:/path/to/selogger-0.2.1.jar=output=/path/to/<Directory you want to output> <YOUR_APP.jar>
 ```
- *  Options are described at https://github.com/takashi-ishio/selogger/tree/v0.2
- *  In our method using `format=near-omni` option
 
-You can find the execution trace in /path/to/<PROJECT_NAME>/selogger.
+ *  Options are described at https://github.com/takashi-ishio/selogger/tree/v0.2.1
+
+You can find the execution trace in /path/to/<Directory you want to output>.
 
 ## Post Processor Usage
 ### Convert in the Format of JSON
 Run nod4j.jar, which is in the project root, to convert the execution trace in the format of JSON.
 
 ```
-$ java -jar nod4j.jar /path/to/yourProject
+$ java -jar nod4j.jar /path/to/<YOUR_PROJECT_DIRECTORY> /path/to/<YOUR_PROJECT_DIRECTORY> /path/to/<Directory you want to output> src/main/frontend/src/assets/project/<YOUR_PROJECT_NAME>
 ```
 
-You can get `fileinfo.json` and `varinfo.json` at /path/to/<PROJECT_NAME>.
+You can find `fileinfo.json` and `varinfo.json` at `src/main/frontend/src/assets/project/<YOUR_PROJECT_NAME>`.
 
 `fileinfo.json` contains the information of source code.
 
@@ -50,22 +51,15 @@ You can get `fileinfo.json` and `varinfo.json` at /path/to/<PROJECT_NAME>.
 
 ### Pre-requirements
 
-* Node.js (10.13.0)
-* npm (6.13.7)
+* Node.js (12.16.1 LTS)
+* npm (6.14.4)
 
 ### Getting started
 
-1. Run the commands below. You can check our sample.
+1. Run the commands below.
 ```
 $ cd nod4j/src/main/frontend
 $ npm install
-```
-
-### Build and Run
-
-1. Make directory `src/main/frontend/src/assets/project/<PROJECT_NAME>`
-1. Locate `fileinfo.json` and `varinfo.json` at `src/main/frontend/src/assets/project/<PROJECT_NAME>`
-```
 $ npm run build
 $ npm run server
 ```
