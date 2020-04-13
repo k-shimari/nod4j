@@ -35,7 +35,7 @@ public class SeloggerFiles {
 
 	private List<String> setLineDataids(String projectDir, String traceDir) throws IOException {
 		MethodParam m = new MethodParam(projectDir, traceDir, dataidMaps.getClassIDClassMap());
-		List<String> list = m.getLineDataids(traceDir);
+		List<String> list = m.getLineDataids();
 		return list;
 	}
 
