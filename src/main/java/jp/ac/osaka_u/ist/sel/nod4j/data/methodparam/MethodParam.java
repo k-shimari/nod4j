@@ -56,7 +56,7 @@ public class MethodParam {
 								&& f.getName().substring(f.getName().length() - 5).equals(".java")) {
 							//@TODO edit hashmap key
 							String packageName = f.getParent().replace("\\", "/");
-							String filePath = packageName.replace(projectDir + "/", "")
+							String filePath = packageName.replace(projectDir.replace("\\", "/") + "/", "")
 									.replaceFirst("^src\\/main\\/java\\/", "")
 									.replaceFirst("^src\\/test\\/java\\/", "")
 									.replaceFirst("^test\\/main\\/java\\/", "")
