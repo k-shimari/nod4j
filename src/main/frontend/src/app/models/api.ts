@@ -33,9 +33,7 @@ export class nod4jApi {
   async fetchFileInfo(projectName: string): Promise<ProjectModel | undefined> {
     const fileInfoPath = this.pathBase(projectName) + '/fileinfo.json';
 
-    const s: string = await (projectName === 'demo'
-      ? Promise.resolve(rawProjectJsonData)
-      : this.getAssetFile(fileInfoPath));
+    const s: string = await (this.getAssetFile(fileInfoPath));
 
     const projectDir = JSON5.parse(s, receiver) as ProjectItemDirectory;
 
@@ -49,9 +47,7 @@ export class nod4jApi {
   async fetchVarInfo(projectName: string): Promise<VarListJsonData> {
     const varInfoPath = this.pathBase(projectName) + '/varinfo.json';
 
-    const s: string = await (projectName === 'demo'
-      ? Promise.resolve(rawVarListData)
-      : this.getAssetFile(varInfoPath));
+    const s: string = await (this.getAssetFile(varInfoPath));
 
     const json = JSON5.parse(s, receiver) as VarListJsonData;
 
