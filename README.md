@@ -5,6 +5,13 @@ Each variable contains the values at most "k" times. (You can set "k" when you e
 
 You can read the detail Implementation [here](http://sel.ist.osaka-u.ac.jp/lab-db/betuzuri/archive/1172/1172.pdf) .
 
+## Build
+Build a jar file with Maven.
+```
+mvn package
+```
+
+
 ## Sample
 You can try our viewer at http://sel-nod3v.ics.es.osaka-u.ac.jp
 
@@ -56,10 +63,15 @@ You can find `fileinfo.json` and `varinfo.json` at `src/main/frontend/src/assets
 
 ### Getting started
 
-1. Run the commands below.
+Run the following commands to install the packages.
 ```
 $ cd nod4j/src/main/frontend
 $ npm install
+```
+
+### Build and Run
+Run the following commands to build the project and start the server.
+```
 $ npm run build
 $ npm run server
 ```
@@ -80,10 +92,10 @@ $ npm run server
 ![traceviews](https://user-images.githubusercontent.com/31942441/78317041-2c7da080-759c-11ea-8d27-13e6cf4fb998.png)
 
 ### Raw logs Viewer 
-1. Clicking `ALL LOGS` button, you can see all raw execution trace.
-1. `ID` is unique ID each source code location.
-1. `Line` means line number and `Variable` means variable name.
-1. `Timestamp` is the timestamp and `Data` is the value of variable.
+Clicking `ALL LOGS` button, you can see all raw execution trace.
+  * `ID` is unique ID each source code location.
+  * `Line` means line number and `Variable` means variable name.
+  * `Timestamp` is the timestamp and `Data` is the value of variable.
 
 ## Limitation
   * This tool does not display the following variables in the current implementation, or does not display them correctly.
@@ -91,4 +103,4 @@ $ npm run server
     * Related to some kinds of operand correctly
       * ++, +=, --, -=
     * multiple lines expression 
-  * We can confirm these invisible values clicking `ALL LOGS` button in view.
+  * You can confirm these invisible values clicking `ALL LOGS` button in view.
