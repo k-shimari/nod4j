@@ -45,7 +45,7 @@ You can find the execution trace in `/path/to/<Directory you want to output>`.
 Run `nod4j.jar`, which is in the project root, to convert the execution trace in the format of JSON.
 
 ```
-$ java -jar nod4j.jar /path/to/<YOUR_PROJECT_DIRECTORY> /path/to/<YOUR_PROJECT_DIRECTORY> /path/to/<Directory you want to output> src/main/frontend/src/assets/project/<YOUR_PROJECT_NAME>
+$ java -jar nod4j.jar /path/to/<YOUR_PROJECT_DIRECTORY> /path/to/<Directory you want to output> src/main/frontend/src/assets/project/<YOUR_PROJECT_NAME>
 ```
 
 You can find `fileinfo.json` and `varinfo.json` at `src/main/frontend/src/assets/project/<YOUR_PROJECT_NAME>`.
