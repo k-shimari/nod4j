@@ -31,7 +31,8 @@ You can find the execution trace in /path/to/sample/demo/selogger.
 Run nod4j.jar, which is in the project root, to convert the execution trace in the format of JSON.
 
 ```
-$ java -jar nod4j.jar /path/to/sample/demo
+$ cd ../../../
+$ java -jar nod4j.jar ./sample/demo/for_build ./sample/demo/selogger ./src/main/frontend/src/assets/project/demo
 ```
 
 You can get `fileinfo.json` and `varinfo.json` at /path/to/sample/demo.
