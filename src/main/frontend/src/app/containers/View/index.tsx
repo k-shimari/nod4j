@@ -113,7 +113,7 @@ export function ViewContainer() {
 
     const hasValue = !_.isNil(target);
 
-    return (
+    return labelValue==='none'? "":(
       <FilterDisplay
         className={classes.chip}
         size="small"
@@ -144,7 +144,7 @@ export function ViewContainer() {
       <Paper className={classes.paper}>
         <div className={classes.timestampFilterSection}>
           <Typography variant="overline" color="textSecondary" gutterBottom>
-            TIMESTAMP FILTER
+            INSTRUCTION FILTER
           </Typography>
           <div>
             {renderFilterChip('left')}
