@@ -29,10 +29,10 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2)
   },
   button: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(1)
   },
   input: {
-    display: 'none',
+    display: 'none'
   }
 }));
 
@@ -61,8 +61,10 @@ export function ViewContainer() {
         kind: 'right',
         context: {
           timestamp: item.timestamp,
+          value: item.value,
           lineNumber: varInfo.startLine || 0,
-          fileName: file
+          fileName: file,
+          varName: varInfo.image
         },
         preferNotify: true
       })
@@ -76,8 +78,10 @@ export function ViewContainer() {
         kind: 'left',
         context: {
           timestamp: item.timestamp,
+          value: item.value,
           lineNumber: varInfo.startLine || 0,
-          fileName: file
+          fileName: file,
+          varName: varInfo.image
         },
         preferNotify: true
       })
@@ -89,11 +93,12 @@ export function ViewContainer() {
     const icon = kind === 'left' ? <ArrowDownward /> : <ArrowUpward />;
     const target = kind === 'left' ? left : right;
     const labelPrefix = kind === 'left' ? 'After' : 'Before';
+    /*@TODO add variable and instruction name*/
     const labelValue = target
       ? (() => {
-        const { fileName, lineNumber } = target;
-        return `L${lineNumber}@${fileName}`;
-      })()
+          const { fileName, lineNumber, varName, value } = target;
+          return `Line${lineNumber},${varName},${value} @${fileName}`;
+        })()
       : 'none';
     const label = `${labelPrefix}: ${labelValue}`;
     const onDelete = () =>
@@ -121,20 +126,16 @@ export function ViewContainer() {
     );
   }
 
-
-
   interface LogUrlProps {
     logUrl: string;
   }
 
   const LogUrl: React.FunctionComponent<LogUrlProps> = (props) => (
-
     <div>
       <Button className={classes.button} href={props.logUrl} target="_blank" rel="noopener">
         All Logs
-        </Button>
+      </Button>
     </div>
-
   );
 
   return tokens ? (
