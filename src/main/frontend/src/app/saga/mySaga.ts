@@ -178,11 +178,6 @@ function* requestJson(action: ReturnType<typeof nod4jActions.requestJson>) {
   );
 }
 
-
-function* dummyWorker() {
-  yield put(nod4jActions.dummyAction());
-}
-
 function* clearLocalStorage() {
   yield call(() => SharedEventModel.clearAllData());
   console.debug('Cleared local storage');
@@ -243,7 +238,6 @@ function* requestRemoveProject(action: ReturnType<typeof nod4jActions.requestRem
 }
 
 function* mySaga() {
-  yield takeEvery(nod4jActions.dummyAction, dummyWorker);
   yield takeEvery(nod4jActions.requestFiles, requestFiles);
   yield takeEvery(nod4jActions.requestValueListFilterChange, requestValueListFilterChange);
   yield takeEvery(nod4jActions.requestSourceCodeData, requestSourceCodeData);

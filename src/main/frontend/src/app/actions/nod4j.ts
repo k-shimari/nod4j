@@ -1,7 +1,6 @@
 import { ProjectInfo } from 'app/models/api';
 import { ProjectItem } from 'app/models/project';
 import { SourceCodeToken } from 'app/models/token';
-//import { JsonLogs } from 'app/models/json';
 import { VarValueData } from 'app/models/varValueData';
 import { TimestampRangeFilterContext } from 'app/reducers/state';
 import { createAction } from 'redux-actions';
@@ -12,7 +11,6 @@ export type Directory = string[];
 
 export namespace nod4jActions {
   export enum Type {
-    DUMMY_ACTION = 'DUMMY_ACTION',
 
     // Project
     REQUEST_PROJECTS = 'REQUEST_PROJECTS',
@@ -126,8 +124,6 @@ export namespace nod4jActions {
       projectName: string;
     }
   }
-
-  export const dummyAction = createAction(Type.DUMMY_ACTION);
 
   // Project
   export const requestProjects = createAction(Type.REQUEST_PROJECTS);
