@@ -113,7 +113,9 @@ export function ViewContainer() {
 
     const hasValue = !_.isNil(target);
 
-    return labelValue==='none'? "":(
+    return labelValue === 'none' ? (
+      ''
+    ) : (
       <FilterDisplay
         className={classes.chip}
         size="small"
@@ -163,6 +165,30 @@ export function ViewContainer() {
           onArrowDownwardClick={onArrowDownClick}
         />
       </Paper>
+      {/* <Button
+        variant="outlined"
+        size="small"
+        onClick={() => {
+          dispatch(
+            nod4jActions.requestValueListFilterChange({
+              projectName,
+              kind: 'left',
+              context: undefined,
+              preferNotify: true
+            })
+          );
+          dispatch(
+            nod4jActions.requestValueListFilterChange({
+              projectName,
+              kind: 'right',
+              context: undefined,
+              preferNotify: true
+            })
+          );
+        }}
+      >
+        Clear Instruction Filter
+      </Button> */}
     </ContentContainer>
   ) : null;
 }
