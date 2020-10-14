@@ -12,8 +12,10 @@ export interface RootState {
 export type Timestamp = string;
 export interface TimestampRangeFilterContext {
   timestamp: Timestamp;
+  value: string | number;
   lineNumber: number;
   fileName: string;
+  varName: string;
 }
 
 export interface TimeStampRangeFilter {
