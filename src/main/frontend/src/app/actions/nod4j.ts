@@ -11,8 +11,9 @@ export type Directory = string[];
 
 export namespace nod4jActions {
   export enum Type {
-
-    // Project
+    /**
+     *  Actions for Project
+     */
     REQUEST_PROJECTS = 'REQUEST_PROJECTS',
     SET_PROJECTS = 'SET_PROJECTS',
     REQUEST_ADD_PROJECT = 'REQUEST_ADD_PROJECT',
@@ -20,7 +21,9 @@ export namespace nod4jActions {
     REQUEST_REMOVE_PROJECT = 'REQUEST_REMOVE_PROJECT',
     REMOVE_PROJECT = 'REMOVE_PROJECT',
 
-    // Filter
+    /**
+     *  Actions for Timestamp filter
+     */
     REQUEST_VALUE_LIST_FILTER_CHANGE = 'REQUEST_VALUE_LIST_FILTER_CHANGE',
     LOAD_INITIAL_VALUE_LIST_FILTER = 'LOAD_INITIAL_VALUE_LIST_FILTER',
     SET_VALUE_LIST_FILTER = 'SET_VALUE_LIST_FILTER',
@@ -29,22 +32,32 @@ export namespace nod4jActions {
     SET_ORIGINAL_VALUE_LIST_DATA = 'SET_ORIGINAL_VALUE_LIST_DATA',
     SET_FILTERED_VALUE_LIST_DATA = 'SET_FILTERED_VALUE_LIST_DATA',
 
-    // Files
+    /**
+     *  Actions for files
+     */
     REQUEST_FILES = 'REQUEST_FILES',
     SET_FILES_DATA = 'SET_FILES_DATA',
 
-    // Source code
+    /**
+     *  Actions for Source code
+     */
     REQUEST_SOURCE_CODE_DATA = 'REQUEST_SOURCE_CODE_DATA',
     SET_SOURCE_CODE_DATA = 'SET_SOURCE_CODE_DATA',
 
-    // Logs
+    /**
+     *  Actions for Logs Page
+     */
     REQUEST_JSON = 'REQUEST_JSON',
     SET_VAR_LIST_JSON_DATA = 'SET_VAR_LIST_JSON_DATA',
 
-    // Debug
+    /**
+     *  Actions for Debugging
+     */
     CLEAR_LOCAL_STORAGE = 'CLEAR_LOCAL_STORAGE',
 
-    // Others
+    /**
+     *  Actions for initialization
+     */
     INIT_VIEW_PAGE = 'INIT_VIEW_PAGE'
   }
 
@@ -89,7 +102,6 @@ export namespace nod4jActions {
       projectName: string;
       directory: Directory;
     }
-    
 
     export interface SetFilesDataPayload {
       dirs: string[];
@@ -125,7 +137,9 @@ export namespace nod4jActions {
     }
   }
 
-  // Project
+  /**
+   *  Actions for Project
+   */
   export const requestProjects = createAction(Type.REQUEST_PROJECTS);
   export const setProjects = createAction<Payload.SetProjects>(Type.SET_PROJECTS);
   export const requestAddProject = createAction<Payload.RequestAddProject>(
@@ -169,7 +183,9 @@ export namespace nod4jActions {
 
   //JsonLog
   export const requestJson = createAction<Payload.RequestJson>(Type.REQUEST_JSON);
-  export const setVarListJsonData = createAction<Payload.SetVarListJsonData>(Type.SET_VAR_LIST_JSON_DATA);
+  export const setVarListJsonData = createAction<Payload.SetVarListJsonData>(
+    Type.SET_VAR_LIST_JSON_DATA
+  );
 
   // Debug
   export const clearLocalStorage = createAction(Type.CLEAR_LOCAL_STORAGE);

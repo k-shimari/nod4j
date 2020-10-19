@@ -33,11 +33,11 @@ interface FileTableProps {
 export const FileTable: React.FunctionComponent<FileTableProps> = (props) => {
   const classes = useStyles();
   const { data, onFileClick, onDirClick } = props;
-  const fileData = data.filter(d => {
-    return d.type === 'file'
+  const fileData = data.filter((d) => {
+    return d.type === 'file';
   });
-  const dirData = data.filter(d => {
-    return d.type === 'dir'
+  const dirData = data.filter((d) => {
+    return d.type === 'dir';
   });
 
   return (
@@ -47,14 +47,12 @@ export const FileTable: React.FunctionComponent<FileTableProps> = (props) => {
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
-              {/* <TableCell>Author</TableCell>
-              <TableCell>Last modified</TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
             {dirData.map((d, index) => (
               <FileTableRow
-                key={"dir" + index}
+                key={'dir' + index}
                 {...d}
                 onClick={() => {
                   if (onDirClick) {
@@ -65,7 +63,7 @@ export const FileTable: React.FunctionComponent<FileTableProps> = (props) => {
             ))}
             {fileData.map((d, index) => (
               <FileTableRow
-                key={"file" + index}
+                key={'file' + index}
                 {...d}
                 onClick={() => {
                   if (onFileClick) {
@@ -94,8 +92,8 @@ const FileTableRow: React.FunctionComponent<FileTableRowProp> = (props) => {
         {props.type === 'file' ? (
           <FileIcon fontSize="small" style={{ verticalAlign: 'middle' }} />
         ) : (
-            <FolderIcon fontSize="small" style={{ verticalAlign: 'middle' }} />
-          )}
+          <FolderIcon fontSize="small" style={{ verticalAlign: 'middle' }} />
+        )}
         <span style={{ verticalAlign: 'middle', paddingLeft: 4 }}>
           <a
             onClick={onClick}
@@ -107,8 +105,6 @@ const FileTableRow: React.FunctionComponent<FileTableRowProp> = (props) => {
           </a>
         </span>
       </TableCell>
-      {/* <TableCell>N/A</TableCell>
-      <TableCell>N/A</TableCell> */}
     </TableRow>
   );
 };

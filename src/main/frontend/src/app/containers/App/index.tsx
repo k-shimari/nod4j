@@ -23,6 +23,9 @@ import { RootState } from 'app/reducers';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+/**
+ * Set Style for App Top Page.
+ */
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(3, 2),
@@ -30,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+/**
+ * This function returns the message of the top page, andthe github link of this project and Authors.
+ */
 function MainPanel() {
   const classes = useStyles();
   return (
@@ -57,10 +63,16 @@ function MainPanel() {
   );
 }
 
+/**
+ * This function returns the project which links to the FileTable window.
+ */
 function ProjectListItem(props: ProjectInfo) {
   const dispatch = useDispatch();
-
   const { name } = props;
+
+  /*
+   * This function removes the project from the top page when pushing the remove icon.
+   */
   function onClickClearButton() {
     dispatch(nod4jActions.requestRemoveProject({ project: { name } }));
   }
@@ -77,6 +89,9 @@ function ProjectListItem(props: ProjectInfo) {
   );
 }
 
+/**
+ * 
+ */
 function OpenProjectPanel() {
   const [addProjectName, setAddProejctName] = React.useState('');
 
@@ -84,9 +99,13 @@ function OpenProjectPanel() {
   React.useEffect(() => {
     dispatch(nod4jActions.requestProjects());
   }, []);
-
   const projects = useSelector((state: RootState) => state.nod4j.projects);
 
+  /**
+   * @param projectName 
+   * ユーザが入力したプロジェクトをリンク一覧に加える（要変更）
+   * 
+   */
   function addProject(projectName: string) {
     dispatch(nod4jActions.requestAddProject({ project: { name: projectName } }));
     setAddProejctName('');
@@ -129,8 +148,8 @@ function OpenProjectPanel() {
       </Box>
       <Box mt={1}>
         <Typography variant="caption">
-          <MULink href="https://github.com/k-shimari/nod4j" target="_blank"> 
-          You can check how to import your project here.
+          <MULink href="https://github.com/k-shimari/nod4j" target="_blank">
+            You can check how to import your project here.
           </MULink>
         </Typography>
       </Box>
@@ -160,7 +179,9 @@ function DebugPanel() {
     </Paper>
   );
 }
-
+/**
+ * This function returns the OpenProjectPanel component and DebugPanel Component.
+ */
 export function App() {
   return (
     <ContentContainer>

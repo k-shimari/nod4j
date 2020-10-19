@@ -15,6 +15,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import useReactRouter from 'use-react-router';
 import Button from '@material-ui/core/Button';
 
+/**
+ * Set the style for the view page.
+ */
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(2),
@@ -36,6 +39,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+/**
+ * This function returns three components, which are pathNavigation, timestamp filter, and source code.
+ * PathNavigation shows the current directory in the specified project.
+ * Timestamp filter shows the current filtering informantion.
+ * Source code shows the source code with highlighting, which shows the value of variable.
+ */
 export function ViewContainer() {
   const nod4jState = useSelector<RootState, RootState.nod4jState>((state) => state.nod4j);
   const dispatch = useDispatch();
@@ -88,6 +97,10 @@ export function ViewContainer() {
     );
   };
 
+  /*
+   * This component is the timestamp filter, which shows the current filtering informantion.
+   * Filtering information consists of the location of the filtering point, and the value of the instruction.
+   */
   function renderFilterChip(kind: TimestampRangeFilterKind) {
     const { left, right } = nod4jState.filter.range;
     const icon = kind === 'left' ? <ArrowDownward /> : <ArrowUpward />;
@@ -101,6 +114,12 @@ export function ViewContainer() {
         })()
       : 'none';
     const label = `${labelPrefix}: ${labelValue}`;
+    /**
+     * delete the current project filter.
+     * @param kind is the left filter which means the filtering start point or the right filter which means the filtering end point.
+     * @param context is the filter information.
+     * @param preferNotify notifies the changing of filtering by storing at localStorage
+     */
     const onDelete = () =>
       dispatch(
         nod4jActions.requestValueListFilterChange({
@@ -113,9 +132,7 @@ export function ViewContainer() {
 
     const hasValue = !_.isNil(target);
 
-    return labelValue === 'none' ? (
-      ''
-    ) : (
+    return labelValue !== 'none' ? (
       <FilterDisplay
         className={classes.chip}
         size="small"
@@ -125,6 +142,8 @@ export function ViewContainer() {
         variant={hasValue ? 'default' : 'outlined'}
         onDelete={hasValue ? onDelete : undefined}
       />
+    ) : (
+      ''
     );
   }
 
@@ -132,6 +151,9 @@ export function ViewContainer() {
     logUrl: string;
   }
 
+  /*
+   * The button to link to Logs page.
+   */
   const LogUrl: React.FunctionComponent<LogUrlProps> = (props) => (
     <div>
       <Button className={classes.button} href={props.logUrl} target="_blank" rel="noopener">

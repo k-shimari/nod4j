@@ -117,8 +117,8 @@ export class ProjectModel {
   }
 
   /**
-   * プロジェクト中のディレクトリのアイテムを返します
-   * @param dirs このディレクトリのアイテムを返します
+   * @param dirs
+   * return the contents of the specified directory
    */
   getItems(dirs: string[]): ProjectItemModel[] {
     const targetDir = this._rootDir.recursiveFindDir(dirs);
@@ -129,12 +129,12 @@ export class ProjectModel {
     }
   }
 
-  static loadFromJsonFile(projectJsonDataString: string): ProjectModel | undefined {
-    const projectDir = JSON5.parse(projectJsonDataString) as ProjectItemDirectory;
-    if (projectDir) {
-      return new ProjectModel(projectDir);
-    } else {
-      return undefined;
-    }
-  }
+  // static loadFromJsonFile(projectJsonDataString: string): ProjectModel | undefined {
+  //   const projectDir = JSON5.parse(projectJsonDataString) as ProjectItemDirectory;
+  //   if (projectDir) {
+  //     return new ProjectModel(projectDir);
+  //   } else {
+  //     return undefined;
+  //   }
+  // }
 }

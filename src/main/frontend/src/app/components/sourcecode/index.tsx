@@ -13,7 +13,11 @@ import {
 } from '../organisms/valueList';
 import { Line } from './line';
 
-
+/**
+ * @param tokens are composed of tokens of the source code.
+ * @varValueData is the values of the variable
+ * @currentFilterValue is the information of the fitering start point and endpoint.
+ */
 interface Props {
   tokens: SourceCodeToken[];
   varValueData: VarValueData;
@@ -22,16 +26,22 @@ interface Props {
   onArrowDownwardClick?: RangeFilterClickEventHandler2;
 }
 
+
+/**
+ * This function returns the source code tokens grouped by line.
+ */
 function groupTokensByLine(tokens: SourceCodeToken[]): SourceCodeToken[][] {
   const lineCount = tokens[tokens.length - 1].startLine!;
-  const result: SourceCodeToken[][] = Array.from({ length: lineCount }, (v, k) => k).map(() => []);
-
+  const result: SourceCodeToken[][] = Array.from({ length: lineCount }).map(() => []);
   for (const token of tokens) {
     pushToken(result, token);
   }
   return result;
 }
 
+/**
+ * This function creates the array of the line which contains tokens.
+ */
 function pushToken(result: SourceCodeToken[][], token: SourceCodeToken) {
   let t = { ...token };
   if (t.image.match(/\n/g) === null) {
@@ -47,11 +57,14 @@ function pushToken(result: SourceCodeToken[][], token: SourceCodeToken) {
     }
     result[t.startLine! - 1 + index].push(t);
   }
-
 }
 
 
-
+/**
+ * @param props 
+ * 
+ * 
+ */
 export function Sourcecode(props: Props) {
   const [data, setData] = React.useState<ValueListItemData[] | undefined>(undefined);
   const [activeTokenId, setActiveTokenId] = React.useState<string | undefined>(undefined);
@@ -59,7 +72,7 @@ export function Sourcecode(props: Props) {
   const [popperAnchorEl, setPopperAnchorEl] = React.useState<HTMLElement | undefined>(undefined);
   const [valueListAnimationEnabled, setValueListAnimationEnabled] = React.useState(false);
   const [showValueListRequestSubject] = React.useState<Subject<boolean>>(new Subject());
-
+  
   React.useEffect(() => {
     showValueListRequestSubject.pipe(debounce(() => interval(200))).subscribe((value) => {
       if (value === false) {
