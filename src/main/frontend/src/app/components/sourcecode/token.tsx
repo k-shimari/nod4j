@@ -1,6 +1,13 @@
 import * as React from 'react';
-import { ValueList, ValueListItemData } from '../organisms/valueList';
+import {ValueListItemData } from '../organisms/valueList';
 
+/**
+ * @param id: string;
+ * @param onEnter?(tokenId: string, target: HTMLElement): void;
+ * @param onLeave?(tokenId: string, target: HTMLElement): void;
+ * @param highlighted means the variable has the value in the current filtering
+ * @param data is the values of the variable by id
+ */
 interface Props {
   id: string;
   onEnter?(tokenId: string, target: HTMLElement): void;
@@ -9,6 +16,9 @@ interface Props {
   data?: ValueListItemData[];
 }
 
+/**
+ * Return the token with setting the style and its values.
+ */
 export const Token: React.FunctionComponent<Props> = (props) => {
   const { id, onEnter, onLeave, highlighted } = props;
   const style: React.CSSProperties = highlighted

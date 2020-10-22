@@ -5,7 +5,7 @@ import { nod4jActions, TimestampRangeFilterKind } from 'app/actions';
 import { ContentContainer } from 'app/components/atoms/contentContainer';
 import { FilterDisplay } from 'app/components/atoms/filterDisplay';
 import { PathNavigation } from 'app/components/organisms/pathNavigation';
-import { RangeFilterClickEventHandler2 } from 'app/components/organisms/valueList';
+import { RangeFilterClickEventHandler } from 'app/components/organisms/valueList';
 import { Sourcecode } from 'app/components/sourcecode';
 import { UrlParser } from 'app/models/pathParser';
 import { RootState } from 'app/reducers';
@@ -63,7 +63,13 @@ export function ViewContainer() {
 
   const tokens = nod4jState.sourceCodeTokens;
   const { filteredValueListData } = nod4jState;
-  const onArrowUpClick: RangeFilterClickEventHandler2 = (item, varInfo) => {
+
+  /**
+   * @param item contains valuelistItemdata(thread ID, timestamp, value)
+   * @param varInfo is the inforamtion of variables which is highlighted
+   * This handler changes the filter end point inforamtion specified by (item,varInfo).
+   */
+  const onArrowUpwardClick: RangeFilterClickEventHandler = (item, varInfo) => {
     dispatch(
       nod4jActions.requestValueListFilterChange({
         projectName,
@@ -74,13 +80,19 @@ export function ViewContainer() {
           lineNumber: varInfo.startLine || 0,
           fileName: file,
           varName: varInfo.image
+          // isPut: item.
         },
         preferNotify: true
       })
     );
   };
 
-  const onArrowDownClick: RangeFilterClickEventHandler2 = (item, varInfo) => {
+  /**
+   * @param item contains valuelistItemdata(thread ID, timestamp, value)
+   * @param varInfo is the inforamtion of variables which is highlighted
+   * This handler changes the filter start point inforamtion specified by (item,varInfo).
+   */
+  const onArrowDownwardClick: RangeFilterClickEventHandler = (item, varInfo) => {
     dispatch(
       nod4jActions.requestValueListFilterChange({
         projectName,
@@ -91,6 +103,7 @@ export function ViewContainer() {
           lineNumber: varInfo.startLine || 0,
           fileName: file,
           varName: varInfo.image
+          // isPut: varInfo
         },
         preferNotify: true
       })
@@ -106,7 +119,7 @@ export function ViewContainer() {
     const icon = kind === 'left' ? <ArrowDownward /> : <ArrowUpward />;
     const target = kind === 'left' ? left : right;
     const labelPrefix = kind === 'left' ? 'After' : 'Before';
-    /*@TODO add variable and instruction name*/
+    /* @TODO add variable and instruction name */
     const labelValue = target
       ? (() => {
           const { fileName, lineNumber, varName, value } = target;
@@ -114,6 +127,7 @@ export function ViewContainer() {
         })()
       : 'none';
     const label = `${labelPrefix}: ${labelValue}`;
+
     /**
      * delete the current project filter.
      * @param kind is the left filter which means the filtering start point or the right filter which means the filtering end point.
@@ -152,7 +166,7 @@ export function ViewContainer() {
   }
 
   /*
-   * The button to link to Logs page.
+   * The button links to Logs page.
    */
   const LogUrl: React.FunctionComponent<LogUrlProps> = (props) => (
     <div>
@@ -183,8 +197,8 @@ export function ViewContainer() {
           currentFilterValue={nod4jState.filter.range}
           tokens={tokens}
           varValueData={filteredValueListData}
-          onArrowUpwardClick={onArrowUpClick}
-          onArrowDownwardClick={onArrowDownClick}
+          onArrowUpwardClick={onArrowUpwardClick}
+          onArrowDownwardClick={onArrowDownwardClick}
         />
       </Paper>
       {/* <Button

@@ -5,6 +5,9 @@ import FolderIcon from '@material-ui/icons/Folder';
 import { ProjectItem, ProjectItemBase } from 'app/models/project';
 import * as React from 'react';
 
+/**
+ * Set styles for fileTable.
+ */
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%'
@@ -20,9 +23,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export function createRowData(name: string, author: string, date: Date) {
-  return { name, author, date };
-}
+// export function createRowData(name: string, author: string, date: Date) {
+//   return { name, author, date };
+// }
+
 
 interface FileTableProps {
   data: FileTableRowProp[];
@@ -30,6 +34,10 @@ interface FileTableProps {
   onDirClick?(dirName: string): void;
 }
 
+
+/**
+ * return the fileTable which shows the files and the directories in the specified directory in the project
+ */
 export const FileTable: React.FunctionComponent<FileTableProps> = (props) => {
   const classes = useStyles();
   const { data, onFileClick, onDirClick } = props;
@@ -84,6 +92,10 @@ export interface FileTableRowProp extends ProjectItemBase {
   onClick?(): void;
 }
 
+/**
+ * @param props 
+ * Return the link to target directory or file contents. 
+ */
 const FileTableRow: React.FunctionComponent<FileTableRowProp> = (props) => {
   const { name, navigateTo, onClick } = props;
   return (

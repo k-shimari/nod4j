@@ -27,10 +27,6 @@ export interface ValueListItemData {
 }
 
 export interface RangeFilterClickEventHandler {
-  (item: ValueListItemData): void;
-}
-
-export interface RangeFilterClickEventHandler2 {
   (item: ValueListItemData, varInfo: SourceCodeToken): void;
 }
 
@@ -45,7 +41,7 @@ export namespace ValueList {
     onLeave?(): void;
   }
 }
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     minWidth: 240,
     maxHeight: 400,

@@ -7,7 +7,7 @@ import * as React from 'react';
 import { interval, Subject } from 'rxjs';
 import { debounce } from 'rxjs/operators';
 import {
-  RangeFilterClickEventHandler2,
+  RangeFilterClickEventHandler,
   ValueList,
   ValueListItemData
 } from '../organisms/valueList';
@@ -15,17 +15,18 @@ import { Line } from './line';
 
 /**
  * @param tokens are composed of tokens of the source code.
- * @varValueData is the values of the variable
- * @currentFilterValue is the information of the fitering start point and endpoint.
+ * @param varValueData is the values of the variable
+ * @param currentFilterValue is the information of the fitering start point and endpoint.
+ * @param OnArrowUpwardClick is whether 
+ * @param onArrowDownwardClick
  */
 interface Props {
   tokens: SourceCodeToken[];
   varValueData: VarValueData;
   currentFilterValue: TimestampRangeFilter;
-  onArrowUpwardClick?: RangeFilterClickEventHandler2;
-  onArrowDownwardClick?: RangeFilterClickEventHandler2;
+  onArrowUpwardClick?: RangeFilterClickEventHandler;
+  onArrowDownwardClick?: RangeFilterClickEventHandler;
 }
-
 
 /**
  * This function returns the source code tokens grouped by line.
@@ -51,19 +52,18 @@ function pushToken(result: SourceCodeToken[][], token: SourceCodeToken) {
     let tmpt;
     while (t.image.match(/\n/g) != null) {
       tmpt = { ...t };
-      tmpt.image = t.image.slice(0, t.image.indexOf("\n"));
+      tmpt.image = t.image.slice(0, t.image.indexOf('\n'));
       result[token.startLine! - 1 + index++].push(tmpt);
-      t.image = t.image.slice(t.image.indexOf("\n") + 2);
+      t.image = t.image.slice(t.image.indexOf('\n') + 2);
     }
     result[t.startLine! - 1 + index].push(t);
   }
 }
 
-
 /**
- * @param props 
- * 
- * 
+ * @param props
+ *
+ *
  */
 export function Sourcecode(props: Props) {
   const [data, setData] = React.useState<ValueListItemData[] | undefined>(undefined);
@@ -72,7 +72,10 @@ export function Sourcecode(props: Props) {
   const [popperAnchorEl, setPopperAnchorEl] = React.useState<HTMLElement | undefined>(undefined);
   const [valueListAnimationEnabled, setValueListAnimationEnabled] = React.useState(false);
   const [showValueListRequestSubject] = React.useState<Subject<boolean>>(new Subject());
-  
+
+  /**
+   *
+   */
   React.useEffect(() => {
     showValueListRequestSubject.pipe(debounce(() => interval(200))).subscribe((value) => {
       if (value === false) {
@@ -86,6 +89,9 @@ export function Sourcecode(props: Props) {
     });
   }, []);
 
+  /**
+   *
+   */
   React.useEffect(() => {
     if (valueListVisible && activeTokenId) {
       const valueListData = props.varValueData.find(activeTokenId);
@@ -95,6 +101,9 @@ export function Sourcecode(props: Props) {
     }
   }, [props.varValueData]);
 
+  /**
+   *
+   */
   function onTokenEnter(tokenId: string, target: HTMLElement) {
     const valueListData = props.varValueData.find(tokenId);
     if (valueListData) {
@@ -164,8 +173,8 @@ export function Sourcecode(props: Props) {
             }
           />
         ) : (
-            <span> </span>
-          )}
+          <span> </span>
+        )}
       </Popper>
     </div>
   );

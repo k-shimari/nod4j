@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+/**
+ * return the container for content (e.g., view, fileTable, ...).
+ */
 export function ContentContainer(props: React.PropsWithChildren<{}>) {
   const classes = useStyles();
   return <div className={classes.root}>{props.children}</div>;

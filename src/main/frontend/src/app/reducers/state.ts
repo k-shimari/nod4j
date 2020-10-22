@@ -16,6 +16,7 @@ export interface TimestampRangeFilterContext {
   lineNumber: number;
   fileName: string;
   varName: string;
+  // isPut: boolean;
 }
 
 export interface TimeStampRangeFilter {
