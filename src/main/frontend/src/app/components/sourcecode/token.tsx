@@ -1,12 +1,12 @@
 import * as React from 'react';
-import {ValueListItemData } from '../organisms/valueList';
+import { ValueListItemData } from '../organisms/valueList';
 
 /**
- * @param id: string;
- * @param onEnter?(tokenId: string, target: HTMLElement): void;
- * @param onLeave?(tokenId: string, target: HTMLElement): void;
- * @param highlighted means the variable has the value in the current filtering
- * @param data is the values of the variable by id
+ * @param id is the token id in the source code.
+ * @param onEnter is called when hovering mouse cursor on the point.
+ * @param onLeave is called when leaving mouse cursor on the point.
+ * @param highlighted means the variable has the value in the current filtering.
+ * @param data is the values of the variable by id.
  */
 interface Props {
   id: string;

@@ -5,11 +5,11 @@ import { Space } from './space';
 import { Token } from './token';
 
 /**
- * @param onTokenEnter
- * @param onTokenLeave
- * @param line is line number in the source code;
- * @param tokens are the tokens in line
- * @param data are all values, thread IDs and timestamps recorded in the execution
+ * @param onTokenEnter is whether the mouse cursor hovers on the variable.
+ * @param onTokenLeave is whether the mouse cursor leaves on the variable.
+ * @param line is line number in the source code.
+ * @param tokens are the tokens in line.
+ * @param data are all values, thread IDs and timestamps recorded in the execution.
  */
 interface Props {
   onTokenEnter?(tokenId: string, target: HTMLElement): void;

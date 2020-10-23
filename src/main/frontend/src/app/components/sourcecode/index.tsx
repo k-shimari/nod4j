@@ -6,19 +6,15 @@ import classNames = require('classnames');
 import * as React from 'react';
 import { interval, Subject } from 'rxjs';
 import { debounce } from 'rxjs/operators';
-import {
-  RangeFilterClickEventHandler,
-  ValueList,
-  ValueListItemData
-} from '../organisms/valueList';
+import { RangeFilterClickEventHandler, ValueList, ValueListItemData } from '../organisms/valueList';
 import { Line } from './line';
 
 /**
  * @param tokens are composed of tokens of the source code.
  * @param varValueData is the values of the variable
  * @param currentFilterValue is the information of the fitering start point and endpoint.
- * @param OnArrowUpwardClick is whether 
- * @param onArrowDownwardClick
+ * @param OnArrowUpwardClick changes the filter end point information
+ * @param onArrowDownwardClick changes the filter end point information
  */
 interface Props {
   tokens: SourceCodeToken[];
@@ -61,9 +57,7 @@ function pushToken(result: SourceCodeToken[][], token: SourceCodeToken) {
 }
 
 /**
- * @param props
- *
- *
+ * This function returns the source code and their values of the variable.
  */
 export function Sourcecode(props: Props) {
   const [data, setData] = React.useState<ValueListItemData[] | undefined>(undefined);
@@ -74,7 +68,10 @@ export function Sourcecode(props: Props) {
   const [showValueListRequestSubject] = React.useState<Subject<boolean>>(new Subject());
 
   /**
-   *
+   * This function set the effect for the valueList.
+   * setValueListVisible : make the ValueList visible
+   * setPopperAnchorEl: set the poppper location of the valueList
+   * setValueListAnimationEnabled: set the animation for changing the opening valueList
    */
   React.useEffect(() => {
     showValueListRequestSubject.pipe(debounce(() => interval(200))).subscribe((value) => {
@@ -82,15 +79,15 @@ export function Sourcecode(props: Props) {
         setValueListVisible(false);
         setPopperAnchorEl(undefined);
         setValueListAnimationEnabled(false);
-      }
-      if (value === true) {
+      } else {
         setValueListAnimationEnabled(true);
       }
     });
   }, []);
 
   /**
-   *
+   * This function set the effect for the valueList.
+   * Set the ValueList data of the specified token ID.
    */
   React.useEffect(() => {
     if (valueListVisible && activeTokenId) {
@@ -102,13 +99,17 @@ export function Sourcecode(props: Props) {
   }, [props.varValueData]);
 
   /**
-   *
+   * This function is called when the mouse cursor hovers on the variable.
+   * If the variable has the value, it means highlighted, show the value of variable.
+   *  setData: set the data of the variable
+   *  setActiveTokenId: set the tokenID to show its recorded values
+   *  setValueListVisible : make the ValueList visible
+   *  setPopperAnchorEl: set the poppper location of the valueList
    */
   function onTokenEnter(tokenId: string, target: HTMLElement) {
     const valueListData = props.varValueData.find(tokenId);
     if (valueListData) {
       showValueListRequestSubject.next(true);
-
       setData(valueListData);
       setActiveTokenId(tokenId);
       setValueListVisible(true);
@@ -116,20 +117,32 @@ export function Sourcecode(props: Props) {
     }
   }
 
+  /**
+   * This function is called when the user finishes hovering cursor on the variable.
+   */
   function onTokenLeave(tokenId: string, target: HTMLElement) {
     showValueListRequestSubject.next(false);
   }
 
+  /**
+   * This function is called when the user starts hovering cursor on the valueList of the variable.
+   */
   function onValueListEnter() {
     showValueListRequestSubject.next(true);
   }
 
+  /**
+   * This function is called when the user finishes hovering cursor on the valueList of the variable.
+   */
   function onValueListLeave() {
     showValueListRequestSubject.next(false);
   }
 
   const { tokens, varValueData, onArrowUpwardClick, onArrowDownwardClick } = props;
 
+  /**
+   * return the tokenID whose token is hovered on mouse cursor.
+   */
   function currentToken(): SourceCodeToken {
     return tokens.find((x) => x.id === activeTokenId)!;
   }

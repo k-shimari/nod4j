@@ -1,5 +1,3 @@
-import * as JSON5 from 'json5';
-
 export type ProjectItemType = 'file' | 'dir';
 
 export interface ProjectItemBase {
@@ -118,7 +116,7 @@ export class ProjectModel {
 
   /**
    * @param dirs
-   * return the contents of the specified directory
+   * This function returns the contents of the specified directory.
    */
   getItems(dirs: string[]): ProjectItemModel[] {
     const targetDir = this._rootDir.recursiveFindDir(dirs);
@@ -128,13 +126,4 @@ export class ProjectModel {
       return [];
     }
   }
-
-  // static loadFromJsonFile(projectJsonDataString: string): ProjectModel | undefined {
-  //   const projectDir = JSON5.parse(projectJsonDataString) as ProjectItemDirectory;
-  //   if (projectDir) {
-  //     return new ProjectModel(projectDir);
-  //   } else {
-  //     return undefined;
-  //   }
-  // }
 }

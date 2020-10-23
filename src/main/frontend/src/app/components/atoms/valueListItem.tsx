@@ -13,11 +13,11 @@ export type ValueListItemId = string;
 export type ValueListItemValue = string | number;
 
 /**
- * @param item: ValueListItemData;
+ * @param item: the set of token ID, token value, token timestamp
  * @param disableArrowUpward: set the flag when the current filter is ended to this item
  * @param disableArrowDownward: set the flag when the current filter is started from this item
- * @param onArrowUpwardClick :
- * @param onArrowDownwardClick :
+ * @param onArrowUpwardClick : request the change of the filtering by filtering end point
+ * @param onArrowDownwardClick : request the change of the filtering by filtering start point
  */
 interface Props {
   item: ValueListItemData;
@@ -28,9 +28,7 @@ interface Props {
 }
 
 /**
- * @param props
- *
- *
+ * This function returns the valueBlock of specified variable with the filtering arrows.
  */
 export const ValueListItem: React.FunctionComponent<Props> = (props) => {
   const {

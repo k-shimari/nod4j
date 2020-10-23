@@ -10,6 +10,9 @@ import { SourceCodeToken } from 'app/models/token';
 import { Timestamp, TimeStampRangeFilter } from 'app/reducers/state';
 import * as React from 'react';
 
+/**
+ * create the set of each data for visualization
+ */
 export namespace ValueListItemData {
   export function create(
     id: ValueListItemId,
@@ -20,6 +23,9 @@ export namespace ValueListItemData {
   }
 }
 
+/**
+ * create the set of each data (token ID, token value, token timestamp) for visualization
+ */
 export interface ValueListItemData {
   id: ValueListItemId;
   value: ValueListItemValue;
@@ -30,17 +36,26 @@ export interface RangeFilterClickEventHandler {
   (item: ValueListItemData, varInfo: SourceCodeToken): void;
 }
 
+/**
+ * @param items is the set of the data (token ID, token value, token timestamp)
+ * @param onArrowUpwardClick gets the click event at values of variable at the filtering end point.
+ * @param onArrowDownwardClick gets the click event at values of variable at the filtering start point.
+ * @param currentFilterValue is the pair of the filtering start and end point information.
+ * @param onEnter is whether the mouse cursor hovers at the point.
+ * @param onLeave is whether the mouse cursor leaves at the point.
+ */
 export namespace ValueList {
   export interface Props {
-    style?: React.CSSProperties;
-    items: ValueListItemData[];
+    style?: React.CSSProperties; 
+    items: ValueListItemData[]; 
     onArrowUpwardClick?: RangeFilterClickEventHandler;
     onArrowDownwardClick?: RangeFilterClickEventHandler;
     currentFilterValue: TimeStampRangeFilter;
-    onEnter?(): void;
+    onEnter?(): void; 
     onLeave?(): void;
   }
 }
+
 const useStyles = makeStyles(() => ({
   root: {
     minWidth: 240,
@@ -49,6 +64,9 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
+/**
+ * return the valueList component of the specified varable.
+ */
 export const ValueList: React.FunctionComponent<ValueList.Props> = (props) => {
   const {
     style,

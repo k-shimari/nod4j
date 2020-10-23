@@ -65,9 +65,9 @@ export function ViewContainer() {
   const { filteredValueListData } = nod4jState;
 
   /**
-   * @param item contains valuelistItemdata(thread ID, timestamp, value)
+   * @param item contains valuelistItemdata(token ID, timestamp, value)
    * @param varInfo is the inforamtion of variables which is highlighted
-   * This handler changes the filter end point inforamtion specified by (item,varInfo).
+   * This handler changes the filter end point inforamtion specified by (item,varInfo) and notify filter is changed to all instruction.
    */
   const onArrowUpwardClick: RangeFilterClickEventHandler = (item, varInfo) => {
     dispatch(
@@ -82,15 +82,16 @@ export function ViewContainer() {
           varName: varInfo.image
           // isPut: item.
         },
-        preferNotify: true
+        /* when this flag is true, requestValueListFilterChange@mySaga.ts is called for sharing filtering information */
+        preferNotify: true 
       })
     );
   };
 
   /**
-   * @param item contains valuelistItemdata(thread ID, timestamp, value)
+   * @param item contains valuelistItemdata(token ID, timestamp, value)
    * @param varInfo is the inforamtion of variables which is highlighted
-   * This handler changes the filter start point inforamtion specified by (item,varInfo).
+   * This handler changes the filter start point inforamtion specified by (item,varInfo) and notify filter is changed to all instruction.
    */
   const onArrowDownwardClick: RangeFilterClickEventHandler = (item, varInfo) => {
     dispatch(
@@ -105,6 +106,7 @@ export function ViewContainer() {
           varName: varInfo.image
           // isPut: varInfo
         },
+        /* when this flag is true, requestValueListFilterChange@mySaga.ts is called for sharing filtering information */
         preferNotify: true
       })
     );

@@ -2,7 +2,7 @@ import { Paper, Table, TableBody, TableCell, TableHead, TableRow } from '@materi
 import { makeStyles } from '@material-ui/core/styles';
 import FileIcon from '@material-ui/icons/Code';
 import FolderIcon from '@material-ui/icons/Folder';
-import { ProjectItem, ProjectItemBase } from 'app/models/project';
+import {ProjectItemBase } from 'app/models/project';
 import * as React from 'react';
 
 /**
@@ -23,11 +23,6 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-// export function createRowData(name: string, author: string, date: Date) {
-//   return { name, author, date };
-// }
-
-
 interface FileTableProps {
   data: FileTableRowProp[];
   onFileClick?(fileName: string): void;
@@ -36,7 +31,7 @@ interface FileTableProps {
 
 
 /**
- * return the fileTable which shows the files and the directories in the specified directory in the project
+ * return the fileTable which shows the files and the directories in the specified directory in the project.
  */
 export const FileTable: React.FunctionComponent<FileTableProps> = (props) => {
   const classes = useStyles();
