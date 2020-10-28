@@ -14,7 +14,7 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useReactRouter from 'use-react-router';
 import Button from '@material-ui/core/Button';
-
+import { AppBar, Link, Toolbar } from '@material-ui/core';
 /**
  * Set the style for the view page.
  */
@@ -83,7 +83,7 @@ export function ViewContainer() {
           // isPut: item.
         },
         /* when this flag is true, requestValueListFilterChange@mySaga.ts is called for sharing filtering information */
-        preferNotify: true 
+        preferNotify: true
       })
     );
   };
@@ -182,19 +182,20 @@ export function ViewContainer() {
     <ContentContainer>
       <PathNavigation projectName={projectName} items={[...dirs, file]} />
       <Paper className={classes.paper}>
-        <div className={classes.timestampFilterSection}>
-          <Typography variant="overline" color="textSecondary" gutterBottom>
-            INSTRUCTION FILTER
-          </Typography>
-          <div>
-            {renderFilterChip('left')}
-            {renderFilterChip('right')}
-          </div>
-        </div>
-        <Divider />
         <LogUrl logUrl={logUrl} />
-
         <Divider />
+        <header className="layout-header">
+          <div className={classes.timestampFilterSection} id="footer">
+            <Typography variant="overline" color="textSecondary" gutterBottom>
+              INSTRUCTION FILTER
+            </Typography>
+            <div>
+              {renderFilterChip('left')}
+              {renderFilterChip('right')}
+            </div>
+          </div>
+          <Divider />
+        </header>
         <Sourcecode
           currentFilterValue={nod4jState.filter.range}
           tokens={tokens}
