@@ -121,33 +121,6 @@ export const nod4jReducer = handleActions<RootState.nod4jState, any>(
         projects
       };
     },
-    /**
-     * State for
-     */
-    [nod4jActions.Type.ADD_PROJECT]: (state, action) => {
-      const { project } = action.payload! as nod4jActions.Payload.AddProject;
-
-      return {
-        ...state,
-        projects: [...(state.projects || []), project]
-      };
-    },
-    /**
-     * State for 
-     */
-    [nod4jActions.Type.REMOVE_PROJECT]: (state, action) => {
-      const { project } = action.payload! as nod4jActions.Payload.RemoveProject;
-
-      let projects = state.projects || [];
-      const index = projects.map((x) => x.name).indexOf(project.name);
-      if (index >= 0) {
-        projects = [...projects.slice(0, index), ...projects.slice(index + 1)];
-      }
-      return {
-        ...state,
-        projects
-      };
-    }
   },
   initialState
 );

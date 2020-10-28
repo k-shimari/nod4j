@@ -67,30 +67,16 @@ function MainPanel() {
  * This function returns the project which links to the FileTable window.
  */
 function ProjectListItem(props: ProjectInfo) {
-  const dispatch = useDispatch();
   const { name } = props;
-
-  /*
-   * This function removes the project from the top page when pushing the remove icon.
-   */
-  function onClickClearButton() {
-    dispatch(nod4jActions.requestRemoveProject({ project: { name } }));
-  }
-
   return (
     <ListItem button component="a" href={`project/${name}/files`}>
       <ListItemText primary={name} primaryTypographyProps={{ color: 'primary' }} />
-      <ListItemSecondaryAction>
-        <IconButton size="small" edge="end" onClick={onClickClearButton}>
-          <ClearIcon fontSize="small" />
-        </IconButton>
-      </ListItemSecondaryAction>
     </ListItem>
   );
 }
 
 /**
- * 
+ *
  */
 function OpenProjectPanel() {
   const [addProjectName, setAddProejctName] = React.useState('');
@@ -100,16 +86,6 @@ function OpenProjectPanel() {
     dispatch(nod4jActions.requestProjects());
   }, []);
   const projects = useSelector((state: RootState) => state.nod4j.projects);
-
-  /**
-   * @param projectName 
-   * ユーザが入力したプロジェクトをリンク一覧に加える（要変更）
-   * 
-   */
-  function addProject(projectName: string) {
-    dispatch(nod4jActions.requestAddProject({ project: { name: projectName } }));
-    setAddProejctName('');
-  }
 
   const classes = useStyles();
   return (
@@ -124,7 +100,7 @@ function OpenProjectPanel() {
             : null}
         </List>
       </div>
-      <Box display="flex" alignItems="center" mt={1} mb={1}>
+      {/* <Box display="flex" alignItems="center" mt={1} mb={1}>
         <Box flexGrow={1}>
           <TextField
             margin="dense"
@@ -145,7 +121,7 @@ function OpenProjectPanel() {
             Add project
           </Button>
         </Box>
-      </Box>
+      </Box> */}
       <Box mt={1}>
         <Typography variant="caption">
           <MULink href="https://github.com/k-shimari/nod4j" target="_blank">
@@ -157,28 +133,28 @@ function OpenProjectPanel() {
   );
 }
 
-function DebugPanel() {
-  const classes = useStyles();
-  const dispatch = useDispatch();
+// function DebugPanel() {
+//   const classes = useStyles();
+//   const dispatch = useDispatch();
 
-  return (
-    <Paper className={classes.root}>
-      <Typography variant="h5" component="h3" gutterBottom>
-        Debug
-      </Typography>
-      <div>
-        <Button
-          variant="outlined"
-          size="small"
-          onClick={() => dispatch(nod4jActions.clearLocalStorage())}
-        >
-          Clear Timestamp Filter
-          <DeleteIcon />
-        </Button>
-      </div>
-    </Paper>
-  );
-}
+//   return (
+//     <Paper className={classes.root}>
+//       <Typography variant="h5" component="h3" gutterBottom>
+//         Debug
+//       </Typography>
+//       <div>
+//         <Button
+//           variant="outlined"
+//           size="small"
+//           onClick={() => dispatch(nod4jActions.clearLocalStorage())}
+//         >
+//           Clear Timestamp Filter
+//           <DeleteIcon />
+//         </Button>
+//       </div>
+//     </Paper>
+//   );
+// }
 /**
  * This function returns the OpenProjectPanel component and DebugPanel Component.
  */
@@ -190,9 +166,9 @@ export function App() {
         <Grid item xs={6}>
           <OpenProjectPanel />
         </Grid>
-        <Grid item xs={6}>
+        {/* <Grid item xs={6}>
           <DebugPanel />
-        </Grid>
+        </Grid> */}
       </Grid>
     </ContentContainer>
   );

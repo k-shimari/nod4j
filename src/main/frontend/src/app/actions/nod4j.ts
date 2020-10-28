@@ -16,11 +16,7 @@ export namespace nod4jActions {
      */
     REQUEST_PROJECTS = 'REQUEST_PROJECTS',
     SET_PROJECTS = 'SET_PROJECTS',
-    REQUEST_ADD_PROJECT = 'REQUEST_ADD_PROJECT',
-    ADD_PROJECT = 'ADD_PROJECT',
-    REQUEST_REMOVE_PROJECT = 'REQUEST_REMOVE_PROJECT',
-    REMOVE_PROJECT = 'REMOVE_PROJECT',
-
+   
     /**
      *  Actions for Timestamp filter
      */
@@ -65,14 +61,6 @@ export namespace nod4jActions {
     export interface SetProjects {
       projects: ProjectInfo[];
     }
-
-    export interface RequestAddProject {
-      project: ProjectInfo;
-    }
-
-    export type AddProject = RequestAddProject;
-    export type RequestRemoveProject = RequestAddProject;
-    export type RemoveProject = RequestAddProject;
 
     export interface RequestValueListFilterChange {
       projectName: string;
@@ -138,20 +126,14 @@ export namespace nod4jActions {
   }
 
   /**
-   *  Actions for Project
+   *  Create Actions for Project
    */
   export const requestProjects = createAction(Type.REQUEST_PROJECTS);
   export const setProjects = createAction<Payload.SetProjects>(Type.SET_PROJECTS);
-  export const requestAddProject = createAction<Payload.RequestAddProject>(
-    Type.REQUEST_ADD_PROJECT
-  );
-  export const addProject = createAction<Payload.AddProject>(Type.ADD_PROJECT);
-  export const requestRemoveProject = createAction<Payload.RequestRemoveProject>(
-    Type.REQUEST_REMOVE_PROJECT
-  );
-  export const removeProject = createAction<Payload.RemoveProject>(Type.REMOVE_PROJECT);
-
-  // Filter
+  
+  /**
+   *  Create Actions for Filter
+   */
   export const requestValueListFilterChange = createAction<Payload.RequestValueListFilterChange>(
     Type.REQUEST_VALUE_LIST_FILTER_CHANGE
   );
@@ -169,11 +151,15 @@ export namespace nod4jActions {
     Type.SET_FILTERED_VALUE_LIST_DATA
   );
 
-  // Files
+  /**
+   *  Create Actions for Files
+   */
   export const requestFiles = createAction<Payload.RequestFilesPayload>(Type.REQUEST_FILES);
   export const setFilesData = createAction<Payload.SetFilesDataPayload>(Type.SET_FILES_DATA);
 
-  // Source code
+  /**
+   *  Create Actions for Source code
+   */
   export const requestSourceCodeData = createAction<Payload.RequestSourceCodeData>(
     Type.REQUEST_SOURCE_CODE_DATA
   );
@@ -181,16 +167,23 @@ export namespace nod4jActions {
     Type.SET_SOURCE_CODE_DATA
   );
 
-  //JsonLog
+  /**
+   *  Create Actions for Logs
+   */
+
   export const requestJson = createAction<Payload.RequestJson>(Type.REQUEST_JSON);
   export const setVarListJsonData = createAction<Payload.SetVarListJsonData>(
     Type.SET_VAR_LIST_JSON_DATA
   );
 
-  // Debug
+  /**
+   *  Create Actions for clear local storage
+   */
   export const clearLocalStorage = createAction(Type.CLEAR_LOCAL_STORAGE);
 
-  // Others
+  /**
+   *  Create Actions for init View page
+   */
   export const initViewPage = createAction<Payload.InitViewPage>(Type.INIT_VIEW_PAGE);
 }
 
