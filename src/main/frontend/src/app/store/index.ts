@@ -5,6 +5,10 @@ import mySaga from 'app/saga/mySaga';
 import { applyMiddleware, createStore, Store } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
+/**
+ * @param initialState 
+ * 
+ */
 export function configureStore(initialState?: RootState): Store<RootState> {
   const sagaMiddleware = createSagaMiddleware();
   let middleware = applyMiddleware(logger, sagaMiddleware);
