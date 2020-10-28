@@ -14,7 +14,6 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useReactRouter from 'use-react-router';
 import Button from '@material-ui/core/Button';
-import { AppBar, Link, Toolbar } from '@material-ui/core';
 /**
  * Set the style for the view page.
  */
@@ -79,8 +78,8 @@ export function ViewContainer() {
           value: item.value,
           lineNumber: varInfo.startLine || 0,
           fileName: file,
-          varName: varInfo.image
-          // isPut: item.
+          varName: varInfo.image,
+          inst: item.inst
         },
         /* when this flag is true, requestValueListFilterChange@mySaga.ts is called for sharing filtering information */
         preferNotify: true
@@ -103,8 +102,8 @@ export function ViewContainer() {
           value: item.value,
           lineNumber: varInfo.startLine || 0,
           fileName: file,
-          varName: varInfo.image
-          // isPut: varInfo
+          varName: varInfo.image,
+          inst: item.inst
         },
         /* when this flag is true, requestValueListFilterChange@mySaga.ts is called for sharing filtering information */
         preferNotify: true
@@ -124,8 +123,10 @@ export function ViewContainer() {
     /* @TODO add variable and instruction name */
     const labelValue = target
       ? (() => {
-          const { fileName, lineNumber, varName, value } = target;
-          return `Line${lineNumber},${varName},${value} @${fileName}`;
+          const { fileName, lineNumber, varName, value, inst } = target;
+          return inst === 'G'
+          ? `${varName} was referred the ${value} at line#${lineNumber} of ${fileName}`
+          : `${varName} was assigned the ${value} at line#${lineNumber} of ${fileName}`;
         })()
       : 'none';
     const label = `${labelPrefix}: ${labelValue}`;

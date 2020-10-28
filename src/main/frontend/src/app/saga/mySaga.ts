@@ -38,9 +38,9 @@ function createVarValueData(
     const item: ValueListItemData[] = d.valueList.map((x, index) => ({
       id: index.toString(),
       value: x.data,
-      timestamp: x.timestamp
+      timestamp: x.timestamp,
+      inst: d.inst.toString()
     }));
-
     try {
       const tokenId = computeTokenId(d, tokens);
       result[tokenId] = item;

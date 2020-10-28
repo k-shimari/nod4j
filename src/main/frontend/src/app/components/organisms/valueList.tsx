@@ -17,9 +17,10 @@ export namespace ValueListItemData {
   export function create(
     id: ValueListItemId,
     value: ValueListItemValue,
-    timestamp: Timestamp
+    timestamp: Timestamp,
+    inst: string
   ): ValueListItemData {
-    return { id, value, timestamp };
+    return { id, value, timestamp, inst };
   }
 }
 
@@ -30,6 +31,7 @@ export interface ValueListItemData {
   id: ValueListItemId;
   value: ValueListItemValue;
   timestamp: Timestamp;
+  inst: string;
 }
 
 export interface RangeFilterClickEventHandler {
@@ -46,12 +48,12 @@ export interface RangeFilterClickEventHandler {
  */
 export namespace ValueList {
   export interface Props {
-    style?: React.CSSProperties; 
-    items: ValueListItemData[]; 
+    style?: React.CSSProperties;
+    items: ValueListItemData[];
     onArrowUpwardClick?: RangeFilterClickEventHandler;
     onArrowDownwardClick?: RangeFilterClickEventHandler;
     currentFilterValue: TimeStampRangeFilter;
-    onEnter?(): void; 
+    onEnter?(): void;
     onLeave?(): void;
   }
 }

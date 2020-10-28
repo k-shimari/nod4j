@@ -7,7 +7,7 @@ export interface VarInfo {
   methodName: string;
   var: string;
   linenum: string;
-  isPut: boolean;
+  inst: String;
   count: number;
   valueList: ValueInfo[];
 }
