@@ -105,67 +105,10 @@ function OpenProjectPanel() {
           </ListItem>
         </List>
       </div>
-<<<<<<< HEAD
-=======
-      {/* <Box display="flex" alignItems="center" mt={1} mb={1}>
-        <Box flexGrow={1}>
-          <TextField
-            margin="dense"
-            variant="outlined"
-            fullWidth
-            placeholder="Your project name"
-            value={addProjectName}
-            onChange={(e) => setAddProejctName(e.target.value)}
-          />
-        </Box>
-        <Box ml={2}>
-          <Button
-            onClick={() => addProject(addProjectName)}
-            disabled={!addProjectName}
-            variant="contained"
-            color={addProjectName ? 'primary' : 'default'}
-          >
-            Add project
-          </Button>
-        </Box>
-      </Box> */}
-      <Box mt={1}>
-        <Typography variant="caption">
-          <MULink href="https://github.com/k-shimari/nod4j" target="_blank">
-            You can check how to import your project here.
-          </MULink>
-        </Typography>
-      </Box>
->>>>>>> add_comment
     </Paper>
   );
 }
 
-<<<<<<< HEAD
-=======
-// function DebugPanel() {
-//   const classes = useStyles();
-//   const dispatch = useDispatch();
->>>>>>> add_comment
-
-//   return (
-//     <Paper className={classes.root}>
-//       <Typography variant="h5" component="h3" gutterBottom>
-//         Debug
-//       </Typography>
-//       <div>
-//         <Button
-//           variant="outlined"
-//           size="small"
-//           onClick={() => dispatch(nod4jActions.clearLocalStorage())}
-//         >
-//           Clear Timestamp Filter
-//           <DeleteIcon />
-//         </Button>
-//       </div>
-//     </Paper>
-//   );
-// }
 /**
  * This function returns the OpenProjectPanel component and DebugPanel Component.
  */
@@ -177,12 +120,6 @@ export function App() {
         <Grid item xs={6}>
           <OpenProjectPanel />
         </Grid>
-<<<<<<< HEAD
-=======
-        {/* <Grid item xs={6}>
-          <DebugPanel />
-        </Grid> */}
->>>>>>> add_comment
       </Grid>
     </ContentContainer>
   );
