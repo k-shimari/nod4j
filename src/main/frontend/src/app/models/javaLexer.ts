@@ -3,6 +3,10 @@ import { SourceCodeToken } from './token';
 const JavaLexer = require('java-parser/src/lexer');
 const Comment = require('java-parser/src/comments');
 
+/**
+ * @param text 
+ * Returns the tokenized source code and the concatted comments inforamtion.
+ */
 export function tokenize(text: string): SourceCodeToken[] {
   let lexResult: ILexingResult = JavaLexer.tokenize(text);
   let tokens: IToken[] = lexResult.tokens.concat(lexResult.groups.comments)

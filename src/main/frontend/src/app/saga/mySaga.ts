@@ -14,7 +14,6 @@ import { store } from 'app/store';
 import * as _ from 'lodash';
 import { call, delay, put, select, takeEvery } from 'redux-saga/effects';
 
-
 function computeTokenId(variable: VarInfo, tokens: SourceCodeToken[]): string {
   const { linenum, count, var: varName } = variable;
   const match = tokens.filter((x) => x.startLine === Number(linenum) && x.image === varName);
@@ -39,9 +38,9 @@ function createVarValueData(
     const item: ValueListItemData[] = d.valueList.map((x, index) => ({
       id: index.toString(),
       value: x.data,
-      timestamp: x.timestamp
+      timestamp: x.timestamp,
+      inst: d.inst.toString()
     }));
-
     try {
       const tokenId = computeTokenId(d, tokens);
       result[tokenId] = item;
@@ -52,7 +51,6 @@ function createVarValueData(
 
   return new VarValueData(result);
 }
-
 
 function* requestFiles(action: ReturnType<typeof nod4jActions.requestFiles>) {
   const { projectName, directory } = action.payload!;
@@ -81,14 +79,18 @@ function* requestValueListFilterChange(
 ) {
   const { projectName, kind, context, preferNotify } = action.payload!;
 
-  // If the context is same, update does not need.
+  /**
+   * If the context is same, update does not need.
+   */
   const s: TimeStampRangeFilter = yield select((state: RootState) => state.nod4j.filter.range);
   if (kind === 'left' && _.isEqual(context, s.left)) return;
   if (kind === 'right' && _.isEqual(context, s.right)) return;
 
   yield put(nod4jActions.setValueListFilter({ kind, context }));
 
-  // Notify the changing of filtering by storing at localStorage
+  /*
+   * Notify the change of the filtering by storing at localStorage
+   */
   if (preferNotify) {
     const sharedEvent = new SharedEventModel(projectName);
     sharedEvent.notifyFilterChanged(kind, context);
@@ -105,14 +107,6 @@ function* requestSourceCodeData(action: ReturnType<typeof nod4jActions.requestSo
   const { projectName, target } = action.payload!;
   const { dirs, file } = target;
   let filePath = getFilePath(dirs, file);
-
-  if (dirs.length >= 3 && (dirs.slice(0, 3).join("/") === "src/main/java" || dirs.slice(0, 3).join("/") === "src/test/java" || dirs.slice(0, 3).join("/") === "test/main/java" || dirs.slice(0, 3).join("/") === "tests/main/java")) {
-    filePath = dirs.slice(3).join("/") + "/" + file;
-  } else if (dirs.length >= 1 && (dirs[0] === "src" || dirs[0] === "source" || dirs[0] === "sources" || dirs[0] === "test" || dirs[0] === "tests")) {
-    filePath = dirs.slice(1).join("/") + "/" + file;
-  } else {
-    filePath = dirs.join("/") + "/" + file;
-  }
 
   const api = new nod4jApi();
   const project: ProjectModel | undefined = yield call(() => api.fetchFileInfo(projectName));
@@ -150,12 +144,25 @@ function* requestSourceCodeData(action: ReturnType<typeof nod4jActions.requestSo
 }
 
 function getFilePath(dirs: string[], file: string): string {
-  if (dirs.length >= 3 && (dirs.slice(0, 3).join("/") === "src/main/java" || dirs.slice(0, 3).join("/") === "src/test/java" || dirs.slice(0, 3).join("/") === "test/main/java" || dirs.slice(0, 3).join("/") === "tests/main/java")) {
-    return dirs.slice(3).join("/") + "/" + file;
-  } else if (dirs.length >= 1 && (dirs[0] === "src" || dirs[0] === "source" || dirs[0] === "sources" || dirs[0] === "test" || dirs[0] === "tests")) {
-    return dirs.slice(1).join("/") + "/" + file;
+  if (
+    dirs.length >= 3 &&
+    (dirs.slice(0, 3).join('/') === 'src/main/java' ||
+      dirs.slice(0, 3).join('/') === 'src/test/java' ||
+      dirs.slice(0, 3).join('/') === 'test/main/java' ||
+      dirs.slice(0, 3).join('/') === 'tests/main/java')
+  ) {
+    return dirs.slice(3).join('/') + '/' + file;
+  } else if (
+    dirs.length >= 1 &&
+    (dirs[0] === 'src' ||
+      dirs[0] === 'source' ||
+      dirs[0] === 'sources' ||
+      dirs[0] === 'test' ||
+      dirs[0] === 'tests')
+  ) {
+    return dirs.slice(1).join('/') + '/' + file;
   } else {
-    return dirs.join("/") + "/" + file;
+    return dirs.join('/') + '/' + file;
   }
 }
 
@@ -163,7 +170,6 @@ function* requestJson(action: ReturnType<typeof nod4jActions.requestJson>) {
   const { projectName, target } = action.payload!;
   const { dirs, file } = target;
   const api = new nod4jApi();
-
   let filePath = getFilePath(dirs, file);
 
   console.log(filePath);
@@ -176,11 +182,6 @@ function* requestJson(action: ReturnType<typeof nod4jActions.requestJson>) {
       data: ds
     })
   );
-}
-
-
-function* dummyWorker() {
-  yield put(nod4jActions.dummyAction());
 }
 
 function* clearLocalStorage() {
@@ -224,26 +225,10 @@ function* requestProjects() {
   yield put(nod4jActions.setProjects({ projects }));
 }
 
-function* requestAddProject(action: ReturnType<typeof nod4jActions.requestAddProject>) {
-  const { project } = action.payload!;
-  const manager = new ProjectManager();
-  const success: boolean = yield call(() => manager.addProject(project));
-  if (success) {
-    yield put(nod4jActions.addProject({ project }));
-  }
-}
 
-function* requestRemoveProject(action: ReturnType<typeof nod4jActions.requestRemoveProject>) {
-  const { project } = action.payload!;
-  const manager = new ProjectManager();
-  const success: boolean = yield call(() => manager.removeProject(project));
-  if (success) {
-    yield put(nod4jActions.removeProject({ project }));
-  }
-}
+
 
 function* mySaga() {
-  yield takeEvery(nod4jActions.dummyAction, dummyWorker);
   yield takeEvery(nod4jActions.requestFiles, requestFiles);
   yield takeEvery(nod4jActions.requestValueListFilterChange, requestValueListFilterChange);
   yield takeEvery(nod4jActions.requestSourceCodeData, requestSourceCodeData);
@@ -253,8 +238,6 @@ function* mySaga() {
   yield takeEvery(nod4jActions.loadInitialValueListFilter, loadInitialValueListFilter);
   yield takeEvery(nod4jActions.initViewPage, initViewPage);
   yield takeEvery(nod4jActions.requestProjects, requestProjects);
-  yield takeEvery(nod4jActions.requestAddProject, requestAddProject);
-  yield takeEvery(nod4jActions.requestRemoveProject, requestRemoveProject);
 }
 
 export default mySaga;

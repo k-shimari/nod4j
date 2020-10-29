@@ -4,6 +4,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import ArrowUpward from '@material-ui/icons/ArrowUpward';
+import { SourceCodeToken } from 'app/models/token';
 
 import * as React from 'react';
 import { ValueListItemData } from '../organisms/valueList';
@@ -11,14 +12,24 @@ import { ValueListItemData } from '../organisms/valueList';
 export type ValueListItemId = string;
 export type ValueListItemValue = string | number;
 
+/**
+ * @param item: the set of token ID, token value, token timestamp
+ * @param disableArrowUpward: set the flag when the current filter is ended to this item
+ * @param disableArrowDownward: set the flag when the current filter is started from this item
+ * @param onArrowUpwardClick : request the change of the filtering by filtering end point
+ * @param onArrowDownwardClick : request the change of the filtering by filtering start point
+ */
 interface Props {
   item: ValueListItemData;
   disableArrowUpward?: boolean;
   disableArrowDownward?: boolean;
-  onArrowUpwardClick?(item: ValueListItemData): void;
-  onArrowDownwardClick?(item: ValueListItemData): void;
+  onArrowUpwardClick?(item: ValueListItemData, varInfo?: SourceCodeToken): void;
+  onArrowDownwardClick?(item: ValueListItemData, varInfo?: SourceCodeToken): void;
 }
 
+/**
+ * This function returns the valueBlock of specified variable with the filtering arrows.
+ */
 export const ValueListItem: React.FunctionComponent<Props> = (props) => {
   const {
     item,

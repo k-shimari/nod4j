@@ -1,43 +1,25 @@
-import * as LF from 'localforage';
-import { extendPrototype } from 'localforage-observable';
 import { ProjectInfo } from './api';
-let localforage = extendPrototype(LF);
 
 export class ProjectManager {
-  private static projectsKey = 'nod4j.projects';
-  private async readProjects(): Promise<string[]> {
-    return (await localforage.getItem<string[]>(ProjectManager.projectsKey)) || [];
+   private async readProjects(): Promise<string[]> {
+    let fileinfo: string[] = importAll(require.context('../../assets/project', true, /.*fileinfo.json$/));
+    let varinfo: string[] = importAll(require.context('../../assets/project', true, /.*varinfo.json$/));
+    fileinfo= fileinfo.map((s) => s.substr(2, s.lastIndexOf('/') - 2));
+    varinfo= varinfo.map((s) => s.substr(2, s.lastIndexOf('/') - 2));
+    let all : string[]= fileinfo.filter((item) => varinfo.includes(item))
+    all.forEach((s) => console.log(s));
+
+    return all;
   }
-
-  async addProject(project: ProjectInfo): Promise<boolean> {
-    const projects = await this.readProjects();
-
-    if (projects.indexOf(project.name) === -1) {
-      projects.push(project.name);
-      await localforage.setItem(ProjectManager.projectsKey, projects);
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  async removeProject(project: ProjectInfo): Promise<boolean> {
-    const projects = await this.readProjects();
-
-    const index = projects.indexOf(project.name);
-
-    if (index >= 0) {
-      const newProjects = [...projects.slice(0, index), ...projects.slice(index + 1)];
-      await localforage.setItem(ProjectManager.projectsKey, newProjects);
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   async getAllProjects(): Promise<ProjectInfo[]> {
     return (await this.readProjects()).map((name) => ({
       name
     }));
   }
+
+}
+
+function importAll(r: any) {
+  console.log(r);
+  return r.keys();
 }

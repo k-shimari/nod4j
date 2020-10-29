@@ -1,11 +1,15 @@
-import * as JSON5 from 'json5';
-
 export type ProjectItemType = 'file' | 'dir';
 
 export interface ProjectItemBase {
   type: ProjectItemType;
   name: string;
 }
+
+/**
+ * Define the file in the fileTable View.
+ * Content means source code in the file.
+ */
+
 export interface ProjectItemFile extends ProjectItemBase {
   type: 'file';
   content: string[];
@@ -42,6 +46,10 @@ export class ProjectItemFileModel implements ProjectItemFile {
   }
 }
 
+/**
+ * Define the directory in the fileTable View.
+ * childeren means the array of file or directory.
+ */
 export interface ProjectItemDirectory extends ProjectItemBase {
   type: 'dir';
   children: ProjectItem[];
@@ -79,12 +87,20 @@ export class ProjectItemDirectoryModel implements ProjectItemDirectory {
     this._dir = dir;
   }
 
+  /**
+   * @param fileName
+   * This function searches the file which contains the source code or undefined (no file).
+   */
   findFile(fileName: string): ProjectItemFile | undefined {
     return this._dir.children.find<ProjectItemFile>(
       (x): x is ProjectItemFile => x.type === 'file' && x.name === fileName
     );
   }
 
+  /**
+   * @param dirName
+   * This function searches the directory model whose directory contains the files and directories.
+   */
   findDir(dirName: string): ProjectItemDirectoryModel | undefined {
     const dir = this._dir.children.find<ProjectItemDirectory>(
       (x): x is ProjectItemDirectory => x.type === 'dir' && x.name === dirName
@@ -92,6 +108,10 @@ export class ProjectItemDirectoryModel implements ProjectItemDirectory {
     return dir ? new ProjectItemDirectoryModel(dir) : undefined;
   }
 
+   /**
+   * @param targetDirs the array of directory which leads to target directry.
+   * This function returns the instance of this class if the target directroy path exists.
+   */
   recursiveFindDir(targetDirs: string[]): ProjectItemDirectoryModel | undefined {
     if (targetDirs.length === 0) {
       return this;
@@ -117,8 +137,8 @@ export class ProjectModel {
   }
 
   /**
-   * プロジェクト中のディレクトリのアイテムを返します
-   * @param dirs このディレクトリのアイテムを返します
+   * @param dirs
+   * This function returns the contents of the specified directory.
    */
   getItems(dirs: string[]): ProjectItemModel[] {
     const targetDir = this._rootDir.recursiveFindDir(dirs);
@@ -126,15 +146,6 @@ export class ProjectModel {
       return targetDir.children;
     } else {
       return [];
-    }
-  }
-
-  static loadFromJsonFile(projectJsonDataString: string): ProjectModel | undefined {
-    const projectDir = JSON5.parse(projectJsonDataString) as ProjectItemDirectory;
-    if (projectDir) {
-      return new ProjectModel(projectDir);
-    } else {
-      return undefined;
     }
   }
 }

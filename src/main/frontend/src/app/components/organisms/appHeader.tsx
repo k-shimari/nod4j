@@ -6,6 +6,9 @@ interface Props {
   appName: string;
 }
 
+/**
+ * Style for app header.
+ */
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1
@@ -15,9 +18,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+/**
+ * @param props 
+ * returns AppHeader component.
+ */
 export const AppHeader: React.FunctionComponent<Props> = (props) => {
   const classes = useStyles();
-
   return (
     <div>
       <AppBar position="static">
