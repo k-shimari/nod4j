@@ -1,9 +1,6 @@
 import * as JSON5 from 'json5';
 import { ProjectItemDirectory, ProjectModel } from './project';
 import { ProjectManager } from './projectManager';
-
-// import { rawProjectJsonData } from './rawProjectData';
-// import { rawVarListData } from './rawVarListData';
 import { VarListJsonData } from './varListData';
 
 export interface ProjectInfo {
@@ -60,15 +57,5 @@ export class nod4jApi {
     const s: string = await this.getAssetFile(varInfoPath);
     const json = JSON5.parse(s, receiver) as VarListJsonData;
     return json;
-  }
-
-  /*
-   *
-   */
-  async fetchProjects(): Promise<ProjectInfo[]> {
-    const manager = new ProjectManager();
-
-    const projects = await manager.getAllProjects();
-    return projects;
   }
 }

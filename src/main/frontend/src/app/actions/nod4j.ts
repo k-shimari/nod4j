@@ -47,11 +47,6 @@ export namespace nod4jActions {
     SET_VAR_LIST_JSON_DATA = 'SET_VAR_LIST_JSON_DATA',
 
     /**
-     *  Actions for Debugging
-     */
-    CLEAR_LOCAL_STORAGE = 'CLEAR_LOCAL_STORAGE',
-
-    /**
      *  Actions for initialization
      */
     INIT_VIEW_PAGE = 'INIT_VIEW_PAGE'
@@ -170,16 +165,10 @@ export namespace nod4jActions {
   /**
    *  Create Actions for Logs
    */
-
   export const requestJson = createAction<Payload.RequestJson>(Type.REQUEST_JSON);
   export const setVarListJsonData = createAction<Payload.SetVarListJsonData>(
     Type.SET_VAR_LIST_JSON_DATA
   );
-
-  /**
-   *  Create Actions for clear local storage
-   */
-  export const clearLocalStorage = createAction(Type.CLEAR_LOCAL_STORAGE);
 
   /**
    *  Create Actions for init View page

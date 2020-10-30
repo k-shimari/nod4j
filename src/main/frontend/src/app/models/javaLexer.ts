@@ -22,7 +22,9 @@ declare global {
     orderBy<K extends keyof T>(...sortKeys: K[]): T[];
   }
 }
-
+/**
+ * order ascending 
+ */
 Array.prototype.orderBy = function <T, K extends keyof T>(...sortKeys: K[]): T[] {
   const items = this as T[];
   return items.sort((a: T, b: T) => compare(a, b, sortKeys));

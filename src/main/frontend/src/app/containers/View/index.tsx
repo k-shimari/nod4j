@@ -125,8 +125,8 @@ export function ViewContainer() {
       ? (() => {
           const { fileName, lineNumber, varName, value, inst } = target;
           return inst === 'G'
-          ? `${varName} was referred the ${value} at line#${lineNumber} of ${fileName}`
-          : `${varName} was assigned the ${value} at line#${lineNumber} of ${fileName}`;
+            ? `${varName} was referred the ${value} at line#${lineNumber} of ${fileName}`
+            : `${varName} was assigned the ${value} at line#${lineNumber} of ${fileName}`;
         })()
       : 'none';
     const label = `${labelPrefix}: ${labelValue}`;
@@ -205,30 +205,6 @@ export function ViewContainer() {
           onArrowDownwardClick={onArrowDownwardClick}
         />
       </Paper>
-      {/* <Button
-        variant="outlined"
-        size="small"
-        onClick={() => {
-          dispatch(
-            nod4jActions.requestValueListFilterChange({
-              projectName,
-              kind: 'left',
-              context: undefined,
-              preferNotify: true
-            })
-          );
-          dispatch(
-            nod4jActions.requestValueListFilterChange({
-              projectName,
-              kind: 'right',
-              context: undefined,
-              preferNotify: true
-            })
-          );
-        }}
-      >
-        Clear Instruction Filter
-      </Button> */}
     </ContentContainer>
   ) : null;
 }

@@ -1,21 +1,13 @@
 import {
-  Box,
-  Button,
-  Divider,
   Grid,
-  IconButton,
   Link as MULink,
   List,
   ListItem,
-  ListItemSecondaryAction,
   ListItemText,
   makeStyles,
   Paper,
-  TextField,
   Typography
 } from '@material-ui/core';
-import { Clear as ClearIcon } from '@material-ui/icons';
-import DeleteIcon from '@material-ui/icons/Delete';
 import { nod4jActions } from 'app/actions';
 import { ContentContainer } from 'app/components/atoms/contentContainer';
 import { ProjectInfo } from 'app/models/api';
@@ -79,8 +71,6 @@ function ProjectListItem(props: ProjectInfo) {
  *
  */
 function OpenProjectPanel() {
-  const [addProjectName, setAddProejctName] = React.useState('');
-
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(nod4jActions.requestProjects());
@@ -100,61 +90,10 @@ function OpenProjectPanel() {
             : null}
         </List>
       </div>
-      {/* <Box display="flex" alignItems="center" mt={1} mb={1}>
-        <Box flexGrow={1}>
-          <TextField
-            margin="dense"
-            variant="outlined"
-            fullWidth
-            placeholder="Your project name"
-            value={addProjectName}
-            onChange={(e) => setAddProejctName(e.target.value)}
-          />
-        </Box>
-        <Box ml={2}>
-          <Button
-            onClick={() => addProject(addProjectName)}
-            disabled={!addProjectName}
-            variant="contained"
-            color={addProjectName ? 'primary' : 'default'}
-          >
-            Add project
-          </Button>
-        </Box>
-      </Box> */}
-      <Box mt={1}>
-        <Typography variant="caption">
-          <MULink href="https://github.com/k-shimari/nod4j" target="_blank">
-            You can check how to import your project here.
-          </MULink>
-        </Typography>
-      </Box>
     </Paper>
   );
 }
 
-// function DebugPanel() {
-//   const classes = useStyles();
-//   const dispatch = useDispatch();
-
-//   return (
-//     <Paper className={classes.root}>
-//       <Typography variant="h5" component="h3" gutterBottom>
-//         Debug
-//       </Typography>
-//       <div>
-//         <Button
-//           variant="outlined"
-//           size="small"
-//           onClick={() => dispatch(nod4jActions.clearLocalStorage())}
-//         >
-//           Clear Timestamp Filter
-//           <DeleteIcon />
-//         </Button>
-//       </div>
-//     </Paper>
-//   );
-// }
 /**
  * This function returns the OpenProjectPanel component and DebugPanel Component.
  */
@@ -166,9 +105,6 @@ export function App() {
         <Grid item xs={6}>
           <OpenProjectPanel />
         </Grid>
-        {/* <Grid item xs={6}>
-          <DebugPanel />
-        </Grid> */}
       </Grid>
     </ContentContainer>
   );

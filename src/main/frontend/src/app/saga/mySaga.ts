@@ -14,10 +14,14 @@ import { store } from 'app/store';
 import * as _ from 'lodash';
 import { call, delay, put, select, takeEvery } from 'redux-saga/effects';
 
+/**
+ * @param variable is the target variable got from the recorded log.
+ * @param tokens are the tokens in the source code.
+ * This function computes the token id of the variable whose line number and variable name match with the token in the source.
+ */
 function computeTokenId(variable: VarInfo, tokens: SourceCodeToken[]): string {
   const { linenum, count, var: varName } = variable;
   const match = tokens.filter((x) => x.startLine === Number(linenum) && x.image === varName);
-
   if (count > match.length) {
     throw new Error('Impossible');
   }
@@ -25,6 +29,12 @@ function computeTokenId(variable: VarInfo, tokens: SourceCodeToken[]): string {
   return id;
 }
 
+/**
+ * @param data is the all variable and value data of the target source file.
+ * @param file 
+ * @param tokens 
+ * 
+ */
 function createVarValueData(
   data: VarListJsonData,
   file: string,
@@ -45,10 +55,9 @@ function createVarValueData(
       const tokenId = computeTokenId(d, tokens);
       result[tokenId] = item;
     } catch (e) {
-      // ignore
+      console.log('Cannot compute token id.');
     }
   }
-
   return new VarValueData(result);
 }
 
@@ -64,7 +73,7 @@ function* requestFiles(action: ReturnType<typeof nod4jActions.requestFiles>) {
 
   const items = project.getItems(directory);
 
-  // for loading
+  /* for loading */
   yield delay(300);
   yield put(
     nod4jActions.setFilesData({
@@ -143,6 +152,9 @@ function* requestSourceCodeData(action: ReturnType<typeof nod4jActions.requestSo
   );
 }
 
+/*
+ * process and return the file path for mathcing the file path of trace (varinfo.json)
+ */
 function getFilePath(dirs: string[], file: string): string {
   if (
     dirs.length >= 3 &&
@@ -184,11 +196,6 @@ function* requestJson(action: ReturnType<typeof nod4jActions.requestJson>) {
   );
 }
 
-function* clearLocalStorage() {
-  yield call(() => SharedEventModel.clearAllData());
-  console.debug('Cleared local storage');
-}
-
 function* loadInitialValueListFilter(
   action: ReturnType<typeof nod4jActions.loadInitialValueListFilter>
 ) {
@@ -225,16 +232,12 @@ function* requestProjects() {
   yield put(nod4jActions.setProjects({ projects }));
 }
 
-
-
-
 function* mySaga() {
   yield takeEvery(nod4jActions.requestFiles, requestFiles);
   yield takeEvery(nod4jActions.requestValueListFilterChange, requestValueListFilterChange);
   yield takeEvery(nod4jActions.requestSourceCodeData, requestSourceCodeData);
   yield takeEvery(nod4jActions.requestJson, requestJson);
 
-  yield takeEvery(nod4jActions.clearLocalStorage, clearLocalStorage);
   yield takeEvery(nod4jActions.loadInitialValueListFilter, loadInitialValueListFilter);
   yield takeEvery(nod4jActions.initViewPage, initViewPage);
   yield takeEvery(nod4jActions.requestProjects, requestProjects);

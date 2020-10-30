@@ -8,7 +8,7 @@ import { Route } from 'react-router-dom';
 import { AppHeader } from './components/organisms/appHeader';
 
 /**
- * Set all components.
+ * Set all components of nod4j.
  */
 export const App = hot(module)(() => (
   <div>
