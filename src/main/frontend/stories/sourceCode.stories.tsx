@@ -24,14 +24,14 @@ storiesOf('Source code', module)
       varValueData={
         new VarValueData({
           '1': [
-            ValueListItemData.create('1', 123, '1'),
-            ValueListItemData.create('2', 456, '2'),
-            ValueListItemData.create('3', 789, '3')
+            ValueListItemData.create('1', 123, '1', 'P'),
+            ValueListItemData.create('2', 456, '2', 'P'),
+            ValueListItemData.create('3', 789, '3', 'P')
           ],
           '10': [
-            ValueListItemData.create('1', 789, '1'),
-            ValueListItemData.create('2', 456, '2'),
-            ValueListItemData.create('3', 123, '3')
+            ValueListItemData.create('1', 789, '1', 'P'),
+            ValueListItemData.create('2', 456, '2', 'P'),
+            ValueListItemData.create('3', 123, '3', 'P')
           ]
         })
       }

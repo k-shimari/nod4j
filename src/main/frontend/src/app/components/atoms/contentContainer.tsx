@@ -1,6 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles';
 import * as React from 'react';
 
+/**
+ * Set styles for ContentContainer, which contains component (e.g., view, fileTable, ...).
+ */
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: '0 auto',
@@ -9,8 +12,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+/**
+ * return the container for content (e.g., view, fileTable, ...).
+ */
 export function ContentContainer(props: React.PropsWithChildren<{}>) {
   const classes = useStyles();
-
   return <div className={classes.root}>{props.children}</div>;
 }

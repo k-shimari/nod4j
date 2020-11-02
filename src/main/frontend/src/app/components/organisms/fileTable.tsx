@@ -2,9 +2,12 @@ import { Paper, Table, TableBody, TableCell, TableHead, TableRow } from '@materi
 import { makeStyles } from '@material-ui/core/styles';
 import FileIcon from '@material-ui/icons/Code';
 import FolderIcon from '@material-ui/icons/Folder';
-import { ProjectItem, ProjectItemBase } from 'app/models/project';
+import {ProjectItemBase } from 'app/models/project';
 import * as React from 'react';
 
+/**
+ * Set styles for fileTable.
+ */
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%'
@@ -20,24 +23,23 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export function createRowData(name: string, author: string, date: Date) {
-  return { name, author, date };
-}
-
 interface FileTableProps {
   data: FileTableRowProp[];
   onFileClick?(fileName: string): void;
   onDirClick?(dirName: string): void;
 }
 
+/**
+ * return the fileTable which shows the files and the directories in the specified directory in the project.
+ */
 export const FileTable: React.FunctionComponent<FileTableProps> = (props) => {
   const classes = useStyles();
   const { data, onFileClick, onDirClick } = props;
-  const fileData = data.filter(d => {
-    return d.type === 'file'
+  const fileData = data.filter((d) => {
+    return d.type === 'file';
   });
-  const dirData = data.filter(d => {
-    return d.type === 'dir'
+  const dirData = data.filter((d) => {
+    return d.type === 'dir';
   });
 
   return (
@@ -47,14 +49,12 @@ export const FileTable: React.FunctionComponent<FileTableProps> = (props) => {
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
-              {/* <TableCell>Author</TableCell>
-              <TableCell>Last modified</TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
             {dirData.map((d, index) => (
               <FileTableRow
-                key={"dir" + index}
+                key={'dir' + index}
                 {...d}
                 onClick={() => {
                   if (onDirClick) {
@@ -65,7 +65,7 @@ export const FileTable: React.FunctionComponent<FileTableProps> = (props) => {
             ))}
             {fileData.map((d, index) => (
               <FileTableRow
-                key={"file" + index}
+                key={'file' + index}
                 {...d}
                 onClick={() => {
                   if (onFileClick) {
@@ -86,6 +86,10 @@ export interface FileTableRowProp extends ProjectItemBase {
   onClick?(): void;
 }
 
+/**
+ * @param props 
+ * Return the link to target directory or file contents. 
+ */
 const FileTableRow: React.FunctionComponent<FileTableRowProp> = (props) => {
   const { name, navigateTo, onClick } = props;
   return (
@@ -94,8 +98,8 @@ const FileTableRow: React.FunctionComponent<FileTableRowProp> = (props) => {
         {props.type === 'file' ? (
           <FileIcon fontSize="small" style={{ verticalAlign: 'middle' }} />
         ) : (
-            <FolderIcon fontSize="small" style={{ verticalAlign: 'middle' }} />
-          )}
+          <FolderIcon fontSize="small" style={{ verticalAlign: 'middle' }} />
+        )}
         <span style={{ verticalAlign: 'middle', paddingLeft: 4 }}>
           <a
             onClick={onClick}
@@ -107,8 +111,6 @@ const FileTableRow: React.FunctionComponent<FileTableRowProp> = (props) => {
           </a>
         </span>
       </TableCell>
-      {/* <TableCell>N/A</TableCell>
-      <TableCell>N/A</TableCell> */}
     </TableRow>
   );
 };

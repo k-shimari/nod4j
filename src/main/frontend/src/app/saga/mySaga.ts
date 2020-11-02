@@ -14,11 +14,14 @@ import { store } from 'app/store';
 import * as _ from 'lodash';
 import { call, delay, put, select, takeEvery } from 'redux-saga/effects';
 
-
+/**
+ * @param variable is the target variable got from the recorded log.
+ * @param tokens are the tokens in the source code.
+ * This function computes the token id of the variable whose line number and variable name match with the token in the source.
+ */
 function computeTokenId(variable: VarInfo, tokens: SourceCodeToken[]): string {
   const { linenum, count, var: varName } = variable;
   const match = tokens.filter((x) => x.startLine === Number(linenum) && x.image === varName);
-
   if (count > match.length) {
     throw new Error('Impossible');
   }
@@ -26,6 +29,12 @@ function computeTokenId(variable: VarInfo, tokens: SourceCodeToken[]): string {
   return id;
 }
 
+/**
+ * @param data is the all variable and value data of the target source file.
+ * @param file is the source file.
+ * @param tokens are the tokens in the source code.
+ * This function appends the value information to each token and return all tokens with values.
+ */
 function createVarValueData(
   data: VarListJsonData,
   file: string,
@@ -39,21 +48,22 @@ function createVarValueData(
     const item: ValueListItemData[] = d.valueList.map((x, index) => ({
       id: index.toString(),
       value: x.data,
-      timestamp: x.timestamp
+      timestamp: x.timestamp,
+      inst: d.inst.toString()
     }));
-
     try {
       const tokenId = computeTokenId(d, tokens);
       result[tokenId] = item;
     } catch (e) {
-      // ignore
+      console.log('Cannot compute token id.');
     }
   }
-
   return new VarValueData(result);
 }
 
-
+/**
+ * This function gets the files of the project for the fileTable page and returns the directories and files in the specific directory.
+ */
 function* requestFiles(action: ReturnType<typeof nod4jActions.requestFiles>) {
   const { projectName, directory } = action.payload!;
 
@@ -65,8 +75,7 @@ function* requestFiles(action: ReturnType<typeof nod4jActions.requestFiles>) {
   }
 
   const items = project.getItems(directory);
-
-  // for loading
+  /* for loading */
   yield delay(300);
   yield put(
     nod4jActions.setFilesData({
@@ -76,19 +85,26 @@ function* requestFiles(action: ReturnType<typeof nod4jActions.requestFiles>) {
   );
 }
 
+/**
+ * This function sets the latest filter information to the view.
+ */
 function* requestValueListFilterChange(
   action: ReturnType<typeof nod4jActions.requestValueListFilterChange>
 ) {
   const { projectName, kind, context, preferNotify } = action.payload!;
 
-  // If the context is same, update does not need.
+  /**
+   * If the context is same, the update does not need.
+   */
   const s: TimeStampRangeFilter = yield select((state: RootState) => state.nod4j.filter.range);
   if (kind === 'left' && _.isEqual(context, s.left)) return;
   if (kind === 'right' && _.isEqual(context, s.right)) return;
 
   yield put(nod4jActions.setValueListFilter({ kind, context }));
 
-  // Notify the changing of filtering by storing at localStorage
+  /*
+   * Notify the change of the filtering by storing at localStorage
+   */
   if (preferNotify) {
     const sharedEvent = new SharedEventModel(projectName);
     sharedEvent.notifyFilterChanged(kind, context);
@@ -101,18 +117,13 @@ function* requestValueListFilterChange(
   yield put(nod4jActions.setFilteredValueListData({ data: filtered }));
 }
 
+/**
+ * This function sets the source code information, tokenizes token and sets the value for each token.
+ */
 function* requestSourceCodeData(action: ReturnType<typeof nod4jActions.requestSourceCodeData>) {
   const { projectName, target } = action.payload!;
   const { dirs, file } = target;
   let filePath = getFilePath(dirs, file);
-
-  if (dirs.length >= 3 && (dirs.slice(0, 3).join("/") === "src/main/java" || dirs.slice(0, 3).join("/") === "src/test/java" || dirs.slice(0, 3).join("/") === "test/main/java" || dirs.slice(0, 3).join("/") === "tests/main/java")) {
-    filePath = dirs.slice(3).join("/") + "/" + file;
-  } else if (dirs.length >= 1 && (dirs[0] === "src" || dirs[0] === "source" || dirs[0] === "sources" || dirs[0] === "test" || dirs[0] === "tests")) {
-    filePath = dirs.slice(1).join("/") + "/" + file;
-  } else {
-    filePath = dirs.join("/") + "/" + file;
-  }
 
   const api = new nod4jApi();
   const project: ProjectModel | undefined = yield call(() => api.fetchFileInfo(projectName));
@@ -149,24 +160,41 @@ function* requestSourceCodeData(action: ReturnType<typeof nod4jActions.requestSo
   );
 }
 
+/*
+ * This function processes and return the file path for mathcing the file path of trace (varinfo.json)
+ */
 function getFilePath(dirs: string[], file: string): string {
-  if (dirs.length >= 3 && (dirs.slice(0, 3).join("/") === "src/main/java" || dirs.slice(0, 3).join("/") === "src/test/java" || dirs.slice(0, 3).join("/") === "test/main/java" || dirs.slice(0, 3).join("/") === "tests/main/java")) {
-    return dirs.slice(3).join("/") + "/" + file;
-  } else if (dirs.length >= 1 && (dirs[0] === "src" || dirs[0] === "source" || dirs[0] === "sources" || dirs[0] === "test" || dirs[0] === "tests")) {
-    return dirs.slice(1).join("/") + "/" + file;
+  if (
+    dirs.length >= 3 &&
+    (dirs.slice(0, 3).join('/') === 'src/main/java' ||
+      dirs.slice(0, 3).join('/') === 'src/test/java' ||
+      dirs.slice(0, 3).join('/') === 'test/main/java' ||
+      dirs.slice(0, 3).join('/') === 'tests/main/java')
+  ) {
+    return dirs.slice(3).join('/') + '/' + file;
+  } else if (
+    dirs.length >= 1 &&
+    (dirs[0] === 'src' ||
+      dirs[0] === 'source' ||
+      dirs[0] === 'sources' ||
+      dirs[0] === 'test' ||
+      dirs[0] === 'tests')
+  ) {
+    return dirs.slice(1).join('/') + '/' + file;
   } else {
-    return dirs.join("/") + "/" + file;
+    return dirs.join('/') + '/' + file;
   }
 }
 
+/**
+ * This function requests jsonfile by specifying the project name.
+ */
 function* requestJson(action: ReturnType<typeof nod4jActions.requestJson>) {
   const { projectName, target } = action.payload!;
   const { dirs, file } = target;
   const api = new nod4jApi();
-
   let filePath = getFilePath(dirs, file);
 
-  console.log(filePath);
   const varListJsonData: VarListJsonData = yield call(() => api.fetchVarInfo(projectName));
   const model = new VarListDataModel(varListJsonData);
   const ds = model.getDataOfFile(filePath);
@@ -178,16 +206,9 @@ function* requestJson(action: ReturnType<typeof nod4jActions.requestJson>) {
   );
 }
 
-
-function* dummyWorker() {
-  yield put(nod4jActions.dummyAction());
-}
-
-function* clearLocalStorage() {
-  yield call(() => SharedEventModel.clearAllData());
-  console.debug('Cleared local storage');
-}
-
+/**
+ * This function sets the initial filter of the project.
+ */
 function* loadInitialValueListFilter(
   action: ReturnType<typeof nod4jActions.loadInitialValueListFilter>
 ) {
@@ -205,6 +226,9 @@ function* loadInitialValueListFilter(
   );
 }
 
+/**
+ * This function sets the monitoring filter of the project.
+ */
 function initViewPage(action: ReturnType<typeof nod4jActions.initViewPage>) {
   const { projectName } = action.payload!;
 
@@ -218,43 +242,27 @@ function initViewPage(action: ReturnType<typeof nod4jActions.initViewPage>) {
   });
 }
 
+/**
+ * This function gets and sets all projects in the top page.
+ */
 function* requestProjects() {
   const manager = new ProjectManager();
   const projects: ProjectInfo[] = yield call(() => manager.getAllProjects());
   yield put(nod4jActions.setProjects({ projects }));
 }
 
-function* requestAddProject(action: ReturnType<typeof nod4jActions.requestAddProject>) {
-  const { project } = action.payload!;
-  const manager = new ProjectManager();
-  const success: boolean = yield call(() => manager.addProject(project));
-  if (success) {
-    yield put(nod4jActions.addProject({ project }));
-  }
-}
-
-function* requestRemoveProject(action: ReturnType<typeof nod4jActions.requestRemoveProject>) {
-  const { project } = action.payload!;
-  const manager = new ProjectManager();
-  const success: boolean = yield call(() => manager.removeProject(project));
-  if (success) {
-    yield put(nod4jActions.removeProject({ project }));
-  }
-}
-
+/**
+ * This function sets the action executed asynchronously.
+ */
 function* mySaga() {
-  yield takeEvery(nod4jActions.dummyAction, dummyWorker);
   yield takeEvery(nod4jActions.requestFiles, requestFiles);
   yield takeEvery(nod4jActions.requestValueListFilterChange, requestValueListFilterChange);
   yield takeEvery(nod4jActions.requestSourceCodeData, requestSourceCodeData);
   yield takeEvery(nod4jActions.requestJson, requestJson);
 
-  yield takeEvery(nod4jActions.clearLocalStorage, clearLocalStorage);
   yield takeEvery(nod4jActions.loadInitialValueListFilter, loadInitialValueListFilter);
   yield takeEvery(nod4jActions.initViewPage, initViewPage);
   yield takeEvery(nod4jActions.requestProjects, requestProjects);
-  yield takeEvery(nod4jActions.requestAddProject, requestAddProject);
-  yield takeEvery(nod4jActions.requestRemoveProject, requestRemoveProject);
 }
 
 export default mySaga;

@@ -5,6 +5,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import * as React from 'react';
 
+/**
+ * Set the styles for visualizing the path component.
+ */
 const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(1, 2)
@@ -16,10 +19,17 @@ interface Props {
   projectName: string;
 }
 
+/**
+ * Compute the path to the specified directory or file.
+ */
 function computeHref(projectName: string, index: number, dirs: string[]): string {
   return `/project/${projectName}/files/` + dirs.slice(0, index).join('/');
 }
 
+
+/**
+ * Return the link of current and parent directory.
+ */
 export function PathNavigation(props: Props) {
   const classes = useStyles();
   const { items, projectName } = props;

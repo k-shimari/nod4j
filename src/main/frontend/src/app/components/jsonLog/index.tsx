@@ -5,10 +5,12 @@ import { VarInfo } from 'app/models/varListData';
 interface Props {
   data: VarInfo[];
 }
-
+/**
+ * @param props 
+ * Displays variable information for the Line component units.
+ */
 export function JsonLogs(props: Props) {
   const { data } = props;
-
   return (
     <div>
       <pre>

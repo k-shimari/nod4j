@@ -6,9 +6,11 @@ type Props2 = Pick<
   'className' | 'size' | 'icon' | 'label' | 'color' | 'variant' | 'onDelete'
 >;
 
+/**
+ * This function returns the icon of the filter.
+ */
 export function FilterDisplay(props: Props2) {
   const { className, size, icon, label, color, variant, onDelete } = props;
-
   return (
     <Chip
       size={size}

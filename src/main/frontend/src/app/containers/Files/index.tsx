@@ -11,6 +11,12 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useReactRouter from 'use-react-router';
 
+/**
+ * This function returns two components, which are pathNavigation and fileTable.
+ * PathNavigation shows the current directory in the specified project.
+ * FileTable shows the list of files and directories in the current directory,
+ * and maps the file to viewer for debugging.
+ */
 export function FilesContainer() {
   const { location, match } = useReactRouter<{ projectName: string }>();
   const dispatch = useDispatch();
@@ -22,6 +28,13 @@ export function FilesContainer() {
     dispatch(nod4jActions.requestFiles({ projectName, directory }));
   }, []);
 
+  /**
+   * @param name
+   * @param kind
+   * Idetify whether the item is the file or not.
+   * If the item is the file, link to the debugging view.
+   * If the item is the direcotry, link to the directory.
+   */
   function computeLinkHref(name: string, kind: ProjectItemType): string {
     const currentUrl = location.pathname;
     console.log(currentUrl);
@@ -33,7 +46,11 @@ export function FilesContainer() {
       return navigateTo;
     }
   }
-
+  /**
+   * @param items 
+   * items are file or direcotry.
+   * This function maps these items to the link of debugging view or directory fileTable.
+   */
   function mapItems(items: ProjectItem[]): FileTableRowProp[] {
     return items.map((item) => ({
       name: item.name,
