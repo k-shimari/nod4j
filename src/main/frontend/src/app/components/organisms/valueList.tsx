@@ -58,6 +58,9 @@ export namespace ValueList {
   }
 }
 
+/**
+ * Set the style for the valuelist in the view page.
+ */
 const useStyles = makeStyles(() => ({
   root: {
     minWidth: 240,

@@ -29,7 +29,6 @@ interface FileTableProps {
   onDirClick?(dirName: string): void;
 }
 
-
 /**
  * return the fileTable which shows the files and the directories in the specified directory in the project.
  */

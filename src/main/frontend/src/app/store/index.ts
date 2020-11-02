@@ -6,8 +6,7 @@ import { applyMiddleware, createStore, Store } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 /**
- * @param initialState 
- * 
+ * set the action and middleware to store.
  */
 export function configureStore(initialState?: RootState): Store<RootState> {
   const sagaMiddleware = createSagaMiddleware();
@@ -23,6 +22,9 @@ export function configureStore(initialState?: RootState): Store<RootState> {
 
   sagaMiddleware.run(mySaga);
 
+  /**
+   * hot reload for development environment.
+   */
   if (module.hot) {
     module.hot.accept('app/reducers', () => {
       const nextReducer = require('app/reducers');

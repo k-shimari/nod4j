@@ -120,7 +120,6 @@ export function ViewContainer() {
     const icon = kind === 'left' ? <ArrowDownward /> : <ArrowUpward />;
     const target = kind === 'left' ? left : right;
     const labelPrefix = kind === 'left' ? 'After' : 'Before';
-    /* @TODO add variable and instruction name */
     const labelValue = target
       ? (() => {
           const { fileName, lineNumber, varName, value, inst } = target;

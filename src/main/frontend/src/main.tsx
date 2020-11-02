@@ -10,6 +10,9 @@ import './style.scss';
 
 const history = createBrowserHistory();
 
+/**
+ * This is the main dom in the projects.
+ */
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>

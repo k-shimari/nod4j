@@ -68,7 +68,7 @@ function ProjectListItem(props: ProjectInfo) {
 }
 
 /**
- *
+ * This function returns the sets of the links to the project fileTable.
  */
 function OpenProjectPanel() {
   const dispatch = useDispatch();

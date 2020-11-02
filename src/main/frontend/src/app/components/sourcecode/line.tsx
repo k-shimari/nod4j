@@ -64,7 +64,7 @@ interface LineNumberProps {
 }
 
 /**
- * Set the style for the line number in the source code view.
+ * Set the style for the line number in the source code view and display it.
  */
 const LineNumber: React.FunctionComponent<LineNumberProps> = (props) => (
   <span
@@ -81,6 +81,9 @@ const LineNumber: React.FunctionComponent<LineNumberProps> = (props) => (
   </span>
 );
 
+/**
+ * This component shows the line content with linenumber.
+ */
 export const Line: React.FunctionComponent<Props> = (props) => {
   return (
     <div>

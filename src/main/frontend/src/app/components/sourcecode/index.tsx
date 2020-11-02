@@ -101,10 +101,10 @@ export function Sourcecode(props: Props) {
   /**
    * This function is called when the mouse cursor hovers on the variable.
    * If the variable has the value, it means highlighted, show the value of variable.
-   *  setData: set the data of the variable
-   *  setActiveTokenId: set the tokenID to show its recorded values
-   *  setValueListVisible : make the ValueList visible
-   *  setPopperAnchorEl: set the poppper location of the valueList
+   * setData: set the data of the variable
+   * setActiveTokenId: set the tokenID to show its recorded values
+   * setValueListVisible : make the ValueList visible
+   * setPopperAnchorEl: set the poppper location of the valueList
    */
   function onTokenEnter(tokenId: string, target: HTMLElement) {
     const valueListData = props.varValueData.find(tokenId);

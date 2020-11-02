@@ -4,7 +4,7 @@ const JavaLexer = require('java-parser/src/lexer');
 const Comment = require('java-parser/src/comments');
 
 /**
- * @param text 
+ * @param text is the source code in the file.
  * Returns the tokenized source code and the concatted comments inforamtion.
  */
 export function tokenize(text: string): SourceCodeToken[] {

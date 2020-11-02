@@ -56,7 +56,7 @@ export const nod4jReducer = handleActions<RootState.nod4jState, any>(
       };
     },
     /**
-     * State for
+     * State for displaying filtered value data.
      */
     [nod4jActions.Type.SET_FILTERED_VALUE_LIST_DATA]: (state, action) => {
       const { data } = action.payload! as nod4jActions.Payload.SetFilteredValueListData;
@@ -67,7 +67,7 @@ export const nod4jReducer = handleActions<RootState.nod4jState, any>(
       };
     },
     /**
-     * State for
+     * State for requesting the files of the project for the fileTable page.
      */
     [nod4jActions.Type.REQUEST_FILES]: (state) => {
       return {
@@ -79,7 +79,7 @@ export const nod4jReducer = handleActions<RootState.nod4jState, any>(
       };
     },
     /**
-     * State for
+     * State for displaying the fileTable page. (loading finished completely)
      */
     [nod4jActions.Type.SET_FILES_DATA]: (state, action) => {
       const { dirs, items } = action.payload! as nod4jActions.Payload.SetFilesDataPayload;
@@ -90,7 +90,7 @@ export const nod4jReducer = handleActions<RootState.nod4jState, any>(
       };
     },
     /**
-     * State for
+     * State for the view page to load the source code.
      */
     [nod4jActions.Type.SET_SOURCE_CODE_DATA]: (state, action) => {
       const { tokens } = action.payload! as nod4jActions.Payload.SetSourceCodeData;
@@ -101,7 +101,7 @@ export const nod4jReducer = handleActions<RootState.nod4jState, any>(
       };
     },
     /**
-     * State for
+     * State for the view page to load the variable list which may be highlighted.
      */
     [nod4jActions.Type.SET_VAR_LIST_JSON_DATA]: (state, action) => {
       const { data } = action.payload! as nod4jActions.Payload.SetVarListJsonData;
@@ -111,7 +111,7 @@ export const nod4jReducer = handleActions<RootState.nod4jState, any>(
       };
     },
     /**
-     * State for
+     * State for setting the project in the top page.
      */
     [nod4jActions.Type.SET_PROJECTS]: (state, action) => {
       const { projects } = action.payload! as nod4jActions.Payload.SetProjects;
