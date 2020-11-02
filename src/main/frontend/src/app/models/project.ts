@@ -138,7 +138,7 @@ export class ProjectModel {
 
   /**
    * @param dirs
-   * This function returns the contents of the specified directory.
+   * This function returns the contents (file and direcoty) of the specified directory.
    */
   getItems(dirs: string[]): ProjectItemModel[] {
     const targetDir = this._rootDir.recursiveFindDir(dirs);

@@ -11,6 +11,9 @@ type FilterChangeEventHandlerArgs = LocalForageObservableChange & {
 
 type FilterChangeEventHandler = (args: FilterChangeEventHandlerArgs) => void;
 
+/**
+ * This is the class for the sharing local storage information of the filtering.
+ */
 export class SharedEventModel {
   private _isReady: boolean;
   private _projectName: string;
@@ -21,6 +24,9 @@ export class SharedEventModel {
     this.callbacks = [];
     this._isReady = false;
 
+    /**
+     * When the user opens the files in multiples tabs, notify localforge inforamtion to all tabs.
+     */
     localforage.ready(() => {
       this._isReady = true;
       localforage.configObservables({
@@ -31,6 +37,9 @@ export class SharedEventModel {
     });
   }
 
+  /**
+   * This fucntion starts wathcing on each callback.
+   */
   startWatching() {
     const subscribe = () => {
       const observableStart = localforage.newObservable({
@@ -71,6 +80,11 @@ export class SharedEventModel {
     return `nod4j.project.${this._projectName}.filter.timestamp`;
   }
 
+  /**
+   * @param kind is the left/right filter which means the filtering start/end point.
+   * @param context is the filtering point information (e.g., token name, line number).
+   * This function returns the filtering information to the current filter view.
+   */
   notifyFilterChanged(
     kind: TimestampRangeFilterKind,
     context: TimestampRangeFilterContext | undefined
@@ -83,10 +97,9 @@ export class SharedEventModel {
     this.callbacks.push(callback);
   }
 
-  static clearAllData() {
-    return localforage.clear();
-  }
-
+  /**
+   * This function returns the current filtering informaion recorded in localforge.
+   */
   async loadData(): Promise<TimeStampRangeFilter> {
     const keyleft = `${this.keyBase()}.left`;
     const keyRight = `${this.keyBase()}.right`;

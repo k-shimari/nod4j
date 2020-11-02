@@ -1,6 +1,5 @@
 import * as JSON5 from 'json5';
 import { ProjectItemDirectory, ProjectModel } from './project';
-import { ProjectManager } from './projectManager';
 import { VarListJsonData } from './varListData';
 
 export interface ProjectInfo {
@@ -36,7 +35,7 @@ export class nod4jApi {
   }
 
   /**
-   * parse the json file, which contains source code information, and return the model of the project.
+   * parse the json file, which contains the directory structure and its source code information, and return the model of the project.
    */
   async fetchFileInfo(projectName: string): Promise<ProjectModel | undefined> {
     const fileInfoPath = this.pathBase(projectName) + '/fileinfo.json';

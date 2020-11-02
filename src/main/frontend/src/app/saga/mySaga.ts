@@ -31,9 +31,9 @@ function computeTokenId(variable: VarInfo, tokens: SourceCodeToken[]): string {
 
 /**
  * @param data is the all variable and value data of the target source file.
- * @param file 
- * @param tokens 
- * 
+ * @param file is the source file.
+ * @param tokens are the tokens in the source code.
+ * This function appends the value information to each token and return all tokens with values.
  */
 function createVarValueData(
   data: VarListJsonData,
@@ -61,6 +61,9 @@ function createVarValueData(
   return new VarValueData(result);
 }
 
+/**
+ * This function gets the files of the project for the fileTable page and returns the directories and files in the specific directory.
+ */
 function* requestFiles(action: ReturnType<typeof nod4jActions.requestFiles>) {
   const { projectName, directory } = action.payload!;
 
@@ -72,7 +75,6 @@ function* requestFiles(action: ReturnType<typeof nod4jActions.requestFiles>) {
   }
 
   const items = project.getItems(directory);
-
   /* for loading */
   yield delay(300);
   yield put(
@@ -83,13 +85,16 @@ function* requestFiles(action: ReturnType<typeof nod4jActions.requestFiles>) {
   );
 }
 
+/**
+ * This function sets the latest filter information to the view.
+ */
 function* requestValueListFilterChange(
   action: ReturnType<typeof nod4jActions.requestValueListFilterChange>
 ) {
   const { projectName, kind, context, preferNotify } = action.payload!;
 
   /**
-   * If the context is same, update does not need.
+   * If the context is same, the update does not need.
    */
   const s: TimeStampRangeFilter = yield select((state: RootState) => state.nod4j.filter.range);
   if (kind === 'left' && _.isEqual(context, s.left)) return;
@@ -112,6 +117,9 @@ function* requestValueListFilterChange(
   yield put(nod4jActions.setFilteredValueListData({ data: filtered }));
 }
 
+/**
+ * This function sets the source code information, tokenizes token and sets the value for each token.
+ */
 function* requestSourceCodeData(action: ReturnType<typeof nod4jActions.requestSourceCodeData>) {
   const { projectName, target } = action.payload!;
   const { dirs, file } = target;
@@ -153,7 +161,7 @@ function* requestSourceCodeData(action: ReturnType<typeof nod4jActions.requestSo
 }
 
 /*
- * process and return the file path for mathcing the file path of trace (varinfo.json)
+ * This function processes and return the file path for mathcing the file path of trace (varinfo.json)
  */
 function getFilePath(dirs: string[], file: string): string {
   if (
@@ -178,13 +186,15 @@ function getFilePath(dirs: string[], file: string): string {
   }
 }
 
+/**
+ * This function requests jsonfile by specifying the project name.
+ */
 function* requestJson(action: ReturnType<typeof nod4jActions.requestJson>) {
   const { projectName, target } = action.payload!;
   const { dirs, file } = target;
   const api = new nod4jApi();
   let filePath = getFilePath(dirs, file);
 
-  console.log(filePath);
   const varListJsonData: VarListJsonData = yield call(() => api.fetchVarInfo(projectName));
   const model = new VarListDataModel(varListJsonData);
   const ds = model.getDataOfFile(filePath);
@@ -196,6 +206,9 @@ function* requestJson(action: ReturnType<typeof nod4jActions.requestJson>) {
   );
 }
 
+/**
+ * This function sets the initial filter of the project.
+ */
 function* loadInitialValueListFilter(
   action: ReturnType<typeof nod4jActions.loadInitialValueListFilter>
 ) {
@@ -213,6 +226,9 @@ function* loadInitialValueListFilter(
   );
 }
 
+/**
+ * This function sets the monitoring filter of the project.
+ */
 function initViewPage(action: ReturnType<typeof nod4jActions.initViewPage>) {
   const { projectName } = action.payload!;
 
@@ -226,12 +242,18 @@ function initViewPage(action: ReturnType<typeof nod4jActions.initViewPage>) {
   });
 }
 
+/**
+ * This function gets and sets all projects in the top page.
+ */
 function* requestProjects() {
   const manager = new ProjectManager();
   const projects: ProjectInfo[] = yield call(() => manager.getAllProjects());
   yield put(nod4jActions.setProjects({ projects }));
 }
 
+/**
+ * This function sets the action executed asynchronously.
+ */
 function* mySaga() {
   yield takeEvery(nod4jActions.requestFiles, requestFiles);
   yield takeEvery(nod4jActions.requestValueListFilterChange, requestValueListFilterChange);

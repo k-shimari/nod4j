@@ -16,7 +16,7 @@ export namespace nod4jActions {
      */
     REQUEST_PROJECTS = 'REQUEST_PROJECTS',
     SET_PROJECTS = 'SET_PROJECTS',
-   
+
     /**
      *  Actions for Timestamp filter
      */
@@ -53,10 +53,19 @@ export namespace nod4jActions {
   }
 
   export namespace Payload {
+    /**
+     * @param projects contains the name of the project and api to read the json of the project.
+     */
     export interface SetProjects {
       projects: ProjectInfo[];
     }
 
+    /**
+     * @param projectName is the name of the project.
+     * @param kind is the left/right filter which means the filtering start/end point.
+     * @param context is the filtering point information (e.g., token name, line number).
+     * @param preferNotify notifies the changing of filtering by storing at localStorage
+     */
     export interface RequestValueListFilterChange {
       projectName: string;
       kind: TimestampRangeFilterKind;
@@ -64,33 +73,58 @@ export namespace nod4jActions {
       preferNotify?: boolean;
     }
 
+    /**
+     * @param projectName is the name of the project.
+     */
     export interface LoadInitialValueListFilterChange {
       projectName: string;
     }
 
+    /**
+     * @param kind is the left/right filter which means the filtering start/end point.
+     * @param context is the filtering point information (e.g., token name, line number).
+     */
     export interface SetValueListFilter {
       kind: TimestampRangeFilterKind;
       context: TimestampRangeFilterContext | undefined;
     }
 
+    /**
+     * @param data are all values, thread IDs and timestamps recorded in the execution.
+     */
     export interface SetOriginalValueListData {
       data: VarValueData;
     }
 
+    /**
+     * @param data are all values, thread IDs and timestamps recorded in the execution.
+     */
     export interface SetFilteredValueListData {
       data: VarValueData;
     }
 
+    /**
+     * @param projectName is the name of the project.
+     * @param directory is the array of the directory name.
+     */
     export interface RequestFilesPayload {
       projectName: string;
       directory: Directory;
     }
 
+    /**
+     * @param dirs is the array of the directory name.
+     * @param items are the array of the directory or file.
+     */
     export interface SetFilesDataPayload {
       dirs: string[];
       items: ProjectItem[];
     }
 
+    /**
+     * @param projectName is the name of the project.
+     * @param target is the target file and its path got by concatting dirs and file.
+     */
     export interface RequestSourceCodeData {
       projectName: string;
       target: {
@@ -99,10 +133,17 @@ export namespace nod4jActions {
       };
     }
 
+    /**
+     * @param tokens are the tokens in the source code.
+     */
     export interface SetSourceCodeData {
       tokens: SourceCodeToken[];
     }
 
+    /**
+     * @param projectName is the name of the project.
+     * @param target is the target file and its path got by concatting dirs and file.
+     */
     export interface RequestJson {
       projectName: string;
       target: {
@@ -110,11 +151,16 @@ export namespace nod4jActions {
         file: string;
       };
     }
-
+    /**
+     * @param data are the all variable information in the project.
+     */
     export interface SetVarListJsonData {
       data: VarInfo[];
     }
 
+    /**
+     * @param projectName is the name of the project.
+     */
     export interface InitViewPage {
       projectName: string;
     }
@@ -125,7 +171,7 @@ export namespace nod4jActions {
    */
   export const requestProjects = createAction(Type.REQUEST_PROJECTS);
   export const setProjects = createAction<Payload.SetProjects>(Type.SET_PROJECTS);
-  
+
   /**
    *  Create Actions for Filter
    */
