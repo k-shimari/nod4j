@@ -4,20 +4,28 @@ import * as React from 'react';
 import { Space } from './space';
 import { Token } from './token';
 
-
+/**
+ * @param onTokenEnter is whether the mouse cursor hovers on the variable.
+ * @param onTokenLeave is whether the mouse cursor leaves on the variable.
+ * @param line is line number in the source code.
+ * @param tokens are the tokens in line.
+ * @param data are all values, thread IDs and timestamps recorded in the execution.
+ */
 interface Props {
   onTokenEnter?(tokenId: string, target: HTMLElement): void;
   onTokenLeave?(tokenId: string, target: HTMLElement): void;
   line: number;
   tokens: SourceCodeToken[];
   data: VarValueData;
-
 }
 
+/**
+ * This funcution maps the token and its value, and returns its pairs in the specified line.
+ */
 function spreadTokens(props: Props): React.ReactElement[] {
   const { tokens, data, onTokenEnter, onTokenLeave } = props;
   if (tokens.length === 0) {
-    return [<span key={props.line + "s"}> </span>];
+    return [<span key={props.line + 's'}> </span>];
   }
   const result: React.ReactElement[] = [];
   let preEndColumn = 0;
@@ -55,6 +63,9 @@ interface LineNumberProps {
   number: number;
 }
 
+/**
+ * Set the style for the line number in the source code view and display it.
+ */
 const LineNumber: React.FunctionComponent<LineNumberProps> = (props) => (
   <span
     style={{
@@ -70,7 +81,10 @@ const LineNumber: React.FunctionComponent<LineNumberProps> = (props) => (
   </span>
 );
 
-export const Line: React.FunctionComponent<Props> = (props, ref) => {
+/**
+ * This component shows the line content with linenumber.
+ */
+export const Line: React.FunctionComponent<Props> = (props) => {
   return (
     <div>
       <LineNumber key={props.line} number={props.line} />

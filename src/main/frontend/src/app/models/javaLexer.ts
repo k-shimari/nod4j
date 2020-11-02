@@ -3,6 +3,10 @@ import { SourceCodeToken } from './token';
 const JavaLexer = require('java-parser/src/lexer');
 const Comment = require('java-parser/src/comments');
 
+/**
+ * @param text is the source code in the file.
+ * Returns the tokenized source code and the concatted comments inforamtion.
+ */
 export function tokenize(text: string): SourceCodeToken[] {
   let lexResult: ILexingResult = JavaLexer.tokenize(text);
   let tokens: IToken[] = lexResult.tokens.concat(lexResult.groups.comments)
@@ -18,7 +22,9 @@ declare global {
     orderBy<K extends keyof T>(...sortKeys: K[]): T[];
   }
 }
-
+/**
+ * order ascending 
+ */
 Array.prototype.orderBy = function <T, K extends keyof T>(...sortKeys: K[]): T[] {
   const items = this as T[];
   return items.sort((a: T, b: T) => compare(a, b, sortKeys));

@@ -10,24 +10,20 @@ import * as _ from 'lodash';
 import * as React from 'react';
 import useReactRouter from 'use-react-router';
 
-
-
-
+/**
+ * Set Style for Logs Page.
+ */
 const useStyles = makeStyles((theme) => ({
     paper: {
         marginTop: theme.spacing(2),
         padding: theme.spacing(1)
-    },
-    chip: {
-        marginRight: theme.spacing(1)
-    },
-    timestampFilterSection: {
-        marginLeft: theme.spacing(2),
-        marginRight: theme.spacing(2),
-        marginBottom: theme.spacing(2)
     }
 }));
 
+/**
+ * Logs page shows the file path used PathNavigation and the logs imported from JsonLogs.
+ * JsonLogs consists of the dataid, line, variable, timestamp, and value.
+ */
 export function LogsContainer() {
     const nod4jState = useSelector<RootState, RootState.nod4jState>((state) => state.nod4j);
 

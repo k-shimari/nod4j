@@ -5,7 +5,7 @@ import { nod4jActions, TimestampRangeFilterKind } from 'app/actions';
 import { ContentContainer } from 'app/components/atoms/contentContainer';
 import { FilterDisplay } from 'app/components/atoms/filterDisplay';
 import { PathNavigation } from 'app/components/organisms/pathNavigation';
-import { RangeFilterClickEventHandler2 } from 'app/components/organisms/valueList';
+import { RangeFilterClickEventHandler } from 'app/components/organisms/valueList';
 import { Sourcecode } from 'app/components/sourcecode';
 import { UrlParser } from 'app/models/pathParser';
 import { RootState } from 'app/reducers';
@@ -14,7 +14,9 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useReactRouter from 'use-react-router';
 import Button from '@material-ui/core/Button';
-
+/**
+ * Set the style for the view page.
+ */
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(2),
@@ -36,6 +38,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+/**
+ * This function returns three components, which are pathNavigation, timestamp filter, and source code.
+ * PathNavigation shows the current directory in the specified project.
+ * Timestamp filter shows the current filtering informantion.
+ * Source code shows the source code with highlighting, which shows the value of variable.
+ */
 export function ViewContainer() {
   const nod4jState = useSelector<RootState, RootState.nod4jState>((state) => state.nod4j);
   const dispatch = useDispatch();
@@ -54,7 +62,13 @@ export function ViewContainer() {
 
   const tokens = nod4jState.sourceCodeTokens;
   const { filteredValueListData } = nod4jState;
-  const onArrowUpClick: RangeFilterClickEventHandler2 = (item, varInfo) => {
+
+  /**
+   * @param item contains valuelistItemdata(token ID, timestamp, value)
+   * @param varInfo is the inforamtion of variables which is highlighted
+   * This handler changes the filter end point inforamtion specified by (item,varInfo) and notify filter is changed to all instruction.
+   */
+  const onArrowUpwardClick: RangeFilterClickEventHandler = (item, varInfo) => {
     dispatch(
       nod4jActions.requestValueListFilterChange({
         projectName,
@@ -64,14 +78,21 @@ export function ViewContainer() {
           value: item.value,
           lineNumber: varInfo.startLine || 0,
           fileName: file,
-          varName: varInfo.image
+          varName: varInfo.image,
+          inst: item.inst
         },
+        /* when this flag is true, requestValueListFilterChange@mySaga.ts is called for sharing filtering information */
         preferNotify: true
       })
     );
   };
 
-  const onArrowDownClick: RangeFilterClickEventHandler2 = (item, varInfo) => {
+  /**
+   * @param item contains valuelistItemdata(token ID, timestamp, value)
+   * @param varInfo is the inforamtion of variables which is highlighted
+   * This handler changes the filter start point inforamtion specified by (item,varInfo) and notify filter is changed to all instruction.
+   */
+  const onArrowDownwardClick: RangeFilterClickEventHandler = (item, varInfo) => {
     dispatch(
       nod4jActions.requestValueListFilterChange({
         projectName,
@@ -81,26 +102,40 @@ export function ViewContainer() {
           value: item.value,
           lineNumber: varInfo.startLine || 0,
           fileName: file,
-          varName: varInfo.image
+          varName: varInfo.image,
+          inst: item.inst
         },
+        /* when this flag is true, requestValueListFilterChange@mySaga.ts is called for sharing filtering information */
         preferNotify: true
       })
     );
   };
 
+  /*
+   * This component is the timestamp filter, which shows the current filtering informantion.
+   * Filtering information consists of the location of the filtering point, and the value of the instruction.
+   */
   function renderFilterChip(kind: TimestampRangeFilterKind) {
     const { left, right } = nod4jState.filter.range;
     const icon = kind === 'left' ? <ArrowDownward /> : <ArrowUpward />;
     const target = kind === 'left' ? left : right;
     const labelPrefix = kind === 'left' ? 'After' : 'Before';
-    /*@TODO add variable and instruction name*/
     const labelValue = target
       ? (() => {
-          const { fileName, lineNumber, varName, value } = target;
-          return `Line${lineNumber},${varName},${value} @${fileName}`;
+          const { fileName, lineNumber, varName, value, inst } = target;
+          return inst === 'G'
+            ? `${varName} was referred the ${value} at line#${lineNumber} of ${fileName}`
+            : `${varName} was assigned the ${value} at line#${lineNumber} of ${fileName}`;
         })()
       : 'none';
     const label = `${labelPrefix}: ${labelValue}`;
+
+    /**
+     * delete the current project filter.
+     * @param kind is the left/right filter which means the filtering start/end point.
+     * @param context is the filtering point information (e.g., token name, line number).
+     * @param preferNotify notifies the changing of filtering by storing at localStorage
+     */
     const onDelete = () =>
       dispatch(
         nod4jActions.requestValueListFilterChange({
@@ -113,9 +148,7 @@ export function ViewContainer() {
 
     const hasValue = !_.isNil(target);
 
-    return labelValue === 'none' ? (
-      ''
-    ) : (
+    return labelValue !== 'none' ? (
       <FilterDisplay
         className={classes.chip}
         size="small"
@@ -125,6 +158,8 @@ export function ViewContainer() {
         variant={hasValue ? 'default' : 'outlined'}
         onDelete={hasValue ? onDelete : undefined}
       />
+    ) : (
+      ''
     );
   }
 
@@ -132,6 +167,9 @@ export function ViewContainer() {
     logUrl: string;
   }
 
+  /*
+   * The button links to Logs page.
+   */
   const LogUrl: React.FunctionComponent<LogUrlProps> = (props) => (
     <div>
       <Button className={classes.button} href={props.logUrl} target="_blank" rel="noopener">
@@ -144,51 +182,28 @@ export function ViewContainer() {
     <ContentContainer>
       <PathNavigation projectName={projectName} items={[...dirs, file]} />
       <Paper className={classes.paper}>
-        <div className={classes.timestampFilterSection}>
-          <Typography variant="overline" color="textSecondary" gutterBottom>
-            INSTRUCTION FILTER
-          </Typography>
-          <div>
-            {renderFilterChip('left')}
-            {renderFilterChip('right')}
-          </div>
-        </div>
-        <Divider />
         <LogUrl logUrl={logUrl} />
-
         <Divider />
+        <header className="layout-header">
+          <div className={classes.timestampFilterSection} id="footer">
+            <Typography variant="overline" color="textSecondary" gutterBottom>
+              INSTRUCTION FILTER
+            </Typography>
+            <div>
+              {renderFilterChip('left')}
+              {renderFilterChip('right')}
+            </div>
+          </div>
+          <Divider />
+        </header>
         <Sourcecode
           currentFilterValue={nod4jState.filter.range}
           tokens={tokens}
           varValueData={filteredValueListData}
-          onArrowUpwardClick={onArrowUpClick}
-          onArrowDownwardClick={onArrowDownClick}
+          onArrowUpwardClick={onArrowUpwardClick}
+          onArrowDownwardClick={onArrowDownwardClick}
         />
       </Paper>
-      {/* <Button
-        variant="outlined"
-        size="small"
-        onClick={() => {
-          dispatch(
-            nod4jActions.requestValueListFilterChange({
-              projectName,
-              kind: 'left',
-              context: undefined,
-              preferNotify: true
-            })
-          );
-          dispatch(
-            nod4jActions.requestValueListFilterChange({
-              projectName,
-              kind: 'right',
-              context: undefined,
-              preferNotify: true
-            })
-          );
-        }}
-      >
-        Clear Instruction Filter
-      </Button> */}
     </ContentContainer>
   ) : null;
 }

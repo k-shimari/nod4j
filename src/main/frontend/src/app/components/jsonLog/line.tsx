@@ -5,6 +5,10 @@ interface Props {
   data: VarInfo;
 }
 
+/**
+ * @param props 
+ * Return each value and inforation on the variable.
+ */
 export const Line: React.FunctionComponent<Props> = (props) => {
   return (
     <div>

@@ -6,9 +6,9 @@ const valueListRenderFunction: RenderFunction = () => {
   return (
     <ValueList
       items={[
-        { id: '1', value: 123, timestamp: '1' },
-        { id: '2', value: 456, timestamp: '2' },
-        { id: '3', value: 789, timestamp: '3' }
+        { id: '1', value: 123, timestamp: '1', inst: 'P' },
+        { id: '2', value: 456, timestamp: '2', inst: 'P' },
+        { id: '3', value: 789, timestamp: '3', inst: 'P' }
       ]}
       currentFilterValue={{}}
       onArrowUpwardClick={(id) => console.log('Arrow upward: ' + id)}
