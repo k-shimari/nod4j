@@ -17,7 +17,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author k-simari
  */
 public class PrintJson {
+
+	/**
+	 * The name of the output directory of the json file.
+	 */
 	private String outputDir;
+
+	/**
+	 * The name of the output json file (varinfo.json or fileinfo.json).
+	 */
 	private String filename;
 
 	public PrintJson(String dir, String filename) {
@@ -25,6 +33,10 @@ public class PrintJson {
 		this.filename = filename;
 	}
 
+	/**
+	 * This method converts json object in the string fomrat.
+	 * Checking the output directory to output correctly, this method writes the json information to the file (fileinfo.json or varinfo.json).
+	 * */
 	void printJson(Object json) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		List<String> lines = new ArrayList<>();
@@ -38,7 +50,10 @@ public class PrintJson {
 		Files.write(Paths.get(outputDir, filename), lines, StandardCharsets.UTF_8, StandardOpenOption.WRITE);
 	}
 
-	/*For Debug*/
+	/**
+	 * This method is almost same as print json　method, but for debugging the json mapper.
+	 * If there is an error in processing the lines, this methods outputs the stack trace.
+	 * */
 	void printJsonForDebug(List<?> jsonList) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		List<String> lines = jsonList.stream()

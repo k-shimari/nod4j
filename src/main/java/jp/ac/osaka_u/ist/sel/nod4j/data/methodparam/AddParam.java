@@ -24,7 +24,7 @@ import antlr4.jp.naist.se.parser.Java9Parser.MethodDeclarationContext;
  */
 public class AddParam {
 	/**
-	 * get method arguments information
+	 * This function returns the information of the method parameters in the specified file.
 	 * @param f path + filename (e.g., src/main/filename.java)
 	 */
 	public List<ParamInfo> getParamInfo(String f) {
@@ -48,14 +48,12 @@ public class AddParam {
 	}
 
 	/**
-	 * get method argument information
-	 * @author k-simari
-	 *
+	 * This method adds method parameter information (methodName, argumentName, type, line number) to the List.
 	 */
 	public static class MethodParamVisitor extends Java9BaseVisitor<Void> {
+		private List<ParamInfo> methodParams = new ArrayList<>();
 		private List<String> methodNames = new ArrayList<>();
 		private List<String> methodLines = new ArrayList<>();
-		private List<ParamInfo> methodParams = new ArrayList<>();
 		private List<ParamInfo> methodLastParams = new ArrayList<>();
 
 		@Override

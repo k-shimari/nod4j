@@ -18,8 +18,11 @@ import jp.ac.osaka_u.ist.sel.nod4j.data.varinfo.WVarInfoJson;
  */
 
 public class CreateVarInfo implements ICreateJson {
-
+	/**
+	 * information about execution trace
+	 */
 	private SeloggerFiles selFiles;
+
 	private static final String NAMERETURN = "_return";
 	private static final String ARRAYLOAD = "_arrayLoad";
 	private static final String ARRAYSTORE = "_arrayStore";
@@ -34,7 +37,7 @@ public class CreateVarInfo implements ICreateJson {
 	}
 
 	/**
-	 * Mapping variable information in source code and execution trace(variable information at recentdata.txt)
+	 * This method maps variable information to the source code and execution trace(variable information at recentdata.txt)
 	 * @return The contents of varInfo.json
 	 */
 	private List<VarInfoJson> createJsonList() {
@@ -75,7 +78,7 @@ public class CreateVarInfo implements ICreateJson {
 
 	/**
 	 * sort variable information of dataids.txt in ascending order by line number.
-	 * @return sorted list
+	 * @return list: sorted ids of the dataids.
 	 */
 	private List<String> getSortedKeyList() {
 		List<String> list = new ArrayList<>();
@@ -146,7 +149,7 @@ public class CreateVarInfo implements ICreateJson {
 	/**
 	 * Set how many times the json.getVar() appears to var Count in LineMap
 	 * @param varCountInLineMap: How many times each variable appears in this line
-	 * @param json: The information containing one dataid
+	 * @param json: The value information about one dataid
 	 * @param isLastPut: Is the previous variable processing in this line Put(e.g., PUT_STATIC_FIELD)?
 	 * @param lastPutVar: The previous Put variable processing in this line
 	 */
@@ -172,8 +175,8 @@ public class CreateVarInfo implements ICreateJson {
 
 	/**
 	 * Set the variable values to json and format some character (e.g., line separator) for json
-	 * @param json
-	 * @param dataid
+	 * @param json: The value information about one dataid
+	 * @param dataid: The id of the instruction in the source code, which is unique each location.
 	 */
 	private void setValueList(VarInfoJson json, String dataid) {
 		Map<String, List<Recentdata>> recDataMap = selFiles.getDataidMaps().getDataidRecentdataMap();

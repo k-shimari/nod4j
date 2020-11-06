@@ -10,17 +10,38 @@ import jp.ac.osaka_u.ist.sel.nod4j.data.Recentdata;
  *
  */
 public class VarInfoJson {
+	/**
+	 * The id of the instruction in the source code, which is unique each location.
+	 */
 	private String dataid;
+	/**
+	 * Filename which contains the specific instrcution
+	 */
 	private String className;
+	/**
+	 * Methodname which contains the specific instrcution
+	 */
 	private String methodName;
+	/**
+	 * The variable name
+	 */
 	private String var;
+	/**
+	 * The line number of the variable
+	 */
 	private String linenum;
+	/**
+	 * The instruction (assignment or reference) of the varibale
+	 */
 	private String inst;
-	private int count; // how many times the specific variable appears in line
+	/**
+	 * This is the counter which shows how many times the specific variable appears in a line.
+	 */
+	private int count;
+	/**
+	 * The valueList of the specific variable
+	 */
 	private List<Recentdata> valueList;
-
-	public VarInfoJson() {
-	}
 
 	public VarInfoJson(String dataid, String className, String methodName, String var, String linenum, String inst) {
 		this.dataid = dataid;

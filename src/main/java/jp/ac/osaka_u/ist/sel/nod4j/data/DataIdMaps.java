@@ -8,7 +8,7 @@ import java.util.Map;
 import jp.ac.osaka_u.ist.sel.nod4j.data.varinfo.VarInfo;
 
 /**
- * This class has maps dataid to much information.
+ * This class has the maps dataid to much information.
  * @author k-simari
  *
  */
@@ -21,6 +21,9 @@ public class DataIdMaps {
 	private Map<String, List<Recentdata>> dataidRecentdataMap = new HashMap<>();
 	private Map<String, VarInfo> dataidVarMap = new HashMap<>();
 
+	/**
+	 * This constructor calls methods to create the maps.
+	 */
 	public void createMap(List<String> linesDataids, List<String> linesMethods, List<String> linesRecentdata) {
 		createIDMap(linesDataids);
 		createRecentdataMap(linesRecentdata);
@@ -28,9 +31,8 @@ public class DataIdMaps {
 	}
 
 	/**
-	 * map classID to className.
-	 * map methodID to methodName.
-	 * @param linesMethods
+	 * This method map classID to className and methodID to methodName.
+	 * @param linesMethods is the set of lines in dataids.txt
 	 */
 	public void createNameMap(List<String> linesMethods) {
 		for (String line : linesMethods) {
@@ -45,10 +47,8 @@ public class DataIdMaps {
 	}
 
 	/**
-	 * map dataID to className.
-	 * map dataID to methodName.
-	 * map dataID to line number.
-	 * @param linesDataids
+	 * This method maps dataID to className, dataID to methodName and dataID to line number.
+	 * @param linesDataids is the set of lines in dataids.txt
 	 */
 	public void createIDMap(List<String> linesDataids) {
 		for (String line : linesDataids) {
@@ -64,8 +64,8 @@ public class DataIdMaps {
 	}
 
 	/**
-	 * map dataID to value information(recentdata: time, thread, data)
-	 * @param linesDataids
+	 * This method maps dataID to value information (recentdata: time, thread, data)
+	 * @param linesDataids is the set of lines in dataids.txt
 	 */
 	private void createRecentdataMap(List<String> linesRecentdata) {
 		for (String line : linesRecentdata) {
@@ -80,8 +80,8 @@ public class DataIdMaps {
 	}
 
 	/**
-	 * map dataid to variable information(fieldname, assignment or reference...)
-	 * @param linesDataids
+	 * This method maps dataid to variable information (field name, assignment or reference...)
+	 * @param linesDataids is the set of lines in dataids.txt
 	 */
 	private void createVarInfoMap(List<String> linesDataids) {
 		for (String linedat : linesDataids) {

@@ -6,21 +6,33 @@ package jp.ac.osaka_u.ist.sel.nod4j.data.varinfo;
  *
  */
 public class VarInfo {
+	/**
+	 * fieldname is the variable name
+	 */
 	private String fieldname;
+	/**
+	 * variable instruciton (assignment or reference)
+	 */
 	private String inst;
+	/**
+	 * the flag of the correctness of VarInfo.
+	 */
 	private boolean isFail;
 
-	/* length of "FIELDNAME=" and "NAME=" */
+	/**
+	 *  length of "FIELDNAME=", "PARAMNAME=", "NAME=".
+	 */
 	private static final int FIELDNAMEINDEX = 10;
 	private static final int PARAMNAMEINDEX = 10;
 	private static final int NAMEINDEX = 5;
+
+	/**
+	 * The instruction for unvisualized instruction
+	 */
 	private static final String CALLRETURN = "_ReturnValue";
 	private static final String ARRAYLENGTH = "_ArrayLength";
 	private static final String ARRAYLOAD = "_ArrayLoad";
 	private static final String ARRAYSTORE = "_ArrayStore";
-
-	public VarInfo() {
-	}
 
 	public VarInfo(String fieldname, String inst, boolean isFail) {
 		this.fieldname = fieldname;
@@ -28,6 +40,10 @@ public class VarInfo {
 		this.isFail = isFail;
 	}
 
+	/**
+	 * This method extracts the information about fieldname, inst and isFail.
+	 * @param elemdat is the parsing result of "dataids.txt"
+	 */
 	public VarInfo(String[] elemdat) {
 		switch (elemdat[5]) {
 		case "GET_STATIC_FIELD":
@@ -69,7 +85,7 @@ public class VarInfo {
 				this.isFail = true;
 			}
 			break;
-		/* The following cases not for view but for logs */
+		/* The following cases are not for view but for logs */
 		case "ARRAY_LOAD_RESULT":
 			this.fieldname = ARRAYLOAD;
 			this.inst = "G";

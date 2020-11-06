@@ -9,11 +9,24 @@ import java.util.List;
  *
  */
 public class FileInfoJson {
+	/**
+	 * File/Directory name
+	 */
 	private String name;
+	/**
+	 * "File" or "Directory"
+	 */
 	private String type;
+	/**
+	 * The set of lines in the specified file.
+	 * If the type is directory, no content is set.
+	 */
 	private List<String> content;
+	/**
+	 * The set of FileinfoJson instance.
+	 * If the type is file, no children is set.
+	 */
 	private List<FileInfoJson> children;
-
 
 	public FileInfoJson(String name, String type, List<String> content, List<FileInfoJson> children) {
 		this.name = name;

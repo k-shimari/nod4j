@@ -4,7 +4,7 @@ import java.util.List;
 
 
 /**
- * This class for format of output json.
+ * This is the class for specifying the format of output json.
  * @author k-simari
  *
  */

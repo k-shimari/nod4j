@@ -14,14 +14,21 @@ import java.util.Map;
  * @author k-simari
  */
 public class MethodParam {
-	private String traceDir;
+	/**
+	 * The path to the target directory of near-omniscient debugging
+	 */
 	private String projectDir;
+	/**
+	 * The directory which contains the execution trace of the project
+	 */
+	private String traceDir;
+
 	private Map<String, List<ParamInfo>> fileMethodParamMap;
 	private Map<String, String> classIDClassMap;
 
 	public MethodParam(String projectDir, String traceDir, Map<String, String> classIDClassMap) {
-		/* when path finish /or\ */
 		//if (dir.endsWith(System.getProperty("file.separator")))
+		/* when path finish /or\ remove it.*/
 		if (projectDir.endsWith("\\") || projectDir.endsWith("/"))
 			projectDir = projectDir.substring(0, projectDir.length() - 1);
 		if (traceDir.endsWith("\\") || traceDir.endsWith("/"))
@@ -33,7 +40,7 @@ public class MethodParam {
 	}
 
 	/**
-	 * Add method param line info
+	 * This method adds method param line info
 	 * @param dir
 	 * @return
 	 */
@@ -43,8 +50,9 @@ public class MethodParam {
 	}
 
 	/**
-	 * map filepath to file.
-	 * @param dir
+	 * This fuction maps the actual filepath to filepath recorded in the trace.
+	 * This method replaces the path (e.g., src/main/java) because recorded path omits such part of the path.
+	 * @param dir is the specific directory of the target project.
 	 */
 	private void getDirInfo(File dir) {
 		File[] files = dir.listFiles();
@@ -86,8 +94,7 @@ public class MethodParam {
 	}
 
 	/**
-	 * add method param inforamtion to dataids.txt
-	 * @return
+	 * This method adds method param inforamtion to dataids.txt and return updated one.
 	 */
 	private List<String> getrewrittenDataids() {
 		List<String> rewriteList = new ArrayList<>();
@@ -107,8 +114,8 @@ public class MethodParam {
 	}
 
 	/**
-	 * Add parameter Name to dataids
-	 * @param elem
+	 * This method adds parameter name to dataids element.
+	 * @param elem is the parsing result of "dataids.txt"
 	 */
 	private void rewriteLine(String[] elem) {
 		if (classIDClassMap.containsKey(elem[1])) {
