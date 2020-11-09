@@ -124,8 +124,8 @@ export function ViewContainer() {
       ? (() => {
           const { fileName, lineNumber, varName, value, inst } = target;
           return inst === 'G'
-            ? `${varName} was referred the ${value} at line#${lineNumber} of ${fileName}`
-            : `${varName} was assigned the ${value} at line#${lineNumber} of ${fileName}`;
+            ? `${varName} was referred the value ${value} at line#${lineNumber} of ${fileName}`
+            : `${varName} was assigned the value ${value} at line#${lineNumber} of ${fileName}`;
         })()
       : 'none';
     const label = `${labelPrefix}: ${labelValue}`;

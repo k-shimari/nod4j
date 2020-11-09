@@ -78,24 +78,24 @@ $ npm run server
 
 ### Open your project
 1. Access localhost:8070
-1. Add <PROJECT_NAME> on the main page
+1. Open your project in the list of "Open project"
 
-![toppage2](https://user-images.githubusercontent.com/31942441/78315256-77e18000-7597-11ea-9035-0ed23ad908ea.png)
+![toppage2](https://user-images.githubusercontent.com/31942441/98491528-79370180-2278-11eb-840f-e3a13d6d7661.png)
 
 ### Viewer 
 1. You can find down and up arrows at right side of each value.
 1. The down arrow means the start point and the up arrow means the end point.
 1. This interactive view can filter the value based on the execution order of each instruction by setting the start and/or end point.
-1. You can check filter information at `TIMESTAMP FILTER` and delete filters by clicking buttons.
+1. You can check filter information at `INSTRUCTION FILTER` and delete filters by clicking buttons.
 1. If no values are contained in the variable during the filtered period, the highlighting of the variable is turned off.
 
 ![traceviews](https://user-images.githubusercontent.com/31942441/78317041-2c7da080-759c-11ea-8d27-13e6cf4fb998.png)
 
 ### Raw logs Viewer 
 Clicking `ALL LOGS` button, you can see all raw execution trace.
-  * `ID` is unique ID each source code location.
-  * `Line` means line number and `Variable` means variable name.
-  * `Timestamp` is the timestamp and `Data` is the value of variable.
+  * `ID` is a unique ID for each source code location.
+  * `Line` means the line number of the variable and `Variable` means the variable name.
+  * `Seqnum` is the sequence number of the instruction and `Data` is the value of variable.
 
 ## Limitation
   * This tool does not display the following variables in the current implementation, or does not display them correctly.

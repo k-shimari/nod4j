@@ -16,16 +16,22 @@ import jp.ac.osaka_u.ist.sel.nod4j.data.fileinfo.FileInfoJson;
  * This class gets the target project information (e.g., lines, structure...).
  */
 public class CreateStructure implements ICreateJson {
+	/**
+	 * The path to the target directory of near-omniscient debugging
+	 */
 	private String projectDir;
+
 	private static final String TYPEDIR = "dir";
 	private static final String TYPEFILE = "file";
-	//	private static final String TYPEJAVAFILE = "javafile";
 	private static final String _JAVAFILE = ".java";
 
 	public CreateStructure(String projectDir) {
 		this.projectDir = projectDir;
 	}
 
+	/**
+	 * This method returns the target project information.
+	 */
 	@Override
 	public FileInfoJson create() {
 		return getDirInfo(new File(projectDir));
@@ -33,18 +39,21 @@ public class CreateStructure implements ICreateJson {
 
 	/**
 	 * @return file information including its contents(lines)
+	 * This function reads lines in the UTF-8 and Shift-JIS files and returns the lines with filename (other encoding causes error).
 	 */
 	private FileInfoJson getFileInfo(File f) {
 		List<String> list = new ArrayList<>();
 		System.out.println(f.getPath());
 		List<String> tmplist;
 		try {
+			//read UTF-8 files
 			tmplist = Files.readAllLines(Paths.get(f.getPath()), StandardCharsets.UTF_8);
 			for (String s : tmplist) {
 				list.add(s.replace("\"", "\\\""));
 			}
 		} catch (IOException e) {
 			try {
+				//read UTF-8 files
 				tmplist = Files.readAllLines(Paths.get(f.getPath()), Charset.forName("SHIFT_JIS"));
 				for (String s : tmplist) {
 					list.add(s.replace("\"", "\\\""));
@@ -58,7 +67,7 @@ public class CreateStructure implements ICreateJson {
 	}
 
 	/**
-	 * @return directory information including its contents(structure in this directory)
+	 * @return directory information including its contents (structure in this directory)
 	 */
 	private FileInfoJson getDirInfo(File dir) {
 		File[] files = dir.listFiles();

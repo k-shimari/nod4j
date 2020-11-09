@@ -5,12 +5,20 @@ import java.util.ArrayList;
 /**
  * This class split each line in recentdata.txt.
  * @author k-simari
- *
  */
 public class SplitLine {
+	/**
+	 * The line in recentdata.txt
+	 */
 	private String line;
+	/**
+	 * The parsing result of the line in recentdata.txt, which contains dataid, repeated count, recorded count, value, timestamp and threadid.
+	 */
 	private String[] elements;
-	private static final int LoStrPrefix = 27; // The length of java.lang.String;@xxxxxxxx
+	/**
+	 * The length of "java.lang.String;@xxxxxxxx"
+	 */
+	private static final int LoStrPrefix = 27;
 
 	public SplitLine(String line) {
 		this.line = line;
@@ -18,10 +26,9 @@ public class SplitLine {
 	}
 
 	/**
-	 * This method splits line by comma.
-	 * if the String contains comma in its value, the process is changed.
+	 * This method splits line by comma unless the String contains comma in its value.
 	 * @param line: line for spilt
-	 * @return The list splitted by the comma
+	 * @return The list splitted by the comma.
 	 */
 	public String[] splitRecentdata(String line) {
 		String[] tmpsl = line.split(",");
