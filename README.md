@@ -78,9 +78,9 @@ $ npm run server
 
 ### Open your project
 1. Access localhost:8070
-1. Add <PROJECT_NAME> on the main page
+1. Open your project in the list of "Open project"
 
-![toppage2](https://user-images.githubusercontent.com/31942441/78315256-77e18000-7597-11ea-9035-0ed23ad908ea.png)
+![toppage2](https://user-images.githubusercontent.com/31942441/98491528-79370180-2278-11eb-840f-e3a13d6d7661.png)
 
 ### Viewer 
 1. You can find down and up arrows at right side of each value.
