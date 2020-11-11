@@ -17,6 +17,17 @@ Try our sample and viewer following [wiki page](https://github.com/k-shimari/nod
 
 
 ## Usage
+
+Our tool comprises three components: trace recorder, post-processor, and interactive view. 
+
+The trace recorder component records an execution trace of a Java program in storage. 
+
+The post-processor component links the recorded trace to the source files of the program. 
+
+The interactive view shows the source code contents annotated with trace information. 
+
+The following sections explain the usage of each component in detail.
+
 ## Trace Recorder Usage
 ### Setup 
 Clone our repository.
