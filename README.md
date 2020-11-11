@@ -11,7 +11,6 @@ Build a jar file with Maven.
 mvn package
 ```
 
-
 ## Sample
 You can try our viewer at http://sel-nod3v.ics.es.osaka-u.ac.jp
 
@@ -47,6 +46,10 @@ Run `nod4j.jar`, which is in the project root, to convert the execution trace in
 ```
 $ java -jar nod4j.jar /path/to/<YOUR_PROJECT_DIRECTORY> /path/to/<Directory you want to output> src/main/frontend/src/assets/project/<YOUR_PROJECT_NAME>
 ```
+  * `/path/to/<YOUR_PROJECT_DIRECTORY>` is the your project directory which contains the source code.
+  * `/path/to/<Directory you want to output>` is the same directory you specify in the previous step, which contains the execution trace.
+  * `src/main/frontend/src/assets/project/<YOUR_PROJECT_NAME>` is the output destination of this command.
+
 
 You can find `fileinfo.json` and `varinfo.json` at `src/main/frontend/src/assets/project/<YOUR_PROJECT_NAME>`.
 
