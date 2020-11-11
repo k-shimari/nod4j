@@ -4,6 +4,10 @@ import static org.junit.Assert.*;
 
 import jp.ac.osaka_u.ist.sel.nod4j.data.SplitLine;
 
+/**
+ * @author k-simari
+ * This is the test to check the parsing of selogger string object in "recentdata.txt".
+ */
 public class SplitLineTest {
 	public void splitRecentdataTest() {
 		SplitLine s1 = new SplitLine("1,0,0,2,0,1");

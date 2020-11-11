@@ -57,7 +57,6 @@ export function ViewContainer() {
   React.useEffect(() => {
     dispatch(nod4jActions.initViewPage({ projectName }));
     dispatch(nod4jActions.requestSourceCodeData({ projectName, target: { dirs, file } }));
-    dispatch(nod4jActions.loadInitialValueListFilter({ projectName }));
   }, []);
 
   const tokens = nod4jState.sourceCodeTokens;

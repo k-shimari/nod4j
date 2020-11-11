@@ -74,13 +74,6 @@ export namespace nod4jActions {
     }
 
     /**
-     * @param projectName is the name of the project.
-     */
-    export interface LoadInitialValueListFilterChange {
-      projectName: string;
-    }
-
-    /**
      * @param kind is the left/right filter which means the filtering start/end point.
      * @param context is the filtering point information (e.g., token name, line number).
      */
@@ -178,9 +171,7 @@ export namespace nod4jActions {
   export const requestValueListFilterChange = createAction<Payload.RequestValueListFilterChange>(
     Type.REQUEST_VALUE_LIST_FILTER_CHANGE
   );
-  export const loadInitialValueListFilter = createAction<Payload.LoadInitialValueListFilterChange>(
-    Type.LOAD_INITIAL_VALUE_LIST_FILTER
-  );
+
   export const setValueListFilter = createAction<Payload.SetValueListFilter>(
     Type.SET_VALUE_LIST_FILTER
   );
