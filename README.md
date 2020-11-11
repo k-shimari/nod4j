@@ -12,11 +12,11 @@ mvn package
 ```
 
 ## Sample
-You can try our viewer at http://sel-nod3v.ics.es.osaka-u.ac.jp
 
-Try our viewer following [wiki page](https://github.com/k-shimari/nod4j/wiki/Try-our-viewer-in-a-debugging-sample).
+Try our sample and viewer following [wiki page](https://github.com/k-shimari/nod4j/wiki/Try-our-viewer-in-a-debugging-sample).
 
 
+## Usage
 ## Trace Recorder Usage
 ### Setup 
 Clone our repository.
