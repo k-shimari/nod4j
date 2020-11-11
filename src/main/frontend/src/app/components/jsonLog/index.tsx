@@ -7,7 +7,7 @@ interface Props {
 }
 /**
  * @param props 
- * Displays variable information for the Line component units.
+ * This function displays the variable information for the Line component units.
  */
 export function JsonLogs(props: Props) {
   const { data } = props;

@@ -118,7 +118,7 @@ function* requestValueListFilterChange(
 }
 
 /**
- * This function sets the source code information, tokenizes token and sets the value for each token.
+ * This function sets the source code information, tokenizes token and sets the filtered value for each token  .
  */
 function* requestSourceCodeData(action: ReturnType<typeof nod4jActions.requestSourceCodeData>) {
   const { projectName, target } = action.payload!;
@@ -152,6 +152,21 @@ function* requestSourceCodeData(action: ReturnType<typeof nod4jActions.requestSo
     nod4jActions.setOriginalValueListData({
       data: varValueData
     })
+  );
+
+  /**
+   * Get current filtering information and set filtered values to each variable
+   */
+  const timestampFilter: TimeStampRangeFilter = yield call(() => {
+    const sharedEvent = new SharedEventModel(projectName);
+    return sharedEvent.loadData();
+  });
+  const { left, right } = timestampFilter;
+  yield put(
+    nod4jActions.requestValueListFilterChange({ projectName, kind: 'left', context: left })
+  );
+  yield put(
+    nod4jActions.requestValueListFilterChange({ projectName, kind: 'right', context: right })
   );
   yield put(
     nod4jActions.setFilteredValueListData({
@@ -187,7 +202,23 @@ function getFilePath(dirs: string[], file: string): string {
 }
 
 /**
- * This function requests jsonfile by specifying the project name.
+ * This function sets the monitoring filter to notify the changing of filters to other files.
+ */
+function initViewPage(action: ReturnType<typeof nod4jActions.initViewPage>) {
+  const { projectName } = action.payload!;
+
+  const sharedEvent = new SharedEventModel(projectName);
+  sharedEvent.startWatching();
+  sharedEvent.subscribeFilterChange((args) => {
+    const { kind, newValue } = args;
+
+    const context = newValue as TimestampRangeFilterContext;
+    store.dispatch(nod4jActions.requestValueListFilterChange({ projectName, kind, context }));
+  });
+}
+
+/**
+ * This function requests jsonfile by specifying the project name for Logs page.
  */
 function* requestJson(action: ReturnType<typeof nod4jActions.requestJson>) {
   const { projectName, target } = action.payload!;
@@ -204,42 +235,6 @@ function* requestJson(action: ReturnType<typeof nod4jActions.requestJson>) {
       data: ds
     })
   );
-}
-
-/**
- * This function sets the initial filter of the project.
- */
-function* loadInitialValueListFilter(
-  action: ReturnType<typeof nod4jActions.loadInitialValueListFilter>
-) {
-  const { projectName } = action.payload!;
-  const timestampFilter: TimeStampRangeFilter = yield call(() => {
-    const sharedEvent = new SharedEventModel(projectName);
-    return sharedEvent.loadData();
-  });
-  const { left, right } = timestampFilter;
-  yield put(
-    nod4jActions.requestValueListFilterChange({ projectName, kind: 'left', context: left })
-  );
-  yield put(
-    nod4jActions.requestValueListFilterChange({ projectName, kind: 'right', context: right })
-  );
-}
-
-/**
- * This function sets the monitoring filter of the project.
- */
-function initViewPage(action: ReturnType<typeof nod4jActions.initViewPage>) {
-  const { projectName } = action.payload!;
-
-  const sharedEvent = new SharedEventModel(projectName);
-  sharedEvent.startWatching();
-  sharedEvent.subscribeFilterChange((args) => {
-    const { kind, newValue } = args;
-
-    const context = newValue as TimestampRangeFilterContext;
-    store.dispatch(nod4jActions.requestValueListFilterChange({ projectName, kind, context }));
-  });
 }
 
 /**
@@ -260,7 +255,6 @@ function* mySaga() {
   yield takeEvery(nod4jActions.requestSourceCodeData, requestSourceCodeData);
   yield takeEvery(nod4jActions.requestJson, requestJson);
 
-  yield takeEvery(nod4jActions.loadInitialValueListFilter, loadInitialValueListFilter);
   yield takeEvery(nod4jActions.initViewPage, initViewPage);
   yield takeEvery(nod4jActions.requestProjects, requestProjects);
 }
