@@ -131,7 +131,7 @@ export function ViewContainer() {
 
     /**
      * delete the current project filter.
-     * @param kind is the left/right filter which means the filtering start/end point.
+     * @param kind is the filter which means the filtering start/end point.
      * @param context is the filtering point information (e.g., token name, line number).
      * @param preferNotify notifies the changing of filtering by storing at localStorage
      */
