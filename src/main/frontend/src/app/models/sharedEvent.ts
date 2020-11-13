@@ -81,7 +81,7 @@ export class SharedEventModel {
   }
 
   /**
-   * @param kind is the left/right filter which means the filtering start/end point.
+   * @param kind is the filter which means the filtering start/end point.
    * @param context is the filtering point information (e.g., token name, line number).
    * This function returns the filtering information to the current filter view.
    */
