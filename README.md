@@ -39,7 +39,7 @@ The interactive view can be built by npm so you do not have to build in this ste
 The following sections explain the usage of each component in detail.
 
 
-## Trace Recorder Usage
+## Usage
 ### Setup 
 Clone our repository.
 
@@ -47,8 +47,9 @@ Clone our repository.
 $ git clone https://github.com/k-shimari/nod4j.git
 ```
 
-Build our tool following the previous section <a href="## Build">Build</a>
+Build our tool following the previous section <a href="## Build">Build</a>.
 
+## Trace Recorder Usage
 ### Collect Execution Trace 
 
 At first, you record the execution trace with our tool.
