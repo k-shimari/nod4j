@@ -18,7 +18,7 @@ Try our sample and viewer following [wiki page](https://github.com/k-shimari/nod
 * Node.js (12.16.1 LTS)
 * npm (>= 6.14.4)
 
-### Build
+## Build
 Our tool comprises three components: trace recorder, post-processor, and interactive view. 
 
   * The trace recorder component records an execution trace of a Java program in storage. 
@@ -46,6 +46,8 @@ Clone our repository.
 ```
 $ git clone https://github.com/k-shimari/nod4j.git
 ```
+
+Build our tool following the previous section <a href="## Build">Build</a>
 
 ### Collect Execution Trace 
 
