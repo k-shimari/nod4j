@@ -62,7 +62,7 @@ export namespace nod4jActions {
 
     /**
      * @param projectName is the name of the project.
-     * @param kind is the left/right filter which means the filtering start/end point.
+     * @param kind is the filter which means the filtering start/end point.
      * @param context is the filtering point information (e.g., token name, line number).
      * @param preferNotify notifies the changing of filtering by storing at localStorage
      */
@@ -74,7 +74,7 @@ export namespace nod4jActions {
     }
 
     /**
-     * @param kind is the left/right filter which means the filtering start/end point.
+     * @param kind is the filter which means the filtering start/end point.
      * @param context is the filtering point information (e.g., token name, line number).
      */
     export interface SetValueListFilter {
@@ -159,13 +159,13 @@ export namespace nod4jActions {
     }
   }
 
-  /**
+  /*
    *  Create Actions for Project
    */
   export const requestProjects = createAction(Type.REQUEST_PROJECTS);
   export const setProjects = createAction<Payload.SetProjects>(Type.SET_PROJECTS);
 
-  /**
+  /*
    *  Create Actions for Filter
    */
   export const requestValueListFilterChange = createAction<Payload.RequestValueListFilterChange>(
@@ -183,13 +183,13 @@ export namespace nod4jActions {
     Type.SET_FILTERED_VALUE_LIST_DATA
   );
 
-  /**
+  /*
    *  Create Actions for Files
    */
   export const requestFiles = createAction<Payload.RequestFilesPayload>(Type.REQUEST_FILES);
   export const setFilesData = createAction<Payload.SetFilesDataPayload>(Type.SET_FILES_DATA);
 
-  /**
+  /*
    *  Create Actions for Source code
    */
   export const requestSourceCodeData = createAction<Payload.RequestSourceCodeData>(
@@ -199,7 +199,7 @@ export namespace nod4jActions {
     Type.SET_SOURCE_CODE_DATA
   );
 
-  /**
+  /*
    *  Create Actions for Logs
    */
   export const requestJson = createAction<Payload.RequestJson>(Type.REQUEST_JSON);

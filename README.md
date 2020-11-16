@@ -5,17 +5,38 @@ Each variable contains the values at most "k" times. (You can set "k" when you e
 
 You can read the detail Implementation [here](http://sel.ist.osaka-u.ac.jp/lab-db/betuzuri/archive/1172/1172.pdf) .
 
-## Build
-Build a jar file with Maven.
-```
-mvn package
-```
 
 
 ## Sample
-You can try our viewer at http://sel-nod3v.ics.es.osaka-u.ac.jp
 
-Try our viewer following [wiki page](https://github.com/k-shimari/nod4j/wiki/Try-our-viewer-in-a-debugging-sample).
+Try our sample and viewer following [wiki page](https://github.com/k-shimari/nod4j/wiki/Try-our-viewer-in-a-debugging-sample).
+
+
+## Requirements
+* Apache Maven (>= 3.5.4)
+* JDK 1.8
+* Node.js (12.16.1 LTS)
+* npm (>= 6.14.4)
+
+## Build
+Our tool comprises three components: trace recorder, post-processor, and interactive view. 
+
+  * The trace recorder component records an execution trace of a Java program in storage. 
+  * The post-processor component links the recorded trace to the source files of the program. 
+  * The interactive view shows the source code contents annotated with trace information. 
+
+First, Build the recorder component following the [selogger](https://github.com/takashi-ishio/selogger/tree/v0.2.1)) page.
+(We have already prepared selogger-0.2.1.jar in this directory, so you can use this .jar file instead of doing build process.)
+
+Second, Build a post-processor component with Maven.
+```
+mvn package
+```
+You can find `nod4j.jar` in `target/` directory.
+
+The interactive view can be built by npm so you do not have to build in this step.
+
+The following sections explain the usage of each component in detail.
 
 
 ## Trace Recorder Usage
@@ -25,6 +46,8 @@ Clone our repository.
 ```
 $ git clone https://github.com/k-shimari/nod4j.git
 ```
+
+Build our tool following the previous section <a href="## Build">Build</a>
 
 ### Collect Execution Trace 
 
@@ -47,6 +70,10 @@ Run `nod4j.jar`, which is in the project root, to convert the execution trace in
 ```
 $ java -jar nod4j.jar /path/to/<YOUR_PROJECT_DIRECTORY> /path/to/<Directory you want to output> src/main/frontend/src/assets/project/<YOUR_PROJECT_NAME>
 ```
+  * `/path/to/<YOUR_PROJECT_DIRECTORY>` is the your project directory which contains the source code.
+  * `/path/to/<Directory you want to output>` is the same directory you specify in the previous step, which contains the execution trace.
+  * `src/main/frontend/src/assets/project/<YOUR_PROJECT_NAME>` is the output destination for this command.
+
 
 You can find `fileinfo.json` and `varinfo.json` at `src/main/frontend/src/assets/project/<YOUR_PROJECT_NAME>`.
 
@@ -56,16 +83,11 @@ You can find `fileinfo.json` and `varinfo.json` at `src/main/frontend/src/assets
 
 ## Viewer Usage
 
-### Pre-requirements
-
-* Node.js (12.16.1 LTS)
-* npm (6.14.4)
-
 ### Getting started
 
 Run the following commands to install the packages.
 ```
-$ cd nod4j/src/main/frontend
+$ cd src/main/frontend
 $ npm install
 ```
 
