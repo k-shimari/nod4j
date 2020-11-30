@@ -26,7 +26,7 @@
 				<version>2.22.2</version>
 				<configuration>
 					<useSystemClassLoader>false</useSystemClassLoader>
-					<argLine>-javaagent:"../../../selogger-0.2.1.jar=output=../selogger,size=64,e=junit/framework/,e=org/junit/,e=org/apache/maven,e=org/hamcrest"</argLine>
+					<argLine>-javaagent:"../../../selogger-0.2.2.jar=output=../selogger,size=64,e=junit/framework/,e=org/junit/,e=org/apache/maven,e=org/hamcrest"</argLine>
 				</configuration>
 			</plugin>
 		</plugins>

@@ -1,7 +1,7 @@
 # nod4j
 This tool shows the values of variables in the execution.
 
-Each variable contains the values at most "k" times. (You can set "k" when you execute logger named [selogger](https://github.com/takashi-ishio/selogger/tree/v0.2.1))
+Each variable contains the values at most "k" times. (You can set "k" when you execute logger named [selogger](https://github.com/takashi-ishio/selogger/tree/v0.2.2))
 
 You can read the detail Implementation [here](http://sel.ist.osaka-u.ac.jp/lab-db/betuzuri/archive/1172/1172.pdf) .
 
@@ -32,10 +32,10 @@ Clone our repository.
 $ git clone https://github.com/k-shimari/nod4j.git
 ```
 
-After cloning, prepare `nod4j.jar` and `selogger-0.2.1.jar` in this project root.
+After cloning, prepare `nod4j.jar` and `selogger-0.2.2.jar` in this project root.
 
 * `nod4j.jar` is available on [releases](https://github.com/k-shimari/nod4j/releases) page.
-* `selogger-0.2.1.jar` is already included in this project root.
+* `selogger-0.2.2.jar` is already included in this project root.
 
 If you want to build them by yourself, follow the next section.
 
@@ -46,7 +46,7 @@ To build `nod4j.jar`, a post-processor component, run Maven and you can find it 
 $ mvn package
 ```
 
-To build `selogger-0.2.1.jar`, a recorder component, follow the [selogger](https://github.com/takashi-ishio/selogger/tree/v0.2.1)) page.
+To build `selogger-0.2.2.jar`, a recorder component, follow the [selogger](https://github.com/takashi-ishio/selogger/tree/v0.2.2)) page.
 
 ### Trace Recorder Usage
 
@@ -54,10 +54,10 @@ Run the following command to collect information about the execution of your pro
 
 ```
 $ (prepare something to run your program)
-$ java -jar -javaagent:/path/to/selogger-0.2.1.jar=output=/path/to/<EXECUTION_TRACE_OUT> <YOUR_APP.jar>
+$ java -jar -javaagent:/path/to/selogger-0.2.2.jar=output=/path/to/<EXECUTION_TRACE_OUT> <YOUR_APP.jar>
 ```
 
- *  Options are described at https://github.com/takashi-ishio/selogger/tree/v0.2.1
+ *  Options are described at https://github.com/takashi-ishio/selogger/tree/v0.2.2
 
 `/path/to/<EXECUTION_TRACE_OUT>` is the directory that you want to output the execution trace.
 After running your program for a while, you can get the execution trace in `/path/to/<EXECUTION_TRACE_OUT>`.
