@@ -13,6 +13,9 @@ var MiniCssExtractPlugin = require('mini-css-extract-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
+/**
+ * module export settings for different types of files, its path and plugins.
+ */
 module.exports = {
   context: sourcePath,
   entry: {
@@ -37,7 +40,7 @@ module.exports = {
   },
   module: {
     rules: [
-      // .ts, .tsx
+      // for .ts, .tsx files
       {
         test: /\.tsx?$/,
         use: [
@@ -48,7 +51,7 @@ module.exports = {
           'ts-loader'
         ].filter(Boolean)
       },
-      // css
+      // for .css files
       {
         test: /\.css$/,
         use: [
@@ -65,6 +68,7 @@ module.exports = {
         ]
       },
       {
+        // for .jsx files
         test: /\.jsx?$/,
         use: {
           loader: 'babel-loader',
@@ -78,6 +82,7 @@ module.exports = {
         }
       },
       {
+        // for .scss files
         test: /\.scss$/,
         use: [
           'style-loader',
@@ -93,7 +98,7 @@ module.exports = {
           }
         ]
       },
-      // static assets
+      // for static assets
       { test: /\.html$/, use: 'html-loader' },
       { test: /\.(a?png|svg)$/, use: 'url-loader?limit=10000' },
       {
