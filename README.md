@@ -71,15 +71,15 @@ Change directory back to the cloned project root and run `nod4j.jar` to convert 
 
 ```
 $ cd /path/to/nod4j
-$ java -jar nod4j.jar /path/to/<YOUR_PROJECT_DIRECTORY> /path/to/<EXECUTION_TRACE_OUT> src/main/frontend/src/assets/project/<YOUR_PROJECT_NAME>
+$ java -jar nod4j.jar /path/to/<YOUR_PROJECT_DIRECTORY> /path/to/<EXECUTION_TRACE_OUT> <PROJECT_ROOT>/src/main/frontend/src/assets/project/<YOUR_PROJECT_NAME>
 ```
   * `/path/to/<YOUR_PROJECT_DIRECTORY>` is your project directory which contains the source code.
   * `/path/to/<EXECUTION_TRACE_OUT>` is the directory contains the execution trace where you specified in the previous step.
-  * `src/main/frontend/src/assets/project/<YOUR_PROJECT_NAME>` is the output destination for this command.
+  * `<PROJECT_ROOT>/src/main/frontend/src/assets/project/<YOUR_PROJECT_NAME>` is the output destination for this command.
     * If you are runninng this command other than the cloned project root, point the output destination to the assets directory in the frontend (interactive view).
 
 
-You can find `fileinfo.json` and `varinfo.json` at `src/main/frontend/src/assets/project/<YOUR_PROJECT_NAME>`.
+You can find `fileinfo.json` and `varinfo.json` at `<PROJECT_ROOT>/src/main/frontend/src/assets/project/<YOUR_PROJECT_NAME>`.
 
 `fileinfo.json` contains the information of source code.
 
