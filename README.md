@@ -71,7 +71,7 @@ Change directory back to the cloned project root and run `nod4j.jar` to convert 
 
 ```
 $ cd /path/to/nod4j
-$ java -jar nod4j.jar /path/to/<YOUR_PROJECT_DIRECTORY> /path/to/<EXECUTION_TRACE_OUT> src/main/frontend/src/assets/project/<YOUR_PROJECT_NAME>
+$ java -jar nod4j.jar /path/to/<YOUR_PROJECT_DIRECTORY> /path/to/<EXECUTION_TRACE_OUT> <PROJECT_ROOT>/src/main/frontend/src/assets/project/<YOUR_PROJECT_NAME>
 ```
   * `/path/to/<YOUR_PROJECT_DIRECTORY>` is your project directory which contains the source code.
   * `/path/to/<EXECUTION_TRACE_OUT>` is the directory contains the execution trace where you specified in the previous step.
