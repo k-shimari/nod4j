@@ -9,7 +9,7 @@ import { SourceCodeToken } from 'app/models/token';
 import { VarInfo, VarListDataModel, VarListJsonData } from 'app/models/varListData';
 import { VarValueData } from 'app/models/varValueData';
 import { RootState } from 'app/reducers';
-import { TimeStampRangeFilter, TimestampRangeFilterContext } from 'app/reducers/state';
+import { TimeStampRangeFilter, TimeStampRangeFilter2, TimestampRangeFilterContext } from 'app/reducers/state';
 import { store } from 'app/store';
 import * as _ from 'lodash';
 import { call, delay, put, select, takeEvery } from 'redux-saga/effects';
@@ -157,16 +157,19 @@ function* requestSourceCodeData(action: ReturnType<typeof nod4jActions.requestSo
   /**
    * Get current filtering information and set filtered values to each variable
    */
-  const timestampFilter: TimeStampRangeFilter = yield call(() => {
+  const timestampFilter: TimeStampRangeFilter2 = yield call(() => {
     const sharedEvent = new SharedEventModel(projectName);
     return sharedEvent.loadData();
   });
   const { left, right } = timestampFilter;
+  // workaround ... convert null to undefined
+  const left2 = left ? left : undefined;
+  const right2 = right ? right : undefined;
   yield put(
-    nod4jActions.requestValueListFilterChange({ projectName, kind: 'left', context: left })
+    nod4jActions.requestValueListFilterChange({ projectName, kind: 'left', context: left2 })
   );
   yield put(
-    nod4jActions.requestValueListFilterChange({ projectName, kind: 'right', context: right })
+    nod4jActions.requestValueListFilterChange({ projectName, kind: 'right', context: right2 })
   );
   yield put(
     nod4jActions.setFilteredValueListData({
