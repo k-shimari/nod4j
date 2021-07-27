@@ -2,7 +2,7 @@ import { Popper } from '@material-ui/core';
 import { SourceCodeToken } from 'app/models/token';
 import { VarValueData } from 'app/models/varValueData';
 import { TimeStampRangeFilter as TimestampRangeFilter } from 'app/reducers/state';
-import classNames = require('classnames');
+import classNames from 'classnames';
 import * as React from 'react';
 import { interval, Subject } from 'rxjs';
 import { debounce } from 'rxjs/operators';

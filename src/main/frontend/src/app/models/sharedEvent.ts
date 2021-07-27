@@ -1,4 +1,4 @@
-import { TimeStampRangeFilter, TimestampRangeFilterContext } from 'app/reducers/state';
+import { TimeStampRangeFilter2, TimestampRangeFilterContext } from 'app/reducers/state';
 import * as LF from 'localforage';
 import { extendPrototype } from 'localforage-observable';
 let localforage = extendPrototype(LF);
@@ -10,6 +10,7 @@ type FilterChangeEventHandlerArgs = LocalForageObservableChange & {
 };
 
 type FilterChangeEventHandler = (args: FilterChangeEventHandlerArgs) => void;
+
 
 /**
  * This is the class for the sharing local storage information of the filtering.
@@ -100,7 +101,7 @@ export class SharedEventModel {
   /**
    * This function returns the current filtering informaion recorded in localforge.
    */
-  async loadData(): Promise<TimeStampRangeFilter> {
+  async loadData(): Promise<TimeStampRangeFilter2> {
     const keyleft = `${this.keyBase()}.left`;
     const keyRight = `${this.keyBase()}.right`;
 
