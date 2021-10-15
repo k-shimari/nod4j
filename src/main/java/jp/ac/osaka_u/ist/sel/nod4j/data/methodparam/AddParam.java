@@ -12,6 +12,8 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
 
@@ -26,22 +28,29 @@ public class AddParam {
      *
      * @param f path + filename (e.g., src/main/filename.java)
      */
-    public List<ParamInfo> getParamInfo(File f) {
+    public Map<String, List<ParamInfo>> getParamInfo(File f, String filePath) {
         try {
             CompilationUnit unit = StaticJavaParser.parse(f);
             MethodParamVisitor v = new MethodParamVisitor();
-            unit.accept(v, new CM());
+            unit.accept(v, new CM(filePath));
 
-            return new ArrayList<>(v.methodParams);
+            return v.methodParams;
         } catch (IOException e) {
             e.printStackTrace();
-            return new ArrayList<>();
+            return new HashMap<>();
         }
     }
 
     public class MethodParamVisitor extends VoidVisitorAdapter<CM> {
 
-        private List<ParamInfo> methodParams = new ArrayList<>();
+        private Map<String, List<ParamInfo>> methodParams = new HashMap<>();
+
+        private void addParams(String className, ParamInfo pi) {
+            List<ParamInfo> tmp = methodParams.getOrDefault(className, new ArrayList<>());
+            // System.out.println("P " + className + " " + pi.getMethodName() + " " + pi.getArgumentName() + " " + pi.getLine());
+            tmp.add(pi);
+            methodParams.put(className, tmp);
+        }
 
         @Override
         public void visit(ClassOrInterfaceDeclaration n, CM arg) {
@@ -56,8 +65,7 @@ public class AddParam {
             arg.currentMethodName = n.getNameAsString();
             // System.out.println("M " + arg);
             for (Parameter p :n.getParameters()){
-                methodParams.add(new ParamInfo(n.getNameAsString(), p.getNameAsString(), p.getTypeAsString(), p.getBegin().get().line));
-                System.out.println(p.getNameAsString() + " " + p.getBegin().get().line);
+                addParams(arg.getClassName(), new ParamInfo(n.getNameAsString(), p.getNameAsString(), p.getTypeAsString(), p.getBegin().get().line));
             }
             super.visit(n, arg);
             arg.currentMethodName = "";
@@ -66,6 +74,9 @@ public class AddParam {
         @Override
         public void visit(ConstructorDeclaration n, CM arg) {
             arg.currentMethodName = "<init>";
+            for (Parameter p :n.getParameters()){
+                addParams(arg.getClassName(), new ParamInfo(n.getNameAsString(), p.getNameAsString(), p.getTypeAsString(), p.getBegin().get().line));
+            }
             // System.out.println("m " + arg);
             super.visit(n, arg);
             arg.currentMethodName = "";
@@ -85,13 +96,23 @@ public class AddParam {
     }
 
     private class CM {
+
+        String path;
         String currentMethodName = "";
         Stack<String> currentClassName = new Stack<>();
         int anonymous = 1;
 
+        public CM(String filePath) {
+            path = filePath.substring(0, filePath.lastIndexOf("/") + 1);
+        }
+
         @Override
         public String toString() {
-            return String.join("$", currentClassName) + ' ' + currentMethodName;
+            return getClassName() + ' ' + currentMethodName;
+        }
+
+        public String getClassName() {
+            return path + String.join("$", currentClassName);
         }
     }
 }

@@ -41,8 +41,6 @@ public class MethodParam {
 
 	/**
 	 * This method adds method param line info
-	 * @param dir
-	 * @return
 	 */
 	public List<String> getLineDataids() {
 		getDirInfo(new File(projectDir));
@@ -76,7 +74,7 @@ public class MethodParam {
 									.replaceFirst("^tests\\/", "")
 									+ "/" + f.getName().replace(".java", "");
 							System.out.println("filePath:::" + filePath);
-							this.fileMethodParamMap.put(filePath, getFileInfo(f));
+							this.fileMethodParamMap.putAll(getFileInfo(f, filePath));
 						}
 					} else {
 						getDirInfo(f);
@@ -88,9 +86,9 @@ public class MethodParam {
 		}
 	}
 
-	private List<ParamInfo> getFileInfo(File f) throws IOException {
+	private Map<String, List<ParamInfo>> getFileInfo(File f, String filePath) throws IOException {
 		AddParam a = new AddParam();
-		return a.getParamInfo(f);
+		return a.getParamInfo(f, filePath);
 	}
 
 	/**
