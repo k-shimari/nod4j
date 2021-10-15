@@ -1,84 +1,97 @@
 package jp.ac.osaka_u.ist.sel.nod4j.data.methodparam;
 
+import com.github.javaparser.StaticJavaParser;
+import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.body.ConstructorDeclaration;
+import com.github.javaparser.ast.body.MethodDeclaration;
+import com.github.javaparser.ast.body.Parameter;
+import com.github.javaparser.ast.expr.ObjectCreationExpr;
+import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-
-import antlr4.jp.naist.se.parser.Java9BaseVisitor;
-import antlr4.jp.naist.se.parser.Java9Lexer;
-import antlr4.jp.naist.se.parser.Java9Parser;
-import antlr4.jp.naist.se.parser.Java9Parser.CompilationUnitContext;
-import antlr4.jp.naist.se.parser.Java9Parser.FormalParameterContext;
-import antlr4.jp.naist.se.parser.Java9Parser.InterfaceMethodDeclarationContext;
-import antlr4.jp.naist.se.parser.Java9Parser.LastFormalParameterContext;
-import antlr4.jp.naist.se.parser.Java9Parser.MethodDeclarationContext;
+import java.util.Stack;
 
 /**
  * Get argument values
- * @author k-simari
  *
+ * @author k-simari
  */
 public class AddParam {
-	/**
-	 * This function returns the information of the method parameters in the specified file.
-	 * @param f path + filename (e.g., src/main/filename.java)
-	 */
-	public List<ParamInfo> getParamInfo(String f) {
-		try {
-			// Create a lexer
-			CharStream stream = CharStreams.fromFileName(f);
-			Java9Lexer lexer = new Java9Lexer(stream);
-			CommonTokenStream tokens = new CommonTokenStream(lexer);
+    /**
+     * This function returns the information of the method parameters in the specified file.
+     *
+     * @param f path + filename (e.g., src/main/filename.java)
+     */
+    public List<ParamInfo> getParamInfo(File f) {
+        try {
+            CompilationUnit unit = StaticJavaParser.parse(f);
+            MethodParamVisitor v = new MethodParamVisitor();
+            unit.accept(v, new CM());
 
-			// Run a parser
-			Java9Parser parser = new Java9Parser(tokens);
-			CompilationUnitContext c = parser.compilationUnit();
+            return new ArrayList<>(v.methodParams);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
 
-			MethodParamVisitor v = new MethodParamVisitor();
-			c.accept(v);
-			return new ArrayList<>(v.methodParams);
-		} catch (IOException e) {
-			e.printStackTrace();
-			return new ArrayList<>();
-		}
-	}
+    public class MethodParamVisitor extends VoidVisitorAdapter<CM> {
 
-	/**
-	 * This method adds method parameter information (methodName, argumentName, type, line number) to the List.
-	 */
-	public static class MethodParamVisitor extends Java9BaseVisitor<Void> {
-		private List<ParamInfo> methodParams = new ArrayList<>();
-		private List<String> methodNames = new ArrayList<>();
-		private List<String> methodLines = new ArrayList<>();
-		private List<ParamInfo> methodLastParams = new ArrayList<>();
+        private List<ParamInfo> methodParams = new ArrayList<>();
 
-		@Override
-		public Void visitMethodDeclaration(MethodDeclarationContext ctx) {
-			methodNames.add(ctx.methodHeader().methodDeclarator().identifier().getText());
-			return super.visitMethodDeclaration(ctx);
-		}
+        @Override
+        public void visit(ClassOrInterfaceDeclaration n, CM arg) {
+            arg.currentClassName.push(n.getNameAsString());
+            // System.out.println("C " + arg);
+            super.visit(n, arg);
+            arg.currentClassName.pop();
+        }
 
-		@Override
-		public Void visitInterfaceMethodDeclaration(InterfaceMethodDeclarationContext ctx) {
-			methodNames.add(ctx.methodHeader().methodDeclarator().identifier().getText());
-			return super.visitInterfaceMethodDeclaration(ctx);
-		}
+        @Override
+        public void visit(MethodDeclaration n, CM arg) {
+            arg.currentMethodName = n.getNameAsString();
+            // System.out.println("M " + arg);
+            for (Parameter p :n.getParameters()){
+                methodParams.add(new ParamInfo(n.getNameAsString(), p.getNameAsString(), p.getTypeAsString(), p.getBegin().get().line));
+                System.out.println(p.getNameAsString() + " " + p.getBegin().get().line);
+            }
+            super.visit(n, arg);
+            arg.currentMethodName = "";
+        }
 
-		@Override
-		public Void visitFormalParameter(FormalParameterContext ctx) {
-			methodParams.add(new ParamInfo(
-					ctx.getParent().getParent().getParent().getStart().getText(),
-					ctx.getStop().getText(), ctx.getStart().getText(), ctx.getStop().getLine()));
-			return super.visitFormalParameter(ctx);
-		}
+        @Override
+        public void visit(ConstructorDeclaration n, CM arg) {
+            arg.currentMethodName = "<init>";
+            // System.out.println("m " + arg);
+            super.visit(n, arg);
+            arg.currentMethodName = "";
+        }
 
-		@Override
-		public Void visitLastFormalParameter(LastFormalParameterContext ctx) {
-			return super.visitLastFormalParameter(ctx);
-		}
-	}
+        @Override
+        public void visit(ObjectCreationExpr n, CM arg) {
+            if (n.getAnonymousClassBody().isPresent()) {
+                arg.currentClassName.push(Integer.toString(arg.anonymous++));
+                // System.out.println("A " + arg);
+                super.visit(n, arg);
+                arg.currentClassName.pop();
+            } else {
+                super.visit(n, arg);
+            }
+        }
+    }
+
+    private class CM {
+        String currentMethodName = "";
+        Stack<String> currentClassName = new Stack<>();
+        int anonymous = 1;
+
+        @Override
+        public String toString() {
+            return String.join("$", currentClassName) + ' ' + currentMethodName;
+        }
+    }
 }

@@ -90,7 +90,7 @@ public class MethodParam {
 
 	private List<ParamInfo> getFileInfo(File f) throws IOException {
 		AddParam a = new AddParam();
-		return a.getParamInfo(f.getAbsolutePath());
+		return a.getParamInfo(f);
 	}
 
 	/**
