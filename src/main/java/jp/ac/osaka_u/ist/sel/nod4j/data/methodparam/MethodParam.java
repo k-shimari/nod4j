@@ -135,7 +135,6 @@ public class MethodParam {
 				// parameters are stored in order of appearance
 				ParamInfoInner params = paramInfo.get(methodName);
 				if (params != null) {
-					System.out.println(params.getArgumentName() + " " + params.getLine());
 					elem[3] = String.valueOf(params.getLine());
 					elem[5] += ",ParamName=" + params.getArgumentName();
 				}
