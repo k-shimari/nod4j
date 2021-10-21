@@ -49,9 +49,11 @@ function pushToken(result: SourceCodeToken[][], token: SourceCodeToken) {
     while (t.image.match(/\n/g) != null) {
       tmpt = { ...t };
       tmpt.image = t.image.slice(0, t.image.indexOf('\n'));
+      tmpt.startColumn = index > 0 ? 1 : t.startColumn;
       result[token.startLine! - 1 + index++].push(tmpt);
-      t.image = t.image.slice(t.image.indexOf('\n') + 2);
+      t.image = t.image.slice(t.image.indexOf('\n') + 1);
     }
+    t.startColumn = 1;
     result[t.startLine! - 1 + index].push(t);
   }
 }
