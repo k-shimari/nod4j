@@ -48,7 +48,7 @@ public class SeloggerFiles {
 	 * This function adds line number to method parameters because trace does not contain line number informaiton at method paramers.
 	 */
 	private List<String> setLineDataids(String projectDir, String traceDir) throws IOException {
-		MethodParam m = new MethodParam(projectDir, traceDir, dataidMaps.getClassIDClassMap());
+		MethodParam m = new MethodParam(projectDir, traceDir, dataidMaps.getClassIDClassMap(), dataidMaps.getMethodIDMethodMap());
 		List<String> list = m.getLineDataids();
 		return list;
 	}
