@@ -39,6 +39,11 @@ export interface TimeStampRangeFilter {
   right?: TimestampRangeFilterContext;
 }
 
+export interface TimeStampRangeFilter2 {
+  left: TimestampRangeFilterContext | null;
+  right: TimestampRangeFilterContext | null;
+}
+
 export namespace RootState {
   /**
    * @param range contains the start and end point of the filtering.

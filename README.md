@@ -1,4 +1,4 @@
-# nod4j
+# NOD4J
 This tool shows the values of variables in the execution.
 
 Each variable contains the values at most "k" times. (You can set "k" when you execute logger named [selogger](https://github.com/takashi-ishio/selogger/tree/v0.2.3))

@@ -1,5 +1,7 @@
 package jp.ac.osaka_u.ist.sel.nod4j.data.methodparam;
 
+import jp.ac.osaka_u.ist.sel.nod4j.data.methodparam.ParamInfo.ParamInfoInner;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,6 +13,7 @@ import java.util.Map;
 
 /**
  * add method parameter information to dataids
+ *
  * @author k-simari
  */
 public class MethodParam {
@@ -23,10 +26,10 @@ public class MethodParam {
 	 */
 	private String traceDir;
 
-	private Map<String, List<ParamInfo>> fileMethodParamMap;
-	private Map<String, String> classIDClassMap;
+	private Map<String, ParamInfo> fileMethodParamMap;
+	private Map<String, String> classIDClassMap, methodIDMethodMap;
 
-	public MethodParam(String projectDir, String traceDir, Map<String, String> classIDClassMap) {
+	public MethodParam(String projectDir, String traceDir, Map<String, String> classIDClassMap, Map<String, String> methodIDMethodMap) {
 		//if (dir.endsWith(System.getProperty("file.separator")))
 		/* when path finish /or\ remove it.*/
 		if (projectDir.endsWith("\\") || projectDir.endsWith("/"))
@@ -37,12 +40,11 @@ public class MethodParam {
 		this.projectDir = projectDir;
 		this.fileMethodParamMap = new HashMap<>();
 		this.classIDClassMap = classIDClassMap;
+		this.methodIDMethodMap = methodIDMethodMap;
 	}
 
 	/**
 	 * This method adds method param line info
-	 * @param dir
-	 * @return
 	 */
 	public List<String> getLineDataids() {
 		getDirInfo(new File(projectDir));
@@ -52,6 +54,7 @@ public class MethodParam {
 	/**
 	 * This fuction maps the actual filepath to filepath recorded in the trace.
 	 * This method replaces the path (e.g., src/main/java) because recorded path omits such part of the path.
+	 *
 	 * @param dir is the specific directory of the target project.
 	 */
 	private void getDirInfo(File dir) {
@@ -61,22 +64,22 @@ public class MethodParam {
 				try {
 					if (f.isFile()) {
 						if (f.getName().length() >= 6
-								&& f.getName().substring(f.getName().length() - 5).equals(".java")) {
+							  && f.getName().substring(f.getName().length() - 5).equals(".java")) {
 							//@TODO edit hashmap key
 							String packageName = f.getParent().replace("\\", "/");
 							String filePath = packageName.replace(projectDir.replace("\\", "/") + "/", "")
-									.replaceFirst("^src\\/main\\/java\\/", "")
-									.replaceFirst("^src\\/test\\/java\\/", "")
-									.replaceFirst("^test\\/main\\/java\\/", "")
-									.replaceFirst("^tests\\/main\\/java\\/", "")
-									.replaceFirst("^source\\/", "")
-									.replaceFirst("^sources\\/", "")
-									.replaceFirst("^src\\/", "")
-									.replaceFirst("^test\\/", "")
-									.replaceFirst("^tests\\/", "")
-									+ "/" + f.getName().replace(".java", "");
+								  .replaceFirst("^src\\/main\\/java\\/", "")
+								  .replaceFirst("^src\\/test\\/java\\/", "")
+								  .replaceFirst("^test\\/main\\/java\\/", "")
+								  .replaceFirst("^tests\\/main\\/java\\/", "")
+								  .replaceFirst("^source\\/", "")
+								  .replaceFirst("^sources\\/", "")
+								  .replaceFirst("^src\\/", "")
+								  .replaceFirst("^test\\/", "")
+								  .replaceFirst("^tests\\/", "")
+								  + "/" + f.getName().replace(".java", "");
 							System.out.println("filePath:::" + filePath);
-							this.fileMethodParamMap.put(filePath, getFileInfo(f));
+							this.fileMethodParamMap.putAll(getFileInfo(f, filePath));
 						}
 					} else {
 						getDirInfo(f);
@@ -88,9 +91,9 @@ public class MethodParam {
 		}
 	}
 
-	private List<ParamInfo> getFileInfo(File f) throws IOException {
+	private Map<String, ParamInfo> getFileInfo(File f, String filePath) throws IOException {
 		AddParam a = new AddParam();
-		return a.getParamInfo(f.getAbsolutePath());
+		return a.getParamInfo(f, filePath);
 	}
 
 	/**
@@ -115,6 +118,7 @@ public class MethodParam {
 
 	/**
 	 * This method adds parameter name to dataids element.
+	 *
 	 * @param elem is the parsing result of "dataids.txt"
 	 */
 	private void rewriteLine(String[] elem) {
@@ -122,11 +126,17 @@ public class MethodParam {
 			String classname = classIDClassMap.get(elem[1]);
 			System.out.println("class:::" + classname);
 			if (fileMethodParamMap.containsKey(classname)) {
-				List<ParamInfo> list = fileMethodParamMap.get(classname);
-				if (!list.isEmpty()) {
-					elem[3] = String.valueOf(list.get(0).getLine());
-					elem[5] += ",ParamName=" + list.get(0).getArgumentName();
-					list.remove(0);
+				ParamInfo paramInfo = fileMethodParamMap.get(classname);
+				String methodName = methodIDMethodMap.get(elem[2]);
+				/* note: overridden method will appear right after overriding method
+				 (... overriding method id is younger than overridden method id ...)
+				 so maybe here is safe.
+				 */
+				// parameters are stored in order of appearance
+				ParamInfoInner params = paramInfo.get(methodName);
+				if (params != null) {
+					elem[3] = String.valueOf(params.getLine());
+					elem[5] += ",ParamName=" + params.getArgumentName();
 				}
 			}
 		}
