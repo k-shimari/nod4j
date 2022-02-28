@@ -61,7 +61,7 @@
     "url-loader": "^1.1.2",
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.3"
+    "webpack-dev-server": "^4.7.4"
   },
   "dependencies": {
     "@material-ui/core": "^4.12.3",
@@ -74,7 +74,7 @@
     "copy-webpack-plugin": "^5.1.2",
     "express": "^4.17.3",
     "history": "^4.10.1",
-    "java-parser": "^0.8.2",
+    "java-parser": "^2.0.1",
     "json5": "2.1.0",
     "localforage": "^1.10.0",
     "localforage-observable": "^2.1.1",
