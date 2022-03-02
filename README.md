@@ -20,8 +20,8 @@ Try our sample and viewer following [wiki page](https://github.com/k-shimari/nod
 
 ## Requirements
 * JDK 1.8
-* Node.js (12.16.1 LTS)
-* npm (>= 6.14.4)
+* Node.js (16.14.0 LTS)
+* npm (>= 8.5.2)
 * (for build jar files) Apache Maven (>= 3.5.4)
 
 ## Usage
