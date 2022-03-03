@@ -22,7 +22,14 @@ import { call, delay, put, select, takeEvery } from 'redux-saga/effects';
 function computeTokenId(variable: VarInfo, tokens: SourceCodeToken[]): string {
   const { linenum, count, var: varName } = variable;
   const match = tokens.filter((x) => x.startLine === Number(linenum) && x.image === varName);
+
   if (count > match.length) {
+    if(varName === "_ArrayStore"){
+      if (process.env.NODE_ENV !== 'production') {
+        console.log(varName, count, linenum);
+      }
+      return "";
+    }
     throw new Error('Impossible');
   }
   const id = match[count - 1].id;
