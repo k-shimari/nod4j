@@ -155,14 +155,12 @@ module.exports = {
         keywords: Array.isArray(package.keywords) ? package.keywords.join(',') : undefined
       }
     }),
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: './assets/project',
-          to: "assets/project"
-        }
-      ],
-    })
+    new CopyWebpackPlugin([
+      {
+        from: './assets/project',
+        to: "assets/project"
+      }
+    ])
   ],
   devServer: {
     historyApiFallback: {
