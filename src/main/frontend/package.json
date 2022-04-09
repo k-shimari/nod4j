@@ -84,7 +84,7 @@
     "localforage": "^1.10.0",
     "localforage-observable": "^2.1.1",
     "lodash": "^4.17.21",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "npm": "^8.5.2",
     "npm-check-updates": "^12.4.0",
     "react": "^16.14.0",
