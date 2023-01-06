@@ -81,7 +81,7 @@
     "glob-parent": "^5.1.2",
     "history": "^4.10.1",
     "java-parser": "^2.0.1",
-    "json5": "2.1.0",
+    "json5": "^2.2.2",
     "localforage": "^1.10.0",
     "localforage-observable": "^2.1.1",
     "lodash": "^4.17.21",
